@@ -1,0 +1,45 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+coverage
+
+# Build Outputs
+out
+build
+dist
+
+# Misc
+.DS_Store
+*.pem
+
+# Package lock files (see https://github.com/sindresorhus/ama/issues/479#issuecomment-310661514)
+bun.lockb
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# IDE's
+.idea
+.vscode
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Caches
+*.tsbuildinfo
+.cache
