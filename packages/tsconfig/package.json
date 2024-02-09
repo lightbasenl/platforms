@@ -15,5 +15,9 @@
   ],
   "engines": {
     "node": ">=20"
+  },
+  "scripts": {
+    "lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
+    "lint:ci": "eslint ."
   }
 }
