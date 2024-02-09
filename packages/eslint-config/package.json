@@ -1,0 +1,36 @@
+{
+  "name": "@lightbase/eslint-config",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/src/index.js"
+    }
+  },
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "files": ["README.md", "LICENSE", "NOTICE", "dist/"],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
+    "lint:ci": "eslint ."
+  },
+  "dependencies": {
+    "eslint-plugin-format": "^0.1.0",
+    "eslint-plugin-markdown": "^3.0.1"
+  },
+  "peerDependencies": {
+    "eslint": ">=8.56.0"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.56.2",
+    "@types/eslint-plugin-markdown": "^2.0.2"
+  }
+}
