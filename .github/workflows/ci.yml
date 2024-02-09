@@ -1,0 +1,49 @@
+name: Build, Lint, Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  build-lint-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          # Can't cache, since we don't commit the lockfile
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # Execute build multiple times if it fails. We haven't correctly set up correct composed package builds, so initial builds may fail
+      - name: Build
+        uses: nick-fields/retry@v3.0.0
+        with:
+          max_attempts: 5
+          timeout_minutes: 15
+          retry_on: error
+          command: npm run build:ws
+
+      - name: Lint
+        run: |
+          npm run lint:ci:ws
+
+      - name: Test
+        run: |
+          npm run test:ws
+
+  check-licenses:
+    uses: lightbasenl/platforms/.github/workflows/lib-license-checker.yml@main
