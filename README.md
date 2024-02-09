@@ -1,13 +1,19 @@
 # Platforms
 
-All public packages & GitHub workflows developed and used by [Lightbase](https://lightbase.nl).
+All public packages & GitHub workflows developed and used by
+[Lightbase](https://lightbase.nl).
 
 ## Overview
 
+- Various [TSConfigs](./packages/tsconfig) to extend from
+- Configurable [ESLint-config](./packages/eslint-config) which includes linting and
+  formatting
+
 ## Contributing
 
-This repository is setup as a monorepo. All individual packages are set up with build, test and lint setups. The workspace root maintains the below scripts to
-run them across all packages in the workspace.
+This repository is set up as a monorepo. All individual packages are set up with build,
+test and lint setups. The workspace root maintains the below scripts to run them across
+all packages in the workspace.
 
 ```shell
 # Install dependencies
