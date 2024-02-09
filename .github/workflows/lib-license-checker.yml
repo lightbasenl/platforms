@@ -1,0 +1,22 @@
+on:
+  workflow_call:
+
+jobs:
+  check-license:
+    runs-on: ubuntu-latest
+    permissions:
+      content: read
+    name: "Check used licenses"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: "Check"
+        run: |
+          npm install
+          npx license-checker --summary --onlyAllow="MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;Python-2.0;0BSD;BlueOak-1.0.0;"
