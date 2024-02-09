@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build_lint_test:
+  build-lint-test:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -24,8 +24,12 @@ jobs:
           # Can't cache, since we don't commit the lockfile
           node-version: 20
 
+      - name: Install dependencies
+        run: |
+          npm install
+
       # Execute build multiple times if it fails. We haven't correctly set up correct composed package builds, so initial builds may fail
-      - name: "Build"
+      - name: Build
         uses: nick-fields/retry@v3.0.0
         with:
           max_attempts: 5
@@ -33,11 +37,11 @@ jobs:
           retry_on: error
           command: npm run build:ws
 
-      - name: "Lint"
+      - name: Lint
         run: |
           npm run lint:ci:ws
 
-      - name: "Test"
+      - name: Test
         run: |
           npm run test:ws
 
