@@ -5,7 +5,7 @@ jobs:
   check-license:
     runs-on: ubuntu-latest
     permissions:
-      content: read
+      contents: read
     name: "Check used licenses"
     steps:
       - uses: actions/checkout@v4
