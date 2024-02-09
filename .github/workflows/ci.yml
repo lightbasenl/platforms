@@ -43,8 +43,3 @@ jobs:
 
   check-licenses:
     uses: lightbasenl/platforms/.github/workflows/lib-license-checker.yml@main
-    with:
-      envs:
-        ACC:
-          environment_variables:
-            TENANT_ORIGIN: foo.bar.com
