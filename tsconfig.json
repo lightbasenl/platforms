@@ -1,0 +1,13 @@
+{
+  "extends": "@lightbase/tsconfig/node-package.json",
+  "compilerOptions": {
+    // Only used to check JS files
+    "noEmit": true,
+
+    // Disable monorepo support here
+    "declarationMap": false,
+    "composite": false,
+    "declaration": false
+  },
+  "exclude": ["packages/", "apps/"]
+}
