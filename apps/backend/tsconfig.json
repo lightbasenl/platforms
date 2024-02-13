@@ -1,0 +1,6 @@
+{
+  "extends": "@lightbase/tsconfig/node-backend.json",
+  "compilerOptions": {
+    "outDir": "dist",
+  }
+}

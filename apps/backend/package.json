@@ -1,0 +1,24 @@
+{
+  "name": "@workspace/backend",
+  "type": "module",
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
+    "lint:ci": "eslint .",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "fastify": "^4.26.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@lightbase/tsconfig": "0.1.0",
+    "@lightbase/eslint-config": "0.1.0",
+    "typescript": "5.3.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
