@@ -3,7 +3,9 @@ import fastify, { FastifyRequest } from "fastify";
 import { basePlugin } from "./plugins/base.js";
 
 export async function buildApp() {
-	const app = fastify();
+	const app = fastify({
+		logger: true,
+	});
 
 	app.register(basePlugin);
 

@@ -11,3 +11,12 @@ npm run build
 npm run lint
 npm run test
 ```
+
+## Features
+
+- ESLint, Typescript and test setup, see the [./package.json](./package.json) scripts.
+- Graceful shutdown on exit signals via
+  [close-with-grace](https://npm.im/close-with-grace) in [./server.ts](./server.ts).
+- Basic multipart form handling via
+  [@fastify/multipart](https://npm.im/@fastify/multipart) in
+  [./plugins/base.ts](./plugins/base.ts).
