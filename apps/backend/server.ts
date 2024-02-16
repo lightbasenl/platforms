@@ -4,7 +4,21 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: [".env.local", ".env"] });
 
-const app = await buildApp();
+const loggerConfig =
+	process.env.NODE_ENV === "development" ?
+		{
+			transport: {
+				target: "pino-pretty",
+				options: {
+					ignore: "pid,hostname",
+				},
+			},
+		}
+	:	true;
+
+const app = await buildApp({
+	logger: loggerConfig,
+});
 
 const closeGracefully = closeWithGrace({ delay: 500 }, async (options) => {
 	if (options.err) {

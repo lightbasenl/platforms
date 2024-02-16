@@ -1,9 +1,11 @@
-import { FastifyInstance, FastifyRegisterOptions, RegisterOptions } from "fastify";
-import fp from "fastify-plugin";
 import fastifyMultipart, { FastifyMultipartBaseOptions } from "@fastify/multipart";
+import { RegisterOptions } from "fastify";
+import fastifyCustomHealthCheck from "fastify-custom-healthcheck";
+import fp from "fastify-plugin";
+import { FastifyBase } from "../types.js";
 
 async function base(
-	fastify: FastifyInstance,
+	fastify: FastifyBase,
 	options: RegisterOptions & {
 		multipart?: FastifyMultipartBaseOptions;
 	},
@@ -40,6 +42,20 @@ async function base(
 		//  disk.
 
 		...options.multipart,
+	});
+
+	// TODO: Why do we need `as any` here?
+	fastify.register(fastifyCustomHealthCheck as any, {
+		// TODO: we should allow configuring one or multiple routes
+
+		path: "/health",
+		info: {},
+	});
+
+	fastify.ready(() => {
+		fastify.addHealthCheck("label", () => true, {
+			value: true,
+		});
 	});
 }
 

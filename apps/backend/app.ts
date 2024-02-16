@@ -1,23 +1,15 @@
 import { Multipart } from "@fastify/multipart";
-import fastify, { FastifyRequest } from "fastify";
+import fastify, { FastifyBaseLogger, FastifyHttpOptions, FastifyRequest } from "fastify";
+import * as http from "node:http";
 import { basePlugin } from "./plugins/base.js";
 
-export async function buildApp() {
-	const loggerConfig =
-		process.env.NODE_ENV === "development" ?
-			{
-				transport: {
-					target: "pino-pretty",
-					options: {
-						ignore: "pid,hostname",
-					},
-				},
-			}
-		:	true;
-
-	const app = fastify({
-		logger: loggerConfig,
-	});
+export async function buildApp(opts: FastifyHttpOptions<http.Server> = {}) {
+	const app = fastify<
+		http.Server,
+		http.IncomingMessage,
+		http.ServerResponse,
+		FastifyBaseLogger
+	>(opts);
 
 	app.register(basePlugin);
 
