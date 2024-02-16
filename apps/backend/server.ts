@@ -1,5 +1,8 @@
 import closeWithGrace from "close-with-grace";
 import { buildApp } from "./app.js";
+import dotenv from "dotenv";
+
+dotenv.config({ path: [".env.local", ".env"] });
 
 const app = await buildApp();
 
