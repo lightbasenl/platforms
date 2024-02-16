@@ -25,7 +25,6 @@ test("base", async (t) => {
 		});
 
 		const data = await response.json();
-		console.log(data);
 
 		assert.equal(response.status, 200);
 		assert.deepEqual(data, [
@@ -38,5 +37,28 @@ test("base", async (t) => {
 				value: "application/octet-stream",
 			},
 		]);
+	});
+
+	await t.test("health check", async (t) => {
+		await t.test("success", async (t) => {
+			const response = await app.inject({
+				method: "get",
+				path: "/health",
+			});
+
+			assert.equal(response.statusCode, 200);
+			assert.equal(response.json().healthChecks.label, "HEALTHY");
+		});
+
+		await t.test("fail", async (t) => {
+			app.addHealthCheck("label2", () => false, { value: true });
+			const response = await app.inject({
+				method: "get",
+				path: "/health",
+			});
+
+			assert.equal(response.statusCode, 500);
+			assert.equal(response.json().healthChecks.label2, "FAIL");
+		});
 	});
 });

@@ -20,5 +20,8 @@ npm run test
 - Pretty logs in development with [pino-pretty](https://npm.im/pino-pretty).
 - Graceful shutdown on exit signals via
   [close-with-grace](https://npm.im/close-with-grace).
+- Health checks via
+  [fastify-custom-healthcheck](https://npm.im/fastify-custom-healthcheck) allowing other
+  plugins to add custom health checks.
 - Basic multipart form handling via
   [@fastify/multipart](https://npm.im/@fastify/multipart).
