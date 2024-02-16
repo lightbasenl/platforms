@@ -3,8 +3,20 @@ import fastify, { FastifyRequest } from "fastify";
 import { basePlugin } from "./plugins/base.js";
 
 export async function buildApp() {
+	const loggerConfig =
+		process.env.NODE_ENV === "development" ?
+			{
+				transport: {
+					target: "pino-pretty",
+					options: {
+						ignore: "pid,hostname",
+					},
+				},
+			}
+		:	true;
+
 	const app = fastify({
-		logger: true,
+		logger: loggerConfig,
 	});
 
 	app.register(basePlugin);
