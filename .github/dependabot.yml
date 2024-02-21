@@ -5,7 +5,7 @@ updates:
     directory: /
     schedule:
       interval: daily
-      time: 04:15
+      time: "04:15"
     groups:
       all:
         # Group all updates in a single PR. We have pretty stable actions all around, so minimize churn.
@@ -16,6 +16,6 @@ updates:
     directory: /
     schedule:
       interval: daily
-      time: 04:15
+      time: "04:15"
     versioning-strategy: increase-if-necessary
     # TODO: apply groups
