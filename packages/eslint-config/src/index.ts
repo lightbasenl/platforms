@@ -5,6 +5,10 @@ import markdown from "eslint-plugin-markdown";
 interface Opts {}
 
 export function defineConfig(opts: Opts, ...config: Linter.FlatConfig[]) {
+	// TODO: Global prettier config
+
+	// TODO: Prettier config overrides per supported file type.
+
 	const prettierConfig = {
 		printWidth: 90,
 		useTabs: true,
@@ -21,6 +25,7 @@ export function defineConfig(opts: Opts, ...config: Linter.FlatConfig[]) {
 
 	const conf: Linter.FlatConfig[] = [
 		{
+			// TODO: Add automatic ignores based on .gitignore
 			ignores: [".cache", ".idea", ".next", "dist", "out"],
 		},
 
