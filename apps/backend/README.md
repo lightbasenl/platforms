@@ -25,3 +25,5 @@ npm run test
   plugins to add custom health checks.
 - Basic multipart form handling via
   [@fastify/multipart](https://npm.im/@fastify/multipart).
+- Some default security based headers provided by
+  [@fastify/helmet](https://npm.im/@fastify/helmet).

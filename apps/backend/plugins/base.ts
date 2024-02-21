@@ -1,6 +1,8 @@
 import fastifyMultipart, { FastifyMultipartBaseOptions } from "@fastify/multipart";
 import { RegisterOptions } from "fastify";
 import fastifyCustomHealthCheck from "fastify-custom-healthcheck";
+import fastifyHelmet from "@fastify/helmet";
+
 import fp from "fastify-plugin";
 import { FastifyBase } from "../types.js";
 
@@ -10,7 +12,8 @@ async function base(
 		multipart?: FastifyMultipartBaseOptions;
 	},
 ) {
-	// TODO: should only be enabled for specific plugin contexts. So we may want to expose a function with these defaults at some point?
+	// TODO: should only be enabled for specific plugin contexts. So we may want to expose a
+	// function with these defaults at some point?
 
 	fastify.register(fastifyMultipart, {
 		limits: {
@@ -42,6 +45,21 @@ async function base(
 		//  disk.
 
 		...options.multipart,
+	});
+
+	fastify.register(fastifyHelmet, {
+		global: true,
+		contentSecurityPolicy: {
+			// See https://infosec.mozilla.org/guidelines/web_security#content-security-policy:~:text=recommended%20for%20APIs%20to%20use
+			useDefaults: false,
+			directives: {
+				"default-src": "'none'",
+				"frame-ancestors": "'none'",
+			},
+		},
+
+		// IE8 only, which we don't support
+		xDownloadOptions: false,
 	});
 
 	// TODO: Why do we need `as any` here?
