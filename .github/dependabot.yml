@@ -1,0 +1,21 @@
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+      time: 04:15
+    groups:
+      all:
+        # Group all updates in a single PR. We have pretty stable actions all around, so minimize churn.
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+      time: 04:15
+    versioning-strategy: increase-if-necessary
+    # TODO: apply groups
