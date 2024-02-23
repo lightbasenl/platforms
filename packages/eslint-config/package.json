@@ -2,7 +2,7 @@
   "name": "@lightbase/eslint-config",
   "version": "0.1.0",
   "type": "module",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
@@ -13,7 +13,7 @@
   },
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
-  "files": ["README.md", "LICENSE", "NOTICE", "dist/"],
+  "files": ["README.md", "LICENSE", "dist/"],
   "engines": {
     "node": ">=20"
   },

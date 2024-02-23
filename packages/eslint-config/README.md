@@ -105,4 +105,4 @@ Inspired by [Dirkdev98's](https://github.com/dirkdev98) initial design, solidifi
 
 ## License
 
-[Apache 2.0](./LICENSE)
+[MIT](./LICENSE)

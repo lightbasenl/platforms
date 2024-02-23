@@ -2,7 +2,7 @@
   "name": "@lightbase/platforms",
   "type": "module",
   "private": true,
-  "license": "Apache-2.0",
+  "license": "MIT",
   "scripts": {
     "lint:ws": "npm run lint --workspaces --if-present --include-workspace-root",
     "lint:ci:ws": "npm run lint:ci --workspaces --if-present --include-workspace-root",

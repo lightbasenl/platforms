@@ -2,7 +2,7 @@
   "name": "@workspace/backend",
   "type": "module",
   "private": true,
-  "license": "Apache-2.0",
+  "license": "MIT",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
     "lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
