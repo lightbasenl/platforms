@@ -2,14 +2,13 @@
   "name": "@lightbase/tsconfig",
   "version": "0.1.0",
   "type": "module",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "files": [
     "README.md",
     "LICENSE",
-    "NOTICE",
     "node-backend.json",
     "node-package.json"
   ],

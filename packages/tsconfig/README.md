@@ -70,4 +70,4 @@ Requires that `outDir` is set.
 
 ## License
 
-[Apache 2.0](./LICENSE)
+[MIT](./LICENSE)
