@@ -1,5 +1,5 @@
 {
-  "extends": "@lightbase/tsconfig/node-backend.json",
+  "extends": "@lightbase/tsconfig/node-package.json",
   "compilerOptions": {
     "outDir": "dist",
   }

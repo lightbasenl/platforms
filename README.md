@@ -19,7 +19,8 @@ all packages in the workspace.
 # Install dependencies
 npm install
 
-# Run the 'build' script for all packages in the workspace
+# Run the 'build' script for all packages in the workspace.
+# Note that Typescript is setup with project references. So packages may not have a custom build step.
 npm run build:ws
 
 # Run the 'lint' script for all packages in the workspace

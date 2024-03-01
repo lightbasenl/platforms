@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
 
     "strict": true,
     "noUncheckedIndexedAccess": true,

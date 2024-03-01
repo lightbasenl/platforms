@@ -28,14 +28,9 @@ jobs:
         run: |
           npm install
 
-      # Execute build multiple times if it fails. We haven't correctly set up correct composed package builds, so initial builds may fail
       - name: Build
-        uses: nick-fields/retry@v3.0.0
-        with:
-          max_attempts: 5
-          timeout_minutes: 15
-          retry_on: error
-          command: npm run build:ws
+        run: |
+          npm run build:ws
 
       - name: Lint
         run: |
