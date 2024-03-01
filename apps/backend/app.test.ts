@@ -18,4 +18,17 @@ test("app", async (t) => {
 		assert.equal(response.statusCode, 200);
 		assert.deepEqual(response.json(), { hello: "Worlds" });
 	});
+
+	await t.test("validation", async (t) => {
+		const response = await app.inject({
+			method: "POST",
+			path: "/test-validation",
+			body: {
+				hello: "world",
+			},
+		});
+
+		assert.equal(response.statusCode, 200);
+		assert.deepEqual(response.json(), { array: [1, 2, 3] });
+	});
 });
