@@ -18,7 +18,6 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "tsc -p ./tsconfig.json",
     "lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
     "lint:ci": "eslint ."
   },

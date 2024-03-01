@@ -6,9 +6,9 @@
   "scripts": {
     "lint:ws": "npm run lint --workspaces --if-present --include-workspace-root",
     "lint:ci:ws": "npm run lint:ci --workspaces --if-present --include-workspace-root",
-    "build:ws": "npm run build --workspaces --if-present --include-workspace-root",
+    "build:ws": "npm run build && npm run build --workspaces --if-present",
     "test:ws": "npm run test --workspaces --if-present --include-workspace-root",
-    "build": "tsc -p ./tsconfig.json",
+    "build": "tsc --build",
     "lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
     "lint:ci": "eslint ."
   },

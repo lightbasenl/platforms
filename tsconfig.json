@@ -9,5 +9,15 @@
     "composite": false,
     "declaration": false
   },
-  "exclude": ["packages/", "apps/"]
+  "files": [
+    "./eslint.config.js"
+  ],
+  "references": [
+    {
+      "path": "./packages/eslint-config",
+    },
+    {
+      "path": "./apps/backend",
+    },
+  ]
 }
