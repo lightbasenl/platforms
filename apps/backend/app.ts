@@ -1,6 +1,12 @@
 import { Multipart } from "@fastify/multipart";
 import fastify, { FastifyBaseLogger, FastifyHttpOptions, FastifyRequest } from "fastify";
+import {
+	serializerCompiler,
+	validatorCompiler,
+	ZodTypeProvider,
+} from "fastify-type-provider-zod";
 import * as http from "node:http";
+import { z } from "zod";
 import { basePlugin } from "./plugins/base.js";
 
 export async function buildApp(opts: FastifyHttpOptions<http.Server> = {}) {
@@ -9,7 +15,7 @@ export async function buildApp(opts: FastifyHttpOptions<http.Server> = {}) {
 		http.IncomingMessage,
 		http.ServerResponse,
 		FastifyBaseLogger
-	>(opts);
+	>(opts).withTypeProvider<ZodTypeProvider>();
 
 	app.register(basePlugin);
 
@@ -45,6 +51,29 @@ export async function buildApp(opts: FastifyHttpOptions<http.Server> = {}) {
 			hello: "Worlds",
 		});
 	});
+
+	app.post(
+		"/test-validation",
+		{
+			schema: {
+				body: z.object({
+					hello: z.string(),
+				}),
+				response: {
+					200: z.object({
+						array: z.array(z.number()),
+					}),
+				},
+			},
+		},
+		async (req, reply) => {
+			req.log.info(req.body);
+
+			return reply.status(200).send({
+				array: [1, 2, 3],
+			});
+		},
+	);
 
 	return app;
 }

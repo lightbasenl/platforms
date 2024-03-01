@@ -4,6 +4,11 @@ import fastifyCustomHealthCheck from "fastify-custom-healthcheck";
 import fastifyHelmet from "@fastify/helmet";
 
 import fp from "fastify-plugin";
+import {
+	serializerCompiler,
+	validatorCompiler,
+	ZodTypeProvider,
+} from "fastify-type-provider-zod";
 import { FastifyBase } from "../types.js";
 
 async function base(
@@ -12,10 +17,15 @@ async function base(
 		multipart?: FastifyMultipartBaseOptions;
 	},
 ) {
+	const app = fastify
+		.withTypeProvider<ZodTypeProvider>()
+		.setValidatorCompiler(validatorCompiler)
+		.setSerializerCompiler(serializerCompiler);
+
 	// TODO: should only be enabled for specific plugin contexts. So we may want to expose a
 	// function with these defaults at some point?
 
-	fastify.register(fastifyMultipart, {
+	app.register(fastifyMultipart, {
 		limits: {
 			// Max field name size in bytes
 			fieldNameSize: 100,
@@ -47,7 +57,7 @@ async function base(
 		...options.multipart,
 	});
 
-	fastify.register(fastifyHelmet, {
+	app.register(fastifyHelmet, {
 		global: true,
 		contentSecurityPolicy: {
 			// See https://infosec.mozilla.org/guidelines/web_security#content-security-policy:~:text=recommended%20for%20APIs%20to%20use
@@ -63,15 +73,16 @@ async function base(
 	});
 
 	// TODO: Why do we need `as any` here?
-	fastify.register(fastifyCustomHealthCheck as any, {
+	app.register(fastifyCustomHealthCheck as any, {
 		// TODO: we should allow configuring one or multiple routes
 
 		path: "/health",
 		info: {},
+		schema: false,
 	});
 
-	fastify.ready(() => {
-		fastify.addHealthCheck("label", () => true, {
+	app.ready(() => {
+		app.addHealthCheck("label", () => true, {
 			value: true,
 		});
 	});
