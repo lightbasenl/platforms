@@ -56,9 +56,38 @@ alpha.
 - Use `eslint.config.mjs` instead of `eslint.config.js`
 - Specify `--config eslint.config.mjs` in the `package.json` scripts.
 
-## Options
+## Default configuration and options
 
-None yet...
+### Markdown
+
+A Markdown parser is installed by default. One of its purposes is to extract code-blocks
+and present them as virtual files. Other configurations will automatically handle these
+since they glob on `**/`.
+
+### Prettier
+
+Prettier is configured to run on all markdown, json, yaml, JavaScript and TypeScript
+files. We support the following configuration to override this:
+
+```js
+import { defineConfig } from "@lightbase/eslint-config";
+
+export default defineConfig({
+	prettier: {
+		globalOverride: {
+			// Override Prettier options for all supported files.
+		},
+		languageOverrides: {
+			ts: {
+				// Override Prettier options for a specific file
+				// group.
+			},
+		},
+	},
+});
+```
+
+None of these options are required.
 
 ## Custom configuration
 

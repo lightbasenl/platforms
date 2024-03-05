@@ -1,24 +1,24 @@
 {
-  "name": "@lightbase/platforms",
-  "type": "module",
-  "private": true,
-  "license": "MIT",
-  "scripts": {
-    "lint:ws": "npm run lint --workspaces --if-present --include-workspace-root",
-    "lint:ci:ws": "npm run lint:ci --workspaces --if-present --include-workspace-root",
-    "build:ws": "npm run build && npm run build --workspaces --if-present",
-    "test:ws": "npm run test --workspaces --if-present --include-workspace-root",
-    "build": "tsc --build",
-    "lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
-    "lint:ci": "eslint ."
-  },
-  "devDependencies": {
-    "@lightbase/tsconfig": "0.1.0",
-    "@lightbase/eslint-config": "0.1.0",
-    "typescript": "5.3.3"
-  },
-  "engines": {
-    "node": ">=20"
-  },
-  "workspaces": ["packages/*", "apps/*"]
+	"name": "@lightbase/platforms",
+	"type": "module",
+	"private": true,
+	"license": "MIT",
+	"scripts": {
+		"lint:ws": "npm run lint --workspaces --if-present --include-workspace-root",
+		"lint:ci:ws": "npm run lint:ci --workspaces --if-present --include-workspace-root",
+		"build:ws": "npm run build && npm run build --workspaces --if-present",
+		"test:ws": "npm run test --workspaces --if-present --include-workspace-root",
+		"build": "tsc --build",
+		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
+		"lint:ci": "eslint ."
+	},
+	"devDependencies": {
+		"@lightbase/eslint-config": "0.1.0",
+		"@lightbase/tsconfig": "0.1.0",
+		"typescript": "5.3.3"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"workspaces": ["packages/*", "apps/*"]
 }

@@ -1,22 +1,17 @@
 {
-  "name": "@lightbase/tsconfig",
-  "version": "0.1.0",
-  "type": "module",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "README.md",
-    "LICENSE",
-    "node-backend.json",
-    "node-package.json"
-  ],
-  "engines": {
-    "node": ">=20"
-  },
-  "scripts": {
-    "lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
-    "lint:ci": "eslint ."
-  }
+	"name": "@lightbase/tsconfig",
+	"version": "0.1.0",
+	"type": "module",
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": ["README.md", "LICENSE", "node-backend.json", "node-package.json"],
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
+		"lint:ci": "eslint ."
+	}
 }
