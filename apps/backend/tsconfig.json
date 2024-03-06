@@ -1,6 +1,6 @@
 {
-  "extends": "@lightbase/tsconfig/node-package.json",
-  "compilerOptions": {
-    "outDir": "dist",
-  }
+	"extends": "@lightbase/tsconfig/node-package.json",
+	"compilerOptions": {
+		"outDir": "dist"
+	}
 }

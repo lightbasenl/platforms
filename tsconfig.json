@@ -1,23 +1,21 @@
 {
-  "extends": "@lightbase/tsconfig/node-package.json",
-  "compilerOptions": {
-    // Only used to check JS files
-    "noEmit": true,
+	"extends": "@lightbase/tsconfig/node-package.json",
+	"compilerOptions": {
+		// Only used to check JS files
+		"noEmit": true,
 
-    // Disable monorepo support here
-    "declarationMap": false,
-    "composite": false,
-    "declaration": false
-  },
-  "files": [
-    "./eslint.config.js"
-  ],
-  "references": [
-    {
-      "path": "./packages/eslint-config",
-    },
-    {
-      "path": "./apps/backend",
-    },
-  ]
+		// Disable monorepo support here
+		"declarationMap": false,
+		"composite": false,
+		"declaration": false
+	},
+	"files": ["./eslint.config.js"],
+	"references": [
+		{
+			"path": "./packages/eslint-config"
+		},
+		{
+			"path": "./apps/backend"
+		}
+	]
 }

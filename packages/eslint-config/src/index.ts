@@ -1,32 +1,16 @@
 import { Linter } from "eslint";
-import format from "eslint-plugin-format";
-import markdown from "eslint-plugin-markdown";
+import { markdownConfig } from "./markdown.js";
+import { PrettierConfig, prettierConfig } from "./prettier.js";
 
-interface Opts {}
+interface Opts {
+	prettier?: PrettierConfig;
+}
 
 export function defineConfig(opts: Opts, ...config: Linter.FlatConfig[]) {
-	// TODO: Global prettier config
-
-	// TODO: Prettier config overrides per supported file type.
-
-	const prettierConfig = {
-		printWidth: 90,
-		useTabs: true,
-		semi: true,
-		singleQuote: false,
-		quoteProps: "consistent",
-		trailingComma: "all",
-		bracketSpacing: true,
-		arrowParens: "always",
-		proseWrap: "always",
-		endOfLine: "lf",
-		experimentalTernaries: true,
-	};
-
 	const conf: Linter.FlatConfig[] = [
 		{
 			// TODO: Add automatic ignores based on .gitignore
-			ignores: [".cache", ".idea", ".next", "dist", "out"],
+			ignores: [".cache", ".idea", ".next", "dist", "out", "package-lock.json"],
 		},
 
 		{
@@ -36,53 +20,8 @@ export function defineConfig(opts: Opts, ...config: Linter.FlatConfig[]) {
 			},
 		},
 
-		{
-			plugins: {
-				markdown,
-			},
-		},
-		{
-			files: ["**/*.md"],
-			languageOptions: {
-				parser: format.parserPlain,
-			},
-		},
-		{
-			files: ["**/*.md"],
-			languageOptions: {
-				parser: format.parserPlain,
-			},
-			plugins: {
-				format,
-			},
-			rules: {
-				"format/prettier": ["error", { parser: "markdown", ...prettierConfig }],
-			},
-		},
-		{
-			files: ["**/*.[yml,yaml]"],
-			languageOptions: {
-				parser: format.parserPlain,
-			},
-			plugins: {
-				format,
-			},
-			rules: {
-				"format/prettier": ["error", { parser: "yaml", ...prettierConfig }],
-			},
-		},
-		{
-			files: ["**/*.?([cm])[jt]s?(x)"],
-			languageOptions: {
-				parser: format.parserPlain,
-			},
-			plugins: {
-				format,
-			},
-			rules: {
-				"format/prettier": ["error", { parser: "typescript", ...prettierConfig }],
-			},
-		},
+		...markdownConfig(),
+		...prettierConfig(opts.prettier),
 	];
 
 	return conf.concat(...config);
