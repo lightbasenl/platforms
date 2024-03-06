@@ -10,7 +10,7 @@ export function defineConfig(opts: Opts, ...config: Linter.FlatConfig[]) {
 	const conf: Linter.FlatConfig[] = [
 		{
 			// TODO: Add automatic ignores based on .gitignore
-			ignores: [".cache", ".idea", ".next", "dist", "out"],
+			ignores: [".cache", ".idea", ".next", "dist", "out", "package-lock.json"],
 		},
 
 		{
