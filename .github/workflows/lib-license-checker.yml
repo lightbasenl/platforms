@@ -1,5 +1,10 @@
 on:
   workflow_call:
+    inputs:
+      exclude-packages:
+        description: "Semicolon separated list of dependencies to skip."
+        type: string
+        default: ""
 
 jobs:
   check-license:
@@ -13,10 +18,33 @@ jobs:
           persist-credentials: false
 
       - uses: actions/setup-node@v4
+        if: ${{ hashFiles('yarn.lock') != '' }}
+        with:
+          node-version: 20
+          cache: "yarn"
+
+      - uses: actions/setup-node@v4
+        if: ${{ hashFiles('package-lock.json') != '' }}
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - uses: actions/setup-node@v4
+        if: ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' }}
         with:
           node-version: 20
 
-      - name: "Check"
+      - name: "Install Yarn"
+        if: ${{ hashFiles('yarn.lock') != '' }}
         run: |
-          npm install
-          npx license-checker --production --excludePrivatePackages --summary --onlyAllow="MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;Python-2.0;0BSD;BlueOak-1.0.0;LGPL-3.0-or-later;Custom: https://lightbase.nl;Unlicense;CC-BY-4.0;CC-BY-3.0"
+          yarn
+
+      # Default to NPM if another unsupported package manager is used.
+      - name: "Install NPM"
+        if: ${{ hashFiles('yarn.lock') == '' }}
+        run: |
+          npm install --ignore-scripts
+
+      - name: "Check licenses"
+        run: |
+          npx license-checker -- --production --excludePackages=${{ inputs.exclude-packages }} --excludePrivatePackages --summary --onlyAllow="MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;Python-2.0;0BSD;BlueOak-1.0.0;LGPL-3.0-or-later;Custom: https://lightbase.nl;Unlicense;CC-BY-4.0;CC-BY-3.0"
