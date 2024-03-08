@@ -1,3 +1,14 @@
+# Check the repository for allowed LICENSE's in production dependencies.
+# Supports exclude packages if they don't specify a LICENSE, but you manually checked that it complies.
+#
+# Usage:
+#
+#  license-checker:
+#    uses: lightbasenl/platforms/.github/workflows/lib-license-checker.yml@main
+#    with:
+#      exclude-packages: "@mapbox/jsonlint-lines-primitives"
+#
+
 on:
   workflow_call:
     inputs:
@@ -13,23 +24,27 @@ jobs:
       contents: read
     name: "Check used licenses"
     steps:
-      - uses: actions/checkout@v4
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      - name: "Setup Node (with Yarn cache)"
+        uses: actions/setup-node@v4
         if: ${{ hashFiles('yarn.lock') != '' }}
         with:
           node-version: 20
           cache: "yarn"
 
-      - uses: actions/setup-node@v4
+      - name: "Setup Node (with NPM cache)"
+        uses: actions/setup-node@v4
         if: ${{ hashFiles('package-lock.json') != '' }}
         with:
           node-version: 20
           cache: "npm"
 
-      - uses: actions/setup-node@v4
+      - name: "Setup Node (no cache)"
+        uses: actions/setup-node@v4
         if: ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' }}
         with:
           node-version: 20
