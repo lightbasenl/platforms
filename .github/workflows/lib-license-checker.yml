@@ -1,14 +1,3 @@
-# Check the repository for allowed LICENSE's in production dependencies.
-# Supports exclude packages if they don't specify a LICENSE, but you manually checked that it complies.
-#
-# Usage:
-#
-#  license-checker:
-#    uses: lightbasenl/platforms/.github/workflows/lib-license-checker.yml@main
-#    with:
-#      exclude-packages: "@mapbox/jsonlint-lines-primitives"
-#
-
 on:
   workflow_call:
     inputs:

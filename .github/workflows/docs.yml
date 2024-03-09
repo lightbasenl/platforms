@@ -1,0 +1,55 @@
+on:
+  push:
+    branches:
+      - main
+      - gen-docs
+    paths:
+      - ".github/workflows/**"
+      - "docs/**"
+
+jobs:
+  reusable-workflow-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: "Run auto-doc (lib-license-checker"
+        uses: tj-actions/auto-doc@v3
+        with:
+          filename: "./.github/workflows/lib-license-checker.yml"
+          output: "./docs/workflows/lib-license-checker.md"
+          reusable: true
+
+      - name: "Build the lint config and run lint."
+        run: |
+          npm install
+          npm run build:ws
+          npm run lint
+
+      - name: "Check for changed files"
+        uses: tj-actions/verify-changed-files@v8.6
+        id: changed-files
+        with:
+          files: |
+            docs
+
+      - name: "Open a PR"
+        if: steps.changed-files.outputs.files_changed == 'true'
+        uses: peter-evans/create-pull-request@v3
+        with:
+          base: "main"
+          title: "docs(workflows): regenerated reusable workflow docs"
+          branch: "docs/workflows"
+          commit-message: "docs(workflows): regenerated reusable workflow docs"
+          body: "Executed [auto-doc](https://github.com/tj-actions/auto-doc)."
