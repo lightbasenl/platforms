@@ -1,3 +1,5 @@
+name: "Actions related to docs"
+
 on:
   push:
     branches:
