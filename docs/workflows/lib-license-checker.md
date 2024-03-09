@@ -24,9 +24,9 @@ jobs:
 
 <!-- AUTO-DOC-INPUT:START - Do not remove or modify this section -->
 
-| INPUT            | TYPE   | REQUIRED | DEFAULT | DESCRIPTION                                           |
-| ---------------- | ------ | -------- | ------- | ----------------------------------------------------- |
-| exclude-packages | string | false    |         | Semicolon separated list of dependencies to <br>skip. |
+| INPUT                                                                            | TYPE   | REQUIRED | DEFAULT | DESCRIPTION                                           |
+| -------------------------------------------------------------------------------- | ------ | -------- | ------- | ----------------------------------------------------- |
+| <a name="input_exclude-packages"></a>[exclude-packages](#input_exclude-packages) | string | false    |         | Semicolon separated list of dependencies <br>to skip. |
 
 <!-- AUTO-DOC-INPUT:END -->
 
