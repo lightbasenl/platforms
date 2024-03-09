@@ -8,6 +8,8 @@ All public packages & GitHub workflows developed and used by
 - Various [TSConfigs](./packages/tsconfig) to extend from
 - Configurable [ESLint-config](./packages/eslint-config) which includes linting and
   formatting
+- Various reusable workflows
+  - [lib-license-checker](./docs/workflows/lib-license-checker.md)
 
 ## Contributing
 
