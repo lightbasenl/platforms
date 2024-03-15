@@ -64,6 +64,7 @@ export default defineConfig(${JSON.stringify(options)});
 				exitCode: e.code,
 			};
 		} else {
+			console.error(e);
 			throw e;
 		}
 	} finally {
