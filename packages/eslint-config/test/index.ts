@@ -37,7 +37,7 @@ export default defineConfig(${JSON.stringify(options)});
 	try {
 		const promise = execPromise(`npx eslint --format=compact .`, {
 			cwd: tmpDir,
-			timeout: 1500,
+			timeout: 5000,
 		});
 
 		const output: {
