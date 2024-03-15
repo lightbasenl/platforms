@@ -79,152 +79,158 @@ function stdoutLinesForFile(stdout: string, file: string): string {
 		.join("\n");
 }
 
-void describe("ESLint config behavior", { concurrency: 3 }, () => {
-	void it("formats markdown files by default", async () => {
-		const { stdout } = await testOnStdout({}, [
-			{
-				path: "index.md",
-				contents: "# Foo ",
-			},
-		]);
+void describe(
+	"ESLint config behavior",
+	{
+		concurrency: process.env.CI === "true" ? 1 : 3,
+	},
+	() => {
+		void it("formats markdown files by default", async () => {
+			const { stdout } = await testOnStdout({}, [
+				{
+					path: "index.md",
+					contents: "# Foo ",
+				},
+			]);
 
-		assert.match(stdoutLinesForFile(stdout, "index.md"), /\(format\/prettier\)/);
-	});
+			assert.match(stdoutLinesForFile(stdout, "index.md"), /\(format\/prettier\)/);
+		});
 
-	void it("doesn't return an error on valid markdown input", async () => {
-		const { stdout } = await testOnStdout({}, [
-			{
-				path: "index.md",
-				contents: "# Foo\n",
-			},
-		]);
+		void it("doesn't return an error on valid markdown input", async () => {
+			const { stdout } = await testOnStdout({}, [
+				{
+					path: "index.md",
+					contents: "# Foo\n",
+				},
+			]);
 
-		assert.doesNotMatch(stdoutLinesForFile(stdout, "index.md"), /\(format\/prettier\)/);
-	});
+			assert.doesNotMatch(stdoutLinesForFile(stdout, "index.md"), /\(format\/prettier\)/);
+		});
 
-	void it("also formats markdown code-blocks", async () => {
-		const { stdout } = await testOnStdout({}, [
-			{
-				path: "index.md",
-				contents: `# Foo
+		void it("also formats markdown code-blocks", async () => {
+			const { stdout } = await testOnStdout({}, [
+				{
+					path: "index.md",
+					contents: `# Foo
 
 \`\`\`js
 const foo = 'bar';
 \`\`\`
 `,
-			},
-		]);
-
-		assert.match(stdoutLinesForFile(stdout, "index.md"), /with `"bar"`/);
-		assert.match(stdoutLinesForFile(stdout, "index.md"), /\(format\/prettier\)/);
-	});
-
-	void it("respects global formatter overrides", async () => {
-		const { stdout } = await testOnStdout(
-			{
-				prettier: {
-					globalOverride: {
-						singleQuote: true,
-					},
 				},
-			},
-			[
+			]);
+
+			assert.match(stdoutLinesForFile(stdout, "index.md"), /with `"bar"`/);
+			assert.match(stdoutLinesForFile(stdout, "index.md"), /\(format\/prettier\)/);
+		});
+
+		void it("respects global formatter overrides", async () => {
+			const { stdout } = await testOnStdout(
 				{
-					path: "index.js",
-					contents: `const foo = "bar";
-`,
-				},
-			],
-		);
-
-		assert.match(stdoutLinesForFile(stdout, "index.js"), /with `'bar'`/);
-		assert.match(stdoutLinesForFile(stdout, "index.js"), /\(format\/prettier\)/);
-	});
-
-	void it("respects language specific formatter overrides", async () => {
-		const { stdout } = await testOnStdout(
-			{
-				prettier: {
-					globalOverride: {
-						singleQuote: true,
-					},
-					languageOverrides: {
-						js: {
-							singleQuote: false,
+					prettier: {
+						globalOverride: {
+							singleQuote: true,
 						},
 					},
 				},
-			},
-			[
-				{
-					path: "index.js",
-					contents: `const foo = 'bar';
+				[
+					{
+						path: "index.js",
+						contents: `const foo = "bar";
 `,
+					},
+				],
+			);
+
+			assert.match(stdoutLinesForFile(stdout, "index.js"), /with `'bar'`/);
+			assert.match(stdoutLinesForFile(stdout, "index.js"), /\(format\/prettier\)/);
+		});
+
+		void it("respects language specific formatter overrides", async () => {
+			const { stdout } = await testOnStdout(
+				{
+					prettier: {
+						globalOverride: {
+							singleQuote: true,
+						},
+						languageOverrides: {
+							js: {
+								singleQuote: false,
+							},
+						},
+					},
 				},
-			],
-		);
-
-		assert.match(stdoutLinesForFile(stdout, "index.js"), /with `"bar"`/);
-		assert.match(stdoutLinesForFile(stdout, "index.js"), /\(format\/prettier\)/);
-	});
-
-	void it("automatically enables typescript support on detection of tsconfig.json", async () => {
-		const { stdout } = await testOnStdout({}, [
-			{
-				path: "tsconfig.json",
-				contents: JSON.stringify({
-					extends: "@lightbase/tsconfig/node-package.json",
-					compilerOptions: {
-						outDir: "dist",
+				[
+					{
+						path: "index.js",
+						contents: `const foo = 'bar';
+`,
 					},
-					include: ["**/*"],
-				}),
-			},
-			{
-				path: "index.ts",
-				contents: `let foo: 2= 2`,
-			},
-		]);
+				],
+			);
 
-		assert.match(
-			stdoutLinesForFile(stdout, "index.ts"),
-			/\(@typescript-eslint\/no-unused-vars\)/,
-		);
-		assert.match(stdoutLinesForFile(stdout, "index.ts"), /\(format\/prettier\)/);
-	});
+			assert.match(stdoutLinesForFile(stdout, "index.js"), /with `"bar"`/);
+			assert.match(stdoutLinesForFile(stdout, "index.js"), /\(format\/prettier\)/);
+		});
 
-	void it("automatically prefers tsconfig.eslint.json over tsconfig.json", async () => {
-		const { stdout } = await testOnStdout({}, [
-			{
-				path: "tsconfig.json",
-				contents: JSON.stringify({
-					extends: "@lightbase/tsconfig/node-package.json",
-					compilerOptions: {
-						outDir: "dist",
-					},
-					files: ["./bar.ts"],
-				}),
-			},
-			{
-				path: "tsconfig.eslint.json",
-				contents: JSON.stringify({
-					extends: "@lightbase/tsconfig/node-package.json",
-					compilerOptions: {
-						noEmit: true,
-					},
-					includes: ["**/*"],
-				}),
-			},
-			{
-				path: "index.ts",
-				contents: `let foo: 2= 2`,
-			},
-		]);
+		void it("automatically enables typescript support on detection of tsconfig.json", async () => {
+			const { stdout } = await testOnStdout({}, [
+				{
+					path: "tsconfig.json",
+					contents: JSON.stringify({
+						extends: "@lightbase/tsconfig/node-package.json",
+						compilerOptions: {
+							outDir: "dist",
+						},
+						include: ["**/*"],
+					}),
+				},
+				{
+					path: "index.ts",
+					contents: `let foo: 2= 2`,
+				},
+			]);
 
-		assert.match(
-			stdoutLinesForFile(stdout, "index.ts"),
-			/\(@typescript-eslint\/no-unused-vars\)/,
-		);
-		assert.match(stdoutLinesForFile(stdout, "index.ts"), /\(format\/prettier\)/);
-	});
-});
+			assert.match(
+				stdoutLinesForFile(stdout, "index.ts"),
+				/\(@typescript-eslint\/no-unused-vars\)/,
+			);
+			assert.match(stdoutLinesForFile(stdout, "index.ts"), /\(format\/prettier\)/);
+		});
+
+		void it("automatically prefers tsconfig.eslint.json over tsconfig.json", async () => {
+			const { stdout } = await testOnStdout({}, [
+				{
+					path: "tsconfig.json",
+					contents: JSON.stringify({
+						extends: "@lightbase/tsconfig/node-package.json",
+						compilerOptions: {
+							outDir: "dist",
+						},
+						files: ["./bar.ts"],
+					}),
+				},
+				{
+					path: "tsconfig.eslint.json",
+					contents: JSON.stringify({
+						extends: "@lightbase/tsconfig/node-package.json",
+						compilerOptions: {
+							noEmit: true,
+						},
+						includes: ["**/*"],
+					}),
+				},
+				{
+					path: "index.ts",
+					contents: `let foo: 2= 2`,
+				},
+			]);
+
+			assert.match(
+				stdoutLinesForFile(stdout, "index.ts"),
+				/\(@typescript-eslint\/no-unused-vars\)/,
+			);
+			assert.match(stdoutLinesForFile(stdout, "index.ts"), /\(format\/prettier\)/);
+		});
+	},
+);
