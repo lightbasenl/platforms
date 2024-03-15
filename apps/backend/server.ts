@@ -28,9 +28,9 @@ const closeGracefully = closeWithGrace({ delay: 500 }, async (options) => {
 	await app.close();
 });
 
-app.addHook("onClose", (instance, done) => {
+app.addHook("onClose", (_, done) => {
 	closeGracefully.uninstall();
-	return done();
+	done();
 });
 
 const port = process.env.PORT ? Number(process.env.PORT) : 3001;

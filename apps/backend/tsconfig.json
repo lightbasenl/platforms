@@ -2,5 +2,6 @@
 	"extends": "@lightbase/tsconfig/node-package.json",
 	"compilerOptions": {
 		"outDir": "dist"
-	}
+	},
+	"include": ["**/*"]
 }

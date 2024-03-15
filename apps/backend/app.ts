@@ -1,23 +1,16 @@
 import { Multipart } from "@fastify/multipart";
-import fastify, { FastifyBaseLogger, FastifyHttpOptions, FastifyRequest } from "fastify";
-import {
-	serializerCompiler,
-	validatorCompiler,
-	ZodTypeProvider,
-} from "fastify-type-provider-zod";
+import fastify, { FastifyHttpOptions, FastifyRequest } from "fastify";
+import { ZodTypeProvider } from "fastify-type-provider-zod";
 import * as http from "node:http";
 import { z } from "zod";
 import { basePlugin } from "./plugins/base.js";
 
 export async function buildApp(opts: FastifyHttpOptions<http.Server> = {}) {
-	const app = fastify<
-		http.Server,
-		http.IncomingMessage,
-		http.ServerResponse,
-		FastifyBaseLogger
-	>(opts).withTypeProvider<ZodTypeProvider>();
+	const app = fastify<http.Server, http.IncomingMessage, http.ServerResponse>(
+		opts,
+	).withTypeProvider<ZodTypeProvider>();
 
-	app.register(basePlugin);
+	await app.register(basePlugin);
 
 	app.route({
 		method: "post",
@@ -36,10 +29,12 @@ export async function buildApp(opts: FastifyHttpOptions<http.Server> = {}) {
 			return reply.send(
 				Object.keys(request.body).map((key) => ({
 					key,
+
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 					value:
 						request.body[key]?.type === "file" ?
 							request.body[key]?.mimetype
-						:	// @ts-expect-error
+						:	// @ts-expect-error TODO: not sure why yet.
 							request.body[key]?.value,
 				})),
 			);

@@ -13,23 +13,30 @@
 	},
 	"main": "./dist/src/index.js",
 	"types": "./dist/src/index.d.ts",
-	"files": ["README.md", "LICENSE", "dist/"],
+	"files": ["README.md", "LICENSE", "dist/src"],
 	"engines": {
 		"node": ">=20"
 	},
 	"scripts": {
+		"build": "tsc -p ./tsconfig.json",
 		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
-		"lint:ci": "eslint ."
+		"lint:ci": "eslint .",
+		"pretest": "npm run build",
+		"test": "node --test"
 	},
 	"dependencies": {
+		"@eslint/js": "^8.57.0",
 		"eslint-plugin-format": "^0.1.0",
 		"eslint-plugin-markdown": "^3.0.1"
 	},
 	"peerDependencies": {
-		"eslint": ">=8.56.0"
+		"eslint": ">=8.56.0",
+		"typescript-eslint": ">=7.2.0"
 	},
+	"peerDependenciesMeta": {},
 	"devDependencies": {
 		"@types/eslint": "^8.56.2",
+		"@types/eslint__js": "^8.42.3",
 		"@types/eslint-plugin-markdown": "^2.0.2"
 	}
 }
