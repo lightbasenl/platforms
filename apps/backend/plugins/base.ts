@@ -25,7 +25,7 @@ async function base(
 	// TODO: should only be enabled for specific plugin contexts. So we may want to expose a
 	// function with these defaults at some point?
 
-	app.register(fastifyMultipart, {
+	await app.register(fastifyMultipart, {
 		limits: {
 			// Max field name size in bytes
 			fieldNameSize: 100,
@@ -57,7 +57,7 @@ async function base(
 		...options.multipart,
 	});
 
-	app.register(fastifyHelmet, {
+	await app.register(fastifyHelmet, {
 		global: true,
 		contentSecurityPolicy: {
 			// See https://infosec.mozilla.org/guidelines/web_security#content-security-policy:~:text=recommended%20for%20APIs%20to%20use
@@ -72,8 +72,8 @@ async function base(
 		xDownloadOptions: false,
 	});
 
-	// TODO: Why do we need `as any` here?
-	app.register(fastifyCustomHealthCheck as any, {
+	// @ts-expect-error TODO: Why do we need this here?
+	await app.register(fastifyCustomHealthCheck, {
 		// TODO: we should allow configuring one or multiple routes
 
 		path: "/health",

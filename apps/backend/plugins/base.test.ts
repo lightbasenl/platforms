@@ -4,8 +4,8 @@ import { test } from "node:test";
 
 import { buildApp } from "../app.js";
 
-test("base", async (t) => {
-	let app = await buildApp();
+void test("base", async (t) => {
+	const app = await buildApp();
 	const server = await app.listen({
 		port: 0,
 	});
@@ -14,7 +14,7 @@ test("base", async (t) => {
 		return app.close();
 	});
 
-	await t.test("multipart", async (t) => {
+	await t.test("multipart", async () => {
 		const form = new FormData();
 		form.append("foo", "bar");
 		form.append("file1", await fs.openAsBlob("package.json"), "package.json");
@@ -40,7 +40,7 @@ test("base", async (t) => {
 	});
 
 	await t.test("health check", async (t) => {
-		await t.test("success", async (t) => {
+		await t.test("success", async () => {
 			const response = await app.inject({
 				method: "get",
 				path: "/health",
@@ -50,7 +50,7 @@ test("base", async (t) => {
 			assert.equal(response.json().healthChecks.label, "HEALTHY");
 		});
 
-		await t.test("fail", async (t) => {
+		await t.test("fail", async () => {
 			app.addHealthCheck("label2", () => false, { value: true });
 			const response = await app.inject({
 				method: "get",

@@ -1,13 +1,30 @@
-import { Linter } from "eslint";
+import { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
+import { globUse } from "./globs.js";
 import { markdownConfig } from "./markdown.js";
-import { PrettierConfig, prettierConfig } from "./prettier.js";
+import { prettierConfig, PrettierConfig } from "./prettier.js";
+import { typescript, TypescriptConfig } from "./typescript.js";
 
 interface Opts {
 	prettier?: PrettierConfig;
+	typescript?: TypescriptConfig;
 }
 
-export function defineConfig(opts: Opts, ...config: Linter.FlatConfig[]) {
-	const conf: Linter.FlatConfig[] = [
+export function defineConfig(opts: Opts, ...userConfigs: FlatConfig.Config[]) {
+	// Register all globs in use by custom configs. This is needed since we apply
+	// those after the Prettier configuration. The Prettier config then uses a processor
+	// to prevent parser conflicts.
+	for (const conf of userConfigs) {
+		if (conf.files) {
+			for (const glob of conf.files.flat()) {
+				if (typeof glob === "string") {
+					globUse([glob]);
+				}
+			}
+		}
+	}
+
+	return [
+		// Global options
 		{
 			// TODO: Add automatic ignores based on .gitignore
 			ignores: [".cache", ".idea", ".next", "dist", "out", "package-lock.json"],
@@ -15,14 +32,19 @@ export function defineConfig(opts: Opts, ...config: Linter.FlatConfig[]) {
 
 		{
 			linterOptions: {
-				noInlineConfig: true,
 				reportUnusedDisableDirectives: "error",
 			},
 		},
 
+		// Language specifics
 		...markdownConfig(),
-		...prettierConfig(opts.prettier),
-	];
+		...typescript(opts.typescript),
 
-	return conf.concat(...config);
+		// Ecosystem specific
+
+		// Format all the things
+		...prettierConfig(opts.prettier),
+
+		...userConfigs,
+	] satisfies FlatConfig.Config[];
 }

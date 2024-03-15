@@ -2,14 +2,14 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { buildApp } from "./app.js";
 
-test("app", async (t) => {
-	let app = await buildApp();
+void test("app", async (t) => {
+	const app = await buildApp();
 
 	t.after(() => {
 		return app.close();
 	});
 
-	await t.test("foo", async (t) => {
+	await t.test("foo", async () => {
 		const response = await app.inject({
 			method: "GET",
 			path: "/",
@@ -19,7 +19,7 @@ test("app", async (t) => {
 		assert.deepEqual(response.json(), { hello: "Worlds" });
 	});
 
-	await t.test("validation", async (t) => {
+	await t.test("validation", async () => {
 		const response = await app.inject({
 			method: "POST",
 			path: "/test-validation",
