@@ -175,8 +175,8 @@ Configuring Webstorm to use this config can be done as follows:
 
 > [!NOTE]
 >
-> WebStorm sometimes doesn't pick up on an updated ESLint configuration. A restart
-> of the background services fixes this.
+> WebStorm sometimes doesn't pick up on an updated ESLint configuration. A restart of the
+> background services fixes this.
 >
 > - In versions `2023.3` and below, go to the ESLint settings in your preferences
 >   according to the steps above. Select `Disable ESLint configuration`, click on `Apply`
