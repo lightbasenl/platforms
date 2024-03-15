@@ -27,7 +27,7 @@
 	"dependencies": {
 		"@eslint/js": "^8.57.0",
 		"eslint-plugin-format": "^0.1.0",
-		"eslint-plugin-markdown": "^3.0.1"
+		"eslint-plugin-markdown": "^4.0.1"
 	},
 	"peerDependencies": {
 		"eslint": ">=8.56.0",
