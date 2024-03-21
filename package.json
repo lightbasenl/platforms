@@ -15,7 +15,7 @@
 	"devDependencies": {
 		"@lightbase/eslint-config": "0.1.0",
 		"@lightbase/tsconfig": "0.1.0",
-		"typescript": "5.4.2"
+		"typescript": "5.4.3"
 	},
 	"engines": {
 		"node": ">=20"
