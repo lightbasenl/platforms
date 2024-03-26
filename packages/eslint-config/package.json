@@ -22,7 +22,8 @@
 		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
 		"lint:ci": "eslint .",
 		"pretest": "npm run build",
-		"test": "node --test"
+		"test": "node --test",
+		"clean": "rm -rf ./.cache ./dist"
 	},
 	"dependencies": {
 		"@eslint/js": "^8.57.0",
