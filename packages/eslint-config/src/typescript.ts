@@ -6,25 +6,47 @@ import { GLOBS, globUse } from "./globs.js";
 export type TypescriptConfig =
 	| boolean
 	| {
-			project?: string;
+			project?: boolean | string;
 	  };
 
-export function typescript(config?: TypescriptConfig) {
+export function typescriptResolveConfig(config?: TypescriptConfig): TypescriptConfig {
+	if (config === false) {
+		return false;
+	}
+
+	if (config === true) {
+		config = {
+			project: true,
+		};
+	}
+
 	if (config === undefined) {
 		if (existsSync("./tsconfig.eslint.json")) {
 			config = {
 				project: "./tsconfig.eslint.json",
 			};
+		} else if (existsSync("./tsconfig.json")) {
+			config = {
+				project: "./tsconfig.json",
+			};
 		} else {
-			config = existsSync("./tsconfig.json");
+			config = false;
 		}
 	}
 
+	return config;
+}
+
+export function typescript(config: TypescriptConfig) {
 	if (config === false) {
 		return [];
 	}
 
-	const project = typeof config === "boolean" ? config : config.project;
+	if (typeof config === "boolean") {
+		config = {
+			project: true,
+		};
+	}
 
 	return [
 		{
@@ -35,7 +57,7 @@ export function typescript(config?: TypescriptConfig) {
 			languageOptions: {
 				parser: typescriptEslint.parser,
 				parserOptions: {
-					project,
+					project: config.project,
 					warnOnUnsupportedTypeScriptVersion: false,
 				},
 			},
