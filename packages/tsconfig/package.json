@@ -12,6 +12,7 @@
 	},
 	"scripts": {
 		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
-		"lint:ci": "eslint ."
+		"lint:ci": "eslint .",
+		"clean": "rm -rf ./.cache"
 	}
 }

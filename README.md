@@ -30,6 +30,9 @@ npm run lint:ws
 
 # Run the 'test' script for all packages in the workspace
 npm run test:ws
+
+# Clean ESLint cache & dist directories in the workspace.
+npm run clean:ws
 ```
 
 In both the workspace root and in individual packages you can run the following commands:
@@ -44,6 +47,9 @@ npm run lint
 
 # Run the package specific test script
 npm run test
+
+# Clean ESLint cache & dist directories
+npm run clean:ws
 ```
 
 ## License

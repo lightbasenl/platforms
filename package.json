@@ -10,7 +10,9 @@
 		"test:ws": "npm run test --workspaces --if-present --include-workspace-root",
 		"build": "tsc --build",
 		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
-		"lint:ci": "eslint ."
+		"lint:ci": "eslint .",
+		"clean": "rm -rf ./.cache ./tsconfig.tsbuildinfo",
+		"clean:ws": "npm run clean --workspaces --if-present --include-workspace-root"
 	},
 	"devDependencies": {
 		"@lightbase/eslint-config": "0.1.0",
