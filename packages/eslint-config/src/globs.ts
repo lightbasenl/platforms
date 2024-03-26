@@ -44,5 +44,5 @@ export function globAsFormat(glob: string) {
  * Apply custom rules to snippets in markdown files.
  */
 export function globMarkdownSnippetFromGlob(glob: string) {
-	return `**/*.md/*.${glob.split("/").pop()}`;
+	return `**/*.md/*.${glob.split("/").pop() ?? ""}`;
 }
