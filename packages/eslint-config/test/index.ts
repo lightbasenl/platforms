@@ -232,5 +232,17 @@ const foo = 'bar';
 			);
 			assert.match(stdoutLinesForFile(stdout, "index.ts"), /\(format\/prettier\)/);
 		});
+
+		void it("enables js file linting without tsconfig.json", async () => {
+			const { stdout } = await testOnStdout({}, [
+				{
+					path: "index.js",
+					contents: `let foo= 2`,
+				},
+			]);
+
+			assert.match(stdoutLinesForFile(stdout, "index.js"), /\(no-unused-vars\)/);
+			assert.match(stdoutLinesForFile(stdout, "index.js"), /\(format\/prettier\)/);
+		});
 	},
 );

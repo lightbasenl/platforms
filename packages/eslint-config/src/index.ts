@@ -1,8 +1,9 @@
 import { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import { globUse } from "./globs.js";
+import { javascript } from "./javascript.js";
 import { markdownConfig } from "./markdown.js";
 import { prettierConfig, PrettierConfig } from "./prettier.js";
-import { typescript, TypescriptConfig } from "./typescript.js";
+import { typescript, TypescriptConfig, typescriptResolveConfig } from "./typescript.js";
 
 interface Opts {
 	prettier?: PrettierConfig;
@@ -23,6 +24,8 @@ export function defineConfig(opts: Opts, ...userConfigs: FlatConfig.Config[]) {
 		}
 	}
 
+	opts.typescript = typescriptResolveConfig(opts.typescript);
+
 	return [
 		// Global options
 		{
@@ -38,6 +41,7 @@ export function defineConfig(opts: Opts, ...userConfigs: FlatConfig.Config[]) {
 
 		// Language specifics
 		...markdownConfig(),
+		...javascript(!!opts.typescript),
 		...typescript(opts.typescript),
 
 		// Ecosystem specific
