@@ -4,14 +4,14 @@ import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import { describe, it } from "node:test";
 import { promisify } from "node:util";
-import { defineConfig } from "../src/index.js";
+import type { defineConfig } from "../src/index.js";
 
 const execPromise = promisify(exec);
 
 type Options = Parameters<typeof defineConfig>[0];
 async function testOnStdout(
 	options: Options,
-	files: { path: string; contents: string }[],
+	files: Array<{ path: string; contents: string }>,
 ) {
 	files.push(
 		{
@@ -63,10 +63,12 @@ export default defineConfig(${JSON.stringify(options)});
 				stderr: e.stderr,
 				exitCode: e.code,
 			};
-		} else {
-			console.error(e);
-			throw e;
 		}
+
+		// eslint-disable-next-line no-console
+		console.error(e);
+
+		throw e;
 	} finally {
 		await fs.rm(tmpDir, { recursive: true, force: true });
 	}
@@ -114,7 +116,7 @@ void describe(
 					contents: `# Foo
 
 \`\`\`js
-const foo = 'bar';
+export const foo = 'bar';
 \`\`\`
 `,
 				},
@@ -132,6 +134,7 @@ const foo = 'bar';
 							singleQuote: true,
 						},
 					},
+					globals: [],
 				},
 				[
 					{
@@ -193,7 +196,7 @@ const foo = 'bar';
 
 			assert.match(
 				stdoutLinesForFile(stdout, "index.ts"),
-				/\(@typescript-eslint\/no-unused-vars\)/,
+				/\(unused-imports\/no-unused-vars\)/,
 			);
 			assert.match(stdoutLinesForFile(stdout, "index.ts"), /\(format\/prettier\)/);
 		});
@@ -228,7 +231,7 @@ const foo = 'bar';
 
 			assert.match(
 				stdoutLinesForFile(stdout, "index.ts"),
-				/\(@typescript-eslint\/no-unused-vars\)/,
+				/\(unused-imports\/no-unused-vars\)/,
 			);
 			assert.match(stdoutLinesForFile(stdout, "index.ts"), /\(format\/prettier\)/);
 		});
@@ -241,7 +244,10 @@ const foo = 'bar';
 				},
 			]);
 
-			assert.match(stdoutLinesForFile(stdout, "index.js"), /\(no-unused-vars\)/);
+			assert.match(
+				stdoutLinesForFile(stdout, "index.js"),
+				/\(unused-imports\/no-unused-vars\)/,
+			);
 			assert.match(stdoutLinesForFile(stdout, "index.js"), /\(format\/prettier\)/);
 		});
 	},

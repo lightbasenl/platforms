@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import * as fs from "node:fs";
 import { test } from "node:test";
-
 import { buildApp } from "../app.js";
 
 void test("base", async (t) => {
@@ -19,7 +18,7 @@ void test("base", async (t) => {
 		form.append("foo", "bar");
 		form.append("file1", await fs.openAsBlob("package.json"), "package.json");
 
-		const response = await fetch(server + "/base/multipart", {
+		const response = await fetch(`${server}/base/multipart`, {
 			method: "post",
 			body: form,
 		});
@@ -47,6 +46,7 @@ void test("base", async (t) => {
 			});
 
 			assert.equal(response.statusCode, 200);
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 			assert.equal(response.json().healthChecks.label, "HEALTHY");
 		});
 
@@ -58,6 +58,7 @@ void test("base", async (t) => {
 			});
 
 			assert.equal(response.statusCode, 500);
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 			assert.equal(response.json().healthChecks.label2, "FAIL");
 		});
 	});
