@@ -8,20 +8,13 @@ Opinionated but configurable ESLint config. Fully includes linting and formattin
 npm install --save-dev --exact @lightbase/eslint-config
 ```
 
-The following dependencies are automatically installed as part of `peerDependencies`,
-however custom versions can be installed via
+Some configurations require manually installed plugins. For example
 
 ```shell
-npm install --save-dev --exact eslint typescript-eslint
+npm install --save-dev --exact eslint-plugin-react eslint-plugin-react-hooks
 ```
 
-Some configurations require manually installed plugins.
-
-[//]: # "TODO: update example if we have a good one"
-
-```shell
-npm install --save-dev --exact eslint-plugin-jsdoc
-```
+This is documented below.
 
 ## Usage
 
@@ -35,12 +28,14 @@ import { defineConfig } from "@lightbase/eslint-config";
 export default defineConfig({});
 ```
 
+### Commands
+
 Add the following scripts to your `package.json`:
 
 ```json
 {
 	"scripts": {
-		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
+		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/",
 		"lint:ci": "eslint ."
 	}
 }
@@ -50,31 +45,15 @@ Add the following scripts to your `package.json`:
 
 ### In a CommonJS project
 
-Note, these steps will be obsolete with ESLint v9, which at the time of writing is in
-alpha.
+> [!NOTE]
+>
+> These steps will be obsolete with ESLint v9, which at the time of writing is released
+> but not yet supported by all our plugins.
 
 - Use `eslint.config.mjs` instead of `eslint.config.js`
 - Specify `--config eslint.config.mjs` in the `package.json` scripts.
 
 ## Default configuration and options
-
-### Custom configuration
-
-`defineConfig` accepts custom ESLint configuration as the 'rest' parameter. For example:
-
-```js
-import { defineConfig } from "@lightbase/eslint-config";
-
-export default defineConfig(
-	{
-		// Define config options, explained below.
-	},
-	{
-		// Ignore the packages/ directory.
-		ignores: ["packages/**"],
-	},
-);
-```
 
 ### Prettier
 
@@ -141,6 +120,19 @@ export default defineConfig({
 });
 ```
 
+By default, we enable the recommended type checked rules from typescript-eslint. To
+disable these rules, use:
+
+```js
+import { defineConfig } from "@lightbase/eslint-config";
+
+export default defineConfig({
+	typescript: {
+		disableTypeCheckedRules: true,
+	},
+});
+```
+
 ### Markdown
 
 A Markdown processor is installed by default. Its purpose is to extract code-blocks and
@@ -157,6 +149,89 @@ export default defineConfig(
 		rules: {
 			"no-unused-vars": "off",
 		},
+	},
+);
+```
+
+### React
+
+The config optionally supports enabling React and Next.js specific rules. Add the
+following dependencies:
+
+```shell
+npm install --save-dev --exact eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y
+```
+
+If you use Next.js, make sure to also add `@next/eslint-plugin-next` via:
+
+```shell
+npm install --save-dev --exact @next/eslint-plugin-next
+```
+
+React is only support in combination with Typescript (see above), and can be enabled as
+follows:
+
+```js
+import { defineConfig } from "@lightbase/eslint-config";
+
+export default defineConfig({
+	react: {
+		withNextJs: true,
+	},
+});
+```
+
+This enables all Next.js rules and various recommended rules for React, hooks usage and
+JSX accessibility.
+
+### Globals
+
+The config by default includes all globals for Node.js, Browser and ES2021. You can use
+other predefined presets via
+
+```js
+import { defineConfig } from "@lightbase/eslint-config";
+
+export default defineConfig({
+	// Make sure to include the full setup.
+	globals: ["browser", "serviceworker"],
+});
+```
+
+This enables environment-specific globals for all files. For a stricter setup, use custom
+configuration as explained below
+
+```js
+import { defineConfig } from "@lightbase/eslint-config";
+import globals from "globals";
+
+export default defineConfig(
+	{},
+	{
+		files: ["**/*.js"],
+		languageOptions: {
+			globals: {
+				...globals.es2015,
+			},
+		},
+	},
+);
+```
+
+### Custom configuration
+
+`defineConfig` accepts custom ESLint configuration as the 'rest' parameter. For example:
+
+```js
+import { defineConfig } from "@lightbase/eslint-config";
+
+export default defineConfig(
+	{
+		// Define config options, explained below.
+	},
+	{
+		// Ignore the packages/ directory.
+		ignores: ["packages/**"],
 	},
 );
 ```

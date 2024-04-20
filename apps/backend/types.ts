@@ -1,5 +1,5 @@
+import type http from "node:http";
 import type { FastifyInstance } from "fastify";
-import http from "node:http";
 
 export type FastifyBase = FastifyInstance<
 	http.Server,

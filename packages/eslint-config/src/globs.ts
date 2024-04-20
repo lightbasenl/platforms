@@ -1,3 +1,5 @@
+import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
+
 /**
  * We need to keep track of used globs to prevent conflicts between language parsers and the
  * Prettier config.
@@ -18,7 +20,7 @@ export const GLOBS = {
  * Keep track of all used globs. We need this to use custom globs for running Prettier in
  * ESLint.
  */
-export function globUse(globs: string[]) {
+export function globUse(globs: Array<string>) {
 	for (const glob of globs) {
 		USED_GLOBS.add(glob);
 	}
@@ -44,5 +46,22 @@ export function globAsFormat(glob: string) {
  * Apply custom rules to snippets in markdown files.
  */
 export function globMarkdownSnippetFromGlob(glob: string) {
-	return `**/*.md/*.${glob.split("/").pop() ?? ""}`;
+	return `**/*.md/**/.${glob.split("/").pop() ?? ""}`;
+}
+
+/**
+ * Register all globs in use by custom configs. This is needed since we apply
+ * those after the Prettier configuration. The Prettier config then uses a processor
+ * to prevent parser conflicts.
+ */
+export function globUseFromUserConfig(...userConfigs: Array<FlatConfig.Config>) {
+	for (const conf of userConfigs) {
+		if (conf.files) {
+			for (const glob of conf.files.flat()) {
+				if (typeof glob === "string") {
+					globUse([glob]);
+				}
+			}
+		}
+	}
 }

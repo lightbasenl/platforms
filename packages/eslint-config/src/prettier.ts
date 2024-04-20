@@ -1,7 +1,8 @@
-import { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
-import { Linter } from "eslint";
-import format from "eslint-plugin-format";
-import type { Options } from "prettier";
+import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
+import type { Linter } from "eslint";
+import type { Options as PrettierOptions } from "prettier";
+import { formatPlugin } from "./format-plugin/index.js";
+import { plainParser } from "./format-plugin/parser.js";
 import {
 	globIsUsed,
 	globMarkdownSnippetFromGlob,
@@ -9,20 +10,28 @@ import {
 	globAsFormat,
 	globUse,
 } from "./globs.js";
-import Processor = Linter.Processor;
 
-type PrettierConfigLanguages = "js" | "ts" | "md" | "yaml" | "json";
+type SupportedLanguageOverrides = "js" | "ts" | "md" | "yaml" | "json";
 
 export interface PrettierConfig {
-	globalOverride?: Options;
-	languageOverrides?: { [K in PrettierConfigLanguages]?: Options };
+	/**
+	 * Override default Prettier options for all supported languages.
+	 */
+	globalOverride?: PrettierOptions;
+
+	/**
+	 * Override default Prettier options for specific files.
+	 */
+	languageOverrides?: { [K in SupportedLanguageOverrides]?: PrettierOptions };
 }
 
 /**
  * Apply Prettier formatting to all files.
  */
 export function prettierConfig(config?: PrettierConfig) {
-	// TODO: css + tailwind plugin
+	// TODO: include CSS + tailwind
+
+	// TODO: sql plugin
 
 	config ??= {};
 
@@ -43,8 +52,10 @@ export function prettierConfig(config?: PrettierConfig) {
 	};
 	config.languageOverrides ??= {};
 
-	const processors: FlatConfig.Config[] = [];
-	const selectGlob = (a: string, processor: Processor) => {
+	// Dynamically add processors. We need just the original source to pass to Prettier. So if
+	// the file is already parsed by another ESLint parser, we need to create a virtual file.
+	const processors: Array<FlatConfig.Config> = [];
+	const selectGlob = (a: string, processor: FlatConfig.Processor) => {
 		if (globIsUsed(a)) {
 			processors.push({
 				files: globUse([a]),
@@ -68,10 +79,10 @@ export function prettierConfig(config?: PrettierConfig) {
 		{
 			files: globUse([GLOBS.markdown, globMarkdownSnippetFromGlob(GLOBS.markdown)]),
 			plugins: {
-				format,
+				format: formatPlugin,
 			},
 			languageOptions: {
-				parser: format.parserPlain,
+				parser: plainParser,
 			},
 			rules: {
 				"format/prettier": [
@@ -87,10 +98,10 @@ export function prettierConfig(config?: PrettierConfig) {
 		{
 			files: globUse([yamlGlob]),
 			plugins: {
-				format,
+				format: formatPlugin,
 			},
 			languageOptions: {
-				parser: format.parserPlain,
+				parser: plainParser,
 			},
 			rules: {
 				"format/prettier": [
@@ -106,10 +117,10 @@ export function prettierConfig(config?: PrettierConfig) {
 		{
 			files: globUse([jsonGlob]),
 			plugins: {
-				format,
+				format: formatPlugin,
 			},
 			languageOptions: {
-				parser: format.parserPlain,
+				parser: plainParser,
 			},
 			rules: {
 				"format/prettier": [
@@ -126,10 +137,10 @@ export function prettierConfig(config?: PrettierConfig) {
 		{
 			files: globUse([typescriptGlob]),
 			plugins: {
-				format,
+				format: formatPlugin,
 			},
 			languageOptions: {
-				parser: format.parserPlain,
+				parser: plainParser,
 			},
 			rules: {
 				"format/prettier": [
@@ -141,10 +152,10 @@ export function prettierConfig(config?: PrettierConfig) {
 		{
 			files: globUse([javascriptGlob]),
 			plugins: {
-				format,
+				format: formatPlugin,
 			},
 			languageOptions: {
-				parser: format.parserPlain,
+				parser: plainParser,
 			},
 			rules: {
 				"format/prettier": [
@@ -157,7 +168,7 @@ export function prettierConfig(config?: PrettierConfig) {
 				],
 			},
 		},
-	] satisfies FlatConfig.Config[];
+	] satisfies Array<FlatConfig.Config>;
 }
 
 /**
@@ -169,24 +180,24 @@ export function prettierConfig(config?: PrettierConfig) {
  *
  * This is kinda hacky and not exactly sure what the consequences are yet...
  */
-function formatProcessor(): Processor {
+function formatProcessor(): FlatConfig.Processor {
 	return {
 		meta: {
 			name: "lightbase:format:processor",
 			version: "-",
 		},
-		preprocess(text: string, filename: string): (string | Linter.ProcessorFile)[] {
+		preprocess(text: string, filename: string): Array<string | Linter.ProcessorFile> {
+			// Passes through the original file, and includes one with the `.format` prefix. This
+			// is also called a 'virtual' file.
 			return [
-				// Pass one through for the original file.
 				text,
 				{
-					// Pass one with the .format suffix.
 					text,
-					filename: `${filename}.format`,
+					filename: `${filename.split("/").pop()}.format`,
 				},
 			];
 		},
-		postprocess(messages: Linter.LintMessage[][]): Linter.LintMessage[] {
+		postprocess(messages: Array<Array<Linter.LintMessage>>): Array<Linter.LintMessage> {
 			return messages.flat();
 		},
 		supportsAutofix: true,

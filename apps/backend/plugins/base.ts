@@ -1,15 +1,12 @@
-import fastifyMultipart, { FastifyMultipartBaseOptions } from "@fastify/multipart";
-import { RegisterOptions } from "fastify";
-import fastifyCustomHealthCheck from "fastify-custom-healthcheck";
 import fastifyHelmet from "@fastify/helmet";
-
+import type { FastifyMultipartBaseOptions } from "@fastify/multipart";
+import fastifyMultipart from "@fastify/multipart";
+import type { RegisterOptions } from "fastify";
+import fastifyCustomHealthCheck from "fastify-custom-healthcheck";
 import fp from "fastify-plugin";
-import {
-	serializerCompiler,
-	validatorCompiler,
-	ZodTypeProvider,
-} from "fastify-type-provider-zod";
-import { FastifyBase } from "../types.js";
+import type { ZodTypeProvider } from "fastify-type-provider-zod";
+import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
+import type { FastifyBase } from "../types.js";
 
 async function base(
 	fastify: FastifyBase,

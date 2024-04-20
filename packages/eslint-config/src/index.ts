@@ -1,54 +1,80 @@
-import { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
-import { globUse } from "./globs.js";
+import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
+import gitignore from "eslint-config-flat-gitignore";
+// @ts-expect-error no types available
+import pluginFileProgress from "eslint-plugin-file-progress";
+import { defineGlobals } from "./globals.js";
+import type { GlobalsConfig } from "./globals.js";
+import { globUseFromUserConfig } from "./globs.js";
+import { imports } from "./imports.js";
 import { javascript } from "./javascript.js";
-import { markdownConfig } from "./markdown.js";
-import { prettierConfig, PrettierConfig } from "./prettier.js";
-import { typescript, TypescriptConfig, typescriptResolveConfig } from "./typescript.js";
+import { markdownConfig, markdownSnippetOverrides } from "./markdown.js";
+import { prettierConfig } from "./prettier.js";
+import type { PrettierConfig } from "./prettier.js";
+import type { ReactConfig } from "./react.js";
+import { typescript, typescriptResolveConfig } from "./typescript.js";
+import type { TypescriptConfig } from "./typescript.js";
 
-interface Opts {
+interface LightbaseEslintConfigOptions {
 	prettier?: PrettierConfig;
 	typescript?: TypescriptConfig;
+	react?: ReactConfig;
+	globals?: GlobalsConfig;
 }
 
-export function defineConfig(opts: Opts, ...userConfigs: FlatConfig.Config[]) {
-	// Register all globs in use by custom configs. This is needed since we apply
-	// those after the Prettier configuration. The Prettier config then uses a processor
-	// to prevent parser conflicts.
-	for (const conf of userConfigs) {
-		if (conf.files) {
-			for (const glob of conf.files.flat()) {
-				if (typeof glob === "string") {
-					globUse([glob]);
-				}
-			}
-		}
-	}
-
+/**
+ * Entrypoint for your everything included ESLint config.
+ */
+export async function defineConfig(
+	opts: LightbaseEslintConfigOptions,
+	...userConfigs: Array<FlatConfig.Config>
+): Promise<Array<FlatConfig.Config>> {
+	globUseFromUserConfig(...userConfigs);
 	opts.typescript = typescriptResolveConfig(opts.typescript);
+
+	// Only load React + related plugins if necessary. This adds quite the startup penalty otherwise.
+	const reactRelatedConfig =
+		opts.react ? await (await import("./react.js")).react(opts.react) : [];
 
 	return [
 		// Global options
+		gitignore(),
 		{
-			// TODO: Add automatic ignores based on .gitignore
-			ignores: [".cache", ".idea", ".next", "dist", "out", "package-lock.json"],
+			// Never format lock-files
+			ignores: ["**/package-lock.json", "yarn.lock"],
 		},
-
 		{
+			// Make sure to cleanup unused directives when they are not necessary anymore.
 			linterOptions: {
 				reportUnusedDisableDirectives: "error",
+			},
+		},
+		...defineGlobals(opts.globals),
+
+		{
+			// Show a friendly spinner.
+			files: ["**/*"],
+			plugins: {
+				"file-progress": pluginFileProgress as unknown as FlatConfig.Plugin,
+			},
+			rules: {
+				"file-progress/activate": "warn",
 			},
 		},
 
 		// Language specifics
 		...markdownConfig(),
-		...javascript(!!opts.typescript),
+		...javascript(),
 		...typescript(opts.typescript),
+		...imports(),
 
 		// Ecosystem specific
+		...reactRelatedConfig,
 
 		// Format all the things
 		...prettierConfig(opts.prettier),
 
 		...userConfigs,
-	] satisfies FlatConfig.Config[];
+
+		...markdownSnippetOverrides(),
+	] satisfies Array<FlatConfig.Config>;
 }

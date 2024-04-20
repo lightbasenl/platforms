@@ -1,7 +1,8 @@
-import { Multipart } from "@fastify/multipart";
-import fastify, { FastifyHttpOptions, FastifyRequest } from "fastify";
-import { ZodTypeProvider } from "fastify-type-provider-zod";
-import * as http from "node:http";
+import type * as http from "node:http";
+import type { Multipart } from "@fastify/multipart";
+import type { FastifyHttpOptions, FastifyRequest } from "fastify";
+import fastify from "fastify";
+import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { basePlugin } from "./plugins/base.js";
 
