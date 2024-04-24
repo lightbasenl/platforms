@@ -2,7 +2,8 @@
 import type { AnyRuleModule } from "@typescript-eslint/utils/ts-eslint";
 
 // Ported from Compas:
-// https://github.com/compasjs/compas/blob/72dd8e0df5b315f87d1caf3f101af283db14867c/packages/eslint-plugin/lint-rules/check-event-name.js
+// https://github.com/compasjs/compas/blob/72dd8e0df5b315f87d1caf3f101af283db14867c/packages/eslint-plugin/lint-rules/check-event-name.js /
+// https://github.com/compasjs/compas/blob/491561c10ccc52ba32df2cd740fc7594a4b268ea/packages/eslint-plugin/lint-rules/check-event-name.js
 export const compasCheckEventName: AnyRuleModule = {
 	meta: {
 		type: "suggestion",
@@ -14,6 +15,9 @@ export const compasCheckEventName: AnyRuleModule = {
 		messages: {
 			consistentEventName: "Use an event name that can be derived from the function name",
 			replaceEventName: `Replace value with {{value}}`,
+			missingEventStart:
+				"Function accepts 'event' as the first argument, but doesn't call 'eventStart'.",
+			addEventStart: `Add 'eventStart(event, "")' in your function body.`,
 		},
 
 		schema: [],
@@ -28,12 +32,33 @@ export const compasCheckEventName: AnyRuleModule = {
 			currentFunction = {
 				parent: currentFunction,
 				node,
-				isAsyncEventFunction: node.async && node.params[0]?.name === "event",
+				isAsyncEventFunction:
+					node.async && node.id?.name && node.params[0]?.name === "event",
+				hasEventStart: false,
 				functionName: node.id?.name,
 			};
 		}
 
 		function processFunctionEnd() {
+			if (currentFunction?.isAsyncEventFunction && !currentFunction.hasEventStart) {
+				context.report({
+					node: currentFunction.node.body,
+					messageId: "missingEventStart",
+					suggest: [
+						{
+							messageId: "addEventStart",
+							data: {},
+							fix: function (fixer) {
+								return fixer.insertTextBefore(
+									currentFunction.node.body.body[0],
+									`eventStart(event, "");\n  `,
+								);
+							},
+						},
+					],
+				});
+			}
+
 			currentFunction = currentFunction.parent;
 		}
 
@@ -44,11 +69,7 @@ export const compasCheckEventName: AnyRuleModule = {
 
 			// Process `eventStart` calls
 			"CallExpression[callee.name='eventStart']"(node) {
-				if (
-					!currentFunction.isAsyncEventFunction ||
-					!currentFunction.functionName ||
-					currentFunction.functionName.length === 0
-				) {
+				if (!currentFunction.isAsyncEventFunction) {
 					return;
 				}
 
@@ -56,6 +77,8 @@ export const compasCheckEventName: AnyRuleModule = {
 				if (node.arguments?.length !== 2) {
 					return;
 				}
+
+				currentFunction.hasEventStart = true;
 
 				let value = undefined;
 				// @ts-expect-error unknown
