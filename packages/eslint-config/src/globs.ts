@@ -17,8 +17,7 @@ export const GLOBS = {
 };
 
 /**
- * Keep track of all used globs. We need this to use custom globs for running Prettier in
- * ESLint.
+ * Keep track of all used globs. We need this to use custom globs for running Prettier in ESLint.
  */
 export function globUse(globs: Array<string>) {
 	for (const glob of globs) {
@@ -50,9 +49,8 @@ export function globMarkdownSnippetFromGlob(glob: string) {
 }
 
 /**
- * Register all globs in use by custom configs. This is needed since we apply
- * those after the Prettier configuration. The Prettier config then uses a processor
- * to prevent parser conflicts.
+ * Register all globs in use by custom configs. This is needed since we apply those after the
+ * Prettier configuration. The Prettier config then uses a processor to prevent parser conflicts.
  */
 export function globUseFromUserConfig(...userConfigs: Array<FlatConfig.Config>) {
 	for (const conf of userConfigs) {

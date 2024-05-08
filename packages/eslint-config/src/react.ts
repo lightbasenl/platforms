@@ -14,8 +14,8 @@ export type ReactConfig = {
 };
 
 export async function react(config: ReactConfig): Promise<Array<FlatConfig.Config>> {
-	// Only expect the Next.js plugin if explicitly enabled.
-	// At some point we might infer this based on existence of the `next.config.js` file?
+	// Only expect the Next.js plugin if explicitly enabled. At some point we might infer this based
+	// on the existence of the `next.config.js` file?
 	const pluginNext =
 		config.withNextJs ?
 			(

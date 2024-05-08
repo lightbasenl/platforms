@@ -4,6 +4,7 @@
 	"private": true,
 	"license": "MIT",
 	"scripts": {
+		"postinstall": "patch-package",
 		"lint:ws": "npm run lint --workspaces --if-present --include-workspace-root",
 		"lint:ci:ws": "npm run lint:ci --workspaces --if-present --include-workspace-root",
 		"build:ws": "npm run build && npm run build --workspaces --if-present",
@@ -17,6 +18,7 @@
 	"devDependencies": {
 		"@lightbase/eslint-config": "0.1.0",
 		"@lightbase/tsconfig": "0.1.0",
+		"patch-package": "8.0.0",
 		"typescript": "5.4.5"
 	},
 	"engines": {

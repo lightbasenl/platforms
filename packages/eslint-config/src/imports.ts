@@ -8,8 +8,8 @@ export function imports(): Array<FlatConfig.Config> {
 	return [
 		{
 			// Setup import plugins. Includes unused-imports, to automatically remove them.
-			// This might not be the best experience if imports are added manually, but most people
-			// use auto-imports anyway (?!).
+			// This might not be the best experience if imports are added manually,
+			// but most people use auto-imports anyway (?!).
 			files: globUse([GLOBS.javascript, GLOBS.typescript]),
 			plugins: {
 				"import-x": pluginImport.default,
@@ -82,8 +82,8 @@ export function imports(): Array<FlatConfig.Config> {
 				"import-x/no-named-as-default": "off",
 				"import-x/no-named-as-default-member": "off",
 
-				// Re-enable once <https://github.com/import-js/eslint-plugin-import/issues/1479> is
-				// fixed. There is currently no related issue in eslint-plugin-import-x repo yet.
+				// Re-enable once <https://github.com/import-js/eslint-plugin-import/issues/1479> is fixed.
+				// There is currently no related issue in eslint-plugin-import-x repo yet.
 				"import-x/no-duplicates": "off",
 			},
 		},
