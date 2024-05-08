@@ -19,8 +19,8 @@ async function base(
 		.setValidatorCompiler(validatorCompiler)
 		.setSerializerCompiler(serializerCompiler);
 
-	// TODO: should only be enabled for specific plugin contexts. So we may want to expose a
-	// function with these defaults at some point?
+	// TODO: should only be enabled for specific plugin contexts. So we may want to expose a function
+	// with these defaults at some point?
 
 	await app.register(fastifyMultipart, {
 		limits: {
@@ -48,8 +48,7 @@ async function base(
 		},
 		attachFieldsToBody: true,
 
-		// TODO: with these limits, we probably want to specify an 'onFile' and save temporary to
-		//  disk.
+		// TODO: with these limits, we probably want to specify an 'onFile' and save temporary to disk.
 
 		...options.multipart,
 	});

@@ -37,6 +37,7 @@ export function prettierConfig(config?: PrettierConfig) {
 
 	const defaultConfig = {
 		printWidth: 90,
+		tabWidth: 2,
 		useTabs: true,
 		semi: true,
 		singleQuote: false,
@@ -52,8 +53,8 @@ export function prettierConfig(config?: PrettierConfig) {
 	};
 	config.languageOverrides ??= {};
 
-	// Dynamically add processors. We need just the original source to pass to Prettier. So if
-	// the file is already parsed by another ESLint parser, we need to create a virtual file.
+	// Dynamically add processors. We need just the original source to pass to Prettier. So if the
+	// file is already parsed by another ESLint parser, we need to create a virtual file.
 	const processors: Array<FlatConfig.Config> = [];
 	const selectGlob = (a: string, processor: FlatConfig.Processor) => {
 		if (globIsUsed(a)) {
@@ -172,11 +173,11 @@ export function prettierConfig(config?: PrettierConfig) {
 }
 
 /**
- * Make files available under a `.format` extension. This is necessary for all filetypes
- * that have a custom parser configured.
+ * Make files available under a `.format` extension. This is necessary for all filetypes that have
+ * a custom parser configured.
  *
- * ESLint only supports a single parser per file-type. Through config merging, the 'plain'
- * parser we use above would always overwrite specific parsers.
+ * ESLint only supports a single parser per file-type. Through config merging, the 'plain' parser
+ * we use above would always overwrite specific parsers.
  *
  * This is kinda hacky and not exactly sure what the consequences are yet...
  */
@@ -187,8 +188,8 @@ function formatProcessor(): FlatConfig.Processor {
 			version: "-",
 		},
 		preprocess(text: string, filename: string): Array<string | Linter.ProcessorFile> {
-			// Passes through the original file, and includes one with the `.format` prefix. This
-			// is also called a 'virtual' file.
+			// Passes through the original file, and includes one with the `.format` prefix. This is also
+			// called a 'virtual' file.
 			return [
 				text,
 				{

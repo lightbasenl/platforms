@@ -1,15 +1,27 @@
 import eslintConfigs from "@eslint/js";
 import typescriptEslintParser from "@typescript-eslint/parser";
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
+// @ts-expect-error no type defs
+import eslintPluginCommentLength from "eslint-plugin-comment-length";
 import pluginJsDoc from "eslint-plugin-jsdoc";
 import { GLOBS, globUse } from "./globs.js";
 import { lightbaseInternalPlugin } from "./plugin/index.js";
 
 export function javascript(): Array<FlatConfig.Config> {
+	const commentLengthOptions = {
+		mode: "overflow-only",
+		maxLength: 100,
+		logicalWrap: false,
+		tabSize: 2,
+		ignoreUrls: true,
+		ignoreCommentsWithCode: false,
+		tags: [],
+	};
+
 	return [
 		{
-			// Use the Typescript parser even if we don't Typescript. This allows us to use 'modern'
-			// JS features even if the built-in espree parser doesn't support it.
+			// Use the Typescript parser even if we don't Typescript. This allows us to use 'modern' JS
+			// features even if the built-in espree parser doesn't support it.
 			files: globUse([GLOBS.javascript]),
 			languageOptions: {
 				parser: typescriptEslintParser,
@@ -123,6 +135,18 @@ export function javascript(): Array<FlatConfig.Config> {
 					},
 				],
 				"jsdoc/valid-types": "off",
+			},
+		},
+
+		{
+			// Apply formatting on comments.
+			files: globUse([GLOBS.javascript, GLOBS.typescript]),
+			plugins: {
+				"comment-length": eslintPluginCommentLength as unknown as FlatConfig.Plugin,
+			},
+			rules: {
+				"comment-length/limit-single-line-comments": ["error", commentLengthOptions],
+				"comment-length/limit-multi-line-comments": ["error", commentLengthOptions],
 			},
 		},
 	] satisfies Array<FlatConfig.Config>;

@@ -25,7 +25,8 @@ export const nodeBuiltinModuleUrlImport: AnyRuleModule = {
 	create(context) {
 		return {
 			ImportDeclaration(node) {
-				// Note that builtinModules doesn't include the `node:` specifier, so we automatically skip these once fixed.
+				// Note that builtinModules doesn't include the `node:` specifier, so we automatically skip
+				// these once fixed.
 				if (!builtinModules.includes(node.source.value)) {
 					return;
 				}

@@ -16,8 +16,8 @@ export type TypescriptConfig =
  * explicitly passed.
  *
  * Prefers `tsconfig.eslint.json` over `tsconfig.json`. This distinction might be necessary,
- * since typescript-eslint expects all files to be part of the compile unit, but that might
- * not be needed for normal builds.
+ * since typescript-eslint expects all files to be part of the compile unit, but that might not be
+ * needed for normal builds.
  */
 export function typescriptResolveConfig(config?: TypescriptConfig): TypescriptConfig {
 	if (config === false) {
@@ -43,9 +43,9 @@ export function typescriptResolveConfig(config?: TypescriptConfig): TypescriptCo
 			config = false;
 		}
 	} else if (config.project === undefined) {
-		// An empty options object is passed, or an options object without project. Resolve
-		// project as if nothing was passed. This means that we might disable Typescript support
-		// even if the user explicitly passed `typescript: {}`.
+		// An empty options object is passed, or an options object without project. Resolve project as
+		// if nothing was passed. This means that we might disable Typescript support even if the user
+		// explicitly passed `typescript: {}`.
 		const emptyConfigResolved = typescriptResolveConfig(undefined);
 
 		if (
