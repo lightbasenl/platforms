@@ -35,8 +35,7 @@ export async function buildApp(opts: FastifyHttpOptions<http.Server> = {}) {
 					value:
 						request.body[key]?.type === "file" ?
 							request.body[key]?.mimetype
-						:	// @ts-expect-error TODO: not sure why yet.
-							request.body[key]?.value,
+						:	request.body[key]?.value,
 				})),
 			);
 		},

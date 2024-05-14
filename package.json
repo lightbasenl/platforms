@@ -19,7 +19,7 @@
 		"@lightbase/eslint-config": "0.1.0",
 		"@lightbase/tsconfig": "0.1.0",
 		"patch-package": "8.0.0",
-		"typescript": "5.4.5"
+		"typescript": "5.5.0-beta"
 	},
 	"engines": {
 		"node": ">=20"
