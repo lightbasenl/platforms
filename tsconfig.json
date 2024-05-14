@@ -1,5 +1,5 @@
 {
-	"extends": "@lightbase/tsconfig/node-package.json",
+	"extends": "@total-typescript/tsconfig/tsc/no-dom/library-monorepo",
 	"compilerOptions": {
 		// Only used to check JS files
 		"noEmit": true,

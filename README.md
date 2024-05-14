@@ -5,11 +5,15 @@ All public packages & GitHub workflows developed and used by
 
 ## Overview
 
-- Various [TSConfigs](./packages/tsconfig) to extend from
 - Configurable [ESLint-config](./packages/eslint-config) which includes linting and
   formatting
 - Various reusable workflows
   - [lib-license-checker](./docs/workflows/lib-license-checker.md)
+
+## Recommendations
+
+- Use [Total Typescript's TSConfig](https://github.com/total-typescript/tsconfig) package.
+  It provides a sensible default TypeScript config for most usecases.
 
 ## Contributing
 
