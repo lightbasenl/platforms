@@ -31,6 +31,8 @@ export interface PrettierConfig {
 export function prettierConfig(config?: PrettierConfig) {
 	// TODO: include CSS + tailwind
 
+	// TODO: Should be drop eslint-plugin-import in favor of https://github.com/IanVS/prettier-plugin-sort-imports?
+
 	// TODO: sql plugin
 
 	config ??= {};

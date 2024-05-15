@@ -35,6 +35,8 @@ export async function defineConfig(
 	const reactRelatedConfig =
 		opts.react ? await (await import("./react.js")).react(opts.react) : [];
 
+	// TODO: eslint-plugin-regex?
+
 	return [
 		// Global options
 		gitignore(),
