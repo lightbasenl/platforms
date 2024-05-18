@@ -1,5 +1,6 @@
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import markdown from "eslint-plugin-markdown";
+import typescriptEslint from "typescript-eslint";
 import { globMarkdownSnippetFromGlob, GLOBS, globUse } from "./globs.js";
 
 /**
@@ -12,6 +13,10 @@ export function markdownConfig() {
 				markdown,
 			},
 		},
+		{
+			files: globUse([GLOBS.markdown]),
+			processor: "markdown/markdown",
+		},
 	] satisfies Array<FlatConfig.Config>;
 }
 
@@ -19,9 +24,10 @@ export function markdownConfig() {
  * Load overrides for Markdown snippets. Is separate, to allow these rules to have priority.
  */
 export function markdownSnippetOverrides(): Array<FlatConfig.Config> {
+	// Disable rules in Markdown snippets
+
 	return [
 		{
-			// Disable rules in Markdown snippets
 			files: globUse([
 				globMarkdownSnippetFromGlob(GLOBS.javascript),
 				globMarkdownSnippetFromGlob(GLOBS.typescript),
@@ -29,6 +35,13 @@ export function markdownSnippetOverrides(): Array<FlatConfig.Config> {
 			rules: {
 				"unused-imports/no-unused-vars": "off",
 			},
+		},
+		{
+			files: globUse([
+				globMarkdownSnippetFromGlob(GLOBS.javascript),
+				globMarkdownSnippetFromGlob(GLOBS.typescript),
+			]),
+			...typescriptEslint.configs.disableTypeChecked,
 		},
 	] satisfies Array<FlatConfig.Config>;
 }

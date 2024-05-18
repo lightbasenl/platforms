@@ -202,8 +202,8 @@ This enables environment-specific globals for all files. For a stricter setup, u
 configuration as explained below
 
 ```js
-import { defineConfig } from "@lightbase/eslint-config";
 import globals from "globals";
+import { defineConfig } from "@lightbase/eslint-config";
 
 export default defineConfig(
 	{},
