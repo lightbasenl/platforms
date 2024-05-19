@@ -72,6 +72,7 @@ export function prettierConfig(config?: PrettierConfig) {
 
 	const yamlGlob = selectGlob(GLOBS.yaml, formatProcessor());
 	const jsonGlob = selectGlob(GLOBS.json, formatProcessor());
+	const mdGlob = selectGlob(GLOBS.markdown, formatProcessor());
 
 	const javascriptGlob = selectGlob(GLOBS.javascript, formatProcessor());
 	const typescriptGlob = selectGlob(GLOBS.typescript, formatProcessor());
@@ -80,7 +81,7 @@ export function prettierConfig(config?: PrettierConfig) {
 		...processors,
 
 		{
-			files: globUse([GLOBS.markdown, globMarkdownSnippetFromGlob(GLOBS.markdown)]),
+			files: globUse([mdGlob, globMarkdownSnippetFromGlob(mdGlob)]),
 			plugins: {
 				format: formatPlugin,
 			},

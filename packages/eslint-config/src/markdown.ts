@@ -1,4 +1,5 @@
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
+import { mergeProcessors, processorPassThrough } from "eslint-merge-processors";
 import markdown from "eslint-plugin-markdown";
 import typescriptEslint from "typescript-eslint";
 import { globMarkdownSnippetFromGlob, GLOBS, globUse } from "./globs.js";
@@ -9,13 +10,11 @@ import { globMarkdownSnippetFromGlob, GLOBS, globUse } from "./globs.js";
 export function markdownConfig() {
 	return [
 		{
+			files: [GLOBS.markdown],
 			plugins: {
 				markdown,
 			},
-		},
-		{
-			files: globUse([GLOBS.markdown]),
-			processor: "markdown/markdown",
+			processor: mergeProcessors([processorPassThrough, markdown.processors.markdown]),
 		},
 	] satisfies Array<FlatConfig.Config>;
 }
@@ -34,6 +33,14 @@ export function markdownSnippetOverrides(): Array<FlatConfig.Config> {
 			]),
 			rules: {
 				"unused-imports/no-unused-vars": "off",
+
+				"eol-last": "off",
+				"no-undef": "off",
+				"no-unused-expressions": "off",
+				"no-unused-vars": "off",
+				"padded-blocks": "off",
+				"strict": "off",
+				"unicode-bom": "off",
 			},
 		},
 		{

@@ -181,7 +181,7 @@ export const foo = 'bar';
 				{
 					path: "tsconfig.json",
 					contents: JSON.stringify({
-						extends: "@lightbase/tsconfig/node-package.json",
+						extends: "@total-typescript/tsconfig/tsc/no-dom/library-monorepo",
 						compilerOptions: {
 							outDir: "dist",
 						},
@@ -206,7 +206,7 @@ export const foo = 'bar';
 				{
 					path: "tsconfig.json",
 					contents: JSON.stringify({
-						extends: "@lightbase/tsconfig/node-package.json",
+						extends: "@total-typescript/tsconfig/tsc/no-dom/library-monorepo",
 						compilerOptions: {
 							outDir: "dist",
 						},
@@ -216,7 +216,7 @@ export const foo = 'bar';
 				{
 					path: "tsconfig.eslint.json",
 					contents: JSON.stringify({
-						extends: "@lightbase/tsconfig/node-package.json",
+						extends: "@total-typescript/tsconfig/tsc/no-dom/library-monorepo",
 						compilerOptions: {
 							noEmit: true,
 						},
