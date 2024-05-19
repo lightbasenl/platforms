@@ -1,9 +1,0 @@
-{
-	"extends": "@total-typescript/tsconfig/tsc/no-dom/app",
-	"compilerOptions": {
-		"outDir": "dist",
-		// We transpile this as an app, however, we need composite to run this as part of a top-level build.
-		"composite": true
-	},
-	"include": ["**/*"]
-}
