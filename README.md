@@ -7,13 +7,15 @@ All public packages & GitHub workflows developed and used by
 
 - Configurable [ESLint-config](./packages/eslint-config) which includes linting and
   formatting
+- A [Pull-through-cache](./packages/eslint-config) with TTL, update sampling and scheduled
+  eviction support.
 - Various reusable workflows
   - [lib-license-checker](./docs/workflows/lib-license-checker.md)
 
 ## Recommendations
 
 - Use [Total Typescript's TSConfig](https://github.com/total-typescript/tsconfig) package.
-  It provides a sensible default TypeScript config for most usecases.
+  It provides a sensible default TypeScript config for most use cases.
 
 ## Contributing
 
