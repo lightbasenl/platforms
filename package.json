@@ -16,13 +16,11 @@
 		"clean:ws": "npm run clean --workspaces --if-present --include-workspace-root"
 	},
 	"devDependencies": {
+		"@types/node": "20.12.12",
 		"@lightbase/eslint-config": "*",
 		"@total-typescript/tsconfig": "1.0.4",
 		"patch-package": "8.0.0",
-		"typescript": "5.5.0-dev.20240518"
-	},
-	"engines": {
-		"node": ">=20"
+		"typescript": "5.5.0-dev.20240519"
 	},
 	"workspaces": ["packages/*", "apps/*"]
 }
