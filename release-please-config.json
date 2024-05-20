@@ -1,0 +1,16 @@
+{
+	"bootstrap-sha": "35f416dd883667db7c44199bd3b15fb2655857cf",
+	"release-type": "node",
+	"packages": {
+		"packages/eslint-config": {},
+		"packages/pull-through-cache": {}
+	},
+	"plugins": [
+		{
+			"type": "node-workspace"
+		},
+		{
+			"type": "sentence-case"
+		}
+	]
+}
