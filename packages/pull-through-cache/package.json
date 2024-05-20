@@ -1,10 +1,16 @@
 {
 	"name": "@lightbase/pull-through-cache",
 	"version": "0.1.0",
+	"description": "Pull-through cache with TTL, updated sampler and periodic eviction support",
 	"type": "module",
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/lightbasenl/platforms/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lightbasenl/platforms",
+		"directory": "packages/pull-through-cache"
 	},
 	"exports": {
 		".": {

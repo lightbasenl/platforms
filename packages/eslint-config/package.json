@@ -1,10 +1,16 @@
 {
 	"name": "@lightbase/eslint-config",
 	"version": "0.1.0",
+	"description": "ESLint based linting and formatting configuration",
 	"type": "module",
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/lightbasenl/platforms/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lightbasenl/platforms",
+		"directory": "packages/eslint-config"
 	},
 	"exports": {
 		".": {
