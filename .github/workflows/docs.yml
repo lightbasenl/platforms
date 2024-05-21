@@ -8,6 +8,10 @@ on:
       - ".github/workflows/**"
       - "docs/**"
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   reusable-workflow-docs:
     runs-on: ubuntu-latest
@@ -25,7 +29,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: "Run auto-doc (lib-license-checker"
+      - name: "Run auto-doc (lib-license-checker)"
         uses: tj-actions/auto-doc@v3
         with:
           filename: "./.github/workflows/lib-license-checker.yml"
@@ -49,6 +53,8 @@ jobs:
         if: steps.changed-files.outputs.files_changed == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
+          # Wrong name, but gets the job done
+          token: ${{ secrets.REPO_ADMIN_TOKEN }}
           branch: "docs/workflows"
           delete-branch: "true"
           signoff: "true"
@@ -56,7 +62,3 @@ jobs:
           title: "docs(workflows): regenerated reusable workflow docs"
           body: |
             Executed [auto-doc](https://github.com/tj-actions/auto-doc).
-
-            *Make sure to Close and Reopen this PR to run the available GitHub actions [1].*
-
-            [1]: https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#triggering-further-workflow-runs
