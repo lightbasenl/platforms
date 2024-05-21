@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.1.1...pull-through-cache-v0.1.2) (2024-05-21)
+
+### Bug Fixes
+
+- Enabling the cache should reschedule the evict timer
+  ([94aa606](https://github.com/lightbasenl/platforms/commit/94aa6061b36e1d9ca7b33c11075c1d42157e2c68))
+
 ## [0.1.1](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.1.0...pull-through-cache-v0.1.1) (2024-05-21)
 
 ### Miscellaneous
