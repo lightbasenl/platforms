@@ -21,9 +21,11 @@ jobs:
         id: rp_step
         with:
           # Expires ~December 2024
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          token: ${{ secrets.REPO_ADMIN_TOKEN }}
           config-file: release-please-config.json
           manifest-file: release-please-manifest.json
+          signoff:
+            "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
 
   publish:
     needs:
