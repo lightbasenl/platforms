@@ -30,7 +30,7 @@
 	},
 	"dependencies": {
 		"@eslint/js": "8.57.0",
-		"@typescript-eslint/utils": "7.9.0",
+		"@typescript-eslint/utils": "7.10.0",
 		"diff-match-patch": "1.0.5",
 		"eslint": "8.57.0",
 		"eslint-config-flat-gitignore": "0.1.5",
@@ -45,7 +45,7 @@
 		"globals": "15.2.0",
 		"prettier": "3.2.5",
 		"synckit": "0.9.0",
-		"typescript-eslint": "7.9.0"
+		"typescript-eslint": "7.10.0"
 	},
 	"peerDependencies": {
 		"@next/eslint-plugin-next": "^14.1.4",
