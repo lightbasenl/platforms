@@ -30,6 +30,6 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"@lightbase/eslint-config": "*"
+		"@lightbase/eslint-config": "0.1.0"
 	}
 }
