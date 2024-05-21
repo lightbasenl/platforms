@@ -453,4 +453,31 @@ void test("evict timestamps", async (t) => {
 			assert.equal(cache.getAll().length, 0);
 		}
 	});
+
+	await t.test("disabling/enabling recreates the timer", async () => {
+		const { cache } = testCache();
+		cache.withEvictTimestamps({
+			timestamps: [
+				{
+					hours: 0,
+					minutes: 20,
+				},
+				{
+					hours: 0,
+					minutes: 40,
+				},
+			],
+		});
+
+		cache.disable();
+		mock.timers.tick(30 * 60 * 1000);
+		cache.enable();
+
+		await cache.get(45);
+		await cache.get(46);
+		assert.equal(cache.getAll().length, 2);
+		mock.timers.tick(30 * 60 * 1000);
+
+		assert.equal(cache.getAll().length, 0);
+	});
 });

@@ -250,6 +250,7 @@ export class PullThroughCache<KeyType, ValueType = never> {
 	 */
 	enable() {
 		this.#enabled = true;
+		this.#scheduleNextEvict();
 	}
 
 	/**
