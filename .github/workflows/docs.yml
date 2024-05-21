@@ -19,7 +19,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - name: "Checkout repository"
+      - name: "Checkout"
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -36,7 +36,7 @@ jobs:
           output: "./docs/workflows/lib-license-checker.md"
           reusable: true
 
-      - name: "Build the lint config and run lint."
+      - name: "Build the lint config and run lint"
         run: |
           npm install
           npm run build:ws

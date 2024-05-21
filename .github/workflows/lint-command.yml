@@ -1,4 +1,5 @@
-name: Lint PR command
+# Triggered by slash-command-dispatch.yml
+name: "Lint PR command"
 
 on:
   repository_dispatch:
@@ -10,10 +11,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint_pr:
+  lint-pr:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout repository"
+      - name: "Checkout"
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.REPO_ADMIN_TOKEN }}
@@ -25,7 +26,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: "Build the lint config and run lint."
+      - name: "Build the lint config and run lint"
         run: |
           npm install
           npm run build:ws || true

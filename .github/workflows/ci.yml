@@ -1,4 +1,4 @@
-name: Build, Lint, Test
+name: "Build, Lint, Test"
 
 on:
   push:
@@ -17,28 +17,28 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Checkout
+      - name: "Checkout"
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: "Setup Node.js"
         uses: actions/setup-node@v4
         with:
           # Can't cache, since we don't commit the lockfile
           node-version: 20
 
-      - name: Install dependencies
+      - name: "Install dependencies"
         run: |
           npm install
 
-      - name: Build
+      - name: "Build"
         run: |
           npm run build:ws
 
-      - name: Lint
+      - name: "Lint"
         run: |
           npm run lint:ci:ws
 
-      - name: Test
+      - name: "Test"
         run: |
           npm run test:ws
 
