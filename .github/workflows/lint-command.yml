@@ -29,7 +29,7 @@ jobs:
         run: |
           npm install
           npm run build:ws || true
-          npm run lint
+          npm run lint:ws
 
       - name: "Check for changed files"
         uses: tj-actions/verify-changed-files@v19
