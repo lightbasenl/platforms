@@ -1,0 +1,44 @@
+name: Lint PR command
+
+on:
+  repository_dispatch:
+    types: [lint-command]
+
+concurrency:
+  group:
+    "${{ github.workflow }} @ ${{ github.event.client_payload.pull_request.head.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  lint_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_ADMIN_TOKEN }}
+          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.client_payload.pull_request.head.ref }}
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: "Build the lint config and run lint."
+        run: |
+          npm install
+          npm run build:ws || true
+          npm run lint
+
+      - name: "Check for changed files"
+        uses: tj-actions/verify-changed-files@v19
+        id: changed-files
+
+      - name: "Commit changes"
+        if: steps.changed-files.outputs.files_changed == 'true'
+        run: |
+          git config --global user.name 'actions-bot'
+          git config --global user.email '58130806+actions-bot@users.noreply.github.com'
+          git commit -am "chore: lint fixes"
+          git push
