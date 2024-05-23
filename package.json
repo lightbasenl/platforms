@@ -20,7 +20,7 @@
 		"@lightbase/eslint-config": "*",
 		"@total-typescript/tsconfig": "1.0.4",
 		"patch-package": "8.0.0",
-		"typescript": "5.5.0-dev.20240521"
+		"typescript": "5.5.0-dev.20240522"
 	},
 	"workspaces": ["packages/*", "apps/*"]
 }
