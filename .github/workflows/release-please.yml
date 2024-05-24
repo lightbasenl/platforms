@@ -17,13 +17,27 @@ jobs:
       paths_released: ${{ steps.rp_step.outputs.paths_released }}
       releases_created: ${{ steps.rp_step.outputs.releases_created }}
     steps:
-      - uses: googleapis/release-please-action@v4
+      - name: "Release please"
+        uses: googleapis/release-please-action@v4
         id: rp_step
         with:
           # Expires ~December 2024
           token: ${{ secrets.REPO_ADMIN_TOKEN }}
           config-file: release-please-config.json
           manifest-file: release-please-manifest.json
+
+      - name: "Trigger lint fixes"
+        if: ${{ steps.rp_step.outputs.prs_created && steps.rp_step.outputs.pr != null }}
+        uses: actions/github-scripts@v7
+        with:
+          github-token: ${{ secrets.REPO_ADMIN_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: ${{ steps.rp_step.outputs.pr.number }}
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "/lint",
+            });
 
   publish:
     needs:
