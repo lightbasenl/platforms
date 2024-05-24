@@ -2,16 +2,20 @@
 
 ## [0.1.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.1.1...eslint-config-v0.1.2) (2024-05-24)
 
-
 ### Miscellaneous
 
-* **deps-dev:** Bump @next/eslint-plugin-next from 14.2.2 to 14.2.3 ([#55](https://github.com/lightbasenl/platforms/issues/55)) ([93df068](https://github.com/lightbasenl/platforms/commit/93df068a9833bf70cf3759a1e049d97b5e32ac9e))
-
+- **deps-dev:** Bump @next/eslint-plugin-next from 14.2.2 to 14.2.3
+  ([#55](https://github.com/lightbasenl/platforms/issues/55))
+  ([93df068](https://github.com/lightbasenl/platforms/commit/93df068a9833bf70cf3759a1e049d97b5e32ac9e))
 
 ### Dependencies
 
-* Bump eslint-plugin-jsdoc from 48.2.5 to 48.2.6 ([#70](https://github.com/lightbasenl/platforms/issues/70)) ([17d2ca8](https://github.com/lightbasenl/platforms/commit/17d2ca8c28dc7f4548126137a9a18f99a90cf890))
-* Bump globals from 15.2.0 to 15.3.0 ([#66](https://github.com/lightbasenl/platforms/issues/66)) ([1686257](https://github.com/lightbasenl/platforms/commit/1686257531262f1c0b4d9b67eb7eecbec0d57677))
+- Bump eslint-plugin-jsdoc from 48.2.5 to 48.2.6
+  ([#70](https://github.com/lightbasenl/platforms/issues/70))
+  ([17d2ca8](https://github.com/lightbasenl/platforms/commit/17d2ca8c28dc7f4548126137a9a18f99a90cf890))
+- Bump globals from 15.2.0 to 15.3.0
+  ([#66](https://github.com/lightbasenl/platforms/issues/66))
+  ([1686257](https://github.com/lightbasenl/platforms/commit/1686257531262f1c0b4d9b67eb7eecbec0d57677))
 
 ## [0.1.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.1.0...eslint-config-v0.1.1) (2024-05-21)
 
