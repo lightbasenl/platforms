@@ -1,18 +1,37 @@
-# Triggered by slash-command-dispatch.yml
-name: "Lint PR command"
+name: "Slash Commands"
 
 on:
+  issue_comment:
+    types: [created]
   repository_dispatch:
     types: [lint-command]
 
-concurrency:
-  group:
-    "${{ github.workflow }} @ ${{ github.event.client_payload.pull_request.head.ref }}"
-  cancel-in-progress: true
+permissions:
+  issues: write
+  pull-requests: write
 
 jobs:
-  lint-pr:
+  slash_command_dispatch:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'issue_comment' }}
+    steps:
+      - name: Slash Command Dispatch
+        uses: peter-evans/slash-command-dispatch@v4
+        with:
+          token: ${{ secrets.REPO_ADMIN_TOKEN }}
+          commands: |
+            lint
+
+  lint-command:
+    runs-on: ubuntu-latest
+    concurrency:
+      # Run only a single lint command per PR
+      group:
+        "${{ github.workflow }} @ ${{ github.event.client_payload.pull_request.head.ref }}"
+      cancel-in-progress: true
+    if:
+      ${{ github.event_name == 'repository_dispatch' && github.event.event_type ==
+      'lint-command' }}
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
@@ -27,6 +46,8 @@ jobs:
           node-version: 20
 
       - name: "Build the lint config and run lint"
+        # Note we ignore build failures. In most cases, the eslint-config package will still build.
+        # So we can at least attempt to fix some lint issues.
         run: |
           npm install
           npm run build:ws || true
