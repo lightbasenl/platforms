@@ -20,6 +20,4 @@ updates:
     versioning-strategy: increase-if-necessary
     commit-message:
       prefix: deps
-      prefix-development: chore
-
-    # TODO: apply groups
+      prefix-development: dev-deps
