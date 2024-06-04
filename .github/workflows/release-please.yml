@@ -33,7 +33,7 @@ jobs:
           github-token: ${{ secrets.REPO_ADMIN_TOKEN }}
           script: |
             github.rest.issues.createComment({
-              issue_number: ${{ steps.rp_step.outputs.pr.number }},
+              issue_number: ${{ fromJSON(steps.rp_step.outputs.pr).number }},
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: "/lint",
