@@ -2,18 +2,26 @@
 
 ## [0.1.3](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.1.2...eslint-config-v0.1.3) (2024-06-04)
 
-
 ### Miscellaneous
 
-* Bump eslint-plugin-react-hooks from 4.6.0 to 4.6.2 ([#65](https://github.com/lightbasenl/platforms/issues/65)) ([773fa1e](https://github.com/lightbasenl/platforms/commit/773fa1e7ddd77803f70ef5e5944025cbfac57f1f))
-
+- Bump eslint-plugin-react-hooks from 4.6.0 to 4.6.2
+  ([#65](https://github.com/lightbasenl/platforms/issues/65))
+  ([773fa1e](https://github.com/lightbasenl/platforms/commit/773fa1e7ddd77803f70ef5e5944025cbfac57f1f))
 
 ### Dependencies
 
-* Bump eslint-plugin-import-x from 0.5.0 to 0.5.1 ([#73](https://github.com/lightbasenl/platforms/issues/73)) ([d9d13ff](https://github.com/lightbasenl/platforms/commit/d9d13ffaa0ce2a10a702d12e8f0b4051b52b5508))
-* Bump eslint-plugin-jsdoc from 48.2.6 to 48.2.7 ([#87](https://github.com/lightbasenl/platforms/issues/87)) ([73f589e](https://github.com/lightbasenl/platforms/commit/73f589e8dd052eedbfbdcb13ca87990856b5fd1a))
-* Bump prettier from 3.2.5 to 3.3.0 ([#88](https://github.com/lightbasenl/platforms/issues/88)) ([5e34e9b](https://github.com/lightbasenl/platforms/commit/5e34e9bd0b52e0a37ef3b4084c01180e0a47029f))
-* Bump typescript-eslint from 7.10.0 to 7.11.0 ([#78](https://github.com/lightbasenl/platforms/issues/78)) ([da84242](https://github.com/lightbasenl/platforms/commit/da842428fd0b5eddfe6668706932607e4fa3ea2a))
+- Bump eslint-plugin-import-x from 0.5.0 to 0.5.1
+  ([#73](https://github.com/lightbasenl/platforms/issues/73))
+  ([d9d13ff](https://github.com/lightbasenl/platforms/commit/d9d13ffaa0ce2a10a702d12e8f0b4051b52b5508))
+- Bump eslint-plugin-jsdoc from 48.2.6 to 48.2.7
+  ([#87](https://github.com/lightbasenl/platforms/issues/87))
+  ([73f589e](https://github.com/lightbasenl/platforms/commit/73f589e8dd052eedbfbdcb13ca87990856b5fd1a))
+- Bump prettier from 3.2.5 to 3.3.0
+  ([#88](https://github.com/lightbasenl/platforms/issues/88))
+  ([5e34e9b](https://github.com/lightbasenl/platforms/commit/5e34e9bd0b52e0a37ef3b4084c01180e0a47029f))
+- Bump typescript-eslint from 7.10.0 to 7.11.0
+  ([#78](https://github.com/lightbasenl/platforms/issues/78))
+  ([da84242](https://github.com/lightbasenl/platforms/commit/da842428fd0b5eddfe6668706932607e4fa3ea2a))
 
 ## [0.1.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.1.1...eslint-config-v0.1.2) (2024-05-24)
 
