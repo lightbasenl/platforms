@@ -140,6 +140,11 @@ Enable the cache. If the cache is already enabled, this call is a no-op.
 Disable the cache. On invocation, the cache will evict all its entries. See
 [`.isEnabled()](#isenabled-boolean) for behavior of the other methods.
 
+### `.clearAll(): void`
+
+Remove all cached entries from the cache. If `withEvictTimestamps` is used, the eviction
+might be skipped if the eviction happens at the exact moment that this function is called.
+
 ## License
 
 [MIT](./LICENSE)

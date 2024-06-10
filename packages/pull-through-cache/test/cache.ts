@@ -205,6 +205,18 @@ void test("baseline", async (t) => {
 		cache.disable();
 		assert.equal(cache.getAll().length, 0);
 	});
+
+	await t.test("calling 'clearAll' clears all entries", async () => {
+		const { cache } = testCache((_cache, key) => {
+			_cache.setMany(Array.from({ length: 10 }).map((_, idx) => [idx, idx]));
+			return cache.get(key);
+		});
+
+		assert.equal(await cache.get(1), 1);
+		assert.deepEqual(cache.getAll(), [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+		cache.clearAll();
+		assert.equal(cache.getAll().length, 0);
+	});
 });
 
 void test("ttl", async (t) => {

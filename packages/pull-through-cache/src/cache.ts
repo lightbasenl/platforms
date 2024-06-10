@@ -15,6 +15,8 @@ export type CacheSamplerFn<KeyType, ValueType> = (
 	value: ValueType,
 ) => Promise<CacheSamplerResult> | CacheSamplerResult;
 
+type CacheEvent = "hit" | "miss";
+
 type CacheSamplerResult = "expire" | "keep";
 
 /**
@@ -260,6 +262,15 @@ export class PullThroughCache<KeyType, ValueType = never> {
 	disable() {
 		this.#enabled = false;
 		this.#clear();
+	}
+
+	/**
+	 * Remove all cached entries from the cache. If {@link withEvictTimestamps} is used, the eviction
+	 * might be skipped if the eviction happens at the exact moment that this function is called.
+	 */
+	clearAll() {
+		this.#clear();
+		this.#scheduleNextEvict();
 	}
 
 	#setKey(key: KeyType, value: ValueType) {
