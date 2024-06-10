@@ -1,19 +1,28 @@
 import assert from "node:assert/strict";
 import { test, mock } from "node:test";
+import type { CacheEventCallback } from "../src/cache.js";
 import { PullThroughCache } from "../src/index.js";
 import type { CacheSamplerFn } from "../src/index.js";
 import type { CacheFetcherFn } from "../src/index.js";
 
 function testCache(fetcher?: CacheFetcherFn<number, number | undefined>) {
 	fetcher ??= (_cache, key) => key;
+
 	const mockedFetcher = mock.fn(fetcher);
-	const cache = new PullThroughCache<number, number | undefined>().withFetcher({
-		fetcher: mockedFetcher as typeof fetcher,
-	});
+	const mockedEventCallback = mock.fn((_event: Parameters<CacheEventCallback>[0]) => {});
+
+	const cache = new PullThroughCache<number, number | undefined>()
+		.withFetcher({
+			fetcher: mockedFetcher as typeof fetcher,
+		})
+		.withEventCallback({
+			callback: mockedEventCallback,
+		});
 
 	return {
 		cache,
 		fetcher: mockedFetcher,
+		eventCallback: mockedEventCallback,
 	};
 }
 
@@ -24,8 +33,10 @@ function testSampledCache({
 	stepValue: number;
 	sampler: CacheSamplerFn<number, number | undefined>;
 }) {
-	const { cache, fetcher } = testCache();
+	const { cache, fetcher, eventCallback } = testCache();
+
 	const mockedSampler = mock.fn(sampler);
+
 	cache.withUpdatedSampler({
 		sampler: mockedSampler as CacheSamplerFn<number, number | undefined>,
 		stepValue,
@@ -34,6 +45,7 @@ function testSampledCache({
 	return {
 		cache,
 		fetcher,
+		eventCallback,
 		sampler: mockedSampler,
 	};
 }
@@ -108,27 +120,35 @@ void test("baseline", async (t) => {
 	});
 
 	await t.test("call the fetcher on a new key", async () => {
-		const { cache, fetcher } = testCache();
+		const { cache, fetcher, eventCallback } = testCache();
 
 		assert.equal(await cache.get(5), 5);
 
 		assert.equal(fetcher.mock.callCount(), 1);
 		assert.equal(fetcher.mock.calls[0]?.arguments[0], cache);
 		assert.equal(fetcher.mock.calls[0]?.arguments[1], 5);
+
+		assert.equal(eventCallback.mock.callCount(), 1);
+		assert.equal(eventCallback.mock.calls[0]?.arguments[0], "miss");
 	});
 
 	await t.test("call the fetcher once for a specific key", async () => {
-		const { cache, fetcher } = testCache();
+		const { cache, fetcher, eventCallback } = testCache();
 
 		assert.equal(await cache.get(5), 5);
 		assert.equal(await cache.get(5), 5);
 		assert.equal(await cache.get(5), 5);
 
 		assert.equal(fetcher.mock.callCount(), 1);
+
+		assert.equal(eventCallback.mock.callCount(), 3);
+		assert.equal(eventCallback.mock.calls[0]?.arguments[0], "miss");
+		assert.equal(eventCallback.mock.calls[1]?.arguments[0], "hit");
+		assert.equal(eventCallback.mock.calls[2]?.arguments[0], "hit");
 	});
 
 	await t.test("call the fetcher each time if the cache is disabled", async () => {
-		const { cache, fetcher } = testCache();
+		const { cache, fetcher, eventCallback } = testCache();
 
 		cache.disable();
 
@@ -138,10 +158,15 @@ void test("baseline", async (t) => {
 		assert.equal(cache.getAll().length, 0);
 
 		assert.equal(fetcher.mock.callCount(), 3);
+
+		assert.equal(eventCallback.mock.callCount(), 3);
+		assert.equal(eventCallback.mock.calls[0]?.arguments[0], "miss");
+		assert.equal(eventCallback.mock.calls[1]?.arguments[0], "miss");
+		assert.equal(eventCallback.mock.calls[2]?.arguments[0], "miss");
 	});
 
 	await t.test("call the fetcher once per different key", async () => {
-		const { cache, fetcher } = testCache();
+		const { cache, fetcher, eventCallback } = testCache();
 
 		assert.equal(await cache.get(5), 5);
 		assert.equal(await cache.get(6), 6);
@@ -153,6 +178,11 @@ void test("baseline", async (t) => {
 		assert.equal(fetcher.mock.calls[0]?.arguments[1], 5);
 		assert.equal(fetcher.mock.calls[1]?.arguments[0], cache);
 		assert.equal(fetcher.mock.calls[1]?.arguments[1], 6);
+
+		assert.equal(eventCallback.mock.callCount(), 3);
+		assert.equal(eventCallback.mock.calls[0]?.arguments[0], "miss");
+		assert.equal(eventCallback.mock.calls[1]?.arguments[0], "miss");
+		assert.equal(eventCallback.mock.calls[2]?.arguments[0], "hit");
 	});
 
 	await t.test("getAll returns the cached values", async () => {
@@ -328,7 +358,7 @@ void test("updatedSampler", async (t) => {
 	await t.test(
 		"sampler result 'keep' does not result in an extra call to the fetcher",
 		async () => {
-			const { cache, fetcher, sampler } = testSampledCache({
+			const { cache, fetcher, sampler, eventCallback } = testSampledCache({
 				stepValue: 1,
 				sampler: () => "keep",
 			});
@@ -340,12 +370,17 @@ void test("updatedSampler", async (t) => {
 			await cache.get(21);
 			assert.equal(fetcher.mock.callCount(), 1);
 			assert.equal(sampler.mock.callCount(), 1);
+
+			assert.equal(eventCallback.mock.callCount(), 3);
+			assert.equal(eventCallback.mock.calls[0]?.arguments[0], "miss");
+			assert.equal(eventCallback.mock.calls[1]?.arguments[0], "sample-keep");
+			assert.equal(eventCallback.mock.calls[2]?.arguments[0], "hit");
 		},
 	);
 	await t.test(
 		"sampler result 'expire' results in another call to the fetcher",
 		async () => {
-			const { cache, fetcher, sampler } = testSampledCache({
+			const { cache, fetcher, sampler, eventCallback } = testSampledCache({
 				stepValue: 1,
 				sampler: () => "expire",
 			});
@@ -357,6 +392,11 @@ void test("updatedSampler", async (t) => {
 			await cache.get(22);
 			assert.equal(fetcher.mock.callCount(), 2);
 			assert.equal(sampler.mock.callCount(), 1);
+
+			assert.equal(eventCallback.mock.callCount(), 3);
+			assert.equal(eventCallback.mock.calls[0]?.arguments[0], "miss");
+			assert.equal(eventCallback.mock.calls[1]?.arguments[0], "sample-expire");
+			assert.equal(eventCallback.mock.calls[2]?.arguments[0], "miss");
 		},
 	);
 

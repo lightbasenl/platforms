@@ -85,6 +85,11 @@ Set the fetcher to be called when an unknown or expired key is used in `cache.ge
 
 If `cache.get()` is called, before the `fetcher` is set, the cache will throw an error.
 
+### `.withEventCallback({ callback: (event: CacheEvent) => void }): PullThroughCache`
+
+Receive a callback when certain cache events happen, like hits and misses. This can be
+used to keep track of the cache performance and the impact on setting and usage changes.
+
 ### `.get(key: KeyType): Promise<ValueType>`
 
 Retrieve a value from the cache. May call both the `sampler` from `.withUpdatedSampler` as

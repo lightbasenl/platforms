@@ -1,21 +1,34 @@
+import type { EvictTimestamp } from "./evict-timestamp.js";
 import {
 	millisecondsTillTimestamp,
 	selectNextTimestamp,
 	sortEvictTimestamps,
 } from "./evict-timestamp.js";
-import type { EvictTimestamp } from "./evict-timestamp.js";
 
+/**
+ * Fetcher callback type to be used with {@link PullThroughCache#withFetcher}.
+ */
 export type CacheFetcherFn<KeyType, ValueType> = (
 	cache: PullThroughCache<KeyType, ValueType>,
 	key: KeyType,
 ) => Promise<ValueType> | ValueType;
 
+/**
+ * Sampler callback type to be used with {@link PullThroughCache#withUpdatedSampler}.
+ */
 export type CacheSamplerFn<KeyType, ValueType> = (
 	key: KeyType,
 	value: ValueType,
 ) => Promise<CacheSamplerResult> | CacheSamplerResult;
 
-type CacheEvent = "hit" | "miss";
+/**
+ * Event callback type to be used with {@link PullThroughCache#withEventCallback}.
+ * This may be called multiple times in a single {@link PullThroughCache#get} call, so make sure to
+ * offload heavy work elsewhere
+ */
+export type CacheEventCallback = (event: CacheEvent) => void;
+
+type CacheEvent = "hit" | "miss" | "sample-expire" | "sample-keep";
 
 type CacheSamplerResult = "expire" | "keep";
 
@@ -31,8 +44,8 @@ type CacheSamplerResult = "expire" | "keep";
  *
  * Note that if you create local caches for requests or other units of work with {@link
  * PullThroughCache.withEvictTimestamps}, make sure to call {@link PullThroughCache.disable}
- * before it goes out of scope. This clears all caches, timers, etc. So the garbage-collector can
- * clean this instance up.
+ * before it goes out of scope. This clears all caches, timers, etc. So the garbage-collector
+ * can clean this instance up.
  */
 export class PullThroughCache<KeyType, ValueType = never> {
 	#enabled = true;
@@ -57,6 +70,8 @@ export class PullThroughCache<KeyType, ValueType = never> {
 	#fetcher: CacheFetcherFn<KeyType, ValueType> = () => {
 		throw new Error("Make sure to call '.withFetcher()' before using the cache.");
 	};
+
+	#eventCallback?: CacheEventCallback;
 
 	/**
 	 * Expire cached entries once they are in the cache for `opts.ttl` milliseconds. When
@@ -154,13 +169,27 @@ export class PullThroughCache<KeyType, ValueType = never> {
 	}
 
 	/**
+	 * Receive a callback when certain cache events happen, like hits and misses. This can be
+	 * used to keep track of the cache performance and the impact on setting and usage changes.
+	 */
+	withEventCallback({
+		callback,
+	}: {
+		callback: CacheEventCallback;
+	}): PullThroughCache<KeyType, ValueType> {
+		this.#eventCallback = callback;
+
+		return this;
+	}
+
+	/**
 	 * Retrieve a value from the cache. May call both the `sampler` from {@link
 	 * PullThroughCache.withUpdatedSampler} as well as the `fetcher` from {@link
 	 * PullThroughCache.withFetcher}.
 	 */
 	async get(key: KeyType): Promise<ValueType> {
 		if (!this.isEnabled()) {
-			return this.#fetcher(this, key);
+			return this.#callFetcher(key);
 		}
 
 		this.#clearKeyOnTTLExpiry(key);
@@ -172,7 +201,9 @@ export class PullThroughCache<KeyType, ValueType = never> {
 			const value = this.#valueMap.get(key)!;
 
 			const samplerResult = await this.#sampleKey(key, value);
+
 			if (samplerResult === "keep") {
+				this.#emit("hit");
 				return value;
 			}
 
@@ -180,7 +211,7 @@ export class PullThroughCache<KeyType, ValueType = never> {
 			this.#clearKey(key);
 		}
 
-		const value = await this.#fetcher(this, key);
+		const value = await this.#callFetcher(key);
 		this.#setKey(key, value);
 
 		return value;
@@ -265,12 +296,19 @@ export class PullThroughCache<KeyType, ValueType = never> {
 	}
 
 	/**
-	 * Remove all cached entries from the cache. If {@link withEvictTimestamps} is used, the eviction
-	 * might be skipped if the eviction happens at the exact moment that this function is called.
+	 * Remove all cached entries from the cache. If {@link withEvictTimestamps} is used, the
+	 * eviction might be skipped if the eviction happens at the exact moment that this function
+	 * is called.
 	 */
 	clearAll() {
 		this.#clear();
 		this.#scheduleNextEvict();
+	}
+
+	#emit(event: CacheEvent) {
+		if (this.#eventCallback) {
+			this.#eventCallback(event);
+		}
 	}
 
 	#setKey(key: KeyType, value: ValueType) {
@@ -345,14 +383,35 @@ export class PullThroughCache<KeyType, ValueType = never> {
 		}
 
 		if (this.#stepValue !== undefined && this.#stepCounter % this.#stepValue === 0) {
-			return this.#sampler(key, value);
+			return this.#callSampler(key, value);
 		}
 
 		if (this.#randomValue !== undefined && Math.random() < this.#randomValue) {
-			return this.#sampler(key, value);
+			return this.#callSampler(key, value);
 		}
 
 		return "keep";
+	}
+
+	#callFetcher(key: KeyType) {
+		this.#emit("miss");
+		return this.#fetcher(this, key);
+	}
+
+	/**
+	 * Call sync or async samplers and emit the correct event based on the resulting action.
+	 */
+	#callSampler(key: KeyType, value: ValueType) {
+		const samplerResult = this.#sampler(key, value);
+		if (typeof samplerResult === "string") {
+			this.#emit(`sample-${samplerResult}`);
+			return samplerResult;
+		}
+
+		return samplerResult.then((samplerResult) => {
+			this.#emit(`sample-${samplerResult}`);
+			return samplerResult;
+		});
 	}
 
 	#scheduleNextEvict() {
