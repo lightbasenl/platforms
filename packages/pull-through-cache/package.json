@@ -1,6 +1,6 @@
 {
 	"name": "@lightbase/pull-through-cache",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"description": "Pull-through cache with TTL, updated sampler and periodic eviction support",
 	"type": "module",
 	"license": "MIT",
