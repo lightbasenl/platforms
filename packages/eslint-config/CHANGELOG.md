@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.1.4...eslint-config-v0.2.0) (2024-06-25)
+
+### Features
+
+- Disable import rules which are covered by TypeScript
+  ([a0982be](https://github.com/lightbasenl/platforms/commit/a0982be2671df4c7044f70f9aec68adf4e99ec61))
+
+### Dependencies
+
+- Bump eslint-plugin-jsdoc from 48.2.9 to 48.2.12
+  ([#105](https://github.com/lightbasenl/platforms/issues/105))
+  ([630ca69](https://github.com/lightbasenl/platforms/commit/630ca693691850bd1d41ff7145b839738bf6fac8))
+- Bump globals from 15.4.0 to 15.6.0
+  ([#106](https://github.com/lightbasenl/platforms/issues/106))
+  ([627ed9d](https://github.com/lightbasenl/platforms/commit/627ed9dceb451a1e05014f1d2f9d3b437ceaea7e))
+- Bump prettier from 3.3.1 to 3.3.2
+  ([#101](https://github.com/lightbasenl/platforms/issues/101))
+  ([51aace8](https://github.com/lightbasenl/platforms/commit/51aace844ab10625b94d378fe3aee3cdeba6e6e2))
+- Bump typescript-eslint from 7.12.0 to 7.13.0
+  ([#98](https://github.com/lightbasenl/platforms/issues/98))
+  ([8d1c475](https://github.com/lightbasenl/platforms/commit/8d1c475e3823224e85bf2595a51a745fc1b5ea06))
+- Bump typescript-eslint from 7.13.0 to 7.14.1
+  ([#116](https://github.com/lightbasenl/platforms/issues/116))
+  ([a726e42](https://github.com/lightbasenl/platforms/commit/a726e420dcb42690e3d1707bfa5e145ef8e979e1))
+
 ## [0.1.4](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.1.3...eslint-config-v0.1.4) (2024-06-07)
 
 ### Dependencies
