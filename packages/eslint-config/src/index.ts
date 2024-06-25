@@ -67,7 +67,7 @@ export async function defineConfig(
 		...markdownConfig(),
 		...javascript(),
 		...typescript(opts.typescript),
-		...imports(),
+		...imports(opts.typescript),
 
 		// Ecosystem specific
 		...reactRelatedConfig,

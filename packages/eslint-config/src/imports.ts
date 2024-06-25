@@ -3,8 +3,9 @@ import * as pluginImport from "eslint-plugin-import-x";
 // @ts-expect-error No types available
 import pluginUnusedImports from "eslint-plugin-unused-imports";
 import { GLOBS, globUse } from "./globs.js";
+import type { TypescriptConfig } from "./typescript.js";
 
-export function imports(): Array<FlatConfig.Config> {
+export function imports(typescript: TypescriptConfig) {
 	return [
 		{
 			// Setup import plugins. Includes unused-imports, to automatically remove them.
@@ -29,9 +30,7 @@ export function imports(): Array<FlatConfig.Config> {
 				"import-x/no-empty-named-blocks": "error",
 				"import-x/no-commonjs": "error",
 				"import-x/no-amd": "error",
-				"import-x/named": "error",
 				"import-x/first": "error",
-				"import-x/namespace": "off",
 				"import-x/newline-after-import": ["error", { count: 1 }],
 				"import-x/no-default-export": "error",
 				"import-x/order": [
@@ -44,8 +43,22 @@ export function imports(): Array<FlatConfig.Config> {
 						},
 					},
 				],
-				"import-x/no-unresolved": ["error"],
 				"import-x/consistent-type-specifier-style": ["error", "prefer-top-level"],
+
+				...(typescript ?
+					{
+						// Disable rules as recommended by TypeScript-eslint https://typescript-eslint.io/troubleshooting/typed-linting/performance#eslint-plugin-import
+						"import-x/named": "off",
+						"import-x/namespace": "off",
+						"import-x/default": "off",
+						"import-x/no-named-as-default-member": "off",
+						"import-x/no-unresolved": "off",
+					}
+				:	{
+						"import-x/named": "error",
+						"import-x/namespace": "off",
+						"import-x/no-unresolved": "error",
+					}),
 
 				// Make sure to disable no-unused-vars
 				"no-unused-vars": "off",
