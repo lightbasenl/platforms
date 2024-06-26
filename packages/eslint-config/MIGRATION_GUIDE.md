@@ -54,6 +54,12 @@ The migration can be done by following these steps:
 
 - Remove the `vendor/eslint-plugin` directory.
 - Install this package with `npm install --save-dev --exact @lightbase/eslint-config`
+  - Install the React & Next.js related peer dependencies with
+    `npm install --save-dev --exact eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-plugin-no-relative-import-paths @next/eslint-plugin-next`
+  - Note, the NPM may keep an old installed version around like ESLint v8.51. You can
+    force override this by either removing the `package-lock.json` and `node_modules` and
+    reinstalling. Or by explicitly installing ESLint with
+    `npm install --save-dev --exact eslint`.
 - Remove `.eslintrc`, `.eslintignore`, `.prettierignore` and `.prettierrc(.js)` files.
 - Remove the `prettier` key from your package.json.
 - Remove all existing `lint`, `format` and `pretty` scripts from your package.json.
@@ -69,12 +75,27 @@ The migration can be done by following these steps:
     your `includes` in the `tsconfig.json`.
 - Update your CI scripts to use the `npm run lint:ci` command.
 
+Since we lint separately on CI, we can instruct Next.js to skip linting before building:
+
+```js
+// next.config.js
+module.exports = {
+	// ... config
+
+	eslint: {
+		// We run lint separately before building.
+		ignoreDuringBuilds: true,
+	},
+};
+```
+
 ```js
 import { defineConfig } from "@lightbase/eslint-config";
 
 export default defineConfig(
 	{
 		prettier: {
+			// Backwards compatibility
 			globalOverride: {
 				printWidth: 110,
 				useTabs: false,
@@ -90,12 +111,21 @@ export default defineConfig(
 		},
 	},
 	{
+		// Disable strict rules for generated files.
 		files: ["**/generated/**/*.*"],
 		rules: {
 			"@typescript-eslint/ban-types": "off",
 			"@typescript-eslint/no-explicit-any": "off",
 			"@typescript-eslint/no-unused-vars": "off",
 			"unused-imports/no-unused-vars": "off",
+		},
+	},
+	{
+		// Disable various rules for CJS config files like `next.config.js` and `postcss.config.js`
+		files: ["**.js"],
+		rules: {
+			"import-x/no-commonjs": "off",
+			"@typescript-eslint/no-var-requires": "off",
 		},
 	},
 );

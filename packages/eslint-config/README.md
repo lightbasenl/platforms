@@ -159,7 +159,7 @@ The config optionally supports enabling React and Next.js specific rules. Add th
 following dependencies:
 
 ```shell
-npm install --save-dev --exact eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y
+npm install --save-dev --exact eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-plugin-no-relative-import-paths
 ```
 
 If you use Next.js, make sure to also add `@next/eslint-plugin-next` via:
