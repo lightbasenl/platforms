@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.3.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.2.0...eslint-config-v0.3.0) (2024-06-26)
+
+### Features
+
+- Use `EXPERIMENTAL_projectService` in typescript-eslint
+  ([61ed5db](https://github.com/lightbasenl/platforms/commit/61ed5db80d34406c6f77ac91defaa154b6b7b224))
+
+### Bug Fixes
+
+- Allow commonjs in markdown snippets
+  ([62d76d6](https://github.com/lightbasenl/platforms/commit/62d76d6956c9f0d5c1563c73b0aaf7bc190499b3))
+
+### Miscellaneous
+
+- Add various suggestions to the MIGRATION_GUIDE.md
+  ([90294ae](https://github.com/lightbasenl/platforms/commit/90294ae4b96d0df6cf0e6669faf0f21db625b832))
+
+### Dependencies
+
+- Bump eslint-plugin-import-x from 0.5.1 to 0.5.2
+  ([#118](https://github.com/lightbasenl/platforms/issues/118))
+  ([f9ca4c2](https://github.com/lightbasenl/platforms/commit/f9ca4c2b1c188bc9c445b2d1195ffee8102fc487))
+- Bump eslint-plugin-jsdoc from 48.2.12 to 48.4.0
+  ([#119](https://github.com/lightbasenl/platforms/issues/119))
+  ([b65b9c2](https://github.com/lightbasenl/platforms/commit/b65b9c2acd36da39f19343840817514763d92d0d))
+
 ## [0.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.1.4...eslint-config-v0.2.0) (2024-06-25)
 
 ### Features
