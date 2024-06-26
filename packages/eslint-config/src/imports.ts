@@ -3,9 +3,9 @@ import * as pluginImport from "eslint-plugin-import-x";
 // @ts-expect-error No types available
 import pluginUnusedImports from "eslint-plugin-unused-imports";
 import { GLOBS, globUse } from "./globs.js";
-import type { TypescriptConfig } from "./typescript.js";
+import type { TypeScriptConfig } from "./typescript.js";
 
-export function imports(typescript: TypescriptConfig) {
+export function imports(typescript: TypeScriptConfig) {
 	return [
 		{
 			// Setup import plugins. Includes unused-imports, to automatically remove them.

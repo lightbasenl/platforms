@@ -12,11 +12,11 @@ import { prettierConfig } from "./prettier.js";
 import type { PrettierConfig } from "./prettier.js";
 import type { ReactConfig } from "./react.js";
 import { typescript, typescriptResolveConfig } from "./typescript.js";
-import type { TypescriptConfig } from "./typescript.js";
+import type { TypeScriptConfig } from "./typescript.js";
 
 interface LightbaseEslintConfigOptions {
 	prettier?: PrettierConfig;
-	typescript?: TypescriptConfig;
+	typescript?: TypeScriptConfig;
 	react?: ReactConfig;
 	globals?: GlobalsConfig;
 }

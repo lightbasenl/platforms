@@ -4,73 +4,72 @@ import typescriptEslint from "typescript-eslint";
 import { GLOBS, globUse } from "./globs.js";
 import { lightbaseInternalPlugin } from "./plugin/index.js";
 
-export type TypescriptConfig =
+export type TypeScriptConfig =
 	| boolean
 	| {
-			project?: boolean | string;
+			projectService?: boolean;
 			disableTypeCheckedRules?: boolean;
 	  };
 
 /**
- * Infer the correct tsconfig to use, or let typescript-eslint figure it out if 'true' is
- * explicitly passed.
+ * Resolve the provided TypeScript options.
  *
- * Prefers `tsconfig.eslint.json` over `tsconfig.json`. This distinction might be necessary,
- * since typescript-eslint expects all files to be part of the compile unit, but that might not be
- * needed for normal builds.
+ * If `undefined` is passed, we check if a `tsconfig.json` exists in the current working directory
+ * and enable the TypeScript rules if so.
  */
-export function typescriptResolveConfig(config?: TypescriptConfig): TypescriptConfig {
+export function typescriptResolveConfig(config?: TypeScriptConfig): TypeScriptConfig {
 	if (config === false) {
 		return false;
 	}
 
 	if (config === true) {
-		config = {
-			project: true,
+		return {
+			projectService: true,
 		};
 	}
 
 	if (config === undefined) {
-		if (existsSync("./tsconfig.eslint.json")) {
-			config = {
-				project: "./tsconfig.eslint.json",
+		if (existsSync("./tsconfig.json")) {
+			return {
+				projectService: true,
 			};
-		} else if (existsSync("./tsconfig.json")) {
-			config = {
-				project: "./tsconfig.json",
-			};
-		} else {
-			config = false;
 		}
-	} else if (config.project === undefined) {
-		// An empty options object is passed, or an options object without project. Resolve project as
-		// if nothing was passed. This means that we might disable Typescript support even if the user
-		// explicitly passed `typescript: {}`.
+
+		return false;
+	}
+
+	if (config.projectService === undefined) {
+		// An empty options object is passed, or an options object without projectService. Resolve
+		// project as if nothing was passed. This means that we might disable Typescript support even if
+		// the user explicitly passed `typescript: {}`.
 		const emptyConfigResolved = typescriptResolveConfig(undefined);
+
+		if (!emptyConfigResolved) {
+			// Disable, this means that we most likely couldn't find a tsconfig.json
+			return false;
+		}
 
 		if (
 			typeof emptyConfigResolved === "object" &&
-			"project" in emptyConfigResolved &&
-			emptyConfigResolved.project
+			emptyConfigResolved.projectService !== undefined
 		) {
-			config.project = emptyConfigResolved.project;
-		} else if (!emptyConfigResolved) {
-			// If undefined or false is returned, we disable, even if other config props are passed.
-			return false;
+			config.projectService = emptyConfigResolved.projectService;
+
+			return config;
 		}
 	}
 
 	return config;
 }
 
-export function typescript(config: TypescriptConfig): Array<FlatConfig.Config> {
+export function typescript(config: TypeScriptConfig): Array<FlatConfig.Config> {
 	if (config === false) {
 		return [];
 	}
 
 	if (typeof config === "boolean") {
 		config = {
-			project: true,
+			projectService: true,
 		};
 	}
 
@@ -84,7 +83,7 @@ export function typescript(config: TypescriptConfig): Array<FlatConfig.Config> {
 			languageOptions: {
 				parser: typescriptEslint.parser,
 				parserOptions: {
-					project: config.project,
+					EXPERIMENTAL_useProjectService: config.projectService,
 					warnOnUnsupportedTypeScriptVersion: false,
 				},
 			},

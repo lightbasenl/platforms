@@ -80,8 +80,8 @@ export default defineConfig({
 
 ### Typescript
 
-[Typescript ESLint](http://typescript-eslint.io/) is automatically enabled if either
-`tsconfig.eslint.json` or `tsconfig.json` is present, preferring to use the former.
+[Typescript ESLint](http://typescript-eslint.io/) is automatically enabled if a
+`tsconfig.json` is present.
 
 ```js
 import { defineConfig } from "@lightbase/eslint-config";
@@ -98,19 +98,7 @@ export default defineConfig(
 );
 ```
 
-Providing a custom tsconfig location is possible as well:
-
-```js
-import { defineConfig } from "@lightbase/eslint-config";
-
-export default defineConfig({
-	typescript: {
-		project: "./tsconfig.test.json",
-	},
-});
-```
-
-Or explicitly disabling Typescript support
+Or explicitly disabling Typescript support can be done with:
 
 ```js
 import { defineConfig } from "@lightbase/eslint-config";

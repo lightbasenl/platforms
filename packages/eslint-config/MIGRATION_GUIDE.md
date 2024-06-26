@@ -71,8 +71,6 @@ The migration can be done by following these steps:
   - This will most likely fail a few times. In some cases, the built-in Prettier setup is
     not able to auto-fix in this migration. This won't be an issue while using the new
     setup.
-  - You might need to add TS type checking for JavaScript files by adding ` "**/*.*js"` to
-    your `includes` in the `tsconfig.json`.
 - Update your CI scripts to use the `npm run lint:ci` command.
 
 Since we lint separately on CI, we can instruct Next.js to skip linting before building:

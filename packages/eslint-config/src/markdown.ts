@@ -44,12 +44,23 @@ export function markdownSnippetOverrides(): Array<FlatConfig.Config> {
 				"unicode-bom": "off",
 			},
 		},
+
 		{
+			// Disable type-checked rules and TypeScript project(-service) usage for markdown snippets.
+			// These snippets can't be related to a TypeScript program, so shouldn't use one.
 			files: globUse([
 				globMarkdownSnippetFromGlob(GLOBS.javascript),
 				globMarkdownSnippetFromGlob(GLOBS.typescript),
 			]),
 			...typescriptEslint.configs.disableTypeChecked,
+			languageOptions: {
+				parserOptions: {
+					EXPERIMENTAL_useProjectService: false,
+					warnOnUnsupportedTypeScriptVersion: false,
+					project: false,
+					program: null,
+				},
+			},
 		},
 	] satisfies Array<FlatConfig.Config>;
 }
