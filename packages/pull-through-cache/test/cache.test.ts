@@ -496,7 +496,7 @@ suite("evict timestamps", () => {
 
 			expect(cache.getAll().length).toBe(2);
 			await vi.advanceTimersByTimeAsync(35 * 60 * 1000);
-			expect(cache.getAll().length, `Loop: ${i}, ${new Date()}`).toBe(0);
+			expect(cache.getAll().length).toBe(0);
 		}
 	});
 
