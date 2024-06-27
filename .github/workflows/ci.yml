@@ -40,7 +40,7 @@ jobs:
 
       - name: "Test"
         run: |
-          npm run test:ws
+          npm run test
 
   check-licenses:
     uses: lightbasenl/platforms/.github/workflows/lib-license-checker.yml@main
