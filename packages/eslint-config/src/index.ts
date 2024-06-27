@@ -25,10 +25,11 @@ interface LightbaseEslintConfigOptions {
  * Entrypoint for your everything included ESLint config.
  */
 export async function defineConfig(
-	opts: LightbaseEslintConfigOptions,
+	opts?: LightbaseEslintConfigOptions,
 	...userConfigs: Array<FlatConfig.Config>
 ): Promise<Array<FlatConfig.Config>> {
 	globUseFromUserConfig(...userConfigs);
+	opts ??= {};
 	opts.typescript = typescriptResolveConfig(opts.typescript);
 
 	// Only load React + related plugins if necessary. This adds quite the startup penalty otherwise.

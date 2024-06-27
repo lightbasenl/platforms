@@ -35,7 +35,8 @@ npm run build:ws
 npm run lint:ws
 
 # Run the 'test' script for all packages in the workspace
-npm run test:ws
+# Note that we use Vitest in workspace mode, which includes all tests of sub-packages.
+npm run test
 
 # Clean ESLint cache & dist directories in the workspace.
 npm run clean:ws

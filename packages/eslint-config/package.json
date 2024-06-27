@@ -24,8 +24,7 @@
 		"build": "tsc -p ./tsconfig.json",
 		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
 		"lint:ci": "eslint .",
-		"pretest": "npm run build",
-		"test": "node --test",
+		"test": "vitest",
 		"clean": "rm -rf ./.cache ./dist"
 	},
 	"dependencies": {
