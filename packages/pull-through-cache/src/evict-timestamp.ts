@@ -41,7 +41,16 @@ export function selectNextTimestamp(
 	}
 
 	for (const timestamp of timestamps) {
-		if (timestamp.hours >= currentHour && timestamp.minutes > currentMinute) {
+		if (timestamp.hours < currentHour) {
+			continue;
+		}
+
+		if (timestamp.hours > currentHour) {
+			return timestamp;
+		}
+
+		if (timestamp.minutes > currentMinute) {
+			// Hours are equal, only use this timestamp when minutes are in the future.
 			return timestamp;
 		}
 	}

@@ -8,19 +8,21 @@
 		"lint:ws": "npm run lint --workspaces --if-present --include-workspace-root",
 		"lint:ci:ws": "npm run lint:ci --workspaces --if-present --include-workspace-root",
 		"build:ws": "npm run build && npm run build --workspaces --if-present",
-		"test:ws": "npm run test --workspaces --if-present --include-workspace-root",
+		"clean:ws": "npm run clean --workspaces --if-present --include-workspace-root",
 		"build": "tsc --build",
 		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
+		"test": "vitest",
 		"lint:ci": "eslint .",
-		"clean": "rm -rf ./.cache ./tsconfig.tsbuildinfo",
-		"clean:ws": "npm run clean --workspaces --if-present --include-workspace-root"
+		"clean": "rm -rf ./.cache ./tsconfig.tsbuildinfo"
 	},
 	"devDependencies": {
 		"@types/node": "20.14.9",
 		"@lightbase/eslint-config": "*",
 		"@total-typescript/tsconfig": "1.0.4",
+		"@vitest/coverage-v8": "2.0.0-beta.12",
 		"patch-package": "8.0.0",
-		"typescript": "5.5.2"
+		"typescript": "5.5.2",
+		"vitest": "2.0.0-beta.12"
 	},
 	"workspaces": ["packages/*", "apps/*"]
 }
