@@ -2,16 +2,19 @@
 
 ## [0.3.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.3.0...eslint-config-v0.3.1) (2024-06-27)
 
-
 ### Miscellaneous
 
-* Switch to Vitest for running all the tests ([#125](https://github.com/lightbasenl/platforms/issues/125)) ([ce0ce78](https://github.com/lightbasenl/platforms/commit/ce0ce78a566906a2f8b1be87c98950501901d3bd))
-* Use correct `repository.url` in package.json ([175439d](https://github.com/lightbasenl/platforms/commit/175439d3e583f92357b7900023a4f7360df5347d))
-
+- Switch to Vitest for running all the tests
+  ([#125](https://github.com/lightbasenl/platforms/issues/125))
+  ([ce0ce78](https://github.com/lightbasenl/platforms/commit/ce0ce78a566906a2f8b1be87c98950501901d3bd))
+- Use correct `repository.url` in package.json
+  ([175439d](https://github.com/lightbasenl/platforms/commit/175439d3e583f92357b7900023a4f7360df5347d))
 
 ### Dependencies
 
-* Bump eslint-plugin-jsdoc from 48.4.0 to 48.5.0 ([#124](https://github.com/lightbasenl/platforms/issues/124)) ([6f53595](https://github.com/lightbasenl/platforms/commit/6f53595391a0fccf56751b0d72cc0c3418b0b80f))
+- Bump eslint-plugin-jsdoc from 48.4.0 to 48.5.0
+  ([#124](https://github.com/lightbasenl/platforms/issues/124))
+  ([6f53595](https://github.com/lightbasenl/platforms/commit/6f53595391a0fccf56751b0d72cc0c3418b0b80f))
 
 ## [0.3.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.2.0...eslint-config-v0.3.0) (2024-06-26)
 
