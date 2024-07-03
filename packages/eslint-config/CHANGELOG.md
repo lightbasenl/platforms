@@ -1,5 +1,42 @@
 # Changelog
 
+## [0.4.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.3.0...eslint-config-v0.4.0) (2024-07-03)
+
+### Features
+
+- **jsx-a11y:** Use strict setup
+  ([e8849e6](https://github.com/lightbasenl/platforms/commit/e8849e65cc671f182dfca4c54158797bf995b1a3))
+
+### Miscellaneous
+
+- Expand the MIGRATION_GUIDE.md with common issues
+  ([063ac2d](https://github.com/lightbasenl/platforms/commit/063ac2d67e27cca6e55b4d7780c28b361e1a0fe5))
+- Switch to Vitest for running all the tests
+  ([#125](https://github.com/lightbasenl/platforms/issues/125))
+  ([ce0ce78](https://github.com/lightbasenl/platforms/commit/ce0ce78a566906a2f8b1be87c98950501901d3bd))
+- **typescript:** Add documentation about the planned type-checked migration
+  ([8451c9b](https://github.com/lightbasenl/platforms/commit/8451c9beae8eaafb38c461f0a02894fe21e70939))
+- Use correct `repository.url` in package.json
+  ([175439d](https://github.com/lightbasenl/platforms/commit/175439d3e583f92357b7900023a4f7360df5347d))
+
+### Dependencies
+
+- Bump eslint-plugin-import-x from 0.5.2 to 0.5.3
+  ([#131](https://github.com/lightbasenl/platforms/issues/131))
+  ([872f23f](https://github.com/lightbasenl/platforms/commit/872f23fb2158103f0a633ce0507e4dba2a542c1e))
+- Bump eslint-plugin-jsdoc from 48.4.0 to 48.5.0
+  ([#124](https://github.com/lightbasenl/platforms/issues/124))
+  ([6f53595](https://github.com/lightbasenl/platforms/commit/6f53595391a0fccf56751b0d72cc0c3418b0b80f))
+- Bump globals from 15.6.0 to 15.7.0
+  ([#127](https://github.com/lightbasenl/platforms/issues/127))
+  ([4abf3b5](https://github.com/lightbasenl/platforms/commit/4abf3b5dd181e035377e040632e9316dd4e020da))
+- Bump globals from 15.7.0 to 15.8.0
+  ([#132](https://github.com/lightbasenl/platforms/issues/132))
+  ([d39e9b1](https://github.com/lightbasenl/platforms/commit/d39e9b1e2e151d0df7b75cfcaf5455ecc686f351))
+- Bump typescript-eslint from 7.14.1 to 7.15.0
+  ([#129](https://github.com/lightbasenl/platforms/issues/129))
+  ([3621f94](https://github.com/lightbasenl/platforms/commit/3621f94748208bd95dcf43f0a85c4dd943d3c346))
+
 ## [0.3.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.2.0...eslint-config-v0.3.0) (2024-06-26)
 
 ### Features
