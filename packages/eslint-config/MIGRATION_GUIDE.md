@@ -3,7 +3,7 @@
 ## From @compas/eslint-plugin
 
 Execute the following steps to migrate in a mostly compatible way from
-`@compas/eslint-plugin` to this package. The main incompatibilities ares:
+`@compas/eslint-plugin` to this package. The main incompatibilities are:
 
 - Prefer `Array<>` types in JSDoc over `[]` types.
 - Renamed rules like `@compas/event-stop` to `@lightbase/compas-event-stop`.
@@ -18,7 +18,9 @@ The migration can be done as follows:
 - Create `eslint.config.js` in the root of your project and paste the below contents.
 - Apply the [Commands](./README.md#commands) section from the README.
 - Apply the [IDE](./README.md#ide) section from the README.
-- Run `npm run lint` and fixup the remaining issues.
+- Run `npm run lint`
+- Commit and open a pull request. Afterward, fixup any left-over errors (don't
+  force-push). This way, manual fixes can be reviewed properly.
 - Update your CI scripts to use the `npm run lint:ci` command.
 
 ```js
@@ -39,6 +41,13 @@ export default defineConfig(
 );
 ```
 
+### Common issues
+
+**JSDoc array syntax**
+
+The new config prefers `Array<string>` over `string[]` in JSDoc comments. Auto-fixers are
+able to fix most occurrences. However, a few of them have to be fixed by hand.
+
 ## From (internal) @lightbase/eslint-plugin
 
 In these steps we will be removing the vendored eslint-plugin and use
@@ -57,7 +66,7 @@ The migration can be done by following these steps:
   - Install the React & Next.js related peer dependencies with
     `npm install --save-dev --exact eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-plugin-no-relative-import-paths @next/eslint-plugin-next`
   - Note, the NPM may keep an old installed version around like ESLint v8.51. You can
-    force override this by either removing the `package-lock.json` and `node_modules` and
+    override this by either removing the `package-lock.json` and `node_modules` and
     reinstalling. Or by explicitly installing ESLint with
     `npm install --save-dev --exact eslint`.
 - Remove `.eslintrc`, `.eslintignore`, `.prettierignore` and `.prettierrc(.js)` files.
@@ -67,13 +76,13 @@ The migration can be done by following these steps:
   - Note the _.mjs_ extension.
 - Apply the [Commands](./README.md#commands) section from the README.
 - Apply the [IDE](./README.md#ide) section from the README.
-- Run `npm run lint` and fixup the remaining issues.
-  - This will most likely fail a few times. In some cases, the built-in Prettier setup is
-    not able to auto-fix in this migration. This won't be an issue while using the new
-    setup.
+- Run `npm run lint`
+- Commit and open a pull request. Afterward, fixup any left-over errors (don't
+  force-push). This way, manual fixes can be reviewed properly.
 - Update your CI scripts to use the `npm run lint:ci` command.
 
-Since we lint separately on CI, we can instruct Next.js to skip linting before building:
+Since we execute the lint check separately on CI, we can instruct Next.js to skip linting
+before building:
 
 ```js
 // next.config.js
@@ -102,6 +111,8 @@ export default defineConfig(
 		},
 		typescript: {
 			// TODO: Start enabling some type check rules. See https://typescript-eslint.io/users/configs/#recommended-type-checked
+			// Note that we plan on enabling these rules one by one in upcoming releases even if this
+			// setting is set to true. See https://github.com/lightbasenl/platforms/issues/133
 			disableTypeCheckedRules: true,
 		},
 		react: {
@@ -127,4 +138,54 @@ export default defineConfig(
 		},
 	},
 );
+```
+
+### Common issues
+
+**JSX-A11y rules**
+
+We’ve enabled `eslint-plugin-jsx-a11y` in full strict mode. Older configs only enabled a
+few of the provided rules. This is as good time as ever to make everything more
+accessible.
+
+**Unused `async` keyword**
+
+The config errors on functions that are marked `async` without having an `await`. Note
+that this may implicitly alter behavior, so be careful when removing the keyword.
+
+**Unused variables**
+
+The config is strict on unused variables. Either remove the variable or prepend with a
+`_`. Some common cases:
+
+- `catch` blocks that don't use the captured error
+
+```ts
+try {
+	// ...
+} catch {
+	// Skipped capturing the error
+}
+```
+
+- Destructuring an object to remove a variable
+
+```ts
+const x = {
+	a: true,
+	b: false,
+	c: true,
+};
+
+// _b is allowed
+const { b: _b, ...rest } = x;
+
+somethingWithRest(rest);
+```
+
+**Stricter checks around nullish variables**
+
+```
+// Not allowed, template-literals are never nullish
+const x = `${foo?.bar}` ?? "";
 ```
