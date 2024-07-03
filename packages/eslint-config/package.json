@@ -37,7 +37,7 @@
 		"eslint-merge-processors": "0.1.0",
 		"eslint-plugin-comment-length": "1.7.3",
 		"eslint-plugin-file-progress": "1.4.0",
-		"eslint-plugin-import-x": "0.5.2",
+		"eslint-plugin-import-x": "0.5.3",
 		"eslint-plugin-jsdoc": "48.5.0",
 		"eslint-plugin-markdown": "5.0.0",
 		"eslint-plugin-unused-imports": "3.2.0",
