@@ -66,11 +66,10 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 				"react/react-in-jsx-scope": "off",
 				"react/prop-types": "off",
 
-				...((pluginJSXA11y as FlatConfig.Plugin).configs?.recommended?.rules as Record<
+				...((pluginJSXA11y as FlatConfig.Plugin).configs?.strict?.rules as Record<
 					string,
 					string
 				>),
-				"jsx-a11y/anchor-is-valid": "off",
 
 				"react-hooks/rules-of-hooks": "error",
 				"react-hooks/exhaustive-deps": "error",
