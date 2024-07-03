@@ -8,6 +8,11 @@ export type TypeScriptConfig =
 	| boolean
 	| {
 			projectService?: boolean;
+
+			/**
+			 * Compatibility path; we will over-time ignore this option to slowly migrate projects to use
+			 * all recommended type-checked rules.
+			 */
 			disableTypeCheckedRules?: boolean;
 	  };
 
