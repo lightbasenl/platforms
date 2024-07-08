@@ -83,9 +83,9 @@ jobs:
             nextjs-${{ hashFiles('**/package-lock.json') }}-
 
       - name: "Execute command on main"
-        if: ${{ inputs.command != '' && github.event.ref == 'refs/heads/main' }}
+        if: ${{ inputs.main-command != '' && github.event.ref == 'refs/heads/main' }}
         run: |
-          ${{ inputs.command }}
+          ${{ inputs.main-command }}
 
       - name: "Execute command"
         if: ${{ inputs.command != '' }}
