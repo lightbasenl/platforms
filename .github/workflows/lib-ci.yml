@@ -66,7 +66,7 @@ jobs:
         # Default to NPM if another unsupported package manager is used.
         if: ${{ hashFiles('yarn.lock') == '' }}
         run: |
-          npm install --ignore-scripts
+          npm install
 
       - name: "Restore Next.js build cache"
         if: ${{ hashFiles('next.config.js') != '' }}
