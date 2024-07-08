@@ -70,6 +70,30 @@ jobs:
         npx @localazy/cli upload  # ...
 ```
 
+**Preventing concurrent runs**:
+
+```yaml
+# .github/workflows/ci.yml
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: |
+    ${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    uses: lightbasenl/platforms/.github/workflows/lib-ci.yml@main
+    with:
+      node-version: 20
+      main-command: |
+        npm run build
+```
+
 ## Inputs
 
 <!-- AUTO-DOC-INPUT:START - Do not remove or modify this section -->
