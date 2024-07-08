@@ -38,6 +38,13 @@ jobs:
           output: "./docs/workflows/lib-license-checker.md"
           reusable: true
 
+      - name: "Run auto-doc (lib-ci)"
+        uses: tj-actions/auto-doc@v3
+        with:
+          filename: "./.github/workflows/lib-ci.yml"
+          output: "./docs/workflows/lib-ci.md"
+          reusable: true
+
       - name: "Build the lint config and run lint"
         run: |
           npm install
