@@ -97,7 +97,6 @@ jobs:
           ${{ hashFiles('next.config.js') != '' && github.event.ref == 'refs/heads/main'
           }}
         uses: actions/cache/save@v4
-        id: next-cache
         with:
           path: |
             ${{ github.workspace }}/.next/cache
