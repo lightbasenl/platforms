@@ -23,10 +23,6 @@ on:
 jobs:
   ci:
     runs-on: ${{ inputs.runner }}
-    concurrency:
-      group: |
-        ${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }} (${{ inputs.node-version }}-${{ inputs.runner }}-${{ inputs.main-command }}-${{ inputs.command }})
-      cancel-in-progress: true
     if:
       ${{ (inputs.main-command != '' && github.event.ref == 'refs/heads/main') ||
       inputs.command != '' }}
