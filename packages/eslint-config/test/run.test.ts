@@ -1,4 +1,5 @@
 import { exec } from "node:child_process";
+import * as crypto from "node:crypto";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import { promisify } from "node:util";
