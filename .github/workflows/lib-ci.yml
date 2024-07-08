@@ -1,0 +1,105 @@
+on:
+  workflow_call:
+    inputs:
+      runner:
+        type: string
+        description:
+          "Specify the runner to use. This shouldn't be necessary for most jobs."
+        default: "ubuntu-latest"
+      node-version:
+        type: string
+        description: "Node.js version to run CI against."
+        default: "20"
+      main-command:
+        type: string
+        default: ""
+        description:
+          "Command to run when on the main branch. Supports multi-line strings."
+      command:
+        type: string
+        default: ""
+        description: "Command to run. Supports multi-line strings."
+
+jobs:
+  ci:
+    runs-on: ${{ inputs.runner }}
+    concurrency:
+      group: |
+        "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }} (${{ toJSON(inputs) }})"
+      cancel-in-progress: true
+    if:
+      ${{ (inputs.main-command != '' && github.event.ref == 'refs/heads/main') ||
+      inputs.command != '' }}
+    timeout-minutes: 15
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Setup Node (with Yarn cache)"
+        uses: actions/setup-node@v4
+        if: ${{ hashFiles('yarn.lock') != '' }}
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "yarn"
+
+      - name: "Setup Node (with NPM cache)"
+        uses: actions/setup-node@v4
+        if: ${{ hashFiles('package-lock.json') != '' }}
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "npm"
+
+      - name: "Setup Node (no lockfile)"
+        uses: actions/setup-node@v4
+        if: ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' }}
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./package.json
+
+      - name: "Install via Yarn"
+        if: ${{ hashFiles('yarn.lock') != '' }}
+        run: |
+          yarn
+
+      - name: "Install via NPM"
+        # Default to NPM if another unsupported package manager is used.
+        if: ${{ hashFiles('yarn.lock') == '' }}
+        run: |
+          npm install --ignore-scripts
+
+      - name: "Restore Next.js build cache"
+        if: ${{ hashFiles('next.config.js') != '' }}
+        uses: actions/cache/restore@v4
+        id: next-cache
+        with:
+          path: |
+            ${{ github.workspace }}/.next/cache
+          # Generate a new cache whenever packages or source files change.
+          key: |
+            nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - name: "Execute command on main"
+        if: ${{ inputs.command != '' && github.event.ref == 'refs/heads/main' }}
+        run: |
+          ${{ inputs.command }}
+
+      - name: "Execute command"
+        if: ${{ inputs.command != '' }}
+        run: |
+          ${{ inputs.command }}
+
+      - name: "Save Next.js build cache"
+        if:
+          ${{ hashFiles('next.config.js') != '' && github.event.ref == 'refs/heads/main'
+          }}
+        uses: actions/cache/save@v4
+        id: next-cache
+        with:
+          path: |
+            ${{ github.workspace }}/.next/cache
+          key: |
+            key: ${{ steps.next-cache.outputs.cache-primary-key }}

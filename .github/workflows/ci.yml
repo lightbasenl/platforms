@@ -14,33 +14,18 @@ concurrency:
 
 jobs:
   build-lint-test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v4
-
-      - name: "Setup Node.js"
-        uses: actions/setup-node@v4
-        with:
-          # Can't cache, since we don't commit the lockfile
-          node-version: 20
-
-      - name: "Install dependencies"
-        run: |
-          npm install
-
-      - name: "Build"
-        run: |
-          npm run build:ws
-
-      - name: "Lint"
-        run: |
-          npm run lint:ci:ws
-
-      - name: "Test"
-        run: |
-          npm run test
+    uses: lightbasenl/platforms/.github/workflows/lib-ci.yml@main
+    strategy:
+      matrix:
+        runs:
+          - node-version: 20
+          - node-version: 22
+    with:
+      node-version: ${{ matrix.node-version }}
+      command: |
+        npm run build:ws
+        npm run lint:ci:ws
+        npm run test
 
   check-licenses:
     uses: lightbasenl/platforms/.github/workflows/lib-license-checker.yml@main
