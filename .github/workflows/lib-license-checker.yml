@@ -32,11 +32,13 @@ jobs:
           node-version: 20
           cache: "npm"
 
-      - name: "Setup Node (no cache)"
+      - name: "Setup Node (no lockfile)"
         uses: actions/setup-node@v4
         if: ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' }}
         with:
           node-version: 20
+          cache: "npm"
+          cache-dependency-path: ./package.json
 
       - name: "Install Yarn"
         if: ${{ hashFiles('yarn.lock') != '' }}

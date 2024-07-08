@@ -44,6 +44,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: "npm"
+          cache-dependency-path: ./package.json
 
       - name: "Build the lint config and run lint"
         # Note we ignore build failures. In most cases, the eslint-config package will still build.
