@@ -71,12 +71,12 @@ jobs:
         with:
           path: |
             ${{ github.workspace }}/.next/cache
-          # Generate a new cache whenever packages or source files change.
+          # Generate a new cache whenever packages change. We don't take source files in to consideration since
+          # that adds 30+ seconds of just hashing files. We might get correctness issues this way tho...
           key: |
-            nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
+            nextjs-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            nextjs-${{ hashFiles('**/package-lock.json') }}-
+            nextjs-${{ hashFiles('**/package-lock.json') }}
 
       - name: "Execute command on main"
         if: ${{ inputs.main-command != '' && github.event.ref == 'refs/heads/main' }}
