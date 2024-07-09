@@ -75,8 +75,6 @@ jobs:
           # that adds 30+ seconds of just hashing files. We might get correctness issues this way tho...
           key: |
             nextjs-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            nextjs-${{ hashFiles('**/package-lock.json') }}
 
       - name: "Execute command on main"
         if: ${{ inputs.main-command != '' && github.event.ref == 'refs/heads/main' }}

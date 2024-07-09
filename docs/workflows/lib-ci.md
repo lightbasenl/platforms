@@ -3,6 +3,11 @@
 Wrapper to run NPM scripts in CI. Supports providing a Node.js version and multiple
 commands. Automatically includes Yarn/NPM module cache and Next.js build caching.
 
+**Not suitable for:**
+
+- Commands with secrets. Reusable workflows have specific handling around secrets. This
+  workflow doesn't support any workaround for this.
+
 ## Usage
 
 **Basic**
