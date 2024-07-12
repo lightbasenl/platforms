@@ -2,22 +2,36 @@
 
 ## [0.4.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.4.0...eslint-config-v0.4.1) (2024-07-12)
 
-
 ### Miscellaneous
 
-* **eslint-config:** Add a few comment clarifications ([678cfd4](https://github.com/lightbasenl/platforms/commit/678cfd42d2453a9502e0d9e969dca21921144344))
-* **eslint-config:** Add import in test ([31ecda0](https://github.com/lightbasenl/platforms/commit/31ecda0467a2614c1d3519e99ee1d578e9bc478c))
-
+- **eslint-config:** Add a few comment clarifications
+  ([678cfd4](https://github.com/lightbasenl/platforms/commit/678cfd42d2453a9502e0d9e969dca21921144344))
+- **eslint-config:** Add import in test
+  ([31ecda0](https://github.com/lightbasenl/platforms/commit/31ecda0467a2614c1d3519e99ee1d578e9bc478c))
 
 ### Dependencies
 
-* Bump eslint-plugin-import-x from 3.0.0 to 3.0.1 ([#149](https://github.com/lightbasenl/platforms/issues/149)) ([2555c0f](https://github.com/lightbasenl/platforms/commit/2555c0f6226ac3b0c0f34402377a42cfc6656732))
-* Bump eslint-plugin-jsdoc from 48.5.0 to 48.5.1 ([#134](https://github.com/lightbasenl/platforms/issues/134)) ([01c3d6c](https://github.com/lightbasenl/platforms/commit/01c3d6c5dd3a226bff337297e45c5f39edd65405))
-* Bump eslint-plugin-jsdoc from 48.5.1 to 48.5.2 ([#138](https://github.com/lightbasenl/platforms/issues/138)) ([6fa273f](https://github.com/lightbasenl/platforms/commit/6fa273f5f16a50e2a4eb0a2b9e0dc90c9ea58c84))
-* Bump eslint-plugin-jsdoc from 48.5.2 to 48.6.0 ([#144](https://github.com/lightbasenl/platforms/issues/144)) ([3611ec6](https://github.com/lightbasenl/platforms/commit/3611ec6d97f50c05c0a6a8d3e73f06695abbcee9))
-* Bump eslint-plugin-jsdoc from 48.6.0 to 48.7.0 ([#147](https://github.com/lightbasenl/platforms/issues/147)) ([7ae1a15](https://github.com/lightbasenl/platforms/commit/7ae1a1536ea74a86d4d2c9ae29a1cb93e6a2e0e1))
-* Bump eslint-plugin-markdown from 5.0.0 to 5.1.0 ([#150](https://github.com/lightbasenl/platforms/issues/150)) ([2392688](https://github.com/lightbasenl/platforms/commit/239268876fa2c138d935b7af9ad2c7ad7e48bdfe))
-* Bump typescript-eslint from 7.15.0 to 7.16.0 ([#143](https://github.com/lightbasenl/platforms/issues/143)) ([707c8e5](https://github.com/lightbasenl/platforms/commit/707c8e5354cb77ebf02e1318da3291d077653650))
+- Bump eslint-plugin-import-x from 3.0.0 to 3.0.1
+  ([#149](https://github.com/lightbasenl/platforms/issues/149))
+  ([2555c0f](https://github.com/lightbasenl/platforms/commit/2555c0f6226ac3b0c0f34402377a42cfc6656732))
+- Bump eslint-plugin-jsdoc from 48.5.0 to 48.5.1
+  ([#134](https://github.com/lightbasenl/platforms/issues/134))
+  ([01c3d6c](https://github.com/lightbasenl/platforms/commit/01c3d6c5dd3a226bff337297e45c5f39edd65405))
+- Bump eslint-plugin-jsdoc from 48.5.1 to 48.5.2
+  ([#138](https://github.com/lightbasenl/platforms/issues/138))
+  ([6fa273f](https://github.com/lightbasenl/platforms/commit/6fa273f5f16a50e2a4eb0a2b9e0dc90c9ea58c84))
+- Bump eslint-plugin-jsdoc from 48.5.2 to 48.6.0
+  ([#144](https://github.com/lightbasenl/platforms/issues/144))
+  ([3611ec6](https://github.com/lightbasenl/platforms/commit/3611ec6d97f50c05c0a6a8d3e73f06695abbcee9))
+- Bump eslint-plugin-jsdoc from 48.6.0 to 48.7.0
+  ([#147](https://github.com/lightbasenl/platforms/issues/147))
+  ([7ae1a15](https://github.com/lightbasenl/platforms/commit/7ae1a1536ea74a86d4d2c9ae29a1cb93e6a2e0e1))
+- Bump eslint-plugin-markdown from 5.0.0 to 5.1.0
+  ([#150](https://github.com/lightbasenl/platforms/issues/150))
+  ([2392688](https://github.com/lightbasenl/platforms/commit/239268876fa2c138d935b7af9ad2c7ad7e48bdfe))
+- Bump typescript-eslint from 7.15.0 to 7.16.0
+  ([#143](https://github.com/lightbasenl/platforms/issues/143))
+  ([707c8e5](https://github.com/lightbasenl/platforms/commit/707c8e5354cb77ebf02e1318da3291d077653650))
 
 ## [0.4.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.3.0...eslint-config-v0.4.0) (2024-07-03)
 
