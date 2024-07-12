@@ -64,6 +64,8 @@ export function imports(typescript: TypeScriptConfig) {
 				"no-unused-vars": "off",
 				"@typescript-eslint/no-unused-vars": "off",
 
+				// Auto-remove unused imports. This overules the no-unused-vars rule as well, so we
+				// configure it here.
 				"unused-imports/no-unused-imports": "error",
 				"unused-imports/no-unused-vars": [
 					"error",
@@ -82,7 +84,7 @@ export function imports(typescript: TypeScriptConfig) {
 
 		{
 			// Handle JS config files
-			files: globUse(["**/eslint.config.js", "**/next.config.js"]),
+			files: globUse(["**/*.config.js"]),
 			rules: {
 				"import-x/no-default-export": "off",
 			},

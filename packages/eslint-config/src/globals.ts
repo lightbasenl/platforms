@@ -8,7 +8,7 @@ export type GlobalsConfig = Array<keyof typeof globals>;
  */
 export function defineGlobals(config?: GlobalsConfig): Array<FlatConfig.Config> {
 	if (config === undefined) {
-		config = ["node", "browser", "es2021"];
+		config = ["node", "browser", "es2025"];
 	}
 
 	let collectedGlobals: Record<string, boolean> = {};

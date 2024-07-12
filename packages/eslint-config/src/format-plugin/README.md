@@ -17,3 +17,10 @@ Changes;
 
 We will run with this setup for a bit before attempting to upstream to
 prettier-linter-helpers.
+
+---
+
+Although not the fastest, the primary reason why we setup Prettier via ESLint is to only
+run a single tool. The preferred way forward is to use one of the more modern ESLint
+alternatives. However, their ruleset, especially type-checked, is not fitting our needs
+yet.

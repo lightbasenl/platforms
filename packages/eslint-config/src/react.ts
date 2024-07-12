@@ -77,7 +77,7 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 		},
 
 		{
-			// Custom import ordering preferences. :^)
+			// Custom import ordering preferences by our frontenders :^)
 			files: globUse([GLOBS.typescript]),
 			plugins: {
 				"no-relative-import-paths": pluginNoRelativeImportPaths as FlatConfig.Plugin,

@@ -8,6 +8,7 @@ import { GLOBS, globUse } from "./globs.js";
 import { lightbaseInternalPlugin } from "./plugin/index.js";
 
 export function javascript(): Array<FlatConfig.Config> {
+	// Comment length options which shouldn't conflict with other rules and Prettier.
 	const commentLengthOptions = {
 		mode: "overflow-only",
 		maxLength: 100,
@@ -27,12 +28,14 @@ export function javascript(): Array<FlatConfig.Config> {
 				parser: typescriptEslintParser,
 				parserOptions: {
 					project: false,
+					EXPERIMENTAL_useProjectService: false,
 				},
 			},
 		},
 
 		{
-			// We include TS here. typescript-eslint will disable conflicting rules.
+			// We include TS here. typescript-eslint will disable conflicting rules in the recommended
+			// configs, so we need to register TS rules afterwards.
 			files: globUse([GLOBS.javascript, GLOBS.typescript]),
 			rules: {
 				...eslintConfigs.configs.recommended.rules,
