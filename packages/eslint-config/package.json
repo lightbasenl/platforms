@@ -44,7 +44,7 @@
 		"globals": "15.8.0",
 		"prettier": "3.3.3",
 		"synckit": "0.9.1",
-		"typescript-eslint": "7.16.0"
+		"typescript-eslint": "7.16.1"
 	},
 	"peerDependencies": {
 		"@next/eslint-plugin-next": "^14.1.4",
