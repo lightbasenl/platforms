@@ -5,7 +5,8 @@
 Execute the following steps to migrate in a mostly compatible way from
 `@compas/eslint-plugin` to this package. The main incompatibilities are:
 
-- Prefer `Array<>` types in JSDoc over `[]` types.
+- Prefer `Array<string>` types in JSDoc over `string[]` syntax in JSDoc. Most instances of
+  this can be autofixed. Various nested JSDoc blocks might need manual fixing.
 - Renamed rules like `@compas/event-stop` to `@lightbase/compas-event-stop`.
 
 The migration can be done as follows:
@@ -41,13 +42,6 @@ export default defineConfig(
 );
 ```
 
-### Common issues
-
-**JSDoc array syntax**
-
-The new config prefers `Array<string>` over `string[]` in JSDoc comments. Auto-fixers are
-able to fix most occurrences. However, a few of them have to be fixed by hand.
-
 ## From (internal) @lightbase/eslint-plugin
 
 In these steps we will be removing the vendored eslint-plugin and use
@@ -55,9 +49,21 @@ In these steps we will be removing the vendored eslint-plugin and use
 before. The main incompatibilities are:
 
 - Import related rules ban CommonJS style `require`'s. Check if the tool supports `.mjs`
-  config files or add file specific ignores.
+  config files or add file specific ignores. The provided config below includes an
+  exclusion already fro `**.js` files.
 - Prettier is enabled with
-  [`experimentalTernaries`](https://prettier.io/blog/2023/11/13/curious-ternaries)
+  [`experimentalTernaries`](https://prettier.io/blog/2023/11/13/curious-ternaries). This
+  reformats the ternaries, but this is always auto-fixed.
+- Stricter jsx-a11y setup. We have enabled the full strict config from
+  eslint-plugin-jsx-a11y. Older configs only enabled a few rules. This is as good time as
+  ever to improve the accessibility.
+- Strict checks on unused `async` keywords. This is not auto-fixed, since it might alter
+  behavior. Be careful.
+- The config is stricter on unused variables. They can be prefixed with a `_` to ignore.
+  For example, `} catch (e) {` becomes `} catch (_e) {` or even `} catch {`. And
+  `const { unused, ...rest } = obj;` becomes `const {unused: _unused, ...rest } = obj;`
+- Various other rules are stricter, like checks on null-ish values and chaining those
+  correctly.
 
 The migration can be done by following these steps:
 
@@ -138,49 +144,6 @@ export default defineConfig(
 		},
 	},
 );
-```
-
-### Common issues
-
-**JSX-A11y rules**
-
-We’ve enabled `eslint-plugin-jsx-a11y` in full strict mode. Older configs only enabled a
-few of the provided rules. This is as good time as ever to make everything more
-accessible.
-
-**Unused `async` keyword**
-
-The config errors on functions that are marked `async` without having an `await`. Note
-that this may implicitly alter behavior, so be careful when removing the keyword.
-
-**Unused variables**
-
-The config is strict on unused variables. Either remove the variable or prepend with a
-`_`. Some common cases:
-
-- `catch` blocks that don't use the captured error
-
-```ts
-try {
-	// ...
-} catch {
-	// Skipped capturing the error
-}
-```
-
-- Destructuring an object to remove a variable
-
-```ts
-const x = {
-	a: true,
-	b: false,
-	c: true,
-};
-
-// _b is allowed
-const { b: _b, ...rest } = x;
-
-somethingWithRest(rest);
 ```
 
 **Stricter checks around nullish variables**
