@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.5.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.4.1...eslint-config-v0.5.0) (2024-07-18)
+
+
+### Features
+
+* **eslint-config:** Allow unresolved imports in markdown snippets ([788495a](https://github.com/lightbasenl/platforms/commit/788495aa09901b693e604e87d565397269b5d060))
+
+
+### Miscellaneous
+
+* **eslint-config:** Clarify changes in the migration guide ([832ab47](https://github.com/lightbasenl/platforms/commit/832ab47ccda6f737039f6bb947db5234d7bf3478))
+
+
+### Dependencies
+
+* Bump @typescript-eslint/utils from 7.16.0 to 7.16.1 ([#156](https://github.com/lightbasenl/platforms/issues/156)) ([11cc2cc](https://github.com/lightbasenl/platforms/commit/11cc2cc070df3721440a76130a7fe04dcdd81975))
+* Bump prettier from 3.3.2 to 3.3.3 ([#151](https://github.com/lightbasenl/platforms/issues/151)) ([3e9211a](https://github.com/lightbasenl/platforms/commit/3e9211ada336a8082737197a348f0e9ae0e80bed))
+* Bump synckit from 0.9.0 to 0.9.1 ([#154](https://github.com/lightbasenl/platforms/issues/154)) ([ffbd7f6](https://github.com/lightbasenl/platforms/commit/ffbd7f6346be4ab4977714661c84764f530ad3db))
+* Bump typescript-eslint from 7.16.0 to 7.16.1 ([#157](https://github.com/lightbasenl/platforms/issues/157)) ([bd13e59](https://github.com/lightbasenl/platforms/commit/bd13e5947940a54236b4f8a727cc01f6c9c39d22))
+
 ## [0.4.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.4.0...eslint-config-v0.4.1) (2024-07-12)
 
 ### Miscellaneous
