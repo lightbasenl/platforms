@@ -34,6 +34,7 @@ export function markdownSnippetOverrides(): Array<FlatConfig.Config> {
 			rules: {
 				"unused-imports/no-unused-vars": "off",
 				"import-x/no-commonjs": "off",
+				"import-x/no-unresolved": "off",
 
 				"eol-last": "off",
 				"no-undef": "off",
