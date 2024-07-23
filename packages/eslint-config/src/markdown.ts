@@ -43,6 +43,8 @@ export function markdownSnippetOverrides(): Array<FlatConfig.Config> {
 				"padded-blocks": "off",
 				"strict": "off",
 				"unicode-bom": "off",
+
+				"react/jsx-no-undef": "off",
 			},
 		},
 
