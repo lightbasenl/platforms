@@ -19,10 +19,10 @@
 		"@types/node": "20.14.11",
 		"@lightbase/eslint-config": "*",
 		"@total-typescript/tsconfig": "1.0.4",
-		"@vitest/coverage-v8": "2.0.3",
+		"@vitest/coverage-v8": "2.0.4",
 		"patch-package": "8.0.0",
 		"typescript": "5.5.4",
-		"vitest": "2.0.3"
+		"vitest": "2.0.4"
 	},
 	"workspaces": ["packages/*", "apps/*"]
 }
