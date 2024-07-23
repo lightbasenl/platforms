@@ -63,6 +63,11 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 					string,
 					string
 				>),
+
+				// Good practices
+				"react/iframe-missing-sandbox": "error",
+				"react/jsx-no-script-url": "error",
+
 				"react/react-in-jsx-scope": "off",
 				"react/prop-types": "off",
 
