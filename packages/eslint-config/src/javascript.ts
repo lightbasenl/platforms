@@ -21,8 +21,6 @@ export function javascript(): Array<FlatConfig.Config> {
 
 	const isCI = process.env.CI === "true";
 
-	console.log("isCi", isCI);
-
 	return [
 		{
 			// Use the Typescript parser even if we don't Typescript. This allows us to use 'modern' JS
