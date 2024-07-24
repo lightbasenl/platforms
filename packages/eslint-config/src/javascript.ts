@@ -19,6 +19,10 @@ export function javascript(): Array<FlatConfig.Config> {
 		tags: [],
 	};
 
+	const isCI = process.env.CI === "true";
+
+	console.log("isCi", isCI);
+
 	return [
 		{
 			// Use the Typescript parser even if we don't Typescript. This allows us to use 'modern' JS
@@ -42,7 +46,7 @@ export function javascript(): Array<FlatConfig.Config> {
 
 				"default-case-last": "error",
 				"default-param-last": "error",
-				"no-console": ["error", { allow: ["dir", "time", "timeEnd"] }],
+				"no-console": isCI ? ["error", { allow: ["dir", "time", "timeEnd"] }] : "warn",
 				"no-else-return": "error",
 				"no-eq-null": "error",
 				"no-labels": "error",
