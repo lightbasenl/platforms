@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.6.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.5.0...eslint-config-v0.6.0) (2024-07-24)
+
+
+### Features
+
+* **eslint-config:** Disable react/jsx-no-undef in markdown snippets ([19127cc](https://github.com/lightbasenl/platforms/commit/19127cc7ab526c5717c8965717feb349555c23e7))
+* Only warn on local console debugging ([#169](https://github.com/lightbasenl/platforms/issues/169)) ([330c770](https://github.com/lightbasenl/platforms/commit/330c770207cea170d40b8025210646d77e76e190))
+* **react:** Enable some good practice rules for scripts and iframes ([cd3e6b3](https://github.com/lightbasenl/platforms/commit/cd3e6b35c2966b34fd4834c50a3739a72f445897))
+
+
+### Dependencies
+
+* Bump eslint-plugin-jsdoc from 48.7.0 to 48.8.3 ([#161](https://github.com/lightbasenl/platforms/issues/161)) ([684434c](https://github.com/lightbasenl/platforms/commit/684434c6f2861975deca58d325170edd919c0d01))
+* Bump typescript-eslint from 7.16.1 to 7.17.0 ([#164](https://github.com/lightbasenl/platforms/issues/164)) ([5d84aa3](https://github.com/lightbasenl/platforms/commit/5d84aa30f8a16e12af5951e2bb3d69ae45e3fb1c))
+
 ## [0.5.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.4.1...eslint-config-v0.5.0) (2024-07-18)
 
 ### Features
