@@ -206,20 +206,47 @@ export default defineConfig(
 );
 ```
 
-### Custom configuration
+### Ignores
 
-`defineConfig` accepts custom ESLint configuration as the 'rest' parameter. For example:
+ESLint will by default ignore everything as defined in your `.gitignore`. You can add new
+directories like so
 
 ```js
 import { defineConfig } from "@lightbase/eslint-config";
 
 export default defineConfig(
 	{
-		// Define config options, explained below.
+		// Define config options, explained above.
 	},
 	{
 		// Ignore the packages/ directory.
 		ignores: ["packages/**"],
+	},
+);
+```
+
+### Custom configuration
+
+`defineConfig` accepts custom ESLint configuration as the 'rest' parameter. This allows
+you to configure rules for specific file patterns.
+
+```js
+import { defineConfig } from "@lightbase/eslint-config";
+
+export default defineConfig(
+	{
+		// Define config options, explained above.
+	},
+	{
+		// Ignore the packages/ directory.
+		ignores: ["packages/**"],
+	},
+	{
+		// Add rules for specific files.
+		file: ["**/*.ts"],
+		rules: {
+			"no-console": "off",
+		},
 	},
 );
 ```
