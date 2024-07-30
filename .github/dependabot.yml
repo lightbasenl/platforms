@@ -21,3 +21,8 @@ updates:
     commit-message:
       prefix: deps
       prefix-development: dev-deps
+    groups:
+      typescript-eslint:
+        patterns:
+          - "@typescript-eslint/*"
+          - "typescript-eslint"
