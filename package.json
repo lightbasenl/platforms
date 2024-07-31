@@ -10,7 +10,7 @@
 		"build:ws": "npm run build && npm run build --workspaces --if-present",
 		"clean:ws": "npm run clean --workspaces --if-present --include-workspace-root",
 		"build": "tsc --build",
-		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
+		"lint": "eslint . --fix --cache --cache-location .cache/eslint/ --color",
 		"test": "vitest",
 		"lint:ci": "eslint .",
 		"clean": "rm -rf ./.cache ./tsconfig.tsbuildinfo"

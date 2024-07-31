@@ -35,7 +35,7 @@ Add the following scripts to your `package.json`:
 ```json
 {
 	"scripts": {
-		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/",
+		"lint": "eslint . --fix --cache --cache-location .cache/eslint/",
 		"lint:ci": "eslint ."
 	}
 }
@@ -51,7 +51,16 @@ Add the following scripts to your `package.json`:
 > but not yet supported by all our plugins.
 
 - Use `eslint.config.mjs` instead of `eslint.config.js`
-- Specify `--config eslint.config.mjs` in the `package.json` scripts.
+- Specify `--config eslint.config.mjs` in the `package.json` scripts. For example:
+
+```json
+{
+	"scripts": {
+		"lint": "eslint . --fix --cache --cache-location .cache/eslint/ --config eslint.config.mjs",
+		"lint:ci": "eslint . --config eslint.config.mjs"
+	}
+}
+```
 
 ## Default configuration and options
 
