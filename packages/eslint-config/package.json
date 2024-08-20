@@ -28,19 +28,19 @@
 		"clean": "rm -rf ./.cache ./dist"
 	},
 	"dependencies": {
-		"@eslint/js": "8.57.0",
+		"@eslint/js": "9.9.0",
 		"@typescript-eslint/utils": "8.2.0",
 		"diff-match-patch": "1.0.5",
-		"eslint": "8.57.0",
-		"eslint-config-flat-gitignore": "0.1.5",
+		"eslint": "9.9.0",
+		"eslint-config-flat-gitignore": "0.1.8",
 		"eslint-import-resolver-typescript": "3.6.1",
 		"eslint-merge-processors": "0.1.0",
 		"eslint-plugin-comment-length": "1.7.3",
-		"eslint-plugin-file-progress": "1.4.0",
+		"eslint-plugin-file-progress": "1.5.0",
 		"eslint-plugin-import-x": "3.1.0",
-		"eslint-plugin-jsdoc": "48.10.2",
+		"eslint-plugin-jsdoc": "50.2.2",
 		"eslint-plugin-markdown": "5.1.0",
-		"eslint-plugin-unused-imports": "3.2.0",
+		"eslint-plugin-unused-imports": "4.1.3",
 		"globals": "15.9.0",
 		"prettier": "3.3.3",
 		"synckit": "0.9.1",
@@ -48,10 +48,10 @@
 	},
 	"peerDependencies": {
 		"@next/eslint-plugin-next": "^14.1.4",
-		"eslint-plugin-jsx-a11y": "^6.8.0",
-		"eslint-plugin-no-relative-import-paths": "^1.5.3",
-		"eslint-plugin-react": "^7.34.1",
-		"eslint-plugin-react-hooks": "^4.6.0"
+		"eslint-plugin-jsx-a11y": "^6.9.0",
+		"eslint-plugin-no-relative-import-paths": "^1.5.5",
+		"eslint-plugin-react": "^7.35.0",
+		"eslint-plugin-react-hooks": "^4.6.2"
 	},
 	"peerDependenciesMeta": {
 		"@next/eslint-plugin-next": {
@@ -73,7 +73,7 @@
 	"devDependencies": {
 		"@next/eslint-plugin-next": "14.2.5",
 		"@types/diff-match-patch": "1.0.36",
-		"@types/eslint": "8.56.9",
+		"@types/eslint": "9.6.0",
 		"@types/eslint__js": "8.42.3",
 		"@types/eslint-plugin-markdown": "2.0.2",
 		"eslint-plugin-jsx-a11y": "6.9.0",

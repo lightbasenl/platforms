@@ -58,7 +58,7 @@ export function markdownSnippetOverrides(): Array<FlatConfig.Config> {
 			...typescriptEslint.configs.disableTypeChecked,
 			languageOptions: {
 				parserOptions: {
-					EXPERIMENTAL_useProjectService: false,
+					projectService: false,
 					warnOnUnsupportedTypeScriptVersion: false,
 					project: false,
 					program: null,

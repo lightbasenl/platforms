@@ -88,7 +88,7 @@ export function typescript(config: TypeScriptConfig): Array<FlatConfig.Config> {
 			languageOptions: {
 				parser: typescriptEslint.parser,
 				parserOptions: {
-					EXPERIMENTAL_useProjectService: config.projectService,
+					projectService: config.projectService,
 					warnOnUnsupportedTypeScriptVersion: false,
 				},
 			},

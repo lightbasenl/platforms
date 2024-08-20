@@ -1,6 +1,5 @@
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import * as pluginImport from "eslint-plugin-import-x";
-// @ts-expect-error No types available
 import pluginUnusedImports from "eslint-plugin-unused-imports";
 import { GLOBS, globUse } from "./globs.js";
 import type { TypeScriptConfig } from "./typescript.js";

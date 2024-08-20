@@ -43,24 +43,9 @@ Add the following scripts to your `package.json`:
 
 > Make sure to add `.cache` to your .gitignore
 
-### In a CommonJS project
-
-> [!NOTE]
+> > [!NOTE]
 >
-> These steps will be obsolete with ESLint v9, which at the time of writing is released
-> but not yet supported by all our plugins.
-
-- Use `eslint.config.mjs` instead of `eslint.config.js`
-- Specify `--config eslint.config.mjs` in the `package.json` scripts. For example:
-
-```json
-{
-	"scripts": {
-		"lint": "eslint . --fix --cache --cache-location .cache/eslint/ --config eslint.config.mjs",
-		"lint:ci": "eslint . --config eslint.config.mjs"
-	}
-}
-```
+> In a CommonJS project, make sure to name your file `eslint.config.mjs` instead.
 
 ## Default configuration and options
 

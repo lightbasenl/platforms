@@ -22,7 +22,7 @@ export interface PrettierConfig {
 	/**
 	 * Override default Prettier options for specific files.
 	 */
-	languageOverrides?: { [K in SupportedLanguageOverrides]?: PrettierOptions };
+	languageOverrides?: Partial<Record<SupportedLanguageOverrides, PrettierOptions>>;
 }
 
 /**
