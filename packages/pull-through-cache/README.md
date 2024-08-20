@@ -7,6 +7,8 @@ Async pull-through-cache with TTL and updated-value sampling support.
 - You want to reduce async tasks like database queries or external API calls.
 - You don't need an external cache, like Redis, yet.
 - You still have the memory budget to store things (permanently).
+- The cache usage is clearly linked to a specific entity. i.e the provided fetcher can be
+  simply implemented based on the used cache key.
 
 ## Install
 
