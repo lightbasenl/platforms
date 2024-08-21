@@ -2,20 +2,30 @@
 
 ## [0.6.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.6.0...eslint-config-v0.6.1) (2024-08-21)
 
-
 ### Miscellaneous
 
-* **eslint-config:** Add some docs on ignores ([a9bc449](https://github.com/lightbasenl/platforms/commit/a9bc44925aa2efa0d384ba3d57fb7ee20a014211))
-* **eslint-config:** Remove '--cache-strategy' in recommended scripts ([00bb95c](https://github.com/lightbasenl/platforms/commit/00bb95cdda70e23b722df7bbcc29212025011f70))
-
+- **eslint-config:** Add some docs on ignores
+  ([a9bc449](https://github.com/lightbasenl/platforms/commit/a9bc44925aa2efa0d384ba3d57fb7ee20a014211))
+- **eslint-config:** Remove '--cache-strategy' in recommended scripts
+  ([00bb95c](https://github.com/lightbasenl/platforms/commit/00bb95cdda70e23b722df7bbcc29212025011f70))
 
 ### Dependencies
 
-* Bump eslint-plugin-jsdoc from 48.8.3 to 48.9.2 ([#174](https://github.com/lightbasenl/platforms/issues/174)) ([7cf4829](https://github.com/lightbasenl/platforms/commit/7cf4829e59ff8c01cac683edfc907b228f261876))
-* Bump eslint-plugin-jsdoc from 48.9.2 to 48.9.3 ([#178](https://github.com/lightbasenl/platforms/issues/178)) ([e551404](https://github.com/lightbasenl/platforms/commit/e5514044f745f1f995b020e9ed2531c213e5c1dd))
-* Bump eslint-plugin-jsdoc from 48.9.3 to 48.10.2 ([#179](https://github.com/lightbasenl/platforms/issues/179)) ([585d59c](https://github.com/lightbasenl/platforms/commit/585d59ccd2b328c75578ed5fba9efeae7987ec76))
-* Bump globals from 15.8.0 to 15.9.0 ([#183](https://github.com/lightbasenl/platforms/issues/183)) ([b52ca98](https://github.com/lightbasenl/platforms/commit/b52ca981b7d23b90b76863656a18b8026d12c640))
-* Bump the typescript-eslint group with 2 updates ([#177](https://github.com/lightbasenl/platforms/issues/177)) ([4b6f1a8](https://github.com/lightbasenl/platforms/commit/4b6f1a8781705670a1cd6e2e3eabe82248ae709b))
+- Bump eslint-plugin-jsdoc from 48.8.3 to 48.9.2
+  ([#174](https://github.com/lightbasenl/platforms/issues/174))
+  ([7cf4829](https://github.com/lightbasenl/platforms/commit/7cf4829e59ff8c01cac683edfc907b228f261876))
+- Bump eslint-plugin-jsdoc from 48.9.2 to 48.9.3
+  ([#178](https://github.com/lightbasenl/platforms/issues/178))
+  ([e551404](https://github.com/lightbasenl/platforms/commit/e5514044f745f1f995b020e9ed2531c213e5c1dd))
+- Bump eslint-plugin-jsdoc from 48.9.3 to 48.10.2
+  ([#179](https://github.com/lightbasenl/platforms/issues/179))
+  ([585d59c](https://github.com/lightbasenl/platforms/commit/585d59ccd2b328c75578ed5fba9efeae7987ec76))
+- Bump globals from 15.8.0 to 15.9.0
+  ([#183](https://github.com/lightbasenl/platforms/issues/183))
+  ([b52ca98](https://github.com/lightbasenl/platforms/commit/b52ca981b7d23b90b76863656a18b8026d12c640))
+- Bump the typescript-eslint group with 2 updates
+  ([#177](https://github.com/lightbasenl/platforms/issues/177))
+  ([4b6f1a8](https://github.com/lightbasenl/platforms/commit/4b6f1a8781705670a1cd6e2e3eabe82248ae709b))
 
 ## [0.6.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.5.0...eslint-config-v0.6.0) (2024-07-24)
 
