@@ -4,7 +4,7 @@ import pluginUnusedImports from "eslint-plugin-unused-imports";
 import { GLOBS, globUse } from "./globs.js";
 import type { TypeScriptConfig } from "./typescript.js";
 
-export function imports(typescript: TypeScriptConfig) {
+export function imports(typescript: TypeScriptConfig): Array<FlatConfig.Config> {
 	return [
 		{
 			// Setup import plugins. Includes unused-imports, to automatically remove them.
