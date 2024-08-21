@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.2.1...pull-through-cache-v0.2.2) (2024-08-21)
+
+### Miscellaneous
+
+- **pull-through-cache:** Clarify docs on when to use this cache
+  ([a36bb7f](https://github.com/lightbasenl/platforms/commit/a36bb7f003b8d50278aac963d98cb49fbee9a092))
+
 ## [0.2.1](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.2.0...pull-through-cache-v0.2.1) (2024-07-03)
 
 ### Miscellaneous
