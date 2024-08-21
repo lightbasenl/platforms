@@ -30,7 +30,7 @@ export function javascript(): Array<FlatConfig.Config> {
 				parser: typescriptEslintParser,
 				parserOptions: {
 					project: false,
-					EXPERIMENTAL_useProjectService: false,
+					projectService: false,
 				},
 			},
 		},

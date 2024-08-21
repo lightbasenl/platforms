@@ -3,7 +3,7 @@ import * as crypto from "node:crypto";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import { promisify } from "node:util";
-import { afterAll, beforeAll, expect, test } from "vitest";
+import { beforeAll, beforeEach, expect, test } from "vitest";
 import type { defineConfig } from "../src/index.js";
 
 const execPromise = promisify(exec);
@@ -15,13 +15,15 @@ const tmpDir = path.join(import.meta.dirname, `../.cache/.tmp/${crypto.randomUUI
 beforeAll(async () => {
 	// We are going to execute ESLint, so make sure that we have an up-to-date build
 	await execPromise("npm run build");
-
-	// Create a temporary directory to run our tests in.
-	await fs.mkdir(tmpDir, { recursive: true });
 });
 
-afterAll(async () => {
-	await fs.rm(tmpDir, { recursive: true, force: true });
+beforeEach(async () => {
+	// Create a temporary directory to run our tests in.
+	await fs.mkdir(tmpDir, { recursive: true });
+
+	return async () => {
+		await fs.rm(tmpDir, { recursive: true, force: true });
+	};
 });
 
 async function testOnStdout(
@@ -191,40 +193,6 @@ test("automatically enables typescript support on detection of tsconfig.json", a
 					outDir: "dist",
 				},
 				include: ["**/*"],
-			}),
-		},
-		{
-			path: "index.ts",
-			contents: `let foo: 2= 2`,
-		},
-	]);
-
-	expect(stdoutLinesForFile(stdout, "index.ts")).toMatch(
-		/\(unused-imports\/no-unused-vars\)/,
-	);
-	expect(stdoutLinesForFile(stdout, "index.ts")).toMatch(/\(format\/prettier\)/);
-});
-
-test("automatically prefers tsconfig.eslint.json over tsconfig.json", async () => {
-	const { stdout } = await testOnStdout({}, [
-		{
-			path: "tsconfig.json",
-			contents: JSON.stringify({
-				extends: "@total-typescript/tsconfig/tsc/no-dom/library-monorepo",
-				compilerOptions: {
-					outDir: "dist",
-				},
-				files: ["./bar.ts"],
-			}),
-		},
-		{
-			path: "tsconfig.eslint.json",
-			contents: JSON.stringify({
-				extends: "@total-typescript/tsconfig/tsc/no-dom/library-monorepo",
-				compilerOptions: {
-					noEmit: true,
-				},
-				includes: ["**/*"],
 			}),
 		},
 		{

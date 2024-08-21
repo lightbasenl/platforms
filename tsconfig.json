@@ -9,7 +9,7 @@
 		"composite": false,
 		"declaration": false
 	},
-	"files": ["./eslint.config.js"],
+	"files": ["./eslint.config.js", "./vitest.workspace.ts"],
 	"references": [
 		{
 			"path": "./packages/eslint-config"
