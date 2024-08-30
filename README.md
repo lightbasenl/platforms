@@ -9,8 +9,11 @@ All public packages & GitHub workflows developed and used by
   formatting
 - A [Pull-through-cache](./packages/eslint-config) with TTL, update sampling and scheduled
   eviction support.
+- An [OpenAPI based code generator](./packages/open-api-code-gen) for Axios, Fetch,
+  TanStack Query and more; Supporting evolving generator targets.
 - Various reusable workflows
   - [lib-license-checker](./docs/workflows/lib-license-checker.md)
+  - [lib-ci](./docs/workflows/lib-ci.md)
 
 ## Recommendations
 

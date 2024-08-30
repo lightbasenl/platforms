@@ -2,6 +2,7 @@
 	"release-type": "node",
 	"packages": {
 		"packages/eslint-config": {},
+		"packages/open-api-code-gen": {},
 		"packages/pull-through-cache": {}
 	},
 	"plugins": [

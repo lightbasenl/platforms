@@ -1,0 +1,38 @@
+{
+	"name": "@lightbase/open-api-code-gen",
+	"version": "0.2.2",
+	"description": "Generate evolving API clients from OpenAPI specs",
+	"type": "module",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/lightbasenl/platforms/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/lightbasenl/platforms.git",
+		"directory": "packages/open-api-code-gen"
+	},
+	"exports": {
+		".": {
+			"import": "./dist/src/index.js"
+		}
+	},
+	"main": "./dist/src/index.js",
+	"types": "./dist/src/index.d.ts",
+	"files": ["README.md", "LICENSE", "dist/src"],
+	"scripts": {
+		"build": "tsc -p ./tsconfig.json",
+		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
+		"lint:ci": "eslint .",
+		"test": "vitest",
+		"clean": "rm -rf ./.cache ./dist"
+	},
+	"dependencies": {
+		"swagger2openapi": "7.0.8",
+		"consola": "3.2.3"
+	},
+	"devDependencies": {
+		"@types/swagger2openapi": "7.0.4",
+		"tsx": "4.17.0"
+	}
+}
