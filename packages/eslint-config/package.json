@@ -32,7 +32,7 @@
 		"@typescript-eslint/utils": "8.4.0",
 		"diff-match-patch": "1.0.5",
 		"eslint": "8.57.0",
-		"eslint-config-flat-gitignore": "0.1.8",
+		"eslint-config-flat-gitignore": "0.2.0",
 		"eslint-import-resolver-typescript": "3.6.1",
 		"eslint-merge-processors": "0.1.0",
 		"eslint-plugin-comment-length": "2.1.0",
