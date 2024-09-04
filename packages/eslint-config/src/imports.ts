@@ -52,11 +52,13 @@ export function imports(typescript: TypeScriptConfig): Array<FlatConfig.Config> 
 						"import-x/default": "off",
 						"import-x/no-named-as-default-member": "off",
 						"import-x/no-unresolved": "off",
+						"import-x/no-rename-default": "off",
 					}
 				:	{
 						"import-x/named": "error",
 						"import-x/namespace": "off",
 						"import-x/no-unresolved": "error",
+						"import-x/no-rename-default": "off",
 					}),
 
 				// Make sure to disable no-unused-vars

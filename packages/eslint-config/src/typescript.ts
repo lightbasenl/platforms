@@ -130,6 +130,14 @@ export function typescript(config: TypeScriptConfig): Array<FlatConfig.Config> {
 		},
 
 		{
+			// Only available in strict, but we want these enabled always
+			files: globUse([GLOBS.javascript, GLOBS.typescript]),
+			rules: {
+				"@typescript-eslint/no-deprecated": "error",
+			},
+		},
+
+		{
 			// Compat with import plugin
 			files: globUse([GLOBS.javascript, GLOBS.typescript]),
 			rules: {
