@@ -1,6 +1,6 @@
 {
 	"name": "@lightbase/eslint-config",
-	"version": "0.6.1",
+	"version": "1.0.0",
 	"description": "ESLint based linting and formatting configuration",
 	"type": "module",
 	"license": "MIT",
@@ -19,7 +19,11 @@
 	},
 	"main": "./dist/src/index.js",
 	"types": "./dist/src/index.d.ts",
-	"files": ["README.md", "LICENSE", "dist/src"],
+	"files": [
+		"README.md",
+		"LICENSE",
+		"dist/src"
+	],
 	"scripts": {
 		"build": "tsc -p ./tsconfig.json",
 		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
