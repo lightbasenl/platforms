@@ -1,6 +1,6 @@
 {
 	"name": "@lightbase/eslint-config",
-	"version": "0.6.1",
+	"version": "1.0.0",
 	"description": "ESLint based linting and formatting configuration",
 	"type": "module",
 	"license": "MIT",
