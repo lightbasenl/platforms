@@ -2,27 +2,33 @@
 
 ## [1.0.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.6.1...eslint-config-v1.0.0) (2024-09-04)
 
-
 ### ⚠ BREAKING CHANGES
 
-* full ESLint v9 migration
+- full ESLint v9 migration
 
 ### Features
 
-* Full ESLint v9 migration ([f184609](https://github.com/lightbasenl/platforms/commit/f184609d09a5d02e680ca2e722652ed457dd0e02))
-* **typescript:** Enable no-deprecated rule ([071d189](https://github.com/lightbasenl/platforms/commit/071d189b2a2ad1ad678340b59ae9fc3cff4633cb))
-
+- Full ESLint v9 migration
+  ([f184609](https://github.com/lightbasenl/platforms/commit/f184609d09a5d02e680ca2e722652ed457dd0e02))
+- **typescript:** Enable no-deprecated rule
+  ([071d189](https://github.com/lightbasenl/platforms/commit/071d189b2a2ad1ad678340b59ae9fc3cff4633cb))
 
 ### Miscellaneous
 
-* Explicitly install eslint-formatter-compact for tests ([ebe4ee2](https://github.com/lightbasenl/platforms/commit/ebe4ee2b5ec6125687d3c47db09ca847530e12ce))
-
+- Explicitly install eslint-formatter-compact for tests
+  ([ebe4ee2](https://github.com/lightbasenl/platforms/commit/ebe4ee2b5ec6125687d3c47db09ca847530e12ce))
 
 ### Dependencies
 
-* Bump eslint-config-flat-gitignore from 0.1.8 to 0.2.0 ([#208](https://github.com/lightbasenl/platforms/issues/208)) ([a172cd0](https://github.com/lightbasenl/platforms/commit/a172cd0e642e39569d8ade977f3132e9f0f07afa))
-* Bump the typescript-eslint group with 2 updates ([#201](https://github.com/lightbasenl/platforms/issues/201)) ([578763b](https://github.com/lightbasenl/platforms/commit/578763b6cd3021f59ec737386d2f63e679f4eec0))
-* Bump the typescript-eslint group with 2 updates ([#207](https://github.com/lightbasenl/platforms/issues/207)) ([bb214db](https://github.com/lightbasenl/platforms/commit/bb214db3aafda014762e4e16a5e358cfa40a0e40))
+- Bump eslint-config-flat-gitignore from 0.1.8 to 0.2.0
+  ([#208](https://github.com/lightbasenl/platforms/issues/208))
+  ([a172cd0](https://github.com/lightbasenl/platforms/commit/a172cd0e642e39569d8ade977f3132e9f0f07afa))
+- Bump the typescript-eslint group with 2 updates
+  ([#201](https://github.com/lightbasenl/platforms/issues/201))
+  ([578763b](https://github.com/lightbasenl/platforms/commit/578763b6cd3021f59ec737386d2f63e679f4eec0))
+- Bump the typescript-eslint group with 2 updates
+  ([#207](https://github.com/lightbasenl/platforms/issues/207))
+  ([bb214db](https://github.com/lightbasenl/platforms/commit/bb214db3aafda014762e4e16a5e358cfa40a0e40))
 
 ## [0.6.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.6.0...eslint-config-v0.6.1) (2024-08-21)
 
