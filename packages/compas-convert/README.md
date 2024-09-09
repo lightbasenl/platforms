@@ -19,6 +19,21 @@ TypeScript powered libraries like Zod and Drizzle ORM to replace Compas.
   IDE support for tests in our projects.
 - Source-to-source; we will only change things in the project structure if it makes sense
   for the new tools.
+- One-time only; this tool will be developed for a one-time migration of all projects.
+  Afterward, we will remove it. The project will never be published to a registry like
+  NPM.
+
+## Usage
+
+```shell
+# From the repository root
+npm run build:ws
+npx compas-convert ../input/directory ../output/directory
+
+# OR From this package
+npm run build
+npx compas-convert ../../../input/directory ./output/directory
+```
 
 ## TODO
 
@@ -27,7 +42,7 @@ TypeScript powered libraries like Zod and Drizzle ORM to replace Compas.
 - [ ] Pre-condition: verify project uses '@lightbase/eslint-config'
 - [ ] Pre-condition: verify project uses Compas
 - [ ] Initial: remove jsconfig + setup tsconfig
-- [ ] Initial: copy (almost) all files, renaming them to `.ts`
+- [x] Initial: copy (almost) all files, renaming them to `.ts`
 - [ ] Pass: function doc blocks to inline types
 - [ ] Pass: @compas/test to Vitest
 - [ ] Pass: inline JSDoc blocks to inline types

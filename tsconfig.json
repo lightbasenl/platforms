@@ -12,6 +12,9 @@
 	"files": ["./eslint.config.js", "./vitest.workspace.ts"],
 	"references": [
 		{
+			"path": "./packages/compas-convert"
+		},
+		{
 			"path": "./packages/eslint-config"
 		},
 		{
