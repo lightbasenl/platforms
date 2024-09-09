@@ -203,7 +203,7 @@ export default defineConfig(
 ### Ignores
 
 ESLint will by default ignore everything as defined in your `.gitignore`. You can add new
-directories like so
+directories like so.
 
 ```js
 import { defineConfig } from "@lightbase/eslint-config";
@@ -217,6 +217,17 @@ export default defineConfig(
 		ignores: ["packages/**"],
 	},
 );
+```
+
+Make sure that nested directory ignores contain the proper wildcards for them to work.
+
+```ignorelang
+# works
+.cache
+**/src/generated
+
+# doesn't work
+src/generated
 ```
 
 ### Custom configuration
