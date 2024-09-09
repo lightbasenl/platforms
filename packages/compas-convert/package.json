@@ -1,7 +1,7 @@
 {
-	"name": "@lightbase/open-api-code-gen",
+	"name": "@lightbase/compas-convert",
 	"version": "0.0.1",
-	"description": "Generate evolving API clients from OpenAPI specs",
+	"description": "Convert Compas code-bases to TypeScript and beyond",
 	"type": "module",
 	"license": "MIT",
 	"bugs": {
@@ -10,7 +10,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/lightbasenl/platforms.git",
-		"directory": "packages/open-api-code-gen"
+		"directory": "packages/compas-convert"
 	},
 	"exports": {
 		".": {
@@ -27,12 +27,6 @@
 		"test": "vitest",
 		"clean": "rm -rf ./.cache ./dist"
 	},
-	"dependencies": {
-		"swagger2openapi": "7.0.8",
-		"consola": "3.2.3"
-	},
-	"devDependencies": {
-		"@types/swagger2openapi": "7.0.4",
-		"tsx": "4.19.0"
-	}
+	"dependencies": {},
+	"devDependencies": {}
 }

@@ -26,6 +26,8 @@ This repository is set up as a monorepo. All individual packages are set up with
 test and lint setups. The workspace root maintains the below scripts to run them across
 all packages in the workspace.
 
+Development requires Node.js 22+ & NPM 10+.
+
 ```shell
 # Install dependencies
 npm install
