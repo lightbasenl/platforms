@@ -3,7 +3,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { PathItem } from "../utils/openapi.js";
 
-const LOCKFILE = "./code-gen-lock.json";
+const LOCKFILE = "./code-gen-locked.json";
 
 type TargetLockfile = {
 	pathItems: Array<string>;

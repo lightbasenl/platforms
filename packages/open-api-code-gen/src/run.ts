@@ -1,3 +1,5 @@
+import { mkdir, writeFile } from "node:fs/promises";
+import path from "node:path";
 import consola from "consola";
 import type { OpenAPIV3 } from "openapi-types";
 import type { GeneratorTargetOutput } from "./config/target.js";
@@ -12,6 +14,10 @@ import {
 	optionallyLoadLockFile,
 	writeLockFile,
 } from "./process/locked.js";
+import { compasCompat } from "./targets/compas-compat.js";
+import { callTarget } from "./targets/interface.js";
+import type { TargetImplementation } from "./targets/interface.js";
+import { isNil } from "./utils/assert.js";
 import { resolvePathItems } from "./utils/openapi.js";
 
 export type Context<Name extends string = string> = {
@@ -99,6 +105,44 @@ export async function runCodeGeneration(context: Context) {
 		}
 
 		const groupedPathItems = groupPathItems(targetPathItemObjects, target.groupBy);
-		consola.info(groupedPathItems);
+
+		let targetImplementation: TargetImplementation | undefined = undefined;
+		if (target.target === "compas-compat-web") {
+			targetImplementation = compasCompat({
+				outputDirectory: target.outputDirectory,
+				compat: "web",
+				context,
+				pathItems: groupedPathItems,
+			});
+		} else if (target.target === "compas-compat-rn") {
+			targetImplementation = compasCompat({
+				outputDirectory: target.outputDirectory,
+				compat: "rn",
+				context,
+				pathItems: groupedPathItems,
+			});
+		}
+
+		if (isNil(targetImplementation)) {
+			throw new Error(`Unknown target: ${target.target}`);
+		}
+
+		callTarget(targetImplementation, "init", []);
+		for (const group of Object.keys(groupedPathItems)) {
+			callTarget(targetImplementation, "initGroup", [group]);
+
+			for (const pathItem of groupedPathItems[group] ?? []) {
+				callTarget(targetImplementation, "generateForPathItem", [group, pathItem]);
+			}
+		}
+
+		const files = callTarget(targetImplementation, "filesToWrite", []);
+		for (const file of files ?? []) {
+			const filename = path.join(target.outputDirectory, file.relativePath);
+			const dir = filename.split("/").slice(0, -1).join("/");
+			await mkdir(dir, { recursive: true });
+
+			await writeFile(filename, file.toString());
+		}
 	}
 }

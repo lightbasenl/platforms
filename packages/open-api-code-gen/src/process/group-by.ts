@@ -1,11 +1,11 @@
 import type { GeneratorTargetOutput } from "../config/target.js";
-import type { PathItem } from "../utils/openapi.js";
+import type { GroupedPathItems, PathItem } from "../utils/openapi.js";
 
 export function groupPathItems(
 	pathItems: Array<PathItem>,
 	groupBy: GeneratorTargetOutput["groupBy"],
-): Record<string, Array<PathItem>> {
-	const result: Record<string, Array<PathItem>> = {};
+): GroupedPathItems {
+	const result: GroupedPathItems = {};
 	const groupByFn = makeGroupBy(groupBy);
 
 	for (const item of pathItems) {

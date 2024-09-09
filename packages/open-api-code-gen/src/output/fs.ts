@@ -2,20 +2,35 @@ import { mkdir, rm } from "node:fs/promises";
 import path from "node:path";
 import { objectWithKey } from "../utils/assert.js";
 
-export interface GeneratorDestructureImport {
-	destructureSymbol: string;
-	filename: string;
-}
+export type GeneratorDestructureImport =
+	| {
+			destructureSymbol: string;
+			filename: string;
+	  }
+	| {
+			destructureSymbol: string;
+			package: string;
+	  };
 
-export interface GeneratorStarImport {
-	starSymbol: string;
-	filename: string;
-}
+export type GeneratorStarImport =
+	| {
+			starSymbol: string;
+			filename: string;
+	  }
+	| {
+			starSymbol: string;
+			package: string;
+	  };
 
-export interface GeneratorDefaultImport {
-	defaultSymbol: string;
-	filename: string;
-}
+export type GeneratorDefaultImport =
+	| {
+			defaultSymbol: string;
+			filename: string;
+	  }
+	| {
+			defaultSymbol: string;
+			package: string;
+	  };
 
 export type GeneratorImport =
 	| GeneratorDestructureImport
@@ -38,7 +53,7 @@ export class GeneratorFile {
 	#deferList: Array<() => void> = [];
 	#beforeToStringList: Array<() => void> = [];
 
-	constructor(private relativePath: string) {}
+	constructor(public relativePath: string) {}
 
 	defer(cb: () => void) {
 		this.#deferList.push(cb);
@@ -61,8 +76,13 @@ export class GeneratorFile {
 	}
 
 	addImport(generatorImport: GeneratorImport) {
-		let relative = path.relative(this.relativePath, generatorImport.filename);
-		relative = relative.replace(".ts", ".js");
+		let relative = "";
+		if ("package" in generatorImport) {
+			relative = generatorImport.package;
+		} else {
+			relative = path.relative(this.relativePath, generatorImport.filename);
+			relative = relative.replace(".ts", ".js");
+		}
 
 		let map: Map<string, Array<GeneratorImport>> = this.#destructureImports;
 		if (objectWithKey(generatorImport, "starSymbol")) {

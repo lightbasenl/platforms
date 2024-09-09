@@ -8,6 +8,8 @@ export type PathItem = {
 	pathItem: OpenAPIV3.OperationObject;
 };
 
+export type GroupedPathItems = Record<string, Array<PathItem>>;
+
 export function resolvePathItems(
 	specifications: Array<OpenAPIV3.Document>,
 ): Array<PathItem> {
