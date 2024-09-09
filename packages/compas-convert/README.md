@@ -30,9 +30,9 @@ TypeScript powered libraries like Zod and Drizzle ORM to replace Compas.
 npm run build:ws
 npx compas-convert ../input/directory ../output/directory
 
-# OR From this package
-npm run build
-npx compas-convert ../../../input/directory ./output/directory
+# For active development on this tool you probably want the following from the repository root.
+# Enable TS watch mode in your IDE.
+rm -rf ../compas-convert-test && npx compas-convert ../some-local-test-project ../compas-convert-test && open ../compas-convert-test
 ```
 
 ## TODO

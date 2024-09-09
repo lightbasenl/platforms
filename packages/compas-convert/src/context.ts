@@ -6,6 +6,13 @@
 export interface Context {
 	inputDirectory: string;
 	outputDirectory: string;
+	packageJson?: PartialTypedPackageJson;
+}
+
+export interface PartialTypedPackageJson {
+	scripts?: Record<string, string>;
+	dependencies?: Record<string, string>;
+	devDependencies?: Record<string, string>;
 }
 
 export function createEmptyContext(

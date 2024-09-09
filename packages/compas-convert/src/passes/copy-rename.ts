@@ -19,6 +19,8 @@ const ignoredPaths = [
 	"jsconfig.json",
 ];
 
+const filesThatShouldNotBeRenamed = ["eslint.config.js", "commands/generate.js"];
+
 /**
  * Copy all sources files from the source to target directory. Renaming them in the process.
  *
@@ -59,9 +61,15 @@ export async function copyRename(context: Context) {
 }
 
 function transformFilename(filename: string) {
-	if (filename.endsWith(".js")) {
-		return `${filename.slice(0, -3)}.ts`;
+	if (!filename.endsWith(".js")) {
+		return filename;
 	}
 
-	return filename;
+	for (const skipFile of filesThatShouldNotBeRenamed) {
+		if (filename.endsWith(skipFile)) {
+			return filename;
+		}
+	}
+
+	return `${filename.slice(0, -3)}.ts`;
 }
