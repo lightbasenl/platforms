@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v1.0.0...eslint-config-v1.0.1) (2024-09-09)
+
+
+### Dependencies
+
+* Bump eslint-config-flat-gitignore from 0.2.0 to 0.3.0 ([#213](https://github.com/lightbasenl/platforms/issues/213)) ([0390ce1](https://github.com/lightbasenl/platforms/commit/0390ce1ac926704be69ed342d0f1cbfe4a8b7d1f))
+* Bump eslint-plugin-import-x from 4.1.1 to 4.2.1 ([#212](https://github.com/lightbasenl/platforms/issues/212)) ([8c44254](https://github.com/lightbasenl/platforms/commit/8c44254f28f7cc85326c1eadc1a7f9204bb307eb))
+* Bump the eslint group with 2 updates ([#221](https://github.com/lightbasenl/platforms/issues/221)) ([bacb12e](https://github.com/lightbasenl/platforms/commit/bacb12e59a016a6efe00e2344ff9bc4f569e969c))
+
 ## [1.0.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v0.6.1...eslint-config-v1.0.0) (2024-09-04)
 
 ### ⚠ BREAKING CHANGES
