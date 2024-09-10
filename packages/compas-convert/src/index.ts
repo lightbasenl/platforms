@@ -6,7 +6,8 @@ import consola from "consola";
 import { createEmptyContext } from "./context.js";
 import type { Context } from "./context.js";
 import { copyRename } from "./passes/copy-rename.js";
-import { initTypescript } from "./passes/init-typescript.js";
+import { initTypescriptInProject } from "./passes/init-typescript-in-project.js";
+import { installDependencies } from "./passes/install-dependencies.js";
 import { isNil } from "./utils.js";
 
 consola.options.level = 6;
@@ -29,7 +30,8 @@ const context = createEmptyContext(resolvedInputDirectory, resolvedOutputDirecto
 
 const passes: Array<(context: Context) => void | Promise<void>> = [
 	copyRename,
-	initTypescript,
+	initTypescriptInProject,
+	installDependencies,
 ];
 
 consola.start(`Converting ${path.relative(process.cwd(), resolvedInputDirectory)}`);

@@ -6,11 +6,11 @@ import { retrievePackageJson, writePackageJson } from "../shared/package-json.js
 /**
  * Add a few TypeScript dependencies and create good starting TSConfig.
  */
-export async function initTypescript(context: Context) {
+export async function initTypescriptInProject(context: Context) {
 	const packageJson = await retrievePackageJson(context);
 
 	packageJson.devDependencies ??= {};
-	packageJson.devDependencies["typescript"] = "5.5.4";
+	packageJson.devDependencies["typescript"] = "5.6.2";
 	packageJson.devDependencies["@total-typescript/tsconfig"] = "1.0.4";
 	packageJson.devDependencies["@types/node"] = "latest";
 
