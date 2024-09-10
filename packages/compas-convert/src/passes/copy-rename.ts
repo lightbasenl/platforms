@@ -39,7 +39,7 @@ export async function copyRename(context: Context) {
 		if (fileOrDirectory.isFile()) {
 			await cp(
 				path.join(context.inputDirectory, fileOrDirectory.name),
-				path.join(context.outputDirectory, transformFilename(fileOrDirectory.name)),
+				transformFilename(path.join(context.outputDirectory, fileOrDirectory.name)),
 			);
 		} else if (fileOrDirectory.isDirectory()) {
 			// Recurse into directories. Not the most efficient, but should work for now.
