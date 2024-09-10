@@ -1,3 +1,5 @@
+import type { Project } from "ts-morph";
+
 /**
  * Conversion context.
  *
@@ -7,6 +9,7 @@ export interface Context {
 	inputDirectory: string;
 	outputDirectory: string;
 	packageJson?: PartialTypedPackageJson;
+	ts?: Project;
 }
 
 export interface PartialTypedPackageJson {

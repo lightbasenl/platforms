@@ -27,7 +27,8 @@
 		"clean": "rm -rf ./.cache ./dist"
 	},
 	"dependencies": {
-		"consola": "3.2.3"
+		"consola": "3.2.3",
+		"ts-morph": "23.0.0"
 	},
 	"devDependencies": {}
 }

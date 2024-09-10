@@ -6,8 +6,10 @@ import consola from "consola";
 import { createEmptyContext } from "./context.js";
 import type { Context } from "./context.js";
 import { copyRename } from "./passes/copy-rename.js";
+import { initTsMorph } from "./passes/init-ts-morph.js";
 import { initTypescriptInProject } from "./passes/init-typescript-in-project.js";
 import { installDependencies } from "./passes/install-dependencies.js";
+import { typescriptDiagnostics } from "./passes/typescript-save-and-build.js";
 import { isNil } from "./utils.js";
 
 consola.options.level = 6;
@@ -32,6 +34,10 @@ const passes: Array<(context: Context) => void | Promise<void>> = [
 	copyRename,
 	initTypescriptInProject,
 	installDependencies,
+	initTsMorph,
+
+	// Always finish with available diagnostics.
+	typescriptDiagnostics,
 ];
 
 consola.start(`Converting ${path.relative(process.cwd(), resolvedInputDirectory)}`);
