@@ -11,15 +11,6 @@ export async function fixGenerators(context: Context) {
 
 	for (const file of await readdir(genDirectory)) {
 		const sourceFile = ts.getSourceFileOrThrow(path.join(genDirectory, file));
-		sourceFile.addImportDeclaration({
-			moduleSpecifier: "@compas/code-gen",
-			namedImports: [
-				{
-					name: "Generator",
-				},
-			],
-		});
-
 		for (const fn of sourceFile.getFunctions()) {
 			assignSignatureTagsToFunction(context, fn, {
 				generator: "Generator",
@@ -37,6 +28,12 @@ export async function fixGenerators(context: Context) {
 						SyntaxKind.ArrowFunction,
 					);
 					initializer?.getParameter("table")?.setType("string");
+				}
+
+				const refCreateFn = fn.getVariableDeclaration("ref");
+				if (refCreateFn) {
+					const initializer = refCreateFn.getInitializerIfKind(SyntaxKind.ArrowFunction);
+					initializer?.getParameter("name")?.setType("string");
 				}
 			}
 		}

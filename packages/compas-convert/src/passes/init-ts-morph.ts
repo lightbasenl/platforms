@@ -1,7 +1,11 @@
 import path from "node:path";
 import { Project } from "ts-morph";
-import type { Node } from "ts-morph";
 import type { Context } from "../context.js";
+
+export const CONVERT_UTIL_PATH = "./src/compas-convert.ts";
+export const CONVERT_UTIL = {
+	any: "$ConvertAny",
+} as const;
 
 /**
  * TS-morph is a library for manipulating via the TypeScript API's.
@@ -16,7 +20,7 @@ export function initTsMorph(context: Context) {
 	});
 
 	context.ts.createSourceFile(
-		path.join(context.outputDirectory, "./src/compas-convert.ts"),
+		path.join(context.outputDirectory, CONVERT_UTIL_PATH),
 		`
 // File added by compas-convert
 
@@ -41,24 +45,4 @@ export function getTypescriptProgram(context: Context) {
 	}
 
 	return context.ts;
-}
-
-export function addConvertAnyImport(context: Context, node: Node) {
-	const srcFile = node.getSourceFile();
-	const relativeImport = `${path
-		.relative(
-			srcFile.getFilePath(),
-			path.join(context.outputDirectory, "./src/compas-convert.ts"),
-		)
-		.slice(0, -3)}.js`;
-
-	node.getSourceFile().addImportDeclaration({
-		isTypeOnly: true,
-		moduleSpecifier: relativeImport,
-		namedImports: [
-			{
-				name: "$ConvertAny",
-			},
-		],
-	});
 }

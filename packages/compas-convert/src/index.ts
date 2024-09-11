@@ -5,6 +5,7 @@ import path from "node:path";
 import consola from "consola";
 import { createEmptyContext } from "./context.js";
 import type { Context } from "./context.js";
+import { addCommonImports } from "./passes/add-common-imports.js";
 import { copyRename } from "./passes/copy-rename.js";
 import { fixGenerators } from "./passes/fix-generators.js";
 import { initTsMorph } from "./passes/init-ts-morph.js";
@@ -36,6 +37,7 @@ const passes: Array<(context: Context) => void | Promise<void>> = [
 	initTypescriptInProject,
 	installDependencies,
 	initTsMorph,
+	addCommonImports,
 	fixGenerators,
 
 	// Always finish with available diagnostics.

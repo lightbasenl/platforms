@@ -1,13 +1,13 @@
-import { Node } from "ts-morph";
 import type {
 	FunctionDeclaration,
+	JSDoc,
 	JSDocParameterTag,
 	JSDocReturnTag,
 	JSDocTemplateTag,
 } from "ts-morph";
-import type { JSDoc } from "ts-morph";
+import { Node } from "ts-morph";
 import type { Context } from "../context.js";
-import { addConvertAnyImport } from "../passes/init-ts-morph.js";
+import { CONVERT_UTIL } from "../passes/init-ts-morph.js";
 
 export function removeJsDocIfEmpty(doc: JSDoc) {
 	if ((doc.getCommentText() ?? "").length === 0 && doc.getTags().length === 0) {
@@ -36,8 +36,7 @@ export function assignSignatureTagsToFunction(
 
 		if (!param.getTypeNode()) {
 			if (!tag || !typeExpression) {
-				param.setType("$ConvertAny");
-				addConvertAnyImport(context, param);
+				param.setType(CONVERT_UTIL.any);
 			} else {
 				param.setType(typeExpression);
 			}
