@@ -6,6 +6,7 @@ import consola from "consola";
 import { createEmptyContext } from "./context.js";
 import type { Context } from "./context.js";
 import { copyRename } from "./passes/copy-rename.js";
+import { fixGenerators } from "./passes/fix-generators.js";
 import { initTsMorph } from "./passes/init-ts-morph.js";
 import { initTypescriptInProject } from "./passes/init-typescript-in-project.js";
 import { installDependencies } from "./passes/install-dependencies.js";
@@ -35,6 +36,7 @@ const passes: Array<(context: Context) => void | Promise<void>> = [
 	initTypescriptInProject,
 	installDependencies,
 	initTsMorph,
+	fixGenerators,
 
 	// Always finish with available diagnostics.
 	typescriptDiagnostics,

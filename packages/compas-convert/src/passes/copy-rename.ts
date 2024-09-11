@@ -17,6 +17,9 @@ const ignoredPaths = [
 	"out",
 	"package-lock.json",
 	"jsconfig.json",
+
+	// TODO: include this again / regenerate
+	"generated",
 ];
 
 const filesThatShouldNotBeRenamed = ["eslint.config.js", "commands/generate.js"];
