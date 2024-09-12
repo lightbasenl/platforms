@@ -17,9 +17,6 @@ const ignoredPaths = [
 	"out",
 	"package-lock.json",
 	"jsconfig.json",
-
-	// TODO: include this again / regenerate
-	"generated",
 ];
 
 const filesThatShouldNotBeRenamed = ["eslint.config.js", "commands/generate.js"];
@@ -27,7 +24,7 @@ const filesThatShouldNotBeRenamed = ["eslint.config.js", "commands/generate.js"]
 /**
  * Copy all sources files from the source to target directory. Renaming them in the process.
  *
- * By default ignores node_modules, .git, etc.
+ * By default, ignores node_modules, .git, etc.
  */
 export async function copyRename(context: Context) {
 	await mkdir(context.outputDirectory, { recursive: true });

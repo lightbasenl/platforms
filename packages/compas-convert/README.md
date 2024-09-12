@@ -41,7 +41,7 @@ rm -rf ../compas-convert-test && npx compas-convert ../some-local-test-project .
       [open-api-code-gen](../open-api-code-gen).
 - [ ] Pre-condition: verify project uses '@lightbase/eslint-config'
 - [ ] Pre-condition: verify project uses Compas
-- [ ] Initial: remove jsconfig + setup tsconfig
+- [x] Initial: remove jsconfig + setup tsconfig
 - [x] Initial: copy (almost) all files, renaming them to `.ts`
 - [ ] Pass: function doc blocks to inline types
 - [ ] Pass: @compas/test to Vitest

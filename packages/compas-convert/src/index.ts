@@ -11,12 +11,14 @@ import { fixGenerators } from "./passes/fix-generators.js";
 import { initTsMorph } from "./passes/init-ts-morph.js";
 import { initTypescriptInProject } from "./passes/init-typescript-in-project.js";
 import { installDependencies } from "./passes/install-dependencies.js";
+import { fixTypesOfLiveBindings } from "./passes/types-of-live-bindings.js";
 import { typescriptDiagnostics } from "./passes/typescript-save-and-build.js";
 import { isNil } from "./utils.js";
 
 consola.options.level = 6;
 consola.options.formatOptions.depth = null;
 consola.options.formatOptions.colors = true;
+Error.stackTraceLimit = 20;
 
 const [inputDirectory, outputDirectory] = process.argv.slice(2);
 
@@ -35,12 +37,13 @@ const context = createEmptyContext(resolvedInputDirectory, resolvedOutputDirecto
 const passes: Array<(context: Context) => void | Promise<void>> = [
 	copyRename,
 	initTypescriptInProject,
-	installDependencies,
 	initTsMorph,
 	addCommonImports,
 	fixGenerators,
+	fixTypesOfLiveBindings,
 
 	// Always finish with available diagnostics.
+	installDependencies,
 	typescriptDiagnostics,
 ];
 

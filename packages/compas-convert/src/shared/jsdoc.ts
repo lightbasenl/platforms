@@ -4,15 +4,78 @@ import type {
 	JSDocParameterTag,
 	JSDocReturnTag,
 	JSDocTemplateTag,
+	JSDocTypeExpression,
 } from "ts-morph";
 import { Node } from "ts-morph";
 import type { Context } from "../context.js";
+import { addNamedImportIfNotExists } from "../passes/add-common-imports.js";
 import { CONVERT_UTIL } from "../passes/init-ts-morph.js";
 
 export function removeJsDocIfEmpty(doc: JSDoc) {
 	if ((doc.getCommentText() ?? "").length === 0 && doc.getTags().length === 0) {
 		return doc.remove();
 	}
+}
+
+export function typeExpressionToInlineType(
+	context: Context,
+	typeExpression: JSDocTypeExpression | string,
+) {
+	let type = typeof typeExpression === "string" ? typeExpression : "";
+
+	if (typeof typeExpression !== "string") {
+		type = typeExpression.getTypeNode().getText();
+
+		if (type.length === 0) {
+			return CONVERT_UTIL.any;
+		}
+	}
+
+	if (/^[\w|\s<>,.]+$/gi.test(type)) {
+		// number, boolean, FooBar, foo|bar, Foo<string>, Foo.Bar,
+		return type;
+	}
+
+	const sourceFile =
+		typeof typeExpression === "string" ? undefined : typeExpression.getSourceFile();
+
+	// Cleanup multiline types. These include multiline ' * ' jsdoc prefixes.
+	let resolvedType = type.replaceAll("* ", "");
+
+	resolvedType = resolvedType.replaceAll(
+		/(typeof )?import\(\s*"(.+)"\s*\)\s*\.(\w+)/gi,
+		(group, ...match) => {
+			// Cleanup import("foo").Bar into a type import.
+			const hasTypeof = typeof match[0] === "string" && match[0].length > 0;
+			const moduleName = match[1] as unknown;
+			const symbolName = match[2] as unknown;
+
+			if (
+				hasTypeof ||
+				typeof moduleName !== "string" ||
+				moduleName.length === 0 ||
+				typeof symbolName !== "string" ||
+				symbolName.length === 0
+			) {
+				return group;
+			}
+
+			if (sourceFile) {
+				if (moduleName.startsWith("../") || moduleName.startsWith("./")) {
+					addNamedImportIfNotExists(sourceFile, moduleName, symbolName, !hasTypeof);
+				} else {
+					addNamedImportIfNotExists(sourceFile, moduleName, symbolName, !hasTypeof);
+				}
+			} else {
+				// If the caller explicitly passes a string, we expect them to know what it is and add the
+				// import themselves.
+			}
+
+			return hasTypeof ? `typeof ${symbolName}` : symbolName;
+		},
+	);
+
+	return resolvedType;
 }
 
 /**
@@ -30,15 +93,13 @@ export function assignSignatureTagsToFunction(
 		const tag = tags.parameters[paramIndex];
 		const param = params[paramIndex]!;
 
-		const typeExpression =
-			paramOverrides?.[param.getName()] ??
-			tag?.getTypeExpression()?.getTypeNode().getText();
+		const typeExpression = paramOverrides?.[param.getName()] ?? tag?.getTypeExpression();
 
 		if (!param.getTypeNode()) {
-			if (!tag || !typeExpression) {
+			if (!typeExpression) {
 				param.setType(CONVERT_UTIL.any);
 			} else {
-				param.setType(typeExpression);
+				param.setType(typeExpressionToInlineType(context, typeExpression));
 			}
 		}
 
@@ -56,7 +117,7 @@ export function assignSignatureTagsToFunction(
 
 	const returnExpression = tags.returnTag?.getTypeExpression();
 	if (returnExpression) {
-		fn.setReturnType(returnExpression.getTypeNode().getText());
+		fn.setReturnType(typeExpressionToInlineType(context, returnExpression));
 	}
 
 	if (tags.returnTag?.getCommentText() && tags.docBlock) {

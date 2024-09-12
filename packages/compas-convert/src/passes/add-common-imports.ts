@@ -1,7 +1,7 @@
-import { glob } from "node:fs/promises";
 import path from "node:path";
 import type { SourceFile } from "ts-morph";
 import { Node } from "ts-morph";
+import { globOfAllTypeScriptFiles } from "../shared/project-files.js";
 import type { Context } from "./../context.js";
 import {
 	CONVERT_UTIL,
@@ -15,10 +15,7 @@ import {
  * Any extra import that is unused after all transformations will be cleaned up the ESLint setup.
  */
 export async function addCommonImports(context: Context) {
-	// All ts files in the project, excluding node_modules
-	const allFiles = glob(["./{,!(node_modules)/**}/*.ts"], {
-		cwd: context.outputDirectory,
-	});
+	const allFiles = globOfAllTypeScriptFiles(context);
 
 	for await (const file of allFiles) {
 		const fullPath = path.join(context.outputDirectory, file);
@@ -67,7 +64,7 @@ export async function addCommonImports(context: Context) {
 	}
 }
 
-function addNamedImportIfNotExists(
+export function addNamedImportIfNotExists(
 	file: SourceFile,
 	module: string,
 	name: string,
