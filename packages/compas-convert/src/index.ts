@@ -8,9 +8,11 @@ import type { GlobalPass, Pass } from "./pass.js";
 import { addCommonImports } from "./passes/add-common-imports.js";
 import { copyRename } from "./passes/copy-rename.js";
 import { fixGenerators } from "./passes/fix-generators.js";
+import { updateGenerateOptions } from "./passes/generate-options.js";
 import { getTypescriptProgram, initTsMorph } from "./passes/init-ts-morph.js";
 import { initTypescriptInProject } from "./passes/init-typescript-in-project.js";
 import { installDependencies } from "./passes/install-dependencies.js";
+import { runGenerators } from "./passes/run-generators.js";
 import { fixTypesOfAllFunctions } from "./passes/types-of-all-functions.js";
 import { fixTypesOfLiveBindings } from "./passes/types-of-live-bindings.js";
 import { typescriptDiagnostics } from "./passes/typescript-save-and-build.js";
@@ -36,18 +38,20 @@ const resolvedInputDirectory = path.resolve(inputDirectory);
 const resolvedOutputDirectory = path.resolve(outputDirectory);
 const context = createEmptyContext(resolvedInputDirectory, resolvedOutputDirectory);
 
-// TODO!: split out in file vs global passes.
 const passes: Array<Pass> = [
 	copyRename,
 	initTypescriptInProject,
 	initTsMorph,
+
 	addCommonImports,
 	fixGenerators,
 	fixTypesOfLiveBindings,
 	fixTypesOfAllFunctions,
+	updateGenerateOptions,
 
-	// Always finish with available diagnostics.
 	installDependencies,
+	runGenerators,
+
 	typescriptDiagnostics,
 ];
 

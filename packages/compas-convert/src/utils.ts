@@ -1,5 +1,8 @@
-import type { SpawnOptions } from "node:child_process";
-import { spawn as cpSpawn } from "node:child_process";
+import type { ExecOptions, SpawnOptions } from "node:child_process";
+import { spawn as cpSpawn, exec as cpExec } from "node:child_process";
+import { promisify } from "node:util";
+
+const internalExec = promisify(cpExec);
 
 export function isNil(value: unknown): value is null | undefined {
 	return value === null || value === undefined;
@@ -14,6 +17,35 @@ export function objectWithKey<const K extends string>(
 	key: K,
 ): value is Record<K, unknown> {
 	return isUnknownRecord(value) && key in value;
+}
+
+/**
+ * Wrap around exec, capturing stdout and stderr.
+ */
+export async function exec(command: string, opts: ExecOptions = {}) {
+	try {
+		const promise = internalExec(command, { encoding: "utf8", ...opts });
+		const { stdout, stderr } = await promise;
+
+		return {
+			stdout,
+			stderr,
+			exitCode: promise.child.exitCode ?? 0,
+		};
+	} catch (e) {
+		if (
+			objectWithKey(e, "stdout") &&
+			objectWithKey(e, "stderr") &&
+			objectWithKey(e, "code")
+		) {
+			return {
+				stdout: (e.stdout as string) ?? "",
+				stderr: (e.stderr as string) ?? "",
+				exitCode: (e.code as number) ?? 1,
+			};
+		}
+		throw e;
+	}
 }
 
 /**

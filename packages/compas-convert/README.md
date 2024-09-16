@@ -39,15 +39,14 @@ rm -rf ../compas-convert-test && npx compas-convert ../some-local-test-project .
 
 - [ ] Fully implement the 'compas-compat' target in
       [open-api-code-gen](../open-api-code-gen).
-- [ ] Pre-condition: verify project uses '@lightbase/eslint-config'
-- [ ] Pre-condition: verify project uses Compas
-- [x] Initial: remove jsconfig + setup tsconfig
-- [x] Initial: copy (almost) all files, renaming them to `.ts`
-- [ ] Pass: function doc blocks to inline types
+- [ ] Pass: Generator compatibility. Create / improve Compas Typescript targets for
+      tighter integrations.
+  - [ ] Types
+  - [ ] Validators
+  - [ ] Router
+  - [ ] Database
 - [ ] Pass: @compas/test to Vitest
 - [ ] Pass: inline JSDoc blocks to inline types
 - [ ] Pass: common issues
   - Run TypeScript and find common errors
 - [ ] Pass: build step. Fixup CI, Dockerfile, docs, etc
-- [ ] Pass: Generator compatibility. Create / improve Compas Typescript targets for
-      tighter integrations.
