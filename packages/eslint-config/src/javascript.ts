@@ -31,6 +31,7 @@ export function javascript(): Array<FlatConfig.Config> {
 				parserOptions: {
 					project: false,
 					projectService: false,
+					warnOnUnsupportedTypeScriptVersion: false,
 				},
 			},
 		},
