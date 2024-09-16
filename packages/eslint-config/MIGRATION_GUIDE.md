@@ -1,5 +1,11 @@
 # Migrating to @lightbase/eslint-config
 
+> [!NOTE]
+>
+> In most cases, you may need to remove 'node_modules' and 'package-lock.json' and
+> reinstall the packages after the below installation steps. This drops existing version
+> constraints that exist in the resolved packages, allowing NPM to re-resolve everything.
+
 ## From @compas/eslint-plugin
 
 Execute the following steps to migrate in a mostly compatible way from
