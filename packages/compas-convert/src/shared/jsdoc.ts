@@ -1,3 +1,4 @@
+import consola from "consola";
 import type {
 	FunctionDeclaration,
 	JSDoc,
@@ -20,6 +21,7 @@ export function removeJsDocIfEmpty(doc: JSDoc) {
 export function typeExpressionToInlineType(
 	context: Context,
 	typeExpression: JSDocTypeExpression | string,
+	isOptional: boolean = false,
 ) {
 	let type = typeof typeExpression === "string" ? typeExpression : "";
 
@@ -29,6 +31,10 @@ export function typeExpressionToInlineType(
 		if (type.length === 0) {
 			return CONVERT_UTIL.any;
 		}
+	}
+
+	if (isOptional && !type.includes("|undefined")) {
+		type += "|undefined";
 	}
 
 	if (/^[\w|\s<>,.]+$/gi.test(type)) {
@@ -87,46 +93,71 @@ export function assignSignatureTagsToFunction(
 	paramOverrides?: Record<string, string>,
 ) {
 	const tags = extractSignatureTagsForFunction(fn);
+	let description = tags.docBlock?.getDescription() ?? "";
+
+	const debugObject = {
+		name: fn.getName(),
+		docs: {
+			docBlock: tags.docBlock?.getFullText(),
+			description: [description],
+			return: tags.returnTag?.getFullText(),
+			params: Object.entries(tags.parameters ?? {}).map(([k, v]) => [
+				k,
+				v?.getFullText(),
+			]),
+			generics: tags.generics.map((it) => it.getFullText()),
+		},
+		params: [] as Array<Record<string, unknown>>,
+		newDocBlock: {} as Record<string, unknown>,
+	};
 
 	const params = fn.getParameters();
-	for (let paramIndex = 0; paramIndex < params.length; paramIndex++) {
-		const tag = tags.parameters[paramIndex];
-		const param = params[paramIndex]!;
-
+	for (const param of params) {
+		const tag = tags.parameters[param.getName()];
 		const typeExpression = paramOverrides?.[param.getName()] ?? tag?.getTypeExpression();
+		const stringType =
+			typeExpression ?
+				typeExpressionToInlineType(context, typeExpression, tag?.isBracketed() ?? false)
+			:	"";
+
+		debugObject.params.push({
+			name: param.getName(),
+			expression: stringType,
+			type: param.getType().getText(),
+		});
 
 		if (!param.getTypeNode()) {
-			if (!typeExpression) {
-				param.setType(CONVERT_UTIL.any);
-			} else {
-				param.setType(typeExpressionToInlineType(context, typeExpression));
+			try {
+				if (!typeExpression) {
+					param.setType(CONVERT_UTIL.any);
+				} else {
+					param.setType(stringType);
+				}
+			} catch (e) {
+				consola.log("Adding param", debugObject);
+				throw e;
 			}
 		}
 
 		if (tag) {
 			// Assign parameter docs to the function.
 			if (tags.docBlock && tag.getCommentText()) {
-				tags.docBlock.setDescription(
-					`${tags.docBlock.getDescription()}\n- ${tag.getName()}: ${tag.getCommentText()}`,
-				);
+				description += `\n- ${tag.getName()}: ${tag.getCommentText()}`;
+				debugObject.docs.description.push(description);
 			}
-
-			tag.remove();
 		}
 	}
 
 	const returnExpression = tags.returnTag?.getTypeExpression();
+	debugObject.params.push({ name: "__return", expression: returnExpression });
 	if (returnExpression) {
 		fn.setReturnType(typeExpressionToInlineType(context, returnExpression));
 	}
 
 	if (tags.returnTag?.getCommentText() && tags.docBlock) {
-		tags.docBlock.setDescription(
-			`${tags.docBlock.getDescription()}\n - Returns: ${tags.returnTag?.getCommentText() ?? ""}`,
-		);
+		description += `\n - Returns: ${tags.returnTag?.getCommentText() ?? ""}`;
+		debugObject.docs.description.push(description);
 	}
-
-	tags.returnTag?.remove();
 
 	for (const template of tags.generics) {
 		for (const param of template.getTypeParameters()) {
@@ -138,13 +169,44 @@ export function assignSignatureTagsToFunction(
 				})),
 			);
 		}
+	}
 
-		template.remove();
+	const otherTags =
+		tags.docBlock
+			?.getTags()
+			.filter((tag) => !["param", "returns", "template"].includes(tag.getTagName())) ??
+		[];
+	const newDocBlock = {
+		description: description,
+		tags: otherTags.map((it) => ({
+			tagName: it.getTagName(),
+			text: it.getText(),
+		})),
+	};
+
+	debugObject.newDocBlock = newDocBlock;
+
+	if (newDocBlock.description.length || newDocBlock.tags.length) {
+		try {
+			fn.addJsDoc(newDocBlock);
+		} catch (e) {
+			consola.log("Addition of docs", fn.getName(), debugObject);
+			throw e;
+		}
+	}
+
+	if (tags.docBlock) {
+		try {
+			tags.docBlock.remove();
+		} catch (e) {
+			consola.log("Removal of docs", fn.getName(), debugObject);
+			throw e;
+		}
 	}
 }
 
 export function extractSignatureTagsForFunction(fn: FunctionDeclaration) {
-	const parameters: Array<JSDocParameterTag | undefined> = [];
+	const parameters: Record<string, JSDocParameterTag | undefined> = {};
 	let returnTag: JSDocReturnTag | undefined = undefined;
 	const generics: Array<JSDocTemplateTag> = [];
 	let docBlock: JSDoc | undefined = undefined;
@@ -161,7 +223,7 @@ export function extractSignatureTagsForFunction(fn: FunctionDeclaration) {
 			if (Node.isJSDocParameterTag(tag)) {
 				const param = fn.getParameter(tag.getName());
 				if (param) {
-					parameters[param.getChildIndex()] = tag;
+					parameters[param.getName()] = tag;
 
 					if (!docBlock) {
 						// Assume that the first doc block with a param match is the relevant function doc
