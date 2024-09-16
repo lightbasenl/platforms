@@ -20,6 +20,7 @@ const ignoredPaths = [
 ];
 
 const filesThatShouldNotBeRenamed = ["eslint.config.js", "commands/generate.js"];
+const directoriesThatShouldNotBeRenamed = ["vendor/backend"];
 
 /**
  * Copy all sources files from the source to target directory. Renaming them in the process.
@@ -67,6 +68,12 @@ function transformFilename(filename: string) {
 
 	for (const skipFile of filesThatShouldNotBeRenamed) {
 		if (filename.endsWith(skipFile)) {
+			return filename;
+		}
+	}
+
+	for (const skipDir of directoriesThatShouldNotBeRenamed) {
+		if (filename.includes(skipDir)) {
 			return filename;
 		}
 	}
