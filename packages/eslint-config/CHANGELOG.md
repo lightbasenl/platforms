@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.0.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v1.0.1...eslint-config-v1.0.2) (2024-09-20)
+
+
+### Bug Fixes
+
+* **eslint-config:** Don't warn for unsupported TypeScript versions when parsing JS files ([e1165ca](https://github.com/lightbasenl/platforms/commit/e1165ca1043413c7779bc71b7ec562f9bff3c1b8))
+
+
+### Miscellaneous
+
+* **eslint-config:** Add docs about directory ignore wildcards ([da6b271](https://github.com/lightbasenl/platforms/commit/da6b271b7e7141bf9f0bb3a9d099510ba91586e1))
+* **eslint-config:** Add note to reinstall all dependencies from scratch ([9405284](https://github.com/lightbasenl/platforms/commit/940528477db954b9ed95be763ce697752b01fb57))
+* **eslint-config:** Place example eslint config more logically in the migration guide ([33f2bf1](https://github.com/lightbasenl/platforms/commit/33f2bf14b0f7a765702b1f310a21048b34c78474))
+
+
+### Dependencies
+
+* Bump eslint-plugin-comment-length from 2.1.0 to 2.1.1 ([#235](https://github.com/lightbasenl/platforms/issues/235)) ([6644f63](https://github.com/lightbasenl/platforms/commit/6644f6383aa6474a7d27a536956da0ef59ce2d81))
+* Bump eslint-plugin-jsdoc from 50.2.2 to 50.2.3 ([#231](https://github.com/lightbasenl/platforms/issues/231)) ([3eda63f](https://github.com/lightbasenl/platforms/commit/3eda63fb8933e01176934b706db99be6a8622de2))
+* Bump eslint-plugin-jsdoc from 50.2.3 to 50.2.4 ([#237](https://github.com/lightbasenl/platforms/issues/237)) ([69c3a05](https://github.com/lightbasenl/platforms/commit/69c3a05caacd763b1bda67b20cda4904b7f6963d))
+* Bump eslint-plugin-unused-imports from 4.1.3 to 4.1.4 ([#232](https://github.com/lightbasenl/platforms/issues/232)) ([9965ce7](https://github.com/lightbasenl/platforms/commit/9965ce7b1e6b53273fad1b44e80a42bb3db7705c))
+* Bump the typescript-eslint group with 2 updates ([#223](https://github.com/lightbasenl/platforms/issues/223)) ([e86587a](https://github.com/lightbasenl/platforms/commit/e86587ad5a91a7e2fcd1e47405d74a17a5d9e008))
+* Bump the typescript-eslint group with 2 updates ([#233](https://github.com/lightbasenl/platforms/issues/233)) ([1694a1d](https://github.com/lightbasenl/platforms/commit/1694a1deb76eda437bb371f1cee850cf2606d157))
+
 ## [1.0.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v1.0.0...eslint-config-v1.0.1) (2024-09-09)
 
 ### Dependencies
