@@ -1,4 +1,4 @@
 {
-	"packages/eslint-config": "1.0.1",
+	"packages/eslint-config": "1.0.2",
 	"packages/pull-through-cache": "0.2.2"
 }
