@@ -1,5 +1,44 @@
 # Changelog
 
+## [1.1.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v1.0.2...eslint-config-v1.1.0) (2024-09-26)
+
+### Features
+
+- **eslint-config:** Disable 'no-extra-boolean-cast'
+  ([9b929fc](https://github.com/lightbasenl/platforms/commit/9b929fceb7f27376ee599277dc0f13d2668b0b3d))
+
+### Bug Fixes
+
+- **eslint-config:** Disable no-deprecated in React projects
+  ([5b0c520](https://github.com/lightbasenl/platforms/commit/5b0c5209725ab25072076d6c2ec5c2c442ce1589))
+- **eslint-config:** Disable unsupported Next.js rules
+  ([d680fb8](https://github.com/lightbasenl/platforms/commit/d680fb8f440f1694d144bdfd6f635dcca6a5a8eb))
+
+### Miscellaneous
+
+- **eslint-config:** Bump peer dependencies
+  ([808e91f](https://github.com/lightbasenl/platforms/commit/808e91fd3b62155f2dcc189c646dc77f6b4c48e4))
+- **eslint-config:** Update frontend migration guide
+  ([d18890b](https://github.com/lightbasenl/platforms/commit/d18890bc10f5b93219431a8b6afdb77532b488fc))
+
+### Dependencies
+
+- Bump eslint-plugin-import-x from 4.2.1 to 4.3.0
+  ([#240](https://github.com/lightbasenl/platforms/issues/240))
+  ([c45373d](https://github.com/lightbasenl/platforms/commit/c45373d1eab913bb9f34d50e845739a4763c9fda))
+- Bump eslint-plugin-jsdoc from 50.2.4 to 50.2.5
+  ([#247](https://github.com/lightbasenl/platforms/issues/247))
+  ([6663994](https://github.com/lightbasenl/platforms/commit/66639947bfc2b07ff155df3d1511d630b244a127))
+- Bump the eslint group with 2 updates
+  ([#239](https://github.com/lightbasenl/platforms/issues/239))
+  ([4bfa364](https://github.com/lightbasenl/platforms/commit/4bfa364092dce408e3f6d280a12949bd5e6a5a2b))
+- Bump the eslint group with 2 updates
+  ([#243](https://github.com/lightbasenl/platforms/issues/243))
+  ([5583040](https://github.com/lightbasenl/platforms/commit/5583040bdb465c1239ff09ba36161b81de5f779e))
+- Bump the typescript-eslint group with 2 updates
+  ([#242](https://github.com/lightbasenl/platforms/issues/242))
+  ([8f1b7d4](https://github.com/lightbasenl/platforms/commit/8f1b7d43e6744faeb01646ea6490d926745bd0fc))
+
 ## [1.0.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v1.0.1...eslint-config-v1.0.2) (2024-09-20)
 
 ### Bug Fixes
