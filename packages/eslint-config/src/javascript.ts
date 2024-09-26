@@ -63,6 +63,7 @@ export function javascript(): Array<FlatConfig.Config> {
 
 				"no-process-exit": "off",
 				"no-mixed-spaces-and-tabs": "off",
+				"no-extra-boolean-cast": "off",
 			},
 		},
 
