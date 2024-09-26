@@ -56,17 +56,18 @@ In these steps we will be removing the vendored eslint-plugin and use
 `@lightbase/eslint-config` instead. The result should give almost the same experience as
 before. The main incompatibilities are:
 
-- Import related rules ban CommonJS style `require`'s. Check if the tool supports `.mjs`
-  config files or add file specific ignores. The provided config below includes an
-  exclusion already fro `**.js` files.
+- Import related rules ban CommonJS style `require`'s. Check if the tool supports a
+  TypeScript (`.ts`) or ESM (`.mjs`) config file. If so, try to migrate to that format.
+  Not every tool supports this, so the provided config below includes various rule
+  exclusions for JavaScript config files.
 - Prettier is enabled with
   [`experimentalTernaries`](https://prettier.io/blog/2023/11/13/curious-ternaries). This
-  reformats the ternaries, but this is always auto-fixed.
+  reformats the ternaries. This rule is mostly auto-fixable.
 - Stricter jsx-a11y setup. We have enabled the full strict config from
   eslint-plugin-jsx-a11y. Older configs only enabled a few rules. This is as good time as
-  ever to improve the accessibility.
+  ever to improve accessibility.
 - Strict checks on unused `async` keywords. This is not auto-fixed, since it might alter
-  behavior. Be careful.
+  behavior. Be careful!
 - The config is stricter on unused variables. They can be prefixed with a `_` to ignore.
   For example, `} catch (e) {` becomes `} catch (_e) {` or even `} catch {`. And
   `const { unused, ...rest } = obj;` becomes `const {unused: _unused, ...rest } = obj;`
@@ -76,21 +77,33 @@ before. The main incompatibilities are:
 The migration can be done by following these steps:
 
 - Remove the `vendor/eslint-plugin` directory.
-- Install this package with `npm install --save-dev --exact @lightbase/eslint-config`
-  - Install the React & Next.js related peer dependencies with
-    `npm install --save-dev --exact eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-plugin-no-relative-import-paths @next/eslint-plugin-next`
-  - Note, the NPM may keep an old installed version around like ESLint v8.51. You can
-    override this by either removing the `package-lock.json` and `node_modules` and
-    reinstalling. Or by explicitly installing ESLint with
-    `npm install --save-dev --exact eslint`.
 - Remove `.eslintrc`, `.eslintignore`, `.prettierignore` and `.prettierrc(.js)` files.
 - Remove the `prettier` key from your package.json.
 - Remove all existing `lint`, `format` and `pretty` scripts from your package.json.
+- Add the following snippet to your package.json
+
+```json
+{
+	"scripts": {
+		"lint": "eslint . --fix --cache --cache-location .cache/eslint/",
+		"lint:ci": "eslint ."
+	},
+	"devDependencies": {
+		"@lightbase/eslint-config": "1.1.0",
+		"@next/eslint-plugin-next": "14.2.13",
+		"eslint-plugin-jsx-a11y": "6.10.0",
+		"eslint-plugin-no-relative-import-paths": "1.5.5",
+		"eslint-plugin-react": "7.36.1",
+		"eslint-plugin-react-hooks": "beta"
+	}
+}
+```
+
+- Run `npm install`
 - Create `eslint.config.mjs` in the root of your project and paste the below contents.
   - Note the _.mjs_ extension.
 
 ```js
-// eslint.config.mjs
 import { defineConfig } from "@lightbase/eslint-config";
 
 export default defineConfig(
@@ -113,36 +126,49 @@ export default defineConfig(
 			withNextJs: true,
 		},
 	},
+
+	// Compatibility config overrides:
 	{
 		// Disable strict rules for generated files.
-		files: ["**/generated/**/*.*"],
+		files: ["**/generated/**/*"],
 		rules: {
-			"@typescript-eslint/ban-types": "off",
 			"@typescript-eslint/no-explicit-any": "off",
 			"@typescript-eslint/no-unused-vars": "off",
 			"unused-imports/no-unused-vars": "off",
+			"@typescript-eslint/no-empty-object-type": "off",
 		},
 	},
 	{
 		// Disable various rules for CJS config files like `next.config.js` and `postcss.config.js`
-		files: ["**.js"],
+		files: ["**/**.js"],
 		rules: {
 			"import-x/no-commonjs": "off",
 			"@typescript-eslint/no-var-requires": "off",
+			"@typescript-eslint/no-require-imports": "off",
 		},
 	},
+
+	// Optional: you can add new rules here, like the following
+	// {
+	// 	// Don't lint the big files
+	// 	files: ["**/__fixtures__//**/*.json"],
+	// 	rules: {
+	// 		"format/prettier": "off",
+	// 	},
+	// },
 );
 ```
 
-- Apply the [Commands](./README.md#commands) section from the README.
-- Apply the [IDE](./README.md#ide) section from the README.
-- Run `npm run lint`
-- Commit and open a pull request. Afterward, fixup any left-over errors (don't
-  force-push). This way, manual fixes can be reviewed properly.
-- Update your CI scripts to use the `npm run lint:ci` command.
+- Update your `tsconfig.json` to type-check JavaScript files as well.
 
-Since we execute the lint check separately on CI, we can instruct Next.js to skip linting
-before building:
+```json
+{
+	"include": ["**/*", "**/.*", ".next/types/**/*.ts"]
+}
+```
+
+- Disable linting on `next builds`. We do this separately in CI, so no need to do this
+  twice.
 
 ```js
 // next.config.js
@@ -156,9 +182,9 @@ module.exports = {
 };
 ```
 
-**Stricter checks around nullish variables**
-
-```
-// Not allowed, template-literals are never nullish
-const x = `${foo?.bar}` ?? "";
-```
+- Apply the [IDE](./README.md#ide) section from the README.
+- Update your CI workflows to use the `npm run lint:ci` command.
+- Create a commit with all the config changes. So these can be reviewed separately.
+- Run `npm run lint` and commit the changes. This way colleagues can skip reviewing the
+  automated fixes.
+- Fixup any reported errors that need manual fixing and do the final commit.
