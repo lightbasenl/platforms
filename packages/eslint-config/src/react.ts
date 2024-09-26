@@ -40,6 +40,10 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 						...(pluginNext.configs?.["core-web-vitals"]?.rules as Record<string, string>),
 
 						"@next/next/no-img-element": "off",
+
+						// No support yet with ESLint v9.
+						"@next/next/no-duplicate-head": "off",
+						"@next/next/no-page-custom-font": "off",
 					},
 				},
 			] satisfies Array<FlatConfig.Config>)
