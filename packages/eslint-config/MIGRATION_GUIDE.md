@@ -95,6 +95,9 @@ The migration can be done by following these steps:
 		"eslint-plugin-no-relative-import-paths": "1.5.5",
 		"eslint-plugin-react": "7.36.1",
 		"eslint-plugin-react-hooks": "beta"
+	},
+	"overrides": {
+		"eslint": "9"
 	}
 }
 ```
