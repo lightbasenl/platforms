@@ -82,6 +82,17 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 		},
 
 		{
+			// TODO: revert this!
+
+			// Disable no-deprecated in React projects. For some reason, this rule takes 2+ minutes on a
+			// mid-sized project. We should investigate soon why that is.
+			files: globUse([GLOBS.typescript]),
+			rules: {
+				"@typescript-eslint/no-deprecated": "off",
+			},
+		},
+
+		{
 			// Custom import ordering preferences by our frontenders :^)
 			files: globUse([GLOBS.typescript]),
 			plugins: {
