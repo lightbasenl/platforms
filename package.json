@@ -24,5 +24,11 @@
 		"typescript": "5.6.2",
 		"vitest": "2.0.5"
 	},
-	"workspaces": ["packages/*", "apps/*"]
+	"workspaces": [
+		"packages/*",
+		"apps/*"
+	],
+	"volta": {
+		"node": "22.9.0"
+	}
 }

@@ -9,8 +9,8 @@ import type {
 } from "ts-morph";
 import { Node } from "ts-morph";
 import type { Context } from "../context.js";
-import { addNamedImportIfNotExists } from "../passes/add-common-imports.js";
 import { CONVERT_UTIL } from "../passes/init-ts-morph.js";
+import { addNamedImportIfNotExists } from "./import.js";
 
 export function removeJsDocIfEmpty(doc: JSDoc) {
 	if ((doc.getCommentText() ?? "").length === 0 && doc.getTags().length === 0) {

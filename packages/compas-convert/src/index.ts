@@ -5,17 +5,10 @@ import path from "node:path";
 import consola from "consola";
 import { createEmptyContext } from "./context.js";
 import type { GlobalPass, Pass } from "./pass.js";
-import { addCommonImports } from "./passes/add-common-imports.js";
+import { convertTestFiles } from "./passes/convert-test-files.js";
 import { copyRename } from "./passes/copy-rename.js";
-import { fixGenerators } from "./passes/fix-generators.js";
-import { updateGenerateOptions } from "./passes/generate-options.js";
 import { getTypescriptProgram, initTsMorph } from "./passes/init-ts-morph.js";
 import { initTypescriptInProject } from "./passes/init-typescript-in-project.js";
-import { installDependencies } from "./passes/install-dependencies.js";
-import { runGenerators } from "./passes/run-generators.js";
-import { fixTypesOfAllFunctions } from "./passes/types-of-all-functions.js";
-import { fixTypesOfLiveBindings } from "./passes/types-of-live-bindings.js";
-import { typescriptDiagnostics } from "./passes/typescript-save-and-build.js";
 import { globOfAllTypeScriptFiles } from "./shared/project-files.js";
 import { isNil } from "./utils.js";
 
@@ -43,16 +36,16 @@ const passes: Array<Pass> = [
 	initTypescriptInProject,
 	initTsMorph,
 
-	addCommonImports,
-	fixGenerators,
-	fixTypesOfLiveBindings,
-	fixTypesOfAllFunctions,
-	updateGenerateOptions,
+	// addCommonImports,
+	// fixGenerators,
+	// fixTypesOfLiveBindings,
+	// fixTypesOfAllFunctions,
+	// updateGenerateOptions,
+	convertTestFiles,
+	// installDependencies,
+	// runGenerators,
 
-	installDependencies,
-	runGenerators,
-
-	typescriptDiagnostics,
+	// typescriptDiagnostics,
 ];
 
 consola.start(`Converting ${path.relative(process.cwd(), resolvedInputDirectory)}`);

@@ -25,6 +25,8 @@ export async function initTypescriptInProject(context: Context) {
 	"extends": "@total-typescript/tsconfig/tsc/no-dom/app",
 	"compilerOptions": {
 		"outDir": "./dist",
+		"target": "esnext",
+    	"lib": ["esnext"]
 	},
 	"include": ["**/*"]
 }`,
