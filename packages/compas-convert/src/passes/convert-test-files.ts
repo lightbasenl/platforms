@@ -114,15 +114,23 @@ function handleNestedTest(expression: CallExpression) {
 			case TestCommand.test: {
 				handleNestedTest(it.expression);
 
-				it.expression.getFirstChild()?.replaceWithText("test");
-				addNamedImportIfNotExists(it.expression.getSourceFile(), "vitest", "test", false);
+				if (it.expression.getFirstChild()?.getText() !== "describe") {
+					it.expression.getFirstChild()?.replaceWithText("test");
+					addNamedImportIfNotExists(
+						it.expression.getSourceFile(),
+						"vitest",
+						"test",
+						false,
+					);
 
-				// handle first argument to test handler function
-				if (!it.usesTestName) {
-					removeTestHandlerParameter(it.expression);
-				} else {
-					replaceTestHandlerParameter(it.expression);
+					// handle first argument to test handler function
+					if (!it.usesTestName) {
+						removeTestHandlerParameter(it.expression);
+					} else {
+						replaceTestHandlerParameter(it.expression);
+					}
 				}
+
 				break;
 			}
 		}
