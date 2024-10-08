@@ -1,7 +1,5 @@
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import gitignore from "eslint-config-flat-gitignore";
-// @ts-expect-error no types available
-import pluginFileProgress from "eslint-plugin-file-progress";
 import { defineGlobals } from "./globals.js";
 import type { GlobalsConfig } from "./globals.js";
 import { globUseFromUserConfig } from "./globs.js";
@@ -10,6 +8,7 @@ import { javascript } from "./javascript.js";
 import { markdownConfig, markdownSnippetOverrides } from "./markdown.js";
 import { prettierConfig } from "./prettier.js";
 import type { PrettierConfig } from "./prettier.js";
+import { progress } from "./progress.js";
 import type { ReactConfig } from "./react.js";
 import { typescript, typescriptResolveConfig } from "./typescript.js";
 import type { TypeScriptConfig } from "./typescript.js";
@@ -52,17 +51,7 @@ export async function defineConfig(
 			},
 		},
 		...defineGlobals(opts.globals),
-
-		{
-			// Show a friendly spinner.
-			files: ["**/*"],
-			plugins: {
-				"file-progress": pluginFileProgress as unknown as FlatConfig.Plugin,
-			},
-			rules: {
-				"file-progress/activate": "warn",
-			},
-		},
+		...progress(),
 
 		// Language specifics
 		...markdownConfig(),
