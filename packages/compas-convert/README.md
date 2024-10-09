@@ -37,16 +37,20 @@ rm -rf ../compas-convert-test && npx compas-convert ../some-local-test-project .
 
 ## TODO
 
-- [ ] Fully implement the 'compas-compat' target in
-      [open-api-code-gen](../open-api-code-gen).
-- [ ] Pass: Generator compatibility. Create / improve Compas Typescript targets for
+- [ ] ~Fully implement the 'compas-compat' target in
+      [open-api-code-gen](../open-api-code-gen).~ Most likely not necessary, we can keep
+      the exposed structure as is for now.
+- [x] Pass: Generator compatibility. Create / improve Compas Typescript targets for
       tighter integrations.
-  - [ ] Types
-  - [ ] Validators
-  - [ ] Router
-  - [ ] Database
+  - [x] Types
+  - [x] Validators
+  - [x] Router
+  - [x] Database
 - [ ] Pass: @compas/test to Vitest
 - [ ] Pass: inline JSDoc blocks to inline types
 - [ ] Pass: common issues
   - Run TypeScript and find common errors
 - [ ] Pass: build step. Fixup CI, Dockerfile, docs, etc
+- [ ] Wish: replace the generated query builders
+  - This has all the impact on files, sessions, jobs, auth, flags, etc. So the effort &
+    impact of this shouldn't be underestimated.

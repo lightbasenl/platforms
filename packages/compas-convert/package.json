@@ -14,11 +14,11 @@
 		"directory": "packages/compas-convert"
 	},
 	"bin": {
-		"compas-convert": "./dist/src/index.js"
+		"compas-convert": "./cli.js"
 	},
 	"main": "./dist/src/index.js",
 	"types": "./dist/src/index.d.ts",
-	"files": ["README.md", "LICENSE", "dist/src"],
+	"files": ["README.md", "LICENSE", "cli.js", "dist/src"],
 	"scripts": {
 		"build": "tsc -p ./tsconfig.json",
 		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",

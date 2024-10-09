@@ -15,7 +15,6 @@ import { installDependencies } from "./passes/install-dependencies.js";
 import { runGenerators } from "./passes/run-generators.js";
 import { fixTypesOfAllFunctions } from "./passes/types-of-all-functions.js";
 import { fixTypesOfLiveBindings } from "./passes/types-of-live-bindings.js";
-import { typescriptDiagnostics } from "./passes/typescript-save-and-build.js";
 import { globOfAllTypeScriptFiles } from "./shared/project-files.js";
 import { isNil } from "./utils.js";
 
@@ -52,7 +51,7 @@ const passes: Array<Pass> = [
 	installDependencies,
 	runGenerators,
 
-	typescriptDiagnostics,
+	// typescriptDiagnostics,
 ];
 
 consola.start(`Converting ${path.relative(process.cwd(), resolvedInputDirectory)}`);

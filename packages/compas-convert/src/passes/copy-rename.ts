@@ -19,7 +19,7 @@ const ignoredPaths = [
 	"jsconfig.json",
 ];
 
-const filesThatShouldNotBeRenamed = ["eslint.config.js", "commands/generate.js"];
+const filesThatShouldNotBeRenamed = ["eslint.config.js"];
 const directoriesThatShouldNotBeRenamed = ["vendor/backend"];
 
 /**
