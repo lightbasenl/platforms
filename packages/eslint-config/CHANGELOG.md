@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v1.2.0...eslint-config-v1.2.1) (2024-10-10)
+
+
+### Dependencies
+
+* Bump globals from 15.10.0 to 15.11.0 ([#268](https://github.com/lightbasenl/platforms/issues/268)) ([37fa8b5](https://github.com/lightbasenl/platforms/commit/37fa8b526bba317f4c6b68376afbf48a5c33a90f))
+
 ## [1.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v1.1.0...eslint-config-v1.2.0) (2024-10-08)
 
 ### Features
