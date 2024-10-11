@@ -181,6 +181,7 @@ function handleNestedTest(expression: CallExpression) {
 				TestCommand.notEqual,
 				TestCommand.ok,
 				TestCommand.notOk,
+				TestCommand.pass,
 				TestCommand.fail,
 			].includes(it.command),
 		)
