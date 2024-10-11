@@ -16,20 +16,9 @@ enum TestCommand {
 	test = "test",
 }
 
-const testAssertions = [
-	TestCommand.equal,
-	TestCommand.notEqual,
-	TestCommand.deepEqual,
-	TestCommand.pass,
-	TestCommand.ok,
-	TestCommand.notOk,
-	TestCommand.fail,
-].map((it) => it.toString());
-
 type TUsage = {
 	command: TestCommand;
 	expression: CallExpression;
-	usesTestName?: boolean;
 };
 
 export function convertTestFiles(context: Context, sourceFile: SourceFile) {
@@ -40,7 +29,11 @@ export function convertTestFiles(context: Context, sourceFile: SourceFile) {
 		return;
 	}
 	// TODO: temp
-	if (!filePath.includes("/first/") && !filePath.includes("/second/")) {
+	if (
+		!filePath.includes("/first/") &&
+		!filePath.includes("/second/") &&
+		!filePath.includes("/admin/")
+	) {
 		return;
 	}
 
@@ -79,12 +72,15 @@ export function convertTestFiles(context: Context, sourceFile: SourceFile) {
 function handleNestedTest(expression: CallExpression) {
 	const usage = getNestedUsageOfT(expression);
 
-	if (testIsParent(usage)) {
+	if (testIsParent(expression)) {
 		// the test functions as grouping, so instead we use describe to define a separate suite
 		expression.getFirstChild()?.replaceWithText("describe");
 		addNamedImportIfNotExists(expression.getSourceFile(), "vitest", "describe", false);
-		removeTestHandlerParameter(expression);
+	} else {
+		addNamedImportIfNotExists(expression.getSourceFile(), "vitest", "test", false);
 	}
+
+	removeTestHandlerParameter(expression);
 
 	for (const it of usage) {
 		const args = it.expression.getArguments();
@@ -102,6 +98,25 @@ function handleNestedTest(expression: CallExpression) {
 				);
 				break;
 			}
+			case TestCommand.notEqual: {
+				const actual = args[0]?.getText() ?? "false";
+				const expected = args[1]?.getText() ?? "true";
+				const message = args[2]?.getText() ?? "";
+				it.expression.replaceWithText(
+					`expect(${actual}${message ? `, ${message}` : ""}).not.toBe(${expected})`,
+				);
+				break;
+			}
+			case TestCommand.deepEqual: {
+				const args = it.expression.getArguments();
+				const actual = args[0]?.getText() ?? "{}";
+				const expected = args[1]?.getText() ?? "true";
+				const message = args[2]?.getText() ?? "";
+				it.expression.replaceWithText(
+					`expect(${actual}${message ? `, ${message}` : ""}).toMatchObject(${expected})`,
+				);
+				break;
+			}
 			case TestCommand.ok: {
 				const args = it.expression.getArguments();
 				const actual = args[0]?.getText() ?? "true";
@@ -111,47 +126,102 @@ function handleNestedTest(expression: CallExpression) {
 				);
 				break;
 			}
+			case TestCommand.notOk: {
+				const args = it.expression.getArguments();
+				const actual = args[0]?.getText() ?? "false";
+				const message = args[1]?.getText() ?? "";
+				it.expression.replaceWithText(
+					`expect(${actual}${message ? `, ${message}` : ""}).toBeFalsy()`,
+				);
+				break;
+			}
+			case TestCommand.pass: {
+				const args = it.expression.getArguments();
+				const message = args[0]?.getText();
+				it.expression.replaceWithText(
+					`expect(true${message ? `, ${message}` : ""}).toBeTruthy()`,
+				);
+				break;
+			}
+			case TestCommand.fail: {
+				const args = it.expression.getArguments();
+				const message = args[0]?.getText();
+				it.expression.replaceWithText(`expect.unreachable(${message ? message : ""})`);
+				break;
+			}
 			case TestCommand.test: {
-				handleNestedTest(it.expression);
-
-				if (it.expression.getFirstChild()?.getText() !== "describe") {
-					it.expression.getFirstChild()?.replaceWithText("test");
+				// check if the command contains other tests
+				if (testIsParent(it.expression)) {
+					// the test functions as grouping, so instead we use describe to define a separate suite
+					it.expression.getFirstChild()?.replaceWithText("describe");
 					addNamedImportIfNotExists(
-						it.expression.getSourceFile(),
+						expression.getSourceFile(),
 						"vitest",
-						"test",
+						"describe",
 						false,
 					);
-
-					// handle first argument to test handler function
-					if (!it.usesTestName) {
-						removeTestHandlerParameter(it.expression);
-					} else {
-						replaceTestHandlerParameter(it.expression);
-					}
+				} else {
+					it.expression.getFirstChild()?.replaceWithText("test");
+					addNamedImportIfNotExists(expression.getSourceFile(), "vitest", "test", false);
 				}
 
+				if (!testUsesContext(it.expression)) {
+					removeTestHandlerParameter(it.expression);
+				} else {
+					replaceTestHandlerParameter(it.expression);
+				}
 				break;
 			}
 		}
 	}
 
-	if (usage.find((it) => [TestCommand.equal, TestCommand.ok].includes(it.command))) {
+	if (
+		usage.find((it) =>
+			[
+				TestCommand.equal,
+				TestCommand.deepEqual,
+				TestCommand.notEqual,
+				TestCommand.ok,
+				TestCommand.notOk,
+				TestCommand.fail,
+			].includes(it.command),
+		)
+	) {
 		addNamedImportIfNotExists(expression.getSourceFile(), "vitest", "expect", false);
 	}
 }
 
 /**
- * Check if the expression contains other tests and performs no assertion itself
- * @param {Array<{ command: string }>} usage
+ * Check if the expression only contains other tests
+ * @param {CallExpression} expression
  */
-function testIsParent(usage: Array<{ command: TestCommand }>): boolean {
-	const childTestCount = usage.reduce((total, item) => {
-		return item.command === TestCommand.test ? total + 1 : total;
-	}, 0);
+function testIsParent(expression: CallExpression): boolean {
+	return getDirectDescendants(expression).every((child) =>
+		child
+			?.getExpression()
+			.asKind(SyntaxKind.CallExpression)
+			?.getExpression()
+			?.getText()
+			?.includes(TestCommand.test),
+	);
+}
 
-	return (
-		childTestCount !== 0 && !usage.find((item) => testAssertions.includes(item.command))
+/**
+ * Check if the expression contains calls that use t.name
+ * @param {CallExpression} expression
+ */
+function testUsesContext(expression: CallExpression): boolean {
+	return getDirectDescendants(expression).some((child) =>
+		child
+			.asKind(SyntaxKind.ExpressionStatement)
+			?.getExpression()
+			.asKind(SyntaxKind.CallExpression)
+			?.getArguments()
+			.some(
+				(arg) =>
+					!arg.isKind(SyntaxKind.ArrowFunction) &&
+					(arg.getText().includes("ctx.") || arg.getText().includes("t.name")),
+			),
 	);
 }
 
@@ -164,18 +234,14 @@ function getNestedUsageOfT(expression: CallExpression): Array<TUsage> {
 		.getArguments()[1]!
 		.asKindOrThrow(SyntaxKind.ArrowFunction);
 
-	const childStatements = arrowFunction?.getStatements() ?? [];
+	const childStatements =
+		arrowFunction?.getDescendantsOfKind(SyntaxKind.CallExpression) ?? [];
+	// this should normally be t but let's not be to sure
 	const testArgumentName = arrowFunction.getParameters()[0]!.getName();
 
 	const result = [];
 	for (const childStatement of childStatements) {
-		if (!childStatement.isKind(SyntaxKind.ExpressionStatement)) {
-			continue;
-		}
-		if (
-			childStatement.getExpression().isKind(SyntaxKind.CallExpression) &&
-			childStatement.getExpression().getText().startsWith(`${testArgumentName}.`)
-		) {
+		if (childStatement.getExpression().getText().startsWith(`${testArgumentName}.`)) {
 			const command = childStatement
 				.getText()
 				.slice(testArgumentName.length + 1)
@@ -184,9 +250,7 @@ function getNestedUsageOfT(expression: CallExpression): Array<TUsage> {
 			if (command in TestCommand) {
 				result.push({
 					command: command as TestCommand,
-					expression: childStatement
-						.getExpression()
-						.asKindOrThrow(SyntaxKind.CallExpression),
+					expression: childStatement,
 				});
 			}
 		}
@@ -224,8 +288,35 @@ function replaceTestHandlerParameter(expression: CallExpression) {
 function searchAndReplaceTestNameUsage(usage: TUsage) {
 	const args = usage.expression.getArguments();
 	let arg: Node | undefined;
-	while ((arg = args.find((arg) => arg.getText() === "t.name"))) {
-		usage.usesTestName = true;
-		arg.replaceWithText("ctx.test.name");
+	while (
+		(arg = args.find((arg) => {
+			return arg.getText() === "t.name";
+			// const x = structuredClone(arg.getText());
+			// if (x.includes("t.name")) {
+			// 	return true;
+			// }
+			// return false;
+		}))
+	) {
+		const original = arg.getText();
+		arg.replaceWithText(original.replaceAll(/t\.name/g, "ctx.task.name"));
 	}
+}
+
+/**
+ * Get the immediate children of the current expression (but including code that is in sub blocks
+ * like if and catch statements)
+ */
+function getDirectDescendants(expression: CallExpression) {
+	return expression
+		.getDescendantsOfKind(SyntaxKind.ExpressionStatement)
+		.filter((childExpression) => {
+			const containingTestExpression = childExpression.getParentWhile(
+				(parent) =>
+					!parent.isKind(SyntaxKind.ExpressionStatement) ||
+					!parent.getExpression().isKind(SyntaxKind.CallExpression) ||
+					!parent.getExpression().getText().includes(TestCommand.test),
+			);
+			return containingTestExpression === expression;
+		});
 }
