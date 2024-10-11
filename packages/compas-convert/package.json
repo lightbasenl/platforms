@@ -30,5 +30,7 @@
 		"consola": "3.2.3",
 		"ts-morph": "24.0.0"
 	},
-	"devDependencies": {}
+	"devDependencies": {
+		"comment-parser": "1.4.1"
+	}
 }

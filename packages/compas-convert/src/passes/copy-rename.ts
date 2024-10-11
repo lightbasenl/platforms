@@ -17,6 +17,7 @@ const ignoredPaths = [
 	"out",
 	"package-lock.json",
 	"jsconfig.json",
+	"generated",
 ];
 
 const filesThatShouldNotBeRenamed = ["eslint.config.js"];

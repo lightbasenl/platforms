@@ -7,6 +7,7 @@ import { createEmptyContext } from "./context.js";
 import type { GlobalPass, Pass } from "./pass.js";
 import { addCommonImports } from "./passes/add-common-imports.js";
 import { copyRename } from "./passes/copy-rename.js";
+import { finalizePendingImports } from "./passes/finalize-pending-imports.js";
 import { fixGenerators } from "./passes/fix-generators.js";
 import { updateGenerateOptions } from "./passes/generate-options.js";
 import { getTypescriptProgram, initTsMorph } from "./passes/init-ts-morph.js";
@@ -47,6 +48,8 @@ const passes: Array<Pass> = [
 	fixTypesOfLiveBindings,
 	fixTypesOfAllFunctions,
 	updateGenerateOptions,
+
+	finalizePendingImports,
 
 	installDependencies,
 	runGenerators,

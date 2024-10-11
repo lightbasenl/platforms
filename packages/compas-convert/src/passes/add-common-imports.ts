@@ -1,13 +1,15 @@
 import path from "node:path";
 import type { SourceFile } from "ts-morph";
 import { Node } from "ts-morph";
+import { addNamedImportIfNotExists } from "../shared/imports.js";
 import type { Context } from "./../context.js";
 import { CONVERT_UTIL, CONVERT_UTIL_PATH } from "./init-ts-morph.js";
 
 /**
  * Adds common imports to all source files.
  *
- * Any extra import that is unused after all transformations will be cleaned up the ESLint setup.
+ * Any extra import that is unused after all transformations will be cleaned up the ESLint
+ * setup.
  */
 export function addCommonImports(context: Context, sourceFile: SourceFile) {
 	addNamedImportIfNotExists(
@@ -48,64 +50,6 @@ export function addCommonImports(context: Context, sourceFile: SourceFile) {
 	addNamedImportIfNotExists(sourceFile, "axios", "AxiosInstance", true);
 	addNamedImportIfNotExists(sourceFile, "axios", "AxiosRequestConfig", true);
 	addNamedImportIfNotExists(sourceFile, "axios", "AxiosError", true);
-}
-
-export function addNamedImportIfNotExists(
-	file: SourceFile,
-	module: string,
-	name: string,
-	typeOnly: boolean,
-) {
-	const existingImports = file
-		.getImportDeclarations()
-		.filter(
-			(decl) =>
-				decl.getModuleSpecifierValue() === module && decl.getNamedImports().length > 0,
-		);
-
-	if (existingImports.length === 0) {
-		file.addImportDeclaration({
-			moduleSpecifier: module,
-			isTypeOnly: typeOnly,
-			namedImports: [
-				{
-					name,
-				},
-			],
-		});
-
-		return;
-	}
-
-	const hasName = existingImports.some((it) =>
-		it.getNamedImports().some((it) => it.getName() === name),
-	);
-	if (hasName) {
-		// All existing imports are not typeOnly, but that means that we don't have to add the type
-		// only import either way.
-		return;
-	}
-
-	const typeOrValueMatchedImport = existingImports.find(
-		(it) => it.isTypeOnly() === typeOnly,
-	);
-
-	if (!typeOrValueMatchedImport) {
-		file.addImportDeclaration({
-			moduleSpecifier: module,
-			isTypeOnly: typeOnly,
-			namedImports: [
-				{
-					name,
-				},
-			],
-		});
-		return;
-	}
-
-	typeOrValueMatchedImport.addNamedImport({
-		name,
-	});
 }
 
 /**
