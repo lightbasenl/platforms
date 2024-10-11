@@ -120,7 +120,6 @@ function handleNestedTest(expression: CallExpression) {
 				break;
 			}
 			case TestCommand.deepEqual: {
-				const args = it.expression.getArguments();
 				const actual = args[0]?.getText() ?? "{}";
 				const expected = args[1]?.getText() ?? "true";
 				const message = args[2]?.getText() ?? "";
@@ -130,7 +129,6 @@ function handleNestedTest(expression: CallExpression) {
 				break;
 			}
 			case TestCommand.ok: {
-				const args = it.expression.getArguments();
 				const actual = args[0]?.getText() ?? "true";
 				const message = args[1]?.getText() ?? "";
 				it.expression.replaceWithText(
@@ -139,7 +137,6 @@ function handleNestedTest(expression: CallExpression) {
 				break;
 			}
 			case TestCommand.notOk: {
-				const args = it.expression.getArguments();
 				const actual = args[0]?.getText() ?? "false";
 				const message = args[1]?.getText() ?? "";
 				it.expression.replaceWithText(
@@ -148,7 +145,6 @@ function handleNestedTest(expression: CallExpression) {
 				break;
 			}
 			case TestCommand.pass: {
-				const args = it.expression.getArguments();
 				const message = args[0]?.getText();
 				it.expression.replaceWithText(
 					`expect(true${message ? `, ${message}` : ""}).toBeTruthy()`,
@@ -156,7 +152,6 @@ function handleNestedTest(expression: CallExpression) {
 				break;
 			}
 			case TestCommand.fail: {
-				const args = it.expression.getArguments();
 				const message = args[0]?.getText();
 				it.expression.replaceWithText(`expect.unreachable(${message ? message : ""})`);
 				break;
