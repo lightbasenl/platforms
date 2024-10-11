@@ -14,14 +14,15 @@ export const CONVERT_UTIL = {
  * - https://www.npmjs.com/package/@typescript-eslint/type-utils
  * - https://github.com/JoshuaKGoldberg/ts-api-utils/tree/main
  */
-export function initTsMorph(context: Context) {
+export async function initTsMorph(context: Context) {
 	context.ts = new Project({
 		tsConfigFilePath: path.join(context.outputDirectory, "tsconfig.json"),
 	});
 
-	context.ts.createSourceFile(
-		path.join(context.outputDirectory, CONVERT_UTIL_PATH),
-		`
+	await context.ts
+		.createSourceFile(
+			path.join(context.outputDirectory, CONVERT_UTIL_PATH),
+			`
 // File added by compas-convert
 
 /**
@@ -36,7 +37,8 @@ export function initTsMorph(context: Context) {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type $ConvertAny = any;
 `,
-	);
+		)
+		.save();
 }
 
 export function getTypescriptProgram(context: Context) {

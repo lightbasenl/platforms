@@ -10,6 +10,14 @@ export interface Context {
 	outputDirectory: string;
 	packageJson?: PartialTypedPackageJson;
 	ts?: Project;
+	pendingImports: Record<
+		string,
+		Array<{
+			moduleName: string;
+			symbolName: string;
+			typeOnly: boolean;
+		}>
+	>;
 }
 
 export interface PartialTypedPackageJson {
@@ -25,5 +33,7 @@ export function createEmptyContext(
 	return {
 		inputDirectory,
 		outputDirectory,
+
+		pendingImports: {},
 	};
 }

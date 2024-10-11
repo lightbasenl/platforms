@@ -1,13 +1,13 @@
 import { SyntaxKind } from "ts-morph";
 import type { SourceFile } from "ts-morph";
 import type { Context } from "../context.js";
-import { assignSignatureTagsToFunction, removeJsDocIfEmpty } from "../shared/jsdoc.js";
+import { assignSignatureTagsToFunction } from "../shared/jsdoc.js";
 
 /**
  * Fixup generator-input files. The JSDoc on these functions might be outdated, and some inline
  * helper functions aren't typed.
  */
-export function fixGenerators(context: Context, sourceFile: SourceFile) {
+export async function fixGenerators(context: Context, sourceFile: SourceFile) {
 	const filePath = sourceFile.getFilePath();
 	if (
 		!filePath.includes("/gen/") &&
@@ -21,11 +21,11 @@ export function fixGenerators(context: Context, sourceFile: SourceFile) {
 			generator: "Generator",
 			app: "Generator",
 		});
+	}
 
-		for (const doc of fn.getJsDocs()) {
-			removeJsDocIfEmpty(doc);
-		}
+	await sourceFile.save();
 
+	for (const fn of sourceFile.getFunctions()) {
 		if (filePath.endsWith("database.ts")) {
 			const tableCreateFn = fn.getVariableDeclaration("table");
 			if (tableCreateFn) {

@@ -16,12 +16,12 @@
 		"clean": "rm -rf ./.cache ./tsconfig.tsbuildinfo"
 	},
 	"devDependencies": {
-		"@types/node": "22.7.4",
+		"@types/node": "22.7.5",
 		"@lightbase/eslint-config": "*",
 		"@total-typescript/tsconfig": "1.0.4",
 		"@vitest/coverage-v8": "2.0.5",
 		"patch-package": "8.0.0",
-		"typescript": "5.6.2",
+		"typescript": "5.6.3",
 		"vitest": "2.0.5"
 	},
 	"workspaces": [

@@ -1,12 +1,14 @@
 import type { SourceFile } from "ts-morph";
 import { addNamedImportIfNotExists, resolveRelativeImport } from "../shared/import.js";
+import { Node } from "ts-morph";
 import type { Context } from "./../context.js";
 import { CONVERT_UTIL, CONVERT_UTIL_PATH } from "./init-ts-morph.js";
 
 /**
  * Adds common imports to all source files.
  *
- * Any extra import that is unused after all transformations will be cleaned up the ESLint setup.
+ * Any extra import that is unused after all transformations will be cleaned up the ESLint
+ * setup.
  */
 export function addCommonImports(context: Context, sourceFile: SourceFile) {
 	addNamedImportIfNotExists(
