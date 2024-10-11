@@ -7,6 +7,7 @@ import SyntaxKind = ts.SyntaxKind;
 
 /**
  * TODO:
+ *  - General cleanup and condensing of code
  *  - Replace all occurrences of t.name
  *  - Remove hardcoded references to "t" and use the given variable name from the arrow function
  *  (which most likely is t)
