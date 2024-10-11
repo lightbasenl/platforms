@@ -5,6 +5,17 @@ import type { Context } from "../context.js";
 import { addNamedImportIfNotExists } from "../shared/import.js";
 import SyntaxKind = ts.SyntaxKind;
 
+/**
+ * TODO:
+ *  - Replace all occurrences of t.name
+ *  - Remove hardcoded references to "t" and use the given variable name from the arrow function
+ *  (which most likely is t)
+ *  - Handle other usages of "t" like seedTestValuator
+ *  - Do something with: test("teardown", ...
+ *  - Handle newTestEvent(t)
+ *  - Other alternative for t.pass() than expect(true).toBeTruthy();
+ */
+
 enum TestCommand {
 	equal = "equal",
 	notEqual = "notEqual",
