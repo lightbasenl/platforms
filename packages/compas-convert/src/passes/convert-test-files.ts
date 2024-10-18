@@ -1,5 +1,5 @@
 import consola from "consola";
-import type { CallExpression, Node, SourceFile } from "ts-morph";
+import type { CallExpression, SourceFile } from "ts-morph";
 import { ts } from "ts-morph";
 import type { Context } from "../context.js";
 import { addNamedImportIfNotExists } from "../shared/import.js";
@@ -7,12 +7,9 @@ import SyntaxKind = ts.SyntaxKind;
 
 /**
  * TODO:
- *  - Replace all occurrences of t.name
- *  - Remove hardcoded references to "t" and use the given variable name from the arrow function
- *  (which most likely is t)
- *  - Handle other usages of "t" like seedTestValuator
- *  - Do something with: test("teardown", ...
- *  - Handle newTestEvent(t)
+ *  - Handle other usages of "t" like seedTestValuator  (not now)
+ *  - Do something with: test("teardown", ...  (not now)
+ *  - Handle newTestEvent(t) (not now)
  *  - Other alternative for t.pass() than expect(true).toBeTruthy();
  */
 
@@ -30,21 +27,16 @@ enum TestCommand {
 type TUsage = {
 	command: TestCommand;
 	expression: CallExpression;
+	testArgumentName: string;
 };
 
 export function convertTestFiles(context: Context, sourceFile: SourceFile) {
-	// TODO: make sure package for vitest exists
-
 	const filePath = sourceFile.getFilePath();
 	if (filePath.includes("/generated/") || !filePath.endsWith(".test.ts")) {
 		return;
 	}
-	// TODO: temp
-	if (
-		!filePath.includes("/first/") &&
-		!filePath.includes("/second/") &&
-		!filePath.includes("/admin/")
-	) {
+
+	if (!filePath.includes("/src/") && !filePath.includes("/plugins/")) {
 		return;
 	}
 
@@ -124,7 +116,7 @@ function handleNestedTest(expression: CallExpression) {
 				const expected = args[1]?.getText() ?? "true";
 				const message = args[2]?.getText() ?? "";
 				it.expression.replaceWithText(
-					`expect(${actual}${message ? `, ${message}` : ""}).toMatchObject(${expected})`,
+					`expect(${actual}${message ? `, ${message}` : ""}).toStrictEqual(${expected})`,
 				);
 				break;
 			}
@@ -176,7 +168,7 @@ function handleNestedTest(expression: CallExpression) {
 					addNamedImportIfNotExists(expression.getSourceFile(), "vitest", "test", false);
 				}
 
-				if (!testUsesContext(it.expression)) {
+				if (!testUsesContext(it)) {
 					removeTestHandlerParameter(it.expression);
 				} else {
 					replaceTestHandlerParameter(it.expression);
@@ -204,7 +196,6 @@ function handleNestedTest(expression: CallExpression) {
 
 /**
  * Check if the expression only contains other tests
- * @param {CallExpression} expression
  */
 function testIsParent(expression: CallExpression): boolean {
 	return getDirectDescendants(expression).every((child) =>
@@ -219,10 +210,9 @@ function testIsParent(expression: CallExpression): boolean {
 
 /**
  * Check if the expression contains calls that use t.name
- * @param {CallExpression} expression
  */
-function testUsesContext(expression: CallExpression): boolean {
-	return getDirectDescendants(expression).some((child) =>
+function testUsesContext(usage: TUsage): boolean {
+	return getDirectDescendants(usage.expression).some((child) =>
 		child
 			.asKind(SyntaxKind.ExpressionStatement)
 			?.getExpression()
@@ -231,7 +221,8 @@ function testUsesContext(expression: CallExpression): boolean {
 			.some(
 				(arg) =>
 					!arg.isKind(SyntaxKind.ArrowFunction) &&
-					(arg.getText().includes("ctx.") || arg.getText().includes("t.name")),
+					(arg.getText().includes("ctx.") ||
+						arg.getText().includes(`${usage.testArgumentName}.name`)),
 			),
 	);
 }
@@ -262,6 +253,7 @@ function getNestedUsageOfT(expression: CallExpression): Array<TUsage> {
 				result.push({
 					command: command as TestCommand,
 					expression: childStatement,
+					testArgumentName,
 				});
 			}
 		}
@@ -298,19 +290,14 @@ function replaceTestHandlerParameter(expression: CallExpression) {
  */
 function searchAndReplaceTestNameUsage(usage: TUsage) {
 	const args = usage.expression.getArguments();
-	let arg: Node | undefined;
-	while (
-		(arg = args.find((arg) => {
-			return arg.getText() === "t.name";
-			// const x = structuredClone(arg.getText());
-			// if (x.includes("t.name")) {
-			// 	return true;
-			// }
-			// return false;
-		}))
-	) {
-		const original = arg.getText();
-		arg.replaceWithText(original.replaceAll(/t\.name/g, "ctx.task.name"));
+	for (const arg of args) {
+		if (
+			!arg.isKind(SyntaxKind.ArrowFunction) &&
+			arg.getText().includes(`${usage.testArgumentName}.name`)
+		) {
+			const searchRegex = new RegExp(`${usage.testArgumentName}.name`, "g");
+			arg.replaceWithText(arg.getText().replaceAll(searchRegex, "ctx.task.name"));
+		}
 	}
 }
 
