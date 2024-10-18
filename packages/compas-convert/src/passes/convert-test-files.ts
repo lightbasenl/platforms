@@ -6,7 +6,6 @@ import SyntaxKind = ts.SyntaxKind;
 
 /**
  * TODO:
- *
  *  - Handle other usages of "t" like seedTestValuator  (not now)
  *  - Do something with: test("teardown", ...  (not now)
  *  - Handle newTestEvent(t) (not now)
