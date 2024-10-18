@@ -1,4 +1,3 @@
-import consola from "consola";
 import type { CallExpression, SourceFile } from "ts-morph";
 import { ts } from "ts-morph";
 import type { Context } from "../context.js";
@@ -56,7 +55,6 @@ export function convertTestFiles(context: Context, sourceFile: SourceFile) {
 
 			// remove redundant statements
 			if (expression.getExpression().getText() == "mainTestFn") {
-				consola.log("Removed mainTestFn");
 				statement.remove();
 				continue;
 			}
