@@ -33,6 +33,7 @@ export function addCommonImports(context: Context, sourceFile: SourceFile) {
 	addNamedImportIfNotExists(sourceFile, "@compas/server", "Next", true);
 	addNamedImportIfNotExists(sourceFile, "@compas/server", "Middleware", true);
 	addNamedImportIfNotExists(sourceFile, "@compas/server", "Context", true);
+	addNamedImportIfNotExists(sourceFile, "@compas/server", "Context", true);
 
 	addNamedImportIfNotExists(sourceFile, "@compas/store", "Postgres", true);
 	addNamedImportIfNotExists(sourceFile, "@compas/store", "S3Client", true);
