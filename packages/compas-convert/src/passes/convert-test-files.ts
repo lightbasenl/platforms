@@ -9,7 +9,6 @@ import SyntaxKind = ts.SyntaxKind;
  *  - Handle other usages of "t" like seedTestValuator  (not now)
  *  - Do something with: test("teardown", ...  (not now)
  *  - Handle newTestEvent(t) (not now)
- *  - Other alternative for t.pass() than expect(true).toBeTruthy();
  */
 
 enum TestCommand {
@@ -46,6 +45,9 @@ export function convertTestFiles(context: Context, sourceFile: SourceFile) {
 		)
 		?.remove();
 
+	// re-add import for newTestEvent
+	addNamedImportIfNotExists(sourceFile, "@compas/cli", "newTestEvent", false);
+
 	// go over each expression statement in file
 	for (const statement of sourceFile.getStatements()) {
 		if (statement.isKind(SyntaxKind.ExpressionStatement)) {
@@ -65,6 +67,18 @@ export function convertTestFiles(context: Context, sourceFile: SourceFile) {
 			}
 		}
 	}
+
+	// poor man's attempt to add comment to t.pass expression
+	sourceFile.replaceWithText(
+		sourceFile
+			.getText()
+			.replaceAll(/([ \t]*)___pass___/g, "$1// TODO: t.pass replacement\n$1"),
+	);
+
+	// clear t from newTestEvent
+	sourceFile.replaceWithText(
+		sourceFile.getText().replaceAll(/newTestEvent\([^)*]\)/g, "newTestEvent()"),
+	);
 }
 
 /**
@@ -94,55 +108,57 @@ function handleNestedTest(expression: CallExpression) {
 				const actual = args[0]?.getText() ?? "true";
 				const expected = args[1]?.getText() ?? "true";
 				const message = args[2]?.getText() ?? "";
-				it.expression.replaceWithText(
+				it.expression = it.expression.replaceWithText(
 					`expect(${actual}${message ? `, ${message}` : ""}).toBe(${expected})`,
-				);
+				) as CallExpression;
 				break;
 			}
 			case TestCommand.notEqual: {
 				const actual = args[0]?.getText() ?? "false";
 				const expected = args[1]?.getText() ?? "true";
 				const message = args[2]?.getText() ?? "";
-				it.expression.replaceWithText(
+				it.expression = it.expression.replaceWithText(
 					`expect(${actual}${message ? `, ${message}` : ""}).not.toBe(${expected})`,
-				);
+				) as CallExpression;
 				break;
 			}
 			case TestCommand.deepEqual: {
 				const actual = args[0]?.getText() ?? "{}";
 				const expected = args[1]?.getText() ?? "true";
 				const message = args[2]?.getText() ?? "";
-				it.expression.replaceWithText(
+				it.expression = it.expression.replaceWithText(
 					`expect(${actual}${message ? `, ${message}` : ""}).toStrictEqual(${expected})`,
-				);
+				) as CallExpression;
 				break;
 			}
 			case TestCommand.ok: {
 				const actual = args[0]?.getText() ?? "true";
 				const message = args[1]?.getText() ?? "";
-				it.expression.replaceWithText(
+				it.expression = it.expression.replaceWithText(
 					`expect(${actual}${message ? `, ${message}` : ""}).toBeTruthy()`,
-				);
+				) as CallExpression;
 				break;
 			}
 			case TestCommand.notOk: {
 				const actual = args[0]?.getText() ?? "false";
 				const message = args[1]?.getText() ?? "";
-				it.expression.replaceWithText(
+				it.expression = it.expression.replaceWithText(
 					`expect(${actual}${message ? `, ${message}` : ""}).toBeFalsy()`,
-				);
+				) as CallExpression;
 				break;
 			}
 			case TestCommand.pass: {
 				const message = args[0]?.getText();
-				it.expression.replaceWithText(
-					`expect(true${message ? `, ${message}` : ""}).toBeTruthy()`,
-				);
+				it.expression = it.expression.replaceWithText(
+					`___pass___expect(true${message ? `, ${message}` : ""}).toBeTruthy()`,
+				) as CallExpression;
 				break;
 			}
 			case TestCommand.fail: {
 				const message = args[0]?.getText();
-				it.expression.replaceWithText(`expect.unreachable(${message ? message : ""})`);
+				it.expression = it.expression.replaceWithText(
+					`expect.unreachable(${message ? message : ""})`,
+				) as CallExpression;
 				break;
 			}
 			case TestCommand.test: {

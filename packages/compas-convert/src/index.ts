@@ -56,9 +56,6 @@ const passes: Array<Pass> = [
 	installDependencies,
 	runGenerators,
 
-	installDependencies,
-	runGenerators,
-
 	typescriptDiagnostics,
 ];
 
