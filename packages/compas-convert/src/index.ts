@@ -14,6 +14,8 @@ import { getTypescriptProgram, initTsMorph } from "./passes/init-ts-morph.js";
 import { initTypescriptInProject } from "./passes/init-typescript-in-project.js";
 import { installDependencies } from "./passes/install-dependencies.js";
 import { runGenerators } from "./passes/run-generators.js";
+import { transformExpressionJsDoc } from "./passes/transform-expression-js-doc.js";
+import { transformModuleJsDoc } from "./passes/transform-module-js-doc.js";
 import { fixTypesOfAllFunctions } from "./passes/types-of-all-functions.js";
 import { fixTypesOfLiveBindings } from "./passes/types-of-live-bindings.js";
 import { globOfAllTypeScriptFiles } from "./shared/project-files.js";
@@ -48,6 +50,9 @@ const passes: Array<Pass> = [
 	fixTypesOfLiveBindings,
 	fixTypesOfAllFunctions,
 	updateGenerateOptions,
+
+	transformModuleJsDoc,
+	transformExpressionJsDoc,
 
 	finalizePendingImports,
 

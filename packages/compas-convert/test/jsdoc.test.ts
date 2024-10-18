@@ -1,5 +1,9 @@
 import { expect, suite, test } from "vitest";
-import { JSDOC_REGEX, parseFunctionDocs } from "../src/shared/jsdoc.js";
+import {
+	JSDOC_REGEX,
+	parseFunctionDocs,
+	parseWildcardDocs,
+} from "../src/shared/jsdoc.js";
 
 suite("JSDOC_REGEX", () => {
 	test("templateTag", () => {
@@ -84,7 +88,7 @@ suite("JSDOC_REGEX", () => {
 
 		for (const input of inputs) {
 			expect
-				.soft(JSDOC_REGEX.paramNameAndDocs().exec(input[0])?.groups)
+				.soft(JSDOC_REGEX.nameAndDocsTag().exec(input[0])?.groups)
 				.toMatchObject(input[1]);
 		}
 	});
@@ -268,6 +272,23 @@ suite("parseFunctionDocs", () => {
 			  ],
 			  "returnType": undefined,
 			  "typeParameters": [],
+			}
+		`);
+	});
+});
+
+suite("parseWildcardDocs", () => {
+	test("union typedef", () => {
+		expect(
+			parseWildcardDocs(
+				`/**
+ * @typedef {ExternalReportParams | ExternalReportResult} ExternalReportSpec
+ */`,
+			),
+		).toMatchInlineSnapshot(`
+			{
+			  "contents": "export type ExternalReportSpec = (ExternalReportParams | ExternalReportResult)",
+			  "type": "typedef",
 			}
 		`);
 	});

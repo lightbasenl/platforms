@@ -105,10 +105,9 @@ export function assignSignatureTagsToFunction(
 
 			if (parsedDocs.docs.length) {
 				fn.addJsDoc((writer) => {
-					for (const line of parsedDocs.docs.split("\n")) {
+					for (const line of parsedDocs.docs.trim().split("\n")) {
 						writer.writeLine(`${line}`);
 					}
-					writer.writeLine("");
 				});
 			}
 		} catch (e) {
@@ -124,7 +123,7 @@ export const JSDOC_REGEX = {
 	typeExpressionTag: () => /^(?:\{(?<typeExpression>[\S\s]+)})?/gi,
 
 	// TODO: Extract optionality and add as `?:` to the parameter
-	paramNameAndDocs: () => /^\s*\[?(?<name>\w+)(?:=.+?)?]?\s*(?<docs>[\S\s]+)?$/gi,
+	nameAndDocsTag: () => /^\s*\[?(?<name>\w+)(?:=.+?)?]?\s*(?<docs>[\S\s]+)?$/gi,
 };
 
 type ParseState = {
@@ -153,6 +152,117 @@ function createParseState(input: string): ParseState {
 	return state;
 }
 
+type DocBlockResult =
+	| {
+			type: "typedef" | "unknown";
+			contents: string;
+	  }
+	| {
+			type: "type";
+			docs: string;
+			typeExpression?: string;
+	  };
+
+export function parseWildcardDocs(
+	docBlock: string | undefined,
+): DocBlockResult | undefined {
+	if (!docBlock?.trim()) {
+		return undefined;
+	}
+
+	const state = createParseState(docBlock);
+	if (state.contents.includes("@typedef")) {
+		return {
+			type: "typedef",
+			contents: parseTypedef(state),
+		};
+	} else if (state.contents.includes("@type")) {
+		return {
+			...parseTypeDocs(docBlock),
+			type: "type",
+		};
+	} else if (!/^\s*@\w+/gim.test(state.contents)) {
+		// No @jsdoc tag found. Assume this is just a doc block.
+		return {
+			type: "unknown",
+			contents: docBlock,
+		};
+	}
+
+	return {
+		type: "unknown",
+		contents: `// TODO(compas-convert): Unknown doc block...\n${docBlock}`,
+	};
+}
+
+function parseTypedef(state: ParseState) {
+	const intermediate: {
+		docs: string;
+		extends?: string;
+		name: string;
+		properties: Array<{
+			name: string;
+			typeExpression: string;
+			docs: string;
+		}>;
+	} = {
+		docs: "",
+		extends: undefined,
+		name: "",
+		properties: [],
+	};
+
+	while (!state.atEnd()) {
+		skipEmptySpace(state);
+
+		if (isPossibleStartOfTag(state)) {
+			if (isMatchedTag(state, "typedef")) {
+				const typedef = parseNamedTypeExpression(state, ["@typedef", "@property"]);
+				intermediate.name = typedef.name;
+				intermediate.extends = typedef.typeExpression;
+				intermediate.docs += `\n${typedef.docs}`;
+
+				continue;
+			}
+
+			if (isMatchedTag(state, "property")) {
+				const property = parseNamedTypeExpression(state, ["@property"]);
+				intermediate.properties.push({
+					name: property.name,
+					typeExpression: property.typeExpression,
+					docs: property.docs,
+				});
+
+				continue;
+			}
+		}
+
+		parseDocs(state, intermediate);
+	}
+
+	let result = convertStringToJSDoc(intermediate.docs);
+	result += `export type ${intermediate.name} = `;
+	if (intermediate.extends && intermediate.extends !== "object") {
+		result += `(${intermediate.extends})`;
+
+		if (intermediate.properties.length) {
+			result += ` & `;
+		}
+	}
+
+	if (intermediate.properties.length) {
+		result += `{\n`;
+		for (const prop of intermediate.properties) {
+			result += convertStringToJSDoc(prop.docs);
+			result += `${prop.name}: ${prop.typeExpression};\n`;
+		}
+
+		result += `};`;
+	}
+
+	return result;
+}
+
 type TypeDocResult = {
 	docs: string;
 	typeExpression?: string;
@@ -173,10 +283,9 @@ export function parseTypeDocs(typeDocBlock: string | undefined) {
 	while (!state.atEnd()) {
 		skipEmptySpace(state);
 
-		if (state.lastNewLineIndex === state.globalIndex - 1 && state.currentChar() === "@") {
+		if (isPossibleStartOfTag(state)) {
 			// We start some form of tag.
-			if (state.contents.indexOf("@type ", state.globalIndex) === state.globalIndex) {
-				state.globalIndex += "@type ".length;
+			if (isMatchedTag(state, "type")) {
 				parseType();
 				continue;
 			}
@@ -187,11 +296,15 @@ export function parseTypeDocs(typeDocBlock: string | undefined) {
 	}
 
 	function parseType() {
-		// We don't support anything after the 'type'' tag, so take the remaining input.
+		// We don't support anything after the 'type' tag, so take the remaining input.
 		const input = state.contents.slice(state.globalIndex);
 		const reMatch = JSDOC_REGEX.typeExpressionTag().exec(input);
 		if (!reMatch) {
-			throw new Error(`Couldn't match a @type on input: '${input}'.`);
+			throw new Error(`Couldn't match a @type on input: '${input}'.`, {
+				cause: {
+					state,
+				},
+			});
 		}
 
 		state.globalIndex = state.contents.length;
@@ -233,22 +346,28 @@ export function parseFunctionDocs(functionDocBlock: string | undefined) {
 	while (!state.atEnd()) {
 		skipEmptySpace(state);
 
-		if (state.lastNewLineIndex === state.globalIndex - 1 && state.currentChar() === "@") {
+		if (isPossibleStartOfTag(state)) {
 			// We start some form of tag.
-			if (state.contents.indexOf("@template ", state.globalIndex) === state.globalIndex) {
-				state.globalIndex += "@template ".length;
+			if (isMatchedTag(state, "template")) {
 				parseTypeParameter();
 				continue;
 			}
 
-			if (state.contents.indexOf("@param ", state.globalIndex) === state.globalIndex) {
-				state.globalIndex += "@param ".length;
-				parseParameter();
+			if (isMatchedTag(state, "param")) {
+				const definedParam = parseNamedTypeExpression(state, ["@param", "@returns"]);
+				result.parameters.push({
+					name: definedParam.name,
+					typeExpression: definedParam.typeExpression,
+				});
+
+				if (definedParam.docs) {
+					result.docs += `\n  - ${definedParam.name}: ${definedParam.docs}`;
+				}
+
 				continue;
 			}
 
-			if (state.contents.indexOf("@returns ", state.globalIndex) === state.globalIndex) {
-				state.globalIndex += "@returns ".length;
+			if (isMatchedTag(state, "returns")) {
 				parseReturns();
 				continue;
 			}
@@ -299,63 +418,6 @@ export function parseFunctionDocs(functionDocBlock: string | undefined) {
 		state.globalIndex = state.contents.length;
 		const match = reMatch.groups ?? {};
 		result.returnType = match.typeExpression ?? CONVERT_UTIL.any;
-	}
-
-	function parseParameter() {
-		// Determine the length of the full param tag, by finding other known tags or end-of input.
-		const lastIndex = Math.min(
-			...[
-				lastNewLineFor(state, "@param"),
-				lastNewLineFor(state, "@returns"),
-				state.contents.length,
-			].filter((it) => it !== -1),
-		);
-
-		// 1. {type} param
-		// 2. param
-		// 3. {type} [param] docs
-		// 4. {type} [param=5] docs
-		let input = state.contents.slice(state.globalIndex, lastIndex);
-		state.globalIndex = lastIndex;
-		input = input.trim();
-
-		let typeExpression: string = CONVERT_UTIL.any;
-
-		if (input.startsWith("{")) {
-			// Brace match until the end of the typeExpression. We assume that the type expression is
-			// valid, so we only have to match against '}'.
-
-			let stack = 1;
-			for (let i = 1; i < input.length; ++i) {
-				if (input[i] === "{") {
-					stack += 1;
-				} else if (input[i] === "}") {
-					stack -= 1;
-				}
-
-				if (stack === 0) {
-					typeExpression = input.slice(1, i);
-					input = input.slice(i + 1).trim();
-					break;
-				}
-			}
-		}
-
-		const reMatch = JSDOC_REGEX.paramNameAndDocs().exec(input);
-		if (!reMatch) {
-			throw new Error(`Couldn't match a @param name on input: '${input}'.`);
-		}
-
-		const match = reMatch.groups ?? {};
-
-		result.parameters.push({
-			name: match.name ?? "",
-			typeExpression,
-		});
-
-		if (match.docs?.trim().length) {
-			result.docs += `\n  - ${match.name ?? ""}: ${match.docs.trim()}`;
-		}
 	}
 
 	return result;
@@ -413,4 +475,80 @@ function parseDocs(state: ParseState, result: { docs: string }) {
 		result.docs += state.currentChar();
 		state.moveNext();
 	}
+}
+
+function parseNamedTypeExpression(state: ParseState, stopTags: Array<string>) {
+	// Determine the length of the full param tag, by finding other known tags or end-of input.
+	const lastIndex = Math.min(
+		...[...stopTags.map((it) => lastNewLineFor(state, it)), state.contents.length].filter(
+			(it) => it !== -1,
+		),
+	);
+
+	// 1. {type} param
+	// 2. param
+	// 3. {type} [param] docs
+	// 4. {type} [param=5] docs
+	let input = state.contents.slice(state.globalIndex, lastIndex);
+	state.globalIndex = lastIndex;
+	input = input.trim();
+
+	let typeExpression: string = CONVERT_UTIL.any;
+
+	if (input.startsWith("{")) {
+		// Brace match until the end of the typeExpression. We assume that the type expression is
+		// valid, so we only have to match against '}'.
+
+		let stack = 1;
+		for (let i = 1; i < input.length; ++i) {
+			if (input[i] === "{") {
+				stack += 1;
+			} else if (input[i] === "}") {
+				stack -= 1;
+			}
+
+			if (stack === 0) {
+				typeExpression = input.slice(1, i);
+				input = input.slice(i + 1).trim();
+				break;
+			}
+		}
+	}
+
+	const reMatch = JSDOC_REGEX.nameAndDocsTag().exec(input);
+	if (!reMatch) {
+		throw new Error(`Couldn't match a @param name on input: '${input}'.`);
+	}
+
+	const match = reMatch.groups ?? {};
+
+	return {
+		name: match.name ?? "",
+		typeExpression,
+		docs: match.docs?.trim() ?? "",
+	};
+}
+
+function isPossibleStartOfTag(state: ParseState) {
+	return state.lastNewLineIndex === state.globalIndex - 1 && state.currentChar() === "@";
+}
+
+function isMatchedTag(state: ParseState, tag: string) {
+	if (state.contents.indexOf(`@${tag} `, state.globalIndex) === state.globalIndex) {
+		state.globalIndex += `@${tag} `.length;
+		return true;
+	}
+	return false;
+}
+
+export function convertStringToJSDoc(input: string) {
+	if (input.trim().length === 0) {
+		return "";
+	}
+
+	return `/**\n${input
+		.trim()
+		.split("\n")
+		.map((it) => ` * ${it}`)
+		.join("\n")}\n */\n`;
 }

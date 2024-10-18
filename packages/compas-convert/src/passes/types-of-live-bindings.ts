@@ -1,7 +1,11 @@
 import { NodeFlags } from "ts-morph";
 import type { SourceFile } from "ts-morph";
 import type { Context } from "../context.js";
-import { parseTypeDocs, typeExpressionToInlineType } from "../shared/jsdoc.js";
+import {
+	convertStringToJSDoc,
+	parseTypeDocs,
+	typeExpressionToInlineType,
+} from "../shared/jsdoc.js";
 import { CONVERT_UTIL, getTypescriptProgram } from "./init-ts-morph.js";
 
 /**
@@ -48,11 +52,7 @@ export function fixTypesOfLiveBindings(context: Context, sourceFile: SourceFile)
 			let str = ``;
 
 			if (parsedDoc.docs) {
-				str += "/**\n";
-				for (const line of parsedDoc.docs.split("\n")) {
-					str += ` * ${line}\n`;
-				}
-				str += ` */\n`;
+				str += convertStringToJSDoc(parsedDoc.docs);
 			}
 
 			if (needsTsIgnore) {
