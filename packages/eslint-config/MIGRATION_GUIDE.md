@@ -89,12 +89,12 @@ The migration can be done by following these steps:
 		"lint:ci": "eslint ."
 	},
 	"devDependencies": {
-		"@lightbase/eslint-config": "1.1.0",
-		"@next/eslint-plugin-next": "14.2.13",
-		"eslint-plugin-jsx-a11y": "6.10.0",
+		"@lightbase/eslint-config": "2.0.0",
+		"@next/eslint-plugin-next": "15.0.0",
+		"eslint-plugin-jsx-a11y": "6.10.1",
 		"eslint-plugin-no-relative-import-paths": "1.5.5",
-		"eslint-plugin-react": "7.36.1",
-		"eslint-plugin-react-hooks": "beta"
+		"eslint-plugin-react": "7.37.1",
+		"eslint-plugin-react-hooks": "5.0.0"
 	},
 	"overrides": {
 		"eslint": "9"
