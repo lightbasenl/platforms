@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.0.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v1.2.0...eslint-config-v2.0.0) (2024-10-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* bump peer-dependency requirements for React specific packages
+
+### Features
+
+* Bump peer-dependency requirements for React specific packages ([dd2a070](https://github.com/lightbasenl/platforms/commit/dd2a070cd775685d8fb8f04804a7ce97829c6dc7))
+* Enable `next/no-duplicate-head` and `next/no-page-custom-font` rules ([f252538](https://github.com/lightbasenl/platforms/commit/f252538edb298ac5eaec2cf0df4c66d49208113f))
+
+
+### Dependencies
+
+* Bump eslint-plugin-jsdoc from 50.3.1 to 50.3.2 ([#270](https://github.com/lightbasenl/platforms/issues/270)) ([f5ae965](https://github.com/lightbasenl/platforms/commit/f5ae965221501ec72f037039ce95974dafdea0a3))
+* Bump eslint-plugin-jsdoc from 50.3.2 to 50.4.1 ([#272](https://github.com/lightbasenl/platforms/issues/272)) ([f7a938c](https://github.com/lightbasenl/platforms/commit/f7a938c02053d1c63a98f4eafe0782bd093c1fd5))
+* Bump eslint-plugin-jsdoc from 50.4.1 to 50.4.3 ([#275](https://github.com/lightbasenl/platforms/issues/275)) ([66c182d](https://github.com/lightbasenl/platforms/commit/66c182df51daa38881b4f5372ae6841c80f4c268))
+* Bump globals from 15.10.0 to 15.11.0 ([#268](https://github.com/lightbasenl/platforms/issues/268)) ([37fa8b5](https://github.com/lightbasenl/platforms/commit/37fa8b526bba317f4c6b68376afbf48a5c33a90f))
+* Bump the eslint group with 2 updates ([#277](https://github.com/lightbasenl/platforms/issues/277)) ([8c056e8](https://github.com/lightbasenl/platforms/commit/8c056e8d6d815066b122d73ba42aaa26186803d2))
+* Bump the typescript-eslint group with 2 updates ([#271](https://github.com/lightbasenl/platforms/issues/271)) ([3cb1320](https://github.com/lightbasenl/platforms/commit/3cb1320836ddeeef067cbe9d6078435f6e87f4a9))
+* Bump the typescript-eslint group with 2 updates ([#274](https://github.com/lightbasenl/platforms/issues/274)) ([22029c4](https://github.com/lightbasenl/platforms/commit/22029c45f14b9bfa39cc335dd437215464721f10))
+* Bump the typescript-eslint group with 2 updates ([#279](https://github.com/lightbasenl/platforms/issues/279)) ([bf26bb0](https://github.com/lightbasenl/platforms/commit/bf26bb0a9fe1fa835d022f164ab0ff5aa1778987))
+
 ## [1.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v1.1.0...eslint-config-v1.2.0) (2024-10-08)
 
 ### Features
