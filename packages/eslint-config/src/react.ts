@@ -3,7 +3,6 @@ import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import pluginJSXA11y from "eslint-plugin-jsx-a11y";
 // @ts-expect-error no type defs
 import pluginNoRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
-// @ts-expect-error no type defs
 import pluginReact from "eslint-plugin-react";
 // @ts-expect-error no type defs
 import pluginReactHooks from "eslint-plugin-react-hooks";
