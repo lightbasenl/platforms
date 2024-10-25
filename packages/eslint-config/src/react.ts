@@ -48,7 +48,7 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 			// React, React-hooks and JSX a11y rules.
 			files: globUse([GLOBS.typescript]),
 			plugins: {
-				"react": pluginReact as FlatConfig.Plugin,
+				"react": pluginReact as unknown as FlatConfig.Plugin,
 				"react-hooks": pluginReactHooks as FlatConfig.Plugin,
 				"jsx-a11y": pluginJSXA11y as FlatConfig.Plugin,
 			},
@@ -58,10 +58,7 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 				},
 			},
 			rules: {
-				...((pluginReact as FlatConfig.Plugin).configs?.recommended?.rules as Record<
-					string,
-					string
-				>),
+				...(pluginReact.configs?.recommended?.rules as Record<string, string | number>),
 
 				// Good practices
 				"react/iframe-missing-sandbox": "error",
