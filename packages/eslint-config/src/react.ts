@@ -58,8 +58,7 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 				},
 			},
 			rules: {
-				...((pluginReact as unknown as FlatConfig.Plugin).configs?.recommended
-					?.rules as Record<string, string>),
+				...(pluginReact.configs?.recommended?.rules as Record<string, string | number>),
 
 				// Good practices
 				"react/iframe-missing-sandbox": "error",
