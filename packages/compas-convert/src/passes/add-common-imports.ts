@@ -1,7 +1,5 @@
-import path from "node:path";
 import type { SourceFile } from "ts-morph";
-import { Node } from "ts-morph";
-import { addNamedImportIfNotExists } from "../shared/imports.js";
+import { addNamedImportIfNotExists, resolveRelativeImport } from "../shared/import.js";
 import type { Context } from "./../context.js";
 import { CONVERT_UTIL, CONVERT_UTIL_PATH } from "./init-ts-morph.js";
 
@@ -35,6 +33,7 @@ export function addCommonImports(context: Context, sourceFile: SourceFile) {
 	addNamedImportIfNotExists(sourceFile, "@compas/server", "Next", true);
 	addNamedImportIfNotExists(sourceFile, "@compas/server", "Middleware", true);
 	addNamedImportIfNotExists(sourceFile, "@compas/server", "Context", true);
+	addNamedImportIfNotExists(sourceFile, "@compas/server", "Context", true);
 
 	addNamedImportIfNotExists(sourceFile, "@compas/store", "Postgres", true);
 	addNamedImportIfNotExists(sourceFile, "@compas/store", "S3Client", true);
@@ -50,25 +49,4 @@ export function addCommonImports(context: Context, sourceFile: SourceFile) {
 	addNamedImportIfNotExists(sourceFile, "axios", "AxiosInstance", true);
 	addNamedImportIfNotExists(sourceFile, "axios", "AxiosRequestConfig", true);
 	addNamedImportIfNotExists(sourceFile, "axios", "AxiosError", true);
-}
-
-/**
- * Resolve a relative import from source to target.
- */
-export function resolveRelativeImport(
-	context: Context,
-	source: Node | SourceFile,
-	target: string,
-) {
-	const srcFile = Node.isNode(source) ? source.getSourceFile() : source;
-	const targetFile = path.join(context.outputDirectory, target);
-
-	// Imports should include the .js extension.
-	return `./${path
-		.relative(
-			// Relative assumes a directory as input, else we might get an extra '../'.
-			srcFile.getFilePath().split("/").slice(0, -1).join("/"),
-			targetFile,
-		)
-		.replace(".ts", ".js")}`;
 }

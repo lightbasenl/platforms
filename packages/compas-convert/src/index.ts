@@ -6,6 +6,7 @@ import consola from "consola";
 import { createEmptyContext } from "./context.js";
 import type { GlobalPass, Pass } from "./pass.js";
 import { addCommonImports } from "./passes/add-common-imports.js";
+import { convertTestFiles } from "./passes/convert-test-files.js";
 import { copyRename } from "./passes/copy-rename.js";
 import { finalizePendingImports } from "./passes/finalize-pending-imports.js";
 import { fixGenerators } from "./passes/fix-generators.js";
@@ -18,6 +19,7 @@ import { transformExpressionJsDoc } from "./passes/transform-expression-js-doc.j
 import { transformModuleJsDoc } from "./passes/transform-module-js-doc.js";
 import { fixTypesOfAllFunctions } from "./passes/types-of-all-functions.js";
 import { fixTypesOfLiveBindings } from "./passes/types-of-live-bindings.js";
+import { typescriptDiagnostics } from "./passes/typescript-save-and-build.js";
 import { globOfAllTypeScriptFiles } from "./shared/project-files.js";
 import { isNil } from "./utils.js";
 
@@ -50,16 +52,16 @@ const passes: Array<Pass> = [
 	fixTypesOfLiveBindings,
 	fixTypesOfAllFunctions,
 	updateGenerateOptions,
+	convertTestFiles,
 
 	transformModuleJsDoc,
 	transformExpressionJsDoc,
 
 	finalizePendingImports,
-
 	installDependencies,
 	runGenerators,
 
-	// typescriptDiagnostics,
+	typescriptDiagnostics,
 ];
 
 consola.start(`Converting ${path.relative(process.cwd(), resolvedInputDirectory)}`);
