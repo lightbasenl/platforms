@@ -3,9 +3,12 @@ import DiffMatchPatch from "diff-match-patch";
 
 const LINE_ENDING_RE = /\r\n|[\r\n\u2028\u2029]/;
 
+const diff = new DiffMatchPatch();
+diff.Diff_Timeout = 0.3;
+
 export function reportDifferences(context: any, source: string, formatted: string) {
 	if (source !== formatted) {
-		const createdDiff = new DiffMatchPatch().diff_main(source, formatted);
+		const createdDiff = diff.diff_main(source, formatted);
 		const generatedDiff = generateDifferences(createdDiff);
 
 		for (const diff of generatedDiff) {
