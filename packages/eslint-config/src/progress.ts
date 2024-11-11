@@ -1,5 +1,4 @@
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
-// @ts-expect-error no types available
 import pluginFileProgress from "eslint-plugin-file-progress";
 import { globMarkdownSnippetFromGlob, globUse } from "./globs.js";
 
@@ -13,7 +12,7 @@ export function progress(): Array<FlatConfig.Config> {
 			// Show a friendly spinner.
 			files: ["**/*"],
 			plugins: {
-				"file-progress": pluginFileProgress as unknown as FlatConfig.Plugin,
+				"file-progress": pluginFileProgress,
 			},
 			rules: {
 				"file-progress/activate": "warn",
