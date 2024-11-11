@@ -21,7 +21,11 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 				(await import(
 					// @ts-expect-error no types available
 					"@next/eslint-plugin-next"
-				)) as unknown as { default: FlatConfig.Plugin }
+				)) as unknown as {
+					default: FlatConfig.Plugin & {
+						configs: Record<string, FlatConfig.Config>;
+					};
+				}
 			).default
 		:	undefined;
 
@@ -67,10 +71,11 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 				"react/react-in-jsx-scope": "off",
 				"react/prop-types": "off",
 
-				...((pluginJSXA11y as FlatConfig.Plugin).configs?.strict?.rules as Record<
-					string,
-					string
-				>),
+				...((
+					pluginJSXA11y as FlatConfig.Plugin & {
+						configs: Record<string, FlatConfig.Config>;
+					}
+				).configs?.strict?.rules as Record<string, string>),
 
 				"react-hooks/rules-of-hooks": "error",
 				"react-hooks/exhaustive-deps": "error",
