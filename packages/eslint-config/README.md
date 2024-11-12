@@ -51,7 +51,7 @@ Add the following scripts to your `package.json`:
 
 ### Prettier
 
-Prettier is configured to run on all markdown, json, yaml, JavaScript and TypeScript
+Prettier is configured to run on all Markdown, JSON, YAML, JavaScript and TypeScript
 files. We support the following configuration to override this:
 
 ```js
@@ -163,12 +163,12 @@ export default defineConfig({
 });
 ```
 
-This enables all Next.js rules and various recommended rules for React, hooks usage and
+This enables all Next.js rules and various recommended rules for React, hooks usage, and
 JSX accessibility.
 
 ### Globals
 
-The config by default includes all globals for Node.js, Browser and ES2021. You can use
+The config by default includes all globals for Node.js, Browser, and ES2021. You can use
 other predefined presets via
 
 ```js
