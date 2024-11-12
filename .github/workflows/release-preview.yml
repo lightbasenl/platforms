@@ -46,4 +46,4 @@ jobs:
 
       - name: "Publish preview"
         run: |
-          npx pkg-pr-new publish './packages/*' --no-template
+          npx pkg-pr-new publish './packages/*'
