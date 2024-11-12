@@ -65,7 +65,7 @@ export function imports(typescript: TypeScriptConfig): Array<FlatConfig.Config> 
 				"no-unused-vars": "off",
 				"@typescript-eslint/no-unused-vars": "off",
 
-				// Auto-remove unused imports. This overules the no-unused-vars rule as well, so we
+				// Auto-remove unused imports. This overrules the no-unused-vars rule as well, so we
 				// configure it here.
 				"unused-imports/no-unused-imports": "error",
 				"unused-imports/no-unused-vars": [
@@ -101,6 +101,14 @@ export function imports(typescript: TypeScriptConfig): Array<FlatConfig.Config> 
 				// Re-enable once <https://github.com/import-js/eslint-plugin-import/issues/1479> is fixed.
 				// There is currently no related issue in eslint-plugin-import-x repo yet.
 				"import-x/no-duplicates": "off",
+			},
+		},
+
+		{
+			// Default exports are required for most React tooling and in various config files.
+			files: globUse([GLOBS.jsx, GLOBS.tsx, GLOBS.rootConfigFiles]),
+			rules: {
+				"import-x/no-default-export": "off",
 			},
 		},
 	] satisfies Array<FlatConfig.Config>;
