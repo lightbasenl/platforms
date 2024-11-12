@@ -10,6 +10,11 @@ export const GLOBS = {
 	javascript: "**/*.?(c|m)js?(x)",
 	typescript: "**/*.?(c|m)ts?(x)",
 
+	jsx: "**/*.?(c|m)jsx",
+	tsx: "**/*.?(c|m)tsx",
+
+	rootConfigFiles: "*.?(c|m)ts?(x)",
+
 	markdown: "**/*.md",
 
 	yaml: "**/*.y?(a)ml",

@@ -24,7 +24,6 @@ export function markdownConfig() {
  */
 export function markdownSnippetOverrides(): Array<FlatConfig.Config> {
 	// Disable rules in Markdown snippets
-
 	return [
 		{
 			files: globUse([
@@ -35,6 +34,7 @@ export function markdownSnippetOverrides(): Array<FlatConfig.Config> {
 				"unused-imports/no-unused-vars": "off",
 				"import-x/no-commonjs": "off",
 				"import-x/no-unresolved": "off",
+				"import-x/no-default-export": "off",
 
 				"eol-last": "off",
 				"no-undef": "off",
