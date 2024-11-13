@@ -268,6 +268,10 @@ Configuring Webstorm to use this config can be done as follows:
 - Select `Run eslint --fix on save`
 - Click on `Apply` & `OK`
 
+Since this config is configured to automatically cleanup imports, and runs Prettier as
+part of ESLint, you can disable these settings in the `Actions on Save`-settings of
+WebStorm.
+
 > [!NOTE]
 >
 > WebStorm sometimes doesn't pick up on an updated ESLint configuration. A restart of the
