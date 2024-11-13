@@ -14,6 +14,7 @@ import { updateGenerateOptions } from "./passes/generate-options.js";
 import { getTypescriptProgram, initTsMorph } from "./passes/init-ts-morph.js";
 import { initTypescriptInProject } from "./passes/init-typescript-in-project.js";
 import { installDependencies } from "./passes/install-dependencies.js";
+import { notNilChecksInTestFiles } from "./passes/not-nil-checks-in-test-files.js";
 import { runGenerators } from "./passes/run-generators.js";
 import { transformExpressionJsDoc } from "./passes/transform-expression-js-doc.js";
 import { transformModuleJsDoc } from "./passes/transform-module-js-doc.js";
@@ -45,6 +46,8 @@ const context = createEmptyContext(resolvedInputDirectory, resolvedOutputDirecto
 const passes: Array<Pass> = [
 	copyRename,
 	initTypescriptInProject,
+	installDependencies,
+
 	initTsMorph,
 
 	addCommonImports,
@@ -58,8 +61,11 @@ const passes: Array<Pass> = [
 	transformExpressionJsDoc,
 
 	finalizePendingImports,
-	installDependencies,
 	runGenerators,
+
+	// Re-init TS Morph. Since there is no clean way of refreshing diagnostics.
+	initTsMorph,
+	notNilChecksInTestFiles,
 
 	typescriptDiagnostics,
 ];

@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import path from "node:path";
 import { Project } from "ts-morph";
 import type { Context } from "../context.js";
@@ -5,6 +6,7 @@ import type { Context } from "../context.js";
 export const CONVERT_UTIL_PATH = "./src/compas-convert.ts";
 export const CONVERT_UTIL = {
 	any: "$ConvertAny",
+	assertNotNil: "assertNotNil",
 } as const;
 
 /**
@@ -19,9 +21,16 @@ export async function initTsMorph(context: Context) {
 		tsConfigFilePath: path.join(context.outputDirectory, "tsconfig.json"),
 	});
 
+	const qualifiedUtilPath = path.join(context.outputDirectory, CONVERT_UTIL_PATH);
+
+	if (existsSync(qualifiedUtilPath)) {
+		// Don't add the file again, if ts-morph is initialized again.
+		return;
+	}
+
 	await context.ts
 		.createSourceFile(
-			path.join(context.outputDirectory, CONVERT_UTIL_PATH),
+			qualifiedUtilPath,
 			`
 // File added by compas-convert
 
@@ -36,6 +45,18 @@ export async function initTsMorph(context: Context) {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type $ConvertAny = any;
+
+/**
+ * Asserts that the provided value is not null or undefined.
+ */
+export function assertNotNil<T>(
+	value: T,
+	message?: string,
+): asserts value is NonNullable<T> {
+	if (value === null || value === undefined) {
+		throw new Error(\`Invariant failed: $\{ message }\`);
+	}
+}
 `,
 		)
 		.save();

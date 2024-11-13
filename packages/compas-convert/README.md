@@ -50,11 +50,11 @@ rm -rf ../compas-convert-test && npx compas-convert ../some-local-test-project .
 - [x] Pass: inline JSDoc blocks to inline types
 - [ ] Pass: common issues
   - Run TypeScript and find common errors
+  - [ ] Type of `AppErrror` in Compas should accept anything for 'cause' and 'info'.
   - [ ] `try/catch` has `unknown` error type. Could insert a type-guard if `e.key` is used
         or even cast the result.
-  - [ ] Insert `assertNotNil` functions in common scenario's
-    - Mainly in test files.
-    -
+  - [ ] Insert `assertNotNil` functions in test files
+    - Partially done, we can still handle TS2532 errors as well.
 - [x] Pass: query-builder types
   - Improve query-builder types by inferring the types based on the passed in builder.
 - [ ] Pass: build step. Fixup CI, Dockerfile, docs, etc

@@ -10,11 +10,22 @@ import { CONVERT_UTIL, CONVERT_UTIL_PATH } from "./init-ts-morph.js";
  * setup.
  */
 export function addCommonImports(context: Context, sourceFile: SourceFile) {
+	// Don't add imports to the convert file
+	if (sourceFile.getFilePath().endsWith("src/compas-convert.ts")) {
+		return;
+	}
+
 	addNamedImportIfNotExists(
 		sourceFile,
 		resolveRelativeImport(context, sourceFile, CONVERT_UTIL_PATH),
 		CONVERT_UTIL.any,
 		true,
+	);
+	addNamedImportIfNotExists(
+		sourceFile,
+		resolveRelativeImport(context, sourceFile, CONVERT_UTIL_PATH),
+		CONVERT_UTIL.assertNotNil,
+		false,
 	);
 
 	addNamedImportIfNotExists(sourceFile, "@compas/stdlib", "InsightEvent", true);
