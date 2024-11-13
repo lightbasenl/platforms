@@ -85,6 +85,9 @@ export function assignSignatureTagsToFunction(
 					CONVERT_UTIL.any;
 
 				param.setType(typeExpressionToInlineType(context, sourceFile, typeExpression));
+				if (paramInfo?.isOptional) {
+					param.setHasQuestionToken(true);
+				}
 			}
 
 			if (parsedDocs.returnType) {
@@ -203,6 +206,7 @@ function parseTypedef(state: ParseState) {
 		name: string;
 		properties: Array<{
 			name: string;
+			isOptional: boolean;
 			typeExpression: string;
 			docs: string;
 		}>;
@@ -230,6 +234,7 @@ function parseTypedef(state: ParseState) {
 				const property = parseNamedTypeExpression(state, ["@property"]);
 				intermediate.properties.push({
 					name: property.name,
+					isOptional: property.isOptional,
 					typeExpression: property.typeExpression,
 					docs: property.docs,
 				});
@@ -255,7 +260,7 @@ function parseTypedef(state: ParseState) {
 		result += `{\n`;
 		for (const prop of intermediate.properties) {
 			result += convertStringToJSDoc(prop.docs);
-			result += `${prop.name}: ${prop.typeExpression};\n`;
+			result += `${prop.name}${prop.isOptional ? "?" : ""}: ${prop.typeExpression};\n`;
 		}
 
 		result += `};`;
@@ -325,6 +330,7 @@ type FunctionDocResult = {
 	}>;
 	parameters: Array<{
 		name: string;
+		isOptional: boolean;
 		typeExpression: string;
 	}>;
 	returnType?: string;
@@ -358,6 +364,7 @@ export function parseFunctionDocs(functionDocBlock: string | undefined) {
 				const definedParam = parseNamedTypeExpression(state, ["@param", "@returns"]);
 				result.parameters.push({
 					name: definedParam.name,
+					isOptional: definedParam.isOptional,
 					typeExpression: definedParam.typeExpression,
 				});
 
@@ -526,6 +533,7 @@ function parseNamedTypeExpression(state: ParseState, stopTags: Array<string>) {
 	return {
 		name: match.name ?? "",
 		typeExpression,
+		isOptional: input.includes(`[${match.name ?? "__non_match__"}]`),
 		docs: match.docs?.trim() ?? "",
 	};
 }
