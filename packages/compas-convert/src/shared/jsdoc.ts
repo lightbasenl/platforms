@@ -81,6 +81,7 @@ export function assignSignatureTagsToFunction(
 				const typeExpression =
 					paramOverrides?.[param.getName()] ??
 					paramInfo?.typeExpression ??
+					param.getTypeNode()?.getText() ??
 					CONVERT_UTIL.any;
 
 				param.setType(typeExpressionToInlineType(context, sourceFile, typeExpression));
