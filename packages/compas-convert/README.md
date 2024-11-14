@@ -48,16 +48,15 @@ rm -rf ../compas-convert-test && npx compas-convert ../some-local-test-project .
   - [x] Database
 - [x] Pass: @compas/test to Vitest
 - [x] Pass: inline JSDoc blocks to inline types
-- [ ] Pass: common issues
-  - Run TypeScript and find common errors
+- Pass: Run TypeScript, ESLint and tests to find common errors
   - [ ] Type of `AppErrror` in Compas should accept anything for 'cause' and 'info'.
-  - [x] Insert `assertNotNil` functions in test files
-    - Partially done, we can still handle TS2532 errors as well.
+    - `TS2345: Argument of type 'unknown' is not assignable to parameter of type 'Error | undefined'`
+    - Used in all variants of `AppError` construction
   - [ ] Insert `assertIsAppError` in test files
     - On `TS18046: 'e' is of type 'unknown'`
     - AND `.key` or `.info` is accessed
     - Implement like `not-nil-checks-in-test-flows`
-  - [ ] Some errors still in generated code, which need a cleanup
+  - [ ] Convert JSDOC `function(number, string): string` to `(number, string) => string`
 - [x] Pass: query-builder types
   - Improve query-builder types by inferring the types based on the passed in builder.
 - [ ] Pass: build step. Fixup CI, Dockerfile, docs, etc
