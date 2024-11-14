@@ -15,13 +15,13 @@ export async function initTypescriptInProject(context: Context) {
 	packageJson.devDependencies["vitest"] = "2.0.5";
 	packageJson.devDependencies["@total-typescript/tsconfig"] = "1.0.4";
 	packageJson.devDependencies["@types/node"] = "latest";
-	packageJson.devDependencies["@compas/code-gen"] = "0.15.4";
+	packageJson.devDependencies["@compas/code-gen"] = "0.15.5";
 
 	packageJson.dependencies ??= {};
-	packageJson.dependencies["@compas/cli"] = "0.15.4";
-	packageJson.dependencies["@compas/server"] = "0.15.4";
-	packageJson.dependencies["@compas/stdlib"] = "0.15.4";
-	packageJson.dependencies["@compas/store"] = "0.15.4";
+	packageJson.dependencies["@compas/cli"] = "0.15.5";
+	packageJson.dependencies["@compas/server"] = "0.15.5";
+	packageJson.dependencies["@compas/stdlib"] = "0.15.5";
+	packageJson.dependencies["@compas/store"] = "0.15.5";
 
 	packageJson.scripts ??= {};
 	packageJson.scripts["build"] = `tsc -p ./tsconfig.json`;
