@@ -49,14 +49,28 @@ rm -rf ../compas-convert-test && npx compas-convert ../some-local-test-project .
 - [x] Pass: @compas/test to Vitest
 - [x] Pass: inline JSDoc blocks to inline types
 - Pass: Run TypeScript, ESLint and tests to find common errors
-  - [ ] Type of `AppErrror` in Compas should accept anything for 'cause' and 'info'.
+  - [x] Type of `AppErrror` in Compas should accept anything for 'cause' and 'info'.
     - `TS2345: Argument of type 'unknown' is not assignable to parameter of type 'Error | undefined'`
     - Used in all variants of `AppError` construction
   - [ ] Insert `assertIsAppError` in test files
     - On `TS18046: 'e' is of type 'unknown'`
     - AND `.key` or `.info` is accessed
     - Implement like `not-nil-checks-in-test-flows`
-  - [ ] Convert JSDOC `function(number, string): string` to `(number, string) => string`
+  - [x] ~Convert JSDOC `function(number, string): string` to `(number, string) => string`~
 - [x] Pass: query-builder types
   - Improve query-builder types by inferring the types based on the passed in builder.
-- [ ] Pass: build step. Fixup CI, Dockerfile, docs, etc
+
+Checklist:
+
+- [ ] Any TS errors we need to fix still?
+  - Start documenting common errors and their fixes below
+- [ ] Any ESLint rules we can fix?
+  - Start documenting common errors and their fixes below
+- [ ] Can we run the API, Queue, etc?
+- [ ] Does the docker build work?
+- [ ] Collect common knowledge:
+  - New QueryBuilder types
+  - TSX usage
+  - Vitest usage
+
+## Migration docs

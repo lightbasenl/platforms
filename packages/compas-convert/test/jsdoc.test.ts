@@ -229,6 +229,7 @@ suite("parseFunctionDocs", () => {
 			",
 			  "parameters": [
 			    {
+			      "isOptional": false,
 			      "name": "context",
 			      "typeExpression": "{
 			  foo: boolean;
@@ -236,6 +237,7 @@ suite("parseFunctionDocs", () => {
 			 }",
 			    },
 			    {
+			      "isOptional": false,
 			      "name": "prefillData",
 			      "typeExpression": "import("@foo").Bar<123>",
 			    },
@@ -266,6 +268,7 @@ suite("parseFunctionDocs", () => {
 			   differentiate between api & queue.",
 			  "parameters": [
 			    {
+			      "isOptional": false,
 			      "name": "tags",
 			      "typeExpression": "Record<string, string>",
 			    },
