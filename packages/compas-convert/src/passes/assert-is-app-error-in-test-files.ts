@@ -1,11 +1,12 @@
-import { Node } from "ts-morph";
 import type { SourceFile } from "ts-morph";
+import { Node, ts } from "ts-morph";
 import type { Context } from "../context.js";
+import SyntaxKind = ts.SyntaxKind;
 
 /**
- * Add 'assertNotNil' statements for possibly unchecked undefined values in test files.
+ * Add 'assertIsAppError' statements for type checking caught exception values in test files.
  */
-export function notNilChecksInTestFiles(context: Context, sourceFile: SourceFile) {
+export function isAppErrorInTestFiles(context: Context, sourceFile: SourceFile) {
 	if (!sourceFile.getFilePath().endsWith(".test.ts")) {
 		// We only run this for test files. All other files are runtime behavior which has to be
 		// double-checked.
@@ -17,7 +18,9 @@ export function notNilChecksInTestFiles(context: Context, sourceFile: SourceFile
 	// an expression we can't fix.
 	let lastPosition = 0;
 
-	while ((nextDiagnostic = getNextUndefinedCheckDiagnostic(sourceFile, lastPosition))) {
+	while (
+		(nextDiagnostic = getNextObjectOfTypeUnknownDiagnostic(sourceFile, lastPosition))
+	) {
 		lastPosition = nextDiagnostic.getStart()!;
 
 		// For some reason, we can't find the position of the diagnostic.
@@ -47,12 +50,27 @@ export function notNilChecksInTestFiles(context: Context, sourceFile: SourceFile
 				nextDiagnostic.getStart()! + nextDiagnostic.getLength()!,
 			);
 
-		// Assert not nil does a type-narrowing assertion; meaning that it guarantees typescript, that
-		// it would throw and thus prevents execution of the normal code-path.
-		sourceFile.insertText(
-			parentStatement.getStart(true),
-			`assertNotNil(${expressionMatch});\n\n`,
-		);
+		try {
+			const keyOrInfoRegex = new RegExp(`${expressionMatch}\\.(?:key|info)\\b`);
+
+			if (
+				parentStatement.getText().match(keyOrInfoRegex) &&
+				isInCatchClause(parentStatement)
+			) {
+				// Assert is AppError does a type-narrowing assertion; meaning that it guarantees
+				// typescript,3 that it would throw and thus prevents execution of the normal code-path.
+				sourceFile.insertText(
+					parentStatement.getStart(true),
+					`assertIsAppError(${expressionMatch});\n\n`,
+				);
+			}
+
+			// const catchClause = parentStatement.getParentIfKindOrThrow(SyntaxKind.CatchClause);
+			//
+			// if (catchClause.)
+		} catch (e) {
+			return;
+		}
 	}
 }
 
@@ -61,17 +79,25 @@ export function notNilChecksInTestFiles(context: Context, sourceFile: SourceFile
  * This way we rerun the diagnostics each time, getting an up-to-date view. Since one assertion can
  * fix multiple errors.
  */
-function getNextUndefinedCheckDiagnostic(sourceFile: SourceFile, fromPosition: number) {
+function getNextObjectOfTypeUnknownDiagnostic(
+	sourceFile: SourceFile,
+	fromPosition: number,
+) {
 	const errorCodes = {
-		expressionIsPossiblyUndefined: 18048,
-		objectIsPossiblyUndefined: 2532,
+		objectIsOfTypeUnknown: 18046,
 	};
 
-	return sourceFile
-		.getPreEmitDiagnostics()
-		.find(
-			(it) =>
-				(it.getStart() ?? 0) > fromPosition &&
-				Object.values(errorCodes).includes(it.getCode()),
+	return sourceFile.getPreEmitDiagnostics().find((it) => {
+		return (
+			Object.values(errorCodes).includes(it.getCode()) &&
+			(it.getStart() ?? 0) > fromPosition
 		);
+	});
+}
+
+function isInCatchClause(node: Node) {
+	const parent = node.getParentWhile(
+		(parentNode) => !parentNode.isKind(SyntaxKind.CatchClause),
+	);
+	return parent !== null;
 }

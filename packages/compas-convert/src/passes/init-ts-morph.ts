@@ -7,6 +7,7 @@ export const CONVERT_UTIL_PATH = "./src/compas-convert.ts";
 export const CONVERT_UTIL = {
 	any: "$ConvertAny",
 	assertNotNil: "assertNotNil",
+	assertIsAppError: "assertIsAppError",
 } as const;
 
 /**
@@ -34,6 +35,8 @@ export async function initTsMorph(context: Context) {
 			`
 // File added by compas-convert
 
+import { AppError } from "@compas/stdlib";
+
 /**
  * While migrating, not every type can be resolved or inferred. In these cases, an explicit
  * $ConvertAny is added. This solves 2 problems:
@@ -57,6 +60,20 @@ export function assertNotNil<T>(
 		throw new Error(\`Invariant failed: $\{ message }\`);
 	}
 }
+
+/**
+ * Asserts that the provided value is of type AppError
+ *
+ */
+export function assertIsAppError(
+  value: unknown,
+  message?: string,
+): asserts value is AppError {
+  if (!AppError.instanceOf(value)) {
+    throw new Error(\`Invariant failed: $\{message ?? "Not of type AppError"}\`);
+  }
+}
+
 `,
 		)
 		.save();

@@ -7,6 +7,7 @@ import { createEmptyContext } from "./context.js";
 import type { GlobalPass, Pass } from "./pass.js";
 import { addCommonImports } from "./passes/add-common-imports.js";
 import { convertTestConfig } from "./passes/convert-test-config.js";
+import { isAppErrorInTestFiles } from "./passes/assert-is-app-error-in-test-files.js";
 import { convertTestFiles } from "./passes/convert-test-files.js";
 import { copyRename } from "./passes/copy-rename.js";
 import { finalizePendingImports } from "./passes/finalize-pending-imports.js";
@@ -68,6 +69,7 @@ const passes: Array<Pass> = [
 	// Re-init TS Morph. Since there is no clean way of refreshing diagnostics.
 	initTsMorph,
 	notNilChecksInTestFiles,
+	isAppErrorInTestFiles,
 
 	typescriptDiagnostics,
 ];
