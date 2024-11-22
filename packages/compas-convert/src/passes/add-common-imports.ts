@@ -1,5 +1,5 @@
 import type { SourceFile } from "ts-morph";
-import { addNamedImportIfNotExists, resolveRelativeImport } from "../shared/import.js";
+import { addPendingImport, resolveRelativeImport } from "../shared/imports.js";
 import type { Context } from "./../context.js";
 import { CONVERT_UTIL, CONVERT_UTIL_PATH } from "./init-ts-morph.js";
 
@@ -15,49 +15,52 @@ export function addCommonImports(context: Context, sourceFile: SourceFile) {
 		return;
 	}
 
-	addNamedImportIfNotExists(
+	addPendingImport(
+		context,
 		sourceFile,
 		resolveRelativeImport(context, sourceFile, CONVERT_UTIL_PATH),
 		CONVERT_UTIL.any,
 		true,
 	);
-	addNamedImportIfNotExists(
+	addPendingImport(
+		context,
 		sourceFile,
 		resolveRelativeImport(context, sourceFile, CONVERT_UTIL_PATH),
 		CONVERT_UTIL.assertNotNil,
 		false,
 	);
 
-	addNamedImportIfNotExists(sourceFile, "@compas/stdlib", "InsightEvent", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/stdlib", "Logger", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/stdlib", "AppError", false);
-	addNamedImportIfNotExists(sourceFile, "@compas/stdlib", "Either", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/stdlib", "EitherN", true);
+	addPendingImport(context, sourceFile, "@compas/stdlib", "InsightEvent", true);
+	addPendingImport(context, sourceFile, "@compas/stdlib", "Logger", true);
+	addPendingImport(context, sourceFile, "@compas/stdlib", "AppError", false);
+	addPendingImport(context, sourceFile, "@compas/stdlib", "Either", true);
+	addPendingImport(context, sourceFile, "@compas/stdlib", "EitherN", true);
 
-	addNamedImportIfNotExists(sourceFile, "@compas/code-gen", "Generator", false);
-	addNamedImportIfNotExists(sourceFile, "@compas/code-gen", "TypeCreator", false);
-	addNamedImportIfNotExists(sourceFile, "@compas/code-gen", "RouteCreator", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/code-gen", "TypeBuilder", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/code-gen", "TypeBuilderLike", true);
+	addPendingImport(context, sourceFile, "@compas/code-gen", "Generator", false);
+	addPendingImport(context, sourceFile, "@compas/code-gen", "TypeCreator", false);
+	addPendingImport(context, sourceFile, "@compas/code-gen", "RouteCreator", true);
+	addPendingImport(context, sourceFile, "@compas/code-gen", "TypeBuilder", true);
+	addPendingImport(context, sourceFile, "@compas/code-gen", "TypeBuilderLike", true);
 
-	addNamedImportIfNotExists(sourceFile, "@compas/server", "Application", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/server", "Next", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/server", "Middleware", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/server", "Context", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/server", "Context", true);
+	addPendingImport(context, sourceFile, "@compas/server", "Application", true);
+	addPendingImport(context, sourceFile, "@compas/server", "Next", true);
+	addPendingImport(context, sourceFile, "@compas/server", "Middleware", true);
+	addPendingImport(context, sourceFile, "@compas/server", "Context", true);
+	addPendingImport(context, sourceFile, "@compas/server", "Context", true);
 
-	addNamedImportIfNotExists(sourceFile, "@compas/store", "Postgres", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/store", "S3Client", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/store", "QueryPart", true);
-	addNamedImportIfNotExists(sourceFile, "@compas/store", "SessionStoreSettings", true);
-	addNamedImportIfNotExists(
+	addPendingImport(context, sourceFile, "@compas/store", "Postgres", true);
+	addPendingImport(context, sourceFile, "@compas/store", "S3Client", true);
+	addPendingImport(context, sourceFile, "@compas/store", "QueryPart", true);
+	addPendingImport(context, sourceFile, "@compas/store", "SessionStoreSettings", true);
+	addPendingImport(
+		context,
 		sourceFile,
 		"@compas/store",
 		"SessionTransportSettings",
 		true,
 	);
 
-	addNamedImportIfNotExists(sourceFile, "axios", "AxiosInstance", true);
-	addNamedImportIfNotExists(sourceFile, "axios", "AxiosRequestConfig", true);
-	addNamedImportIfNotExists(sourceFile, "axios", "AxiosError", true);
+	addPendingImport(context, sourceFile, "axios", "AxiosInstance", true);
+	addPendingImport(context, sourceFile, "axios", "AxiosRequestConfig", true);
+	addPendingImport(context, sourceFile, "axios", "AxiosError", true);
 }

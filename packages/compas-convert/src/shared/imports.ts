@@ -1,3 +1,5 @@
+import path from "node:path";
+import { Node } from "ts-morph";
 import type { SourceFile } from "ts-morph";
 import type { Context } from "../context.js";
 
@@ -77,4 +79,25 @@ export function addNamedImportIfNotExists(
 	typeOrValueMatchedImport.addNamedImport({
 		name: symbolName,
 	});
+}
+
+/**
+ * Resolve a relative import from source to target.
+ */
+export function resolveRelativeImport(
+	context: Context,
+	source: Node | SourceFile,
+	target: string,
+) {
+	const srcFile = Node.isNode(source) ? source.getSourceFile() : source;
+	const targetFile = path.join(context.outputDirectory, target);
+
+	// Imports should include the .js extension.
+	return `./${path
+		.relative(
+			// Relative assumes a directory as input, else we might get an extra '../'.
+			srcFile.getFilePath().split("/").slice(0, -1).join("/"),
+			targetFile,
+		)
+		.replace(".ts", ".js")}`;
 }

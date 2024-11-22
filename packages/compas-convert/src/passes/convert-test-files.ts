@@ -1,15 +1,14 @@
 import type { CallExpression, SourceFile } from "ts-morph";
 import { ts } from "ts-morph";
 import type { Context } from "../context.js";
-import { addNamedImportIfNotExists } from "../shared/import.js";
+import { addPendingImport } from "../shared/imports.js";
 import SyntaxKind = ts.SyntaxKind;
 
 /**
  * TODO:
  *  - Handle other usages of "t" like seedTestValuator  (not now)
  *  - Do something with: test("teardown", ...  (not now)
- *  - Handle newTestEvent(t) (not now)
- *
+ *  - Handle `seedXyz(t, ...args)`
  */
 
 enum TestCommand {
@@ -35,7 +34,11 @@ export function convertTestFiles(context: Context, sourceFile: SourceFile) {
 		return;
 	}
 
-	if (!filePath.includes("/src/") && !filePath.includes("/plugins/")) {
+	if (
+		!filePath.includes("/src/") &&
+		!filePath.includes("/plugins/") &&
+		!filePath.includes("/test/")
+	) {
 		return;
 	}
 
@@ -47,7 +50,11 @@ export function convertTestFiles(context: Context, sourceFile: SourceFile) {
 		?.remove();
 
 	// re-add import for newTestEvent
-	addNamedImportIfNotExists(sourceFile, "@compas/cli", "newTestEvent", false);
+	addPendingImport(context, sourceFile, "@compas/cli", "newTestEvent", false);
+	addPendingImport(context, sourceFile, "vitest", "expect", false);
+	addPendingImport(context, sourceFile, "vitest", "beforeAll", false);
+	addPendingImport(context, sourceFile, "vitest", "describe", false);
+	addPendingImport(context, sourceFile, "vitest", "test", false);
 
 	// go over each expression statement in file
 	for (const statement of sourceFile.getStatements()) {
@@ -91,9 +98,6 @@ function handleNestedTest(expression: CallExpression) {
 	if (testIsParent(expression)) {
 		// the test functions as grouping, so instead we use describe to define a separate suite
 		expression.getFirstChild()?.replaceWithText("describe");
-		addNamedImportIfNotExists(expression.getSourceFile(), "vitest", "describe", false);
-	} else {
-		addNamedImportIfNotExists(expression.getSourceFile(), "vitest", "test", false);
 	}
 
 	removeTestHandlerParameter(expression);
@@ -128,7 +132,7 @@ function handleNestedTest(expression: CallExpression) {
 				const expected = args[1]?.getText() ?? "true";
 				const message = args[2]?.getText() ?? "";
 				it.expression = it.expression.replaceWithText(
-					`expect(${actual}${message ? `, ${message}` : ""}).toStrictEqual(${expected})`,
+					`expect(${actual}${message ? `, ${message}` : ""}).toEqual(${expected})`,
 				) as CallExpression;
 				break;
 			}
@@ -167,15 +171,8 @@ function handleNestedTest(expression: CallExpression) {
 				if (testIsParent(it.expression)) {
 					// the test functions as grouping, so instead we use describe to define a separate suite
 					it.expression.getFirstChild()?.replaceWithText("describe");
-					addNamedImportIfNotExists(
-						expression.getSourceFile(),
-						"vitest",
-						"describe",
-						false,
-					);
 				} else {
 					it.expression.getFirstChild()?.replaceWithText("test");
-					addNamedImportIfNotExists(expression.getSourceFile(), "vitest", "test", false);
 				}
 
 				if (!testUsesContext(it)) {
@@ -187,29 +184,13 @@ function handleNestedTest(expression: CallExpression) {
 			}
 		}
 	}
-
-	if (
-		usage.find((it) =>
-			[
-				TestCommand.equal,
-				TestCommand.deepEqual,
-				TestCommand.notEqual,
-				TestCommand.ok,
-				TestCommand.notOk,
-				TestCommand.pass,
-				TestCommand.fail,
-			].includes(it.command),
-		)
-	) {
-		addNamedImportIfNotExists(expression.getSourceFile(), "vitest", "expect", false);
-	}
 }
 
 /**
  * Check if the expression only contains other tests
  */
 function testIsParent(expression: CallExpression): boolean {
-	return getDirectDescendants(expression).every((child) =>
+	return getDirectDescendants(expression).some((child) =>
 		child
 			?.getExpression()
 			.asKind(SyntaxKind.CallExpression)

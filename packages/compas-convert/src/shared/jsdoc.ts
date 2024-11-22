@@ -315,7 +315,7 @@ export function parseTypeDocs(typeDocBlock: string | undefined) {
 
 		state.globalIndex = state.contents.length;
 		const match = reMatch.groups ?? {};
-		result.typeExpression = match.typeExpression ?? CONVERT_UTIL.any;
+		result.typeExpression = stripStarTypes(match.typeExpression ?? CONVERT_UTIL.any);
 	}
 
 	return result;
@@ -425,10 +425,39 @@ export function parseFunctionDocs(functionDocBlock: string | undefined) {
 
 		state.globalIndex = state.contents.length;
 		const match = reMatch.groups ?? {};
-		result.returnType = match.typeExpression ?? CONVERT_UTIL.any;
+		result.returnType = stripStarTypes(match.typeExpression ?? CONVERT_UTIL.any);
 	}
 
 	return result;
+}
+
+/**
+ * Strip some unknown types from the output and convert `*` with any's.
+ */
+function stripStarTypes(value?: string) {
+	if (value === undefined) {
+		return undefined;
+	}
+
+	const comment = `/* TODO(compas-convert): ${value.replaceAll("\n", "")} */`;
+
+	if (value === "*") {
+		return CONVERT_UTIL.any;
+	}
+
+	if (value.includes("function(")) {
+		return `${CONVERT_UTIL.any} ${comment}`;
+	}
+
+	if (value.startsWith("*|")) {
+		return `${CONVERT_UTIL.any}  ${comment}`;
+	}
+
+	if (value === "Array<*>") {
+		return `Array<${CONVERT_UTIL.any}>`;
+	}
+
+	return value;
 }
 
 function stripDocBlock(input: string) {
@@ -532,7 +561,7 @@ function parseNamedTypeExpression(state: ParseState, stopTags: Array<string>) {
 
 	return {
 		name: match.name ?? "",
-		typeExpression,
+		typeExpression: stripStarTypes(typeExpression)!,
 		isOptional: input.includes(`[${match.name ?? "__non_match__"}]`),
 		docs: match.docs?.trim() ?? "",
 	};

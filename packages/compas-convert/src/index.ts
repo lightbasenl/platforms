@@ -6,6 +6,7 @@ import consola from "consola";
 import { createEmptyContext } from "./context.js";
 import type { GlobalPass, Pass } from "./pass.js";
 import { addCommonImports } from "./passes/add-common-imports.js";
+import { convertTestConfig } from "./passes/convert-test-config.js";
 import { convertTestFiles } from "./passes/convert-test-files.js";
 import { copyRename } from "./passes/copy-rename.js";
 import { finalizePendingImports } from "./passes/finalize-pending-imports.js";
@@ -56,6 +57,7 @@ const passes: Array<Pass> = [
 	fixTypesOfAllFunctions,
 	updateGenerateOptions,
 	convertTestFiles,
+	convertTestConfig,
 
 	transformModuleJsDoc,
 	transformExpressionJsDoc,
