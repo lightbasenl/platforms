@@ -40,6 +40,10 @@ export function isAppErrorInTestFiles(context: Context, sourceFile: SourceFile) 
 			continue;
 		}
 
+		if (!isInCatchClause(parentStatement)) {
+			continue;
+		}
+
 		// The diagnostic text is not always helpful, so retrieve the expression from the file contents.
 		// -  "'user.passwordLogin' is possible 'undefined'"
 		// -  "Object is possible 'undefined'"
@@ -64,10 +68,7 @@ export function isAppErrorInTestFiles(context: Context, sourceFile: SourceFile) 
 					`assertIsAppError(${expressionMatch});\n\n`,
 				);
 			}
-
-			// const catchClause = parentStatement.getParentIfKindOrThrow(SyntaxKind.CatchClause);
-			//
-			// if (catchClause.)
+			// eslint-disable-next-line unused-imports/no-unused-vars
 		} catch (e) {
 			return;
 		}
