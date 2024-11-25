@@ -2,30 +2,50 @@
 
 ## [2.1.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v2.0.0...eslint-config-v2.1.0) (2024-11-25)
 
-
 ### Features
 
-* Upperbound the time spend creating Prettier auto-fixes ([a4b5968](https://github.com/lightbasenl/platforms/commit/a4b5968eb96a4b93198741f6eea03078d780f554))
-
+- Upperbound the time spend creating Prettier auto-fixes
+  ([a4b5968](https://github.com/lightbasenl/platforms/commit/a4b5968eb96a4b93198741f6eea03078d780f554))
 
 ### Miscellaneous
 
-* Mention disabling other actions on save ([4190b5b](https://github.com/lightbasenl/platforms/commit/4190b5bf15e15ea8fd9c3643855ce7db7d62c95d))
-* Minor typo's ([715ff86](https://github.com/lightbasenl/platforms/commit/715ff864d13318ca47c5343a5b7fba355964fd28))
-
+- Mention disabling other actions on save
+  ([4190b5b](https://github.com/lightbasenl/platforms/commit/4190b5bf15e15ea8fd9c3643855ce7db7d62c95d))
+- Minor typo's
+  ([715ff86](https://github.com/lightbasenl/platforms/commit/715ff864d13318ca47c5343a5b7fba355964fd28))
 
 ### Dependencies
 
-* Bump eslint-plugin-file-progress from 1.5.0 to 3.0.1 ([#304](https://github.com/lightbasenl/platforms/issues/304)) ([61ca2b7](https://github.com/lightbasenl/platforms/commit/61ca2b7c898644515cb40a5c221e1b9abcecebe9))
-* Bump eslint-plugin-import-x from 4.3.1 to 4.4.0 ([#295](https://github.com/lightbasenl/platforms/issues/295)) ([9ed1c3b](https://github.com/lightbasenl/platforms/commit/9ed1c3b7be5f04ce850b6d8993e01ed5fc569713))
-* Bump eslint-plugin-jsdoc from 50.4.3 to 50.5.0 ([#307](https://github.com/lightbasenl/platforms/issues/307)) ([4f489f6](https://github.com/lightbasenl/platforms/commit/4f489f6cdbbca00d087d6a21a45e1dc595b42fd2))
-* Bump globals from 15.11.0 to 15.12.0 ([#301](https://github.com/lightbasenl/platforms/issues/301)) ([0ad0608](https://github.com/lightbasenl/platforms/commit/0ad0608ba2829c17376b2b5b1b981492f18b108e))
-* Bump the eslint group with 2 updates ([#297](https://github.com/lightbasenl/platforms/issues/297)) ([b654de1](https://github.com/lightbasenl/platforms/commit/b654de10ec7a80b04e167b9540855a3f72601c6b))
-* Bump the eslint group with 2 updates ([#308](https://github.com/lightbasenl/platforms/issues/308)) ([3bdcbf8](https://github.com/lightbasenl/platforms/commit/3bdcbf8d1c4b99b0373c84c656694850d4ceb4b7))
-* Bump the typescript-eslint group across 1 directory with 2 updates ([#292](https://github.com/lightbasenl/platforms/issues/292)) ([c18fabe](https://github.com/lightbasenl/platforms/commit/c18fabe02988d32ba5b206832afe9c59088a8a40))
-* Bump the typescript-eslint group with 2 updates ([#299](https://github.com/lightbasenl/platforms/issues/299)) ([af7f7c0](https://github.com/lightbasenl/platforms/commit/af7f7c057e433f6a5e62018b21c8692dca77fe95))
-* Bump the typescript-eslint group with 2 updates ([#305](https://github.com/lightbasenl/platforms/issues/305)) ([d1d829e](https://github.com/lightbasenl/platforms/commit/d1d829e83a33b077d315850ec3ee704664ee86ca))
-* Bump the typescript-eslint group with 2 updates ([#309](https://github.com/lightbasenl/platforms/issues/309)) ([9aef822](https://github.com/lightbasenl/platforms/commit/9aef822fd249b8cb10683f1ed88916321e77ff29))
+- Bump eslint-plugin-file-progress from 1.5.0 to 3.0.1
+  ([#304](https://github.com/lightbasenl/platforms/issues/304))
+  ([61ca2b7](https://github.com/lightbasenl/platforms/commit/61ca2b7c898644515cb40a5c221e1b9abcecebe9))
+- Bump eslint-plugin-import-x from 4.3.1 to 4.4.0
+  ([#295](https://github.com/lightbasenl/platforms/issues/295))
+  ([9ed1c3b](https://github.com/lightbasenl/platforms/commit/9ed1c3b7be5f04ce850b6d8993e01ed5fc569713))
+- Bump eslint-plugin-jsdoc from 50.4.3 to 50.5.0
+  ([#307](https://github.com/lightbasenl/platforms/issues/307))
+  ([4f489f6](https://github.com/lightbasenl/platforms/commit/4f489f6cdbbca00d087d6a21a45e1dc595b42fd2))
+- Bump globals from 15.11.0 to 15.12.0
+  ([#301](https://github.com/lightbasenl/platforms/issues/301))
+  ([0ad0608](https://github.com/lightbasenl/platforms/commit/0ad0608ba2829c17376b2b5b1b981492f18b108e))
+- Bump the eslint group with 2 updates
+  ([#297](https://github.com/lightbasenl/platforms/issues/297))
+  ([b654de1](https://github.com/lightbasenl/platforms/commit/b654de10ec7a80b04e167b9540855a3f72601c6b))
+- Bump the eslint group with 2 updates
+  ([#308](https://github.com/lightbasenl/platforms/issues/308))
+  ([3bdcbf8](https://github.com/lightbasenl/platforms/commit/3bdcbf8d1c4b99b0373c84c656694850d4ceb4b7))
+- Bump the typescript-eslint group across 1 directory with 2 updates
+  ([#292](https://github.com/lightbasenl/platforms/issues/292))
+  ([c18fabe](https://github.com/lightbasenl/platforms/commit/c18fabe02988d32ba5b206832afe9c59088a8a40))
+- Bump the typescript-eslint group with 2 updates
+  ([#299](https://github.com/lightbasenl/platforms/issues/299))
+  ([af7f7c0](https://github.com/lightbasenl/platforms/commit/af7f7c057e433f6a5e62018b21c8692dca77fe95))
+- Bump the typescript-eslint group with 2 updates
+  ([#305](https://github.com/lightbasenl/platforms/issues/305))
+  ([d1d829e](https://github.com/lightbasenl/platforms/commit/d1d829e83a33b077d315850ec3ee704664ee86ca))
+- Bump the typescript-eslint group with 2 updates
+  ([#309](https://github.com/lightbasenl/platforms/issues/309))
+  ([9aef822](https://github.com/lightbasenl/platforms/commit/9aef822fd249b8cb10683f1ed88916321e77ff29))
 
 ## [2.0.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v1.2.0...eslint-config-v2.0.0) (2024-10-22)
 
