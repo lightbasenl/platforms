@@ -1,4 +1,5 @@
 import type { CallExpression, SourceFile } from "ts-morph";
+import { Node } from "ts-morph";
 import { ts } from "ts-morph";
 import type { Context } from "../context.js";
 import { addPendingImport } from "../shared/imports.js";
@@ -8,7 +9,6 @@ import SyntaxKind = ts.SyntaxKind;
  * TODO:
  *  - Handle other usages of "t" like seedTestValuator  (not now)
  *  - Do something with: test("teardown", ...  (not now)
- *  - Handle `seedXyz(t, ...args)`
  */
 
 enum TestCommand {
@@ -51,6 +51,7 @@ export function convertTestFiles(context: Context, sourceFile: SourceFile) {
 
 	// re-add import for newTestEvent
 	addPendingImport(context, sourceFile, "@compas/cli", "newTestEvent", false);
+	addPendingImport(context, sourceFile, "@compas/stdlib", "newLogger", false);
 	addPendingImport(context, sourceFile, "vitest", "expect", false);
 	addPendingImport(context, sourceFile, "vitest", "beforeAll", false);
 	addPendingImport(context, sourceFile, "vitest", "describe", false);
@@ -90,10 +91,13 @@ export function convertTestFiles(context: Context, sourceFile: SourceFile) {
 }
 
 /**
- * Handle any command performed on the t param given to the test handler, like t.equals, or t.test
+ * Handle any command performed on the t param given to the test handler, like t.equals, or
+ * t.test
  */
 function handleNestedTest(expression: CallExpression) {
 	const usage = getNestedUsageOfT(expression);
+
+	replaceArgumentUsageOfT(expression);
 
 	if (testIsParent(expression)) {
 		// the test functions as grouping, so instead we use describe to define a separate suite
@@ -233,9 +237,10 @@ function getNestedUsageOfT(expression: CallExpression): Array<TUsage> {
 	// this should normally be t but let's not be to sure
 	const testArgumentName = arrowFunction.getParameters()[0]!.getName();
 
-	const result = [];
+	const result: Array<TUsage> = [];
 	for (const childStatement of childStatements) {
-		if (childStatement.getExpression().getText().startsWith(`${testArgumentName}.`)) {
+		const callExpressionText = childStatement.getExpression().getText();
+		if (callExpressionText.startsWith(`${testArgumentName}.`)) {
 			const command = childStatement
 				.getText()
 				.slice(testArgumentName.length + 1)
@@ -252,6 +257,38 @@ function getNestedUsageOfT(expression: CallExpression): Array<TUsage> {
 	}
 
 	return result;
+}
+
+/**
+ * Find usages of `t` as a parameter and replace them with `{ log }`
+ */
+function replaceArgumentUsageOfT(expression: CallExpression) {
+	// get the statements within the test handler function
+	const arrowFunction = expression
+		.getArguments()[1]!
+		.asKindOrThrow(SyntaxKind.ArrowFunction);
+
+	const childStatements =
+		arrowFunction?.getDescendantsOfKind(SyntaxKind.CallExpression) ?? [];
+
+	// this should normally be t but let's not be to sure
+	const testArgumentName = arrowFunction.getParameters()[0]!.getName();
+
+	for (const childStatement of childStatements) {
+		const fnName = childStatement.getExpression().getText();
+
+		if (
+			(!fnName.startsWith("seed") && !fnName.includes("Test")) ||
+			fnName === "newTestEvent"
+		) {
+			continue;
+		}
+
+		const firstArg = childStatement.getArguments()[0];
+		if (firstArg?.getText() === testArgumentName) {
+			firstArg.replaceWithText(`{ log: newLogger() }`);
+		}
+	}
 }
 
 /**
@@ -277,25 +314,25 @@ function replaceTestHandlerParameter(expression: CallExpression) {
 }
 
 /**
- * if any of the arguments is t.name we need to pass the context to the handler and use that for
- * the name
+ * if any of the arguments is t.name we need to pass the context to the handler and use that
+ * for the name
  */
 function searchAndReplaceTestNameUsage(usage: TUsage) {
 	const args = usage.expression.getArguments();
 	for (const arg of args) {
 		if (
-			!arg.isKind(SyntaxKind.ArrowFunction) &&
-			arg.getText().includes(`${usage.testArgumentName}.name`)
+			Node.isPropertyAccessExpression(arg) &&
+			arg.getExpression().getText() === usage.testArgumentName &&
+			arg.getName() === "name"
 		) {
-			const searchRegex = new RegExp(`${usage.testArgumentName}.name`, "g");
-			arg.replaceWithText(arg.getText().replaceAll(searchRegex, "ctx.task.name"));
+			arg.setExpression("ctx.task");
 		}
 	}
 }
 
 /**
- * Get the immediate children of the current expression (but including code that is in sub blocks
- * like if and catch statements)
+ * Get the immediate children of the current expression (but including code that is in sub
+ * blocks like if and catch statements)
  */
 function getDirectDescendants(expression: CallExpression) {
 	return expression

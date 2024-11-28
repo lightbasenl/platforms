@@ -18,11 +18,10 @@ export function notNilChecksInTestFiles(context: Context, sourceFile: SourceFile
 	let lastPosition = 0;
 
 	while ((nextDiagnostic = getNextUndefinedCheckDiagnostic(sourceFile, lastPosition))) {
-		lastPosition = nextDiagnostic.getStart()!;
-
 		// For some reason, we can't find the position of the diagnostic.
 		const expression = sourceFile.getDescendantAtPos(nextDiagnostic.getStart()!);
 		if (!expression) {
+			lastPosition = nextDiagnostic.getStart()! + nextDiagnostic.getLength()!;
 			continue;
 		}
 
@@ -34,6 +33,7 @@ export function notNilChecksInTestFiles(context: Context, sourceFile: SourceFile
 			);
 
 		if (!parentStatement) {
+			lastPosition = nextDiagnostic.getStart()! + nextDiagnostic.getLength()!;
 			continue;
 		}
 
@@ -47,19 +47,39 @@ export function notNilChecksInTestFiles(context: Context, sourceFile: SourceFile
 				nextDiagnostic.getStart()! + nextDiagnostic.getLength()!,
 			);
 
-		// Assert not nil does a type-narrowing assertion; meaning that it guarantees typescript, that
+		// For expressions, non null assertions don't persist for the next statements, so we use local
+		// non-null assertion operators (`!`).
+		if (
+			expressionMatch.includes(".find(") ||
+			expressionMatch.includes(".filter(") ||
+			expressionMatch.includes("[")
+		) {
+			sourceFile.replaceText(
+				[
+					nextDiagnostic.getStart()!,
+					nextDiagnostic.getStart()! + nextDiagnostic.getLength()!,
+				],
+				`${expressionMatch}!`,
+			);
+
+			lastPosition = nextDiagnostic.getStart()! + nextDiagnostic.getLength()!;
+			continue;
+		}
+
+		// Assert not nil does a type-narrowing assertion; meaning that it guarantees TypeScript, that
 		// it would throw and thus prevents execution of the normal code-path.
-		sourceFile.insertText(
-			parentStatement.getStart(true),
-			`assertNotNil(${expressionMatch});\n\n`,
+		parentStatement.replaceWithText(
+			`assertNotNil(${expressionMatch});\n\n${parentStatement.getText(true)}`,
 		);
+
+		lastPosition = nextDiagnostic.getStart()! + nextDiagnostic.getLength()!;
 	}
 }
 
 /**
  * Get the next diagnostic which we can possible fix.
- * This way we rerun the diagnostics each time, getting an up-to-date view. Since one assertion can
- * fix multiple errors.
+ * This way we rerun the diagnostics each time, getting an up-to-date view. Since one
+ * assertion can fix multiple errors.
  */
 function getNextUndefinedCheckDiagnostic(sourceFile: SourceFile, fromPosition: number) {
 	const errorCodes = {
