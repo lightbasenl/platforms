@@ -92,8 +92,15 @@ for (const pass of passes) {
 				continue;
 			}
 
-			await pass(context, sourceFile);
-			await sourceFile.save();
+			try {
+				await pass(context, sourceFile);
+				await sourceFile.save();
+			} catch (e) {
+				consola.debug({
+					sourceFile: sourceFile.getFilePath(),
+				});
+				throw e;
+			}
 		}
 	}
 }
