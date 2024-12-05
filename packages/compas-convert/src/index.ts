@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { existsSync } from "node:fs";
+import * as fs from "node:fs";
 import path from "node:path";
 import consola from "consola";
 import { createEmptyContext } from "./context.js";
@@ -23,6 +24,7 @@ import { transformModuleJsDoc } from "./passes/transform-module-js-doc.js";
 import { fixTypesOfAllFunctions } from "./passes/types-of-all-functions.js";
 import { fixTypesOfLiveBindings } from "./passes/types-of-live-bindings.js";
 import { typescriptDiagnostics } from "./passes/typescript-save-and-build.js";
+import { Cache } from "./shared/cache.js";
 import { globOfAllTypeScriptFiles } from "./shared/project-files.js";
 import { isNil } from "./utils.js";
 
@@ -43,7 +45,20 @@ if (isNil(outputDirectory) || existsSync(outputDirectory)) {
 
 const resolvedInputDirectory = path.resolve(inputDirectory);
 const resolvedOutputDirectory = path.resolve(outputDirectory);
-const context = createEmptyContext(resolvedInputDirectory, resolvedOutputDirectory);
+
+const cacheDirectory = path.resolve(
+	`${path.dirname(import.meta.dirname)}/../cache/${path.basename(inputDirectory)}`,
+);
+
+if (!existsSync(cacheDirectory)) {
+	fs.mkdirSync(cacheDirectory, { recursive: true });
+}
+
+const context = createEmptyContext(
+	resolvedInputDirectory,
+	resolvedOutputDirectory,
+	cacheDirectory,
+);
 
 const passes: Array<Pass> = [
 	copyRename,
@@ -93,8 +108,15 @@ for (const pass of passes) {
 			}
 
 			try {
+				const cache = new Cache(context, sourceFile);
+				if (cache.useIfExists()) {
+					continue;
+				}
+
 				await pass(context, sourceFile);
 				await sourceFile.save();
+
+				cache.store();
 			} catch (e) {
 				consola.debug({
 					sourceFile: sourceFile.getFilePath(),
