@@ -91,7 +91,6 @@ const passes: Array<Pass> = [
 
 const cachablePasses = [
 	"addCommonImports",
-	"fixGenerators",
 	"convertTestFiles",
 	"convertTestConfig",
 	"notNilChecksInTestFiles",
