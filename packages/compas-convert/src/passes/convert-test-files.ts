@@ -2,7 +2,6 @@ import type { CallExpression, SourceFile } from "ts-morph";
 import { Node } from "ts-morph";
 import { ts } from "ts-morph";
 import type { Context } from "../context.js";
-import { addPendingImport } from "../shared/imports.js";
 import SyntaxKind = ts.SyntaxKind;
 
 /**
@@ -48,14 +47,6 @@ export function convertTestFiles(context: Context, sourceFile: SourceFile) {
 			importDeclaration.getText().includes("@compas/cli"),
 		)
 		?.remove();
-
-	// re-add import for newTestEvent
-	addPendingImport(context, sourceFile, "@compas/cli", "newTestEvent", false);
-	addPendingImport(context, sourceFile, "@compas/stdlib", "newLogger", false);
-	addPendingImport(context, sourceFile, "vitest", "expect", false);
-	addPendingImport(context, sourceFile, "vitest", "beforeAll", false);
-	addPendingImport(context, sourceFile, "vitest", "describe", false);
-	addPendingImport(context, sourceFile, "vitest", "test", false);
 
 	// go over each expression statement in file
 	for (const statement of sourceFile.getStatements()) {

@@ -14,7 +14,7 @@ export class Cache {
 		const fileDir = path
 			.dirname(this.sourceFile.getFilePath())
 			.replace(this.context.outputDirectory, "");
-		const hash = createHash("md5").update(this.sourceFile.getText()).digest("hex");
+		const hash = createHash("md5").update(this.sourceFile.getFullText()).digest("hex");
 		this.cacheFile = `${this.context.cacheDirectory}${fileDir}/${hash}`;
 	}
 
@@ -23,12 +23,13 @@ export class Cache {
 			return false;
 		}
 
-		this.sourceFile.replaceWithText(readFileSync(this.cacheFile).toString("utf-8"));
+		this.sourceFile.replaceWithText(readFileSync(this.cacheFile, "utf-8"));
+		this.sourceFile.saveSync();
 		return true;
 	}
 
 	store() {
 		mkdirSync(path.dirname(this.cacheFile), { recursive: true });
-		writeFileSync(this.cacheFile, this.sourceFile.getText());
+		writeFileSync(this.cacheFile, this.sourceFile.getFullText());
 	}
 }

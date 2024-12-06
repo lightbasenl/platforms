@@ -90,11 +90,10 @@ const passes: Array<Pass> = [
 ];
 
 const cachablePasses = [
-	"addCommonImports",
 	"convertTestFiles",
-	"convertTestConfig",
 	"notNilChecksInTestFiles",
 	"isAppErrorInTestFiles",
+	"finalizePendingImports",
 ];
 
 consola.start(`Converting ${path.relative(process.cwd(), resolvedInputDirectory)}`);
@@ -117,7 +116,7 @@ for (const pass of passes) {
 
 			try {
 				const cache = new Cache(context, sourceFile);
-				if (cache.useIfExists() && cachablePasses.includes(pass.name)) {
+				if (cachablePasses.includes(pass.name) && cache.useIfExists()) {
 					continue;
 				}
 

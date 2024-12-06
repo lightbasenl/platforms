@@ -21,7 +21,8 @@ export function isAppErrorInTestFiles(context: Context, sourceFile: SourceFile) 
 	while (
 		(nextDiagnostic = getNextObjectOfTypeUnknownDiagnostic(sourceFile, lastPosition))
 	) {
-		lastPosition = nextDiagnostic.getStart()!;
+		// Move past the full error
+		lastPosition = nextDiagnostic.getStart()! + nextDiagnostic.getLength()! + 1;
 
 		// For some reason, we can't find the position of the diagnostic.
 		const expression = sourceFile.getDescendantAtPos(nextDiagnostic.getStart()!);
@@ -45,8 +46,7 @@ export function isAppErrorInTestFiles(context: Context, sourceFile: SourceFile) 
 		}
 
 		// The diagnostic text is not always helpful, so retrieve the expression from the file contents.
-		// -  "'user.passwordLogin' is possible 'undefined'"
-		// -  "Object is possible 'undefined'"
+		// -  "'e' is of type unknown'"
 		const expressionMatch = sourceFile
 			.getFullText()
 			.slice(
@@ -55,18 +55,21 @@ export function isAppErrorInTestFiles(context: Context, sourceFile: SourceFile) 
 			);
 
 		try {
-			const keyOrInfoRegex = new RegExp(`${expressionMatch}\\.(?:key|info)\\b`);
+			const keyOrInfoRegex = new RegExp(`${expressionMatch}\\.(?:key|info|status)\\b`);
 
 			if (
 				parentStatement.getText().match(keyOrInfoRegex) &&
 				isInCatchClause(parentStatement)
 			) {
+				const functionCallToInsert = `assertIsAppError(${expressionMatch});\n\n`;
+
 				// Assert is AppError does a type-narrowing assertion; meaning that it guarantees
-				// typescript,3 that it would throw and thus prevents execution of the normal code-path.
-				sourceFile.insertText(
-					parentStatement.getStart(true),
-					`assertIsAppError(${expressionMatch});\n\n`,
-				);
+				// TypeScript, that it would throw and thus prevents execution of the normal code-path.
+				sourceFile.insertText(parentStatement.getStart(true), functionCallToInsert);
+
+				// Make sure to the offset of the inserted call as well, so we don't stay in an infinite
+				// loop
+				lastPosition += functionCallToInsert.length;
 			}
 			// eslint-disable-next-line unused-imports/no-unused-vars
 		} catch (e) {
