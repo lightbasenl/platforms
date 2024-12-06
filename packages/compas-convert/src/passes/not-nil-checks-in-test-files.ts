@@ -39,7 +39,7 @@ export function notNilChecksInTestFiles(context: Context, sourceFile: SourceFile
 
 		// The diagnostic text is not always helpful, so retrieve the expression from the file contents.
 		// -  "'user.passwordLogin' is possible 'undefined'"
-		// -  "Object is possible 'undefined''
+		// -  "Object is possible 'undefined'"
 		const expressionMatch = sourceFile
 			.getFullText()
 			.slice(

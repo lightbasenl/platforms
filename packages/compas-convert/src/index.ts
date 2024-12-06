@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
 import { existsSync } from "node:fs";
+import * as fs from "node:fs";
 import path from "node:path";
 import consola from "consola";
 import { createEmptyContext } from "./context.js";
 import type { GlobalPass, Pass } from "./pass.js";
 import { addCommonImports } from "./passes/add-common-imports.js";
+import { isAppErrorInTestFiles } from "./passes/assert-is-app-error-in-test-files.js";
 import { convertTestConfig } from "./passes/convert-test-config.js";
 import { convertTestFiles } from "./passes/convert-test-files.js";
 import { copyRename } from "./passes/copy-rename.js";
@@ -22,6 +24,7 @@ import { transformModuleJsDoc } from "./passes/transform-module-js-doc.js";
 import { fixTypesOfAllFunctions } from "./passes/types-of-all-functions.js";
 import { fixTypesOfLiveBindings } from "./passes/types-of-live-bindings.js";
 import { typescriptDiagnostics } from "./passes/typescript-save-and-build.js";
+import { Cache } from "./shared/cache.js";
 import { globOfAllTypeScriptFiles } from "./shared/project-files.js";
 import { isNil } from "./utils.js";
 
@@ -42,7 +45,20 @@ if (isNil(outputDirectory) || existsSync(outputDirectory)) {
 
 const resolvedInputDirectory = path.resolve(inputDirectory);
 const resolvedOutputDirectory = path.resolve(outputDirectory);
-const context = createEmptyContext(resolvedInputDirectory, resolvedOutputDirectory);
+
+const cacheDirectory = path.resolve(
+	`${path.dirname(import.meta.dirname)}/../cache/${path.basename(inputDirectory)}`,
+);
+
+if (!existsSync(cacheDirectory)) {
+	fs.mkdirSync(cacheDirectory, { recursive: true });
+}
+
+const context = createEmptyContext(
+	resolvedInputDirectory,
+	resolvedOutputDirectory,
+	cacheDirectory,
+);
 
 const passes: Array<Pass> = [
 	copyRename,
@@ -68,8 +84,16 @@ const passes: Array<Pass> = [
 	// Re-init TS Morph. Since there is no clean way of refreshing diagnostics.
 	initTsMorph,
 	notNilChecksInTestFiles,
+	isAppErrorInTestFiles,
 
 	typescriptDiagnostics,
+];
+
+const cachablePasses = [
+	"convertTestFiles",
+	"notNilChecksInTestFiles",
+	"isAppErrorInTestFiles",
+	"finalizePendingImports",
 ];
 
 consola.start(`Converting ${path.relative(process.cwd(), resolvedInputDirectory)}`);
@@ -91,8 +115,17 @@ for (const pass of passes) {
 			}
 
 			try {
+				const cache = new Cache(context, sourceFile);
+				if (cachablePasses.includes(pass.name) && cache.useIfExists()) {
+					continue;
+				}
+
 				await pass(context, sourceFile);
 				await sourceFile.save();
+
+				if (cachablePasses.includes(pass.name)) {
+					cache.store();
+				}
 			} catch (e) {
 				consola.debug({
 					sourceFile: sourceFile.getFilePath(),

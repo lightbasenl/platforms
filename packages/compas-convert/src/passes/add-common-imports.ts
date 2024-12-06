@@ -29,6 +29,13 @@ export function addCommonImports(context: Context, sourceFile: SourceFile) {
 		CONVERT_UTIL.assertNotNil,
 		false,
 	);
+	addPendingImport(
+		context,
+		sourceFile,
+		resolveRelativeImport(context, sourceFile, CONVERT_UTIL_PATH),
+		CONVERT_UTIL.assertIsAppError,
+		false,
+	);
 
 	addPendingImport(context, sourceFile, "@compas/stdlib", "InsightEvent", true);
 	addPendingImport(context, sourceFile, "@compas/stdlib", "Logger", true);
@@ -63,4 +70,14 @@ export function addCommonImports(context: Context, sourceFile: SourceFile) {
 	addPendingImport(context, sourceFile, "axios", "AxiosInstance", true);
 	addPendingImport(context, sourceFile, "axios", "AxiosRequestConfig", true);
 	addPendingImport(context, sourceFile, "axios", "AxiosError", true);
+
+	if (sourceFile.getFilePath().endsWith(".test.ts")) {
+		// re-add import for newTestEvent
+		addPendingImport(context, sourceFile, "@compas/cli", "newTestEvent", false);
+		addPendingImport(context, sourceFile, "@compas/stdlib", "newLogger", false);
+		addPendingImport(context, sourceFile, "vitest", "expect", false);
+		addPendingImport(context, sourceFile, "vitest", "beforeAll", false);
+		addPendingImport(context, sourceFile, "vitest", "describe", false);
+		addPendingImport(context, sourceFile, "vitest", "test", false);
+	}
 }

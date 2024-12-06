@@ -8,6 +8,7 @@ import type { Project } from "ts-morph";
 export interface Context {
 	inputDirectory: string;
 	outputDirectory: string;
+	cacheDirectory: string;
 	packageJson?: PartialTypedPackageJson;
 	ts?: Project;
 	pendingImports: Record<
@@ -29,10 +30,12 @@ export interface PartialTypedPackageJson {
 export function createEmptyContext(
 	inputDirectory: string,
 	outputDirectory: string,
+	cacheDirectory: string,
 ): Context {
 	return {
 		inputDirectory,
 		outputDirectory,
+		cacheDirectory,
 
 		pendingImports: {},
 	};
