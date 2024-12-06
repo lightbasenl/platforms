@@ -56,7 +56,8 @@ rm -rf ../compas-convert-test && npx compas-convert ../some-local-test-project .
     - On `TS18046: 'e' is of type 'unknown'`
     - AND `.key` or `.info` is accessed
     - Implement like `not-nil-checks-in-test-flows`
-  - [x] Convert JSDOC `function(number, string): string` to `(number, string) => string` (only 16 occurrences in codebase, maybe not worth it)
+  - [x] Convert JSDOC `function(number, string): string` to `(number, string) => string`
+        (only 16 occurrences in codebase, maybe not worth it)
 - [x] Pass: query-builder types
   - Improve query-builder types by inferring the types based on the passed in builder.
 
