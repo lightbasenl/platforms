@@ -11,7 +11,7 @@ All public packages & GitHub workflows developed and used by
   eviction support.
 - An [OpenAPI based code generator](./packages/open-api-code-gen) for Axios, Fetch,
   TanStack Query and more; Supporting evolving generator targets.
-- Various reusable workflows
+- Various reusable workflows:
   - [lib-license-checker](./docs/workflows/lib-license-checker.md)
   - [lib-ci](./docs/workflows/lib-ci.md)
 
