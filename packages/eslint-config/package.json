@@ -71,7 +71,7 @@
 		}
 	},
 	"devDependencies": {
-		"@next/eslint-plugin-next": "15.0.4",
+		"@next/eslint-plugin-next": "15.1.0",
 		"@types/diff-match-patch": "1.0.36",
 		"@types/eslint": "9.6.1",
 		"@types/eslint__js": "8.42.3",
