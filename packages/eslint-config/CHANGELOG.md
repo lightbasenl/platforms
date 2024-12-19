@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.1.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v2.1.1...eslint-config-v2.1.2) (2024-12-19)
+
+
+### Dependencies
+
+* Bump eslint-plugin-import-x from 4.5.0 to 4.5.1 ([#337](https://github.com/lightbasenl/platforms/issues/337)) ([4776ce6](https://github.com/lightbasenl/platforms/commit/4776ce6d6136a72e2ba7b277d8aa2819088b91f4))
+* Bump globals from 15.13.0 to 15.14.0 ([#339](https://github.com/lightbasenl/platforms/issues/339)) ([7577411](https://github.com/lightbasenl/platforms/commit/75774117fb852341707e2e9d253260e7f13714fe))
+* Bump the typescript-eslint group with 2 updates ([#335](https://github.com/lightbasenl/platforms/issues/335)) ([bee8a91](https://github.com/lightbasenl/platforms/commit/bee8a916300e51f038ceba5b78a02a5faca02c84))
+
 ## [2.1.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v2.1.0...eslint-config-v2.1.1) (2024-12-16)
 
 ### Dependencies
