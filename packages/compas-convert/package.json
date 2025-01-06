@@ -28,7 +28,7 @@
 	},
 	"dependencies": {
 		"consola": "3.3.0",
-		"ts-morph": "24.0.0"
+		"ts-morph": "25.0.0"
 	},
 	"devDependencies": {
 		"comment-parser": "1.4.1"
