@@ -78,7 +78,7 @@
 		"@types/eslint-plugin-markdown": "2.0.2",
 		"eslint-formatter-compact": "8.40.0",
 		"eslint-plugin-jsx-a11y": "6.10.2",
-		"eslint-plugin-no-relative-import-paths": "1.5.5",
+		"eslint-plugin-no-relative-import-paths": "1.6.1",
 		"eslint-plugin-react": "7.37.3",
 		"eslint-plugin-react-hooks": "5.1.0"
 	}
