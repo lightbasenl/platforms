@@ -55,7 +55,7 @@ export function imports(typescript: TypeScriptConfig): Array<FlatConfig.Config> 
 						"import-x/no-rename-default": "off",
 					}
 				:	{
-						"import-x/named": "error",
+						"import-x/named": "off",
 						"import-x/namespace": "off",
 						"import-x/no-unresolved": "error",
 						"import-x/no-rename-default": "off",
