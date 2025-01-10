@@ -2,16 +2,19 @@
 
 ## [2.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v2.1.2...eslint-config-v2.2.0) (2025-01-10)
 
-
 ### Features
 
-* **import:** Disable `import-x/named` rule ([1241261](https://github.com/lightbasenl/platforms/commit/12412614f3e76f14f0607a5a7f09157c8c1a0634))
-
+- **import:** Disable `import-x/named` rule
+  ([1241261](https://github.com/lightbasenl/platforms/commit/12412614f3e76f14f0607a5a7f09157c8c1a0634))
 
 ### Dependencies
 
-* Bump eslint-config-flat-gitignore from 0.3.0 to 1.0.0 ([#355](https://github.com/lightbasenl/platforms/issues/355)) ([147032d](https://github.com/lightbasenl/platforms/commit/147032dde19d685d5b0e3d11bb19ad7b8450f0da))
-* Bump eslint-merge-processors from 0.1.0 to 1.0.0 ([#354](https://github.com/lightbasenl/platforms/issues/354)) ([cb67a3d](https://github.com/lightbasenl/platforms/commit/cb67a3ddf3e700315a06a6eff1cfa265af8056ec))
+- Bump eslint-config-flat-gitignore from 0.3.0 to 1.0.0
+  ([#355](https://github.com/lightbasenl/platforms/issues/355))
+  ([147032d](https://github.com/lightbasenl/platforms/commit/147032dde19d685d5b0e3d11bb19ad7b8450f0da))
+- Bump eslint-merge-processors from 0.1.0 to 1.0.0
+  ([#354](https://github.com/lightbasenl/platforms/issues/354))
+  ([cb67a3d](https://github.com/lightbasenl/platforms/commit/cb67a3ddf3e700315a06a6eff1cfa265af8056ec))
 
 ## [2.1.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v2.1.1...eslint-config-v2.1.2) (2025-01-07)
 
