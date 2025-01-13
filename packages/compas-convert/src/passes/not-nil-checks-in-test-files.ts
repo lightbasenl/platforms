@@ -1,3 +1,4 @@
+import consola from "consola";
 import { Node } from "ts-morph";
 import type { SourceFile } from "ts-morph";
 import type { Context } from "../context.js";
@@ -17,9 +18,20 @@ export function notNilChecksInTestFiles(context: Context, sourceFile: SourceFile
 	// an expression we can't fix.
 	let lastPosition = 0;
 
+	const debug = false;
+
 	while ((nextDiagnostic = getNextUndefinedCheckDiagnostic(sourceFile, lastPosition))) {
+		if (debug) {
+			consola.log({ nextDiagnostic: nextDiagnostic.getStart() });
+		}
+
 		// For some reason, we can't find the position of the diagnostic.
 		const expression = sourceFile.getDescendantAtPos(nextDiagnostic.getStart()!);
+		if (debug) {
+			consola.log({
+				expression: expression?.getFullText(),
+			});
+		}
 		if (!expression) {
 			lastPosition = nextDiagnostic.getStart()! + nextDiagnostic.getLength()!;
 			continue;
@@ -32,10 +44,17 @@ export function notNilChecksInTestFiles(context: Context, sourceFile: SourceFile
 				expression.getParentWhile((_parent, node) => !Node.isStatement(node))
 			);
 
+		if (debug) {
+			consola.log({
+				parentStatement: parentStatement?.getFullText(),
+			});
+		}
+
 		if (!parentStatement) {
 			lastPosition = nextDiagnostic.getStart()! + nextDiagnostic.getLength()!;
 			continue;
 		}
+		const parentStatementText = parentStatement.getFullText();
 
 		// The diagnostic text is not always helpful, so retrieve the expression from the file contents.
 		// -  "'user.passwordLogin' is possible 'undefined'"
@@ -47,12 +66,24 @@ export function notNilChecksInTestFiles(context: Context, sourceFile: SourceFile
 				nextDiagnostic.getStart()! + nextDiagnostic.getLength()!,
 			);
 
+		if (debug) {
+			consola.log({
+				expressionMatch,
+			});
+		}
+
 		// For expressions, non null assertions don't persist for the next statements, so we use local
 		// non-null assertion operators (`!`).
 		if (
 			expressionMatch.includes(".find(") ||
 			expressionMatch.includes(".filter(") ||
-			expressionMatch.includes("[")
+			expressionMatch.includes("[") ||
+			expressionMatch.includes(".at(") ||
+			// Error might be in an function without a body and thus a function expression, in these
+			// cases, assertNotNil won't solve anything.
+			parentStatementText.includes(".find(") ||
+			parentStatementText.includes(".filter(") ||
+			parentStatementText.includes(".map(")
 		) {
 			sourceFile.replaceText(
 				[

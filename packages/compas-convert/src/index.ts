@@ -89,12 +89,7 @@ const passes: Array<Pass> = [
 	typescriptDiagnostics,
 ];
 
-const cachablePasses = [
-	"convertTestFiles",
-	"notNilChecksInTestFiles",
-	"isAppErrorInTestFiles",
-	"finalizePendingImports",
-];
+const cacheablePasses: Array<string> = [];
 
 consola.start(`Converting ${path.relative(process.cwd(), resolvedInputDirectory)}`);
 for (const pass of passes) {
@@ -116,14 +111,14 @@ for (const pass of passes) {
 
 			try {
 				const cache = new Cache(context, sourceFile);
-				if (cachablePasses.includes(pass.name) && cache.useIfExists()) {
+				if (cacheablePasses.includes(pass.name) && cache.useIfExists()) {
 					continue;
 				}
 
 				await pass(context, sourceFile);
 				await sourceFile.save();
 
-				if (cachablePasses.includes(pass.name)) {
+				if (cacheablePasses.includes(pass.name)) {
 					cache.store();
 				}
 			} catch (e) {

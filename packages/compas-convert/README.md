@@ -52,7 +52,7 @@ rm -rf ../compas-convert-test && npx compas-convert ../some-local-test-project .
   - [x] Type of `AppErrror` in Compas should accept anything for 'cause' and 'info'.
     - `TS2345: Argument of type 'unknown' is not assignable to parameter of type 'Error | undefined'`
     - Used in all variants of `AppError` construction
-  - [ ] Insert `assertIsAppError` in test files
+  - [x] Insert `assertIsAppError` in test files
     - On `TS18046: 'e' is of type 'unknown'`
     - AND `.key` or `.info` is accessed
     - Implement like `not-nil-checks-in-test-flows`
@@ -65,13 +65,44 @@ Checklist:
 
 - [ ] Any TS errors we need to fix still?
   - Start documenting common errors and their fixes below
-- [ ] Any ESLint rules we can fix?
+  - [ ] CRUD file errors add `@ts-nocheck` or comparable.
+  - [ ] Check on generated input/output types for things like `ctx.body`
+  - [ ] Add `@lightbase/utils` package, and use that for `assertNotNil`.
+  - [x] Verify that all maintained projects at least convert.
+- [x] Any ESLint rules we can fix?
   - Start documenting common errors and their fixes below
-- [ ] Can we run the API, Queue, etc?
-- [ ] Does the docker build work?
+- [x] Can we run the API, Queue, etc?
+- [x] Does the docker build work?
+  - Copy dist + copy any necessary static files.
+  - Run from the dist.
 - [ ] Collect common knowledge:
   - New QueryBuilder types
+  - New type utilities
   - TSX usage
-  - Vitest usage
+  - Vitest usage, IDE setup and optimizations
 
 ## Migration docs
+
+- It is advised to run through
+  [cleaning up the vendor/backend package](docs/vendor-backend-package.md) first.
+- The migration adds various uses of `$ConvertAny` and `TODO(compas-convert)`. It is
+  advised to use these while migrating, but at some point to start phase them out of
+  existence.
+- Uses of `t` in test files are replaced with `{ log: newLogger() }`. In most cases, this
+  should suffice for the use case.
+- `assertNotNil` is a utility function, to branch-less assert on the existence of a value.
+- Use of the QueryBuilder related types is advised:
+  `type UserWithRoles = DatabaseUserQueryResolver<{ roles: { select: ["id"] }, posts: unknown }, "posts.author"|"posts.likes">`.
+- To start with, it might be smart to disable the following ESLint rules:
+  - `@typescript-eslint/no-unsafe-assignment`
+  - `@typescript-eslint/no-unsafe-member-access`
+  - `@typescript-eslint/no-unsafe-argument`
+  - `@typescript-eslint/no-unsafe-call`
+  - `@typescript-eslint/no-unsafe-return`
+  - `unused-imports/no-unused-vars`
+- The vendored backend package uses a lot of `typeof import()` expressions in variable
+  types. These can be converted to top-level type-imports.
+- The vendored backend package uses `(ctx,next)` in controller callbacks. Only `ctx` is
+  used. `next` has been supported for backwards compatibility.
+- Requires to know what the `{}` type does in TypeScript.
+- Dist output + tenant config + env files etc.

@@ -109,13 +109,19 @@ export async function updateGenerateOptions(context: Context) {
 import { newLogger, environment } from "@compas/stdlib";
 import { register } from "tsx/esm/api";
 
-// TODO(compas-convert): cleanup this;
+// TODO(compas-convert): cleanup compat layer;
 environment.NODE_ENV = "development";
 register();
 const opts = {
   logger: newLogger(),
   skipLint: true,
   verbose: false,
+};
+const state = {
+ // TODO(compas-convert): this is hardcoded now.
+ flags: {
+   env: "qa",
+ }
 };
 const logger = opts.logger;
 

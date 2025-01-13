@@ -306,6 +306,7 @@ export function parseTypeDocs(typeDocBlock: string | undefined) {
 		const input = state.contents.slice(state.globalIndex);
 		const reMatch = JSDOC_REGEX.typeExpressionTag().exec(input);
 		if (!reMatch) {
+			consola.error(state);
 			throw new Error(`Couldn't match a @type on input: '${input}'.`, {
 				cause: {
 					state,
@@ -395,6 +396,8 @@ export function parseFunctionDocs(functionDocBlock: string | undefined) {
 		const input = state.contents.slice(state.globalIndex, nextNewLine);
 		const reMatch = JSDOC_REGEX.templateTag().exec(input);
 		if (!reMatch) {
+			consola.error(state);
+
 			throw new Error(`Couldn't match a @template on input: '${input}'.`);
 		}
 
@@ -420,6 +423,8 @@ export function parseFunctionDocs(functionDocBlock: string | undefined) {
 		const input = state.contents.slice(state.globalIndex);
 		const reMatch = JSDOC_REGEX.typeExpressionTag().exec(input);
 		if (!reMatch) {
+			consola.error(state);
+
 			throw new Error(`Couldn't match a @returns on input: '${input}'.`);
 		}
 
@@ -554,6 +559,8 @@ function parseNamedTypeExpression(state: ParseState, stopTags: Array<string>) {
 
 	const reMatch = JSDOC_REGEX.nameAndDocsTag().exec(input);
 	if (!reMatch) {
+		consola.error(state);
+
 		throw new Error(`Couldn't match a @param name on input: '${input}'.`);
 	}
 
