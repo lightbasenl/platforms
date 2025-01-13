@@ -65,8 +65,8 @@ Checklist:
 
 - [ ] Any TS errors we need to fix still?
   - Start documenting common errors and their fixes below
-  - [ ] CRUD file errors add `@ts-nocheck` or comparable.
-  - [ ] Check on generated input/output types for things like `ctx.body`
+  - [x] CRUD file errors add `@ts-nocheck` or comparable.
+  - [x] Check on generated input/output types for things like `ctx.body`
   - [ ] Add `@lightbase/utils` package, and use that for `assertNotNil`.
   - [x] Verify that all maintained projects at least convert.
 - [x] Any ESLint rules we can fix?

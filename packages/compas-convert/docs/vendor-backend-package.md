@@ -42,8 +42,15 @@ Some tips:
 
 ### Other cleanups
 
-- Remove usages of `importProjectResource`. Add explicit project imports in places where
-  this is used.
-- Using `typeof import(` is used a bunch in this project. However, while removing the
-  `importProjectResource` calls, you added a bunch of imports in various places, so you
-  can update `typeof import(` into `typeof authController` for example.
+- Remove usages 'services' in the `services.js` file. Add explicit project imports in
+  places where these are used. Most of these can be replaced with either direct imports
+  from generated code, or services available in the project. After this,you should be able
+  to remove `importProjectResources`.
+- Cleanup the exports from `backend/index.js` as much as possible. This might be necessary
+  to get code-gen working again. For example, code-gen structure files can't depend on
+  generator output.
+- Sentry metrics support has been removed. Remove any usages of `Sentry.metrics` or
+  `_compasSentryExport?.metrics`
+- Replace `(ctx, next)` callbacks with `(ctx)`. `next` was supported for backwards
+  compatibility reasons. Note that raw Koa callbacks, e.g `app.use` still need to use the
+  `next` parameter.
