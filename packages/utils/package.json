@@ -12,9 +12,7 @@
 		"url": "https://github.com/lightbase/platforms",
 		"directory": "packages/utils"
 	},
-	"files": [
-		"dist/src"
-	],
+	"files": ["dist/src"],
 	"exports": {
 		"./package.json": "./package.json",
 		".": {

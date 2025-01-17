@@ -2,11 +2,14 @@
 
 ## [2.2.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v2.2.0...eslint-config-v2.2.1) (2025-01-17)
 
-
 ### Dependencies
 
-* Bump the eslint group with 2 updates ([#358](https://github.com/lightbasenl/platforms/issues/358)) ([fa013b2](https://github.com/lightbasenl/platforms/commit/fa013b21b79d4231d3822f8b8a19f5ded7562e09))
-* Bump the typescript-eslint group with 2 updates ([#361](https://github.com/lightbasenl/platforms/issues/361)) ([66f2795](https://github.com/lightbasenl/platforms/commit/66f2795217bfb8859494084b5b84c5f981070979))
+- Bump the eslint group with 2 updates
+  ([#358](https://github.com/lightbasenl/platforms/issues/358))
+  ([fa013b2](https://github.com/lightbasenl/platforms/commit/fa013b21b79d4231d3822f8b8a19f5ded7562e09))
+- Bump the typescript-eslint group with 2 updates
+  ([#361](https://github.com/lightbasenl/platforms/issues/361))
+  ([66f2795](https://github.com/lightbasenl/platforms/commit/66f2795217bfb8859494084b5b84c5f981070979))
 
 ## [2.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v2.1.2...eslint-config-v2.2.0) (2025-01-10)
 
