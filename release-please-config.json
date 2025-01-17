@@ -2,7 +2,8 @@
 	"release-type": "node",
 	"packages": {
 		"packages/eslint-config": {},
-		"packages/pull-through-cache": {}
+		"packages/pull-through-cache": {},
+		"packages/utils": {}
 	},
 	"plugins": [
 		{

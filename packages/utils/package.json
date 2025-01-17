@@ -1,0 +1,35 @@
+{
+	"name": "@lightbase/utils",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/lightbase/platforms/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lightbase/platforms",
+		"directory": "packages/utils"
+	},
+	"files": ["dist/src"],
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"types": "./dist/src/index.d.ts",
+			"import": "./dist/src/index.js"
+		},
+		"./node": {
+			"type": "./dist/src/node/index.d.ts",
+			"node": "./dist/src/node/index.js"
+		}
+	},
+	"scripts": {
+		"build": "tsc -p ./tsconfig.json",
+		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
+		"lint:ci": "eslint .",
+		"test": "vitest",
+		"clean": "rm -rf ./.cache ./dist"
+	},
+	"dependencies": {}
+}
