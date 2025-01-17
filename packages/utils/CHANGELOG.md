@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/lightbasenl/platforms/compare/utils-v1.0.1...utils-v1.0.2) (2025-01-17)
+
+### Miscellaneous
+
+- **utils:** Fix repository url in package.json
+  ([d7712db](https://github.com/lightbasenl/platforms/commit/d7712dbdeb6bf647f6b8cd2c1ceab96b9b8b16bd))
+
 ## [1.0.1](https://github.com/lightbasenl/platforms/compare/utils-v1.0.0...utils-v1.0.1) (2025-01-17)
 
 ### Bug Fixes
