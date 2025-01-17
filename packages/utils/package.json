@@ -4,11 +4,11 @@
 	"type": "module",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/lightbase/platforms/issues"
+		"url": "https://github.com/lightbasenl/platforms/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/lightbase/platforms",
+		"url": "git+https://github.com/lightbasenl/platforms.git",
 		"directory": "packages/utils"
 	},
 	"files": ["dist/src"],
