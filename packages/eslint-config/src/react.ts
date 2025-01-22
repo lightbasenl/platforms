@@ -44,6 +44,13 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 						"@next/next/no-img-element": "off",
 					},
 				},
+				{
+					// Next.js uses default exports in the following files:
+					files: globUse([GLOBS.nextJsFilesWithDefaultExports]),
+					rules: {
+						"import-x/no-default-export": "off",
+					},
+				},
 			] satisfies Array<FlatConfig.Config>)
 		:	[]),
 

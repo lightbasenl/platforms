@@ -84,14 +84,6 @@ export function imports(typescript: TypeScriptConfig): Array<FlatConfig.Config> 
 		},
 
 		{
-			// Handle JS config files
-			files: globUse(["**/*.config.js"]),
-			rules: {
-				"import-x/no-default-export": "off",
-			},
-		},
-
-		{
 			// Disabled rules because of missing FlatConfig compatibility.
 			rules: {
 				"import-x/default": "off",
@@ -105,8 +97,9 @@ export function imports(typescript: TypeScriptConfig): Array<FlatConfig.Config> 
 		},
 
 		{
-			// Default exports are required for most React tooling and in various config files.
-			files: globUse([GLOBS.jsx, GLOBS.tsx, GLOBS.rootConfigFiles]),
+			// Default exports are required in various config files like eslint.config.js, or
+			// playwright.config.ts
+			files: globUse([GLOBS.rootConfigFiles]),
 			rules: {
 				"import-x/no-default-export": "off",
 			},

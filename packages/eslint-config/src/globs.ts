@@ -13,12 +13,15 @@ export const GLOBS = {
 	jsx: "**/*.?(c|m)jsx",
 	tsx: "**/*.?(c|m)tsx",
 
-	rootConfigFiles: "*.?(c|m)ts?(x)",
+	rootConfigFiles: "*{.config,}.?(c|m){j,t}s?(x)",
 
 	markdown: "**/*.md",
 
 	yaml: "**/*.y?(a)ml",
 	json: "**/*.json?(5|c)",
+
+	nextJsFilesWithDefaultExports:
+		"**/{default,error,forbidden,layout,loading,middleware,not-found,page,template,unauthorized,icon,apple-icon,manifest,opengraph-image,twitter-image,robots,sitemap}.?(c|m)ts?(x)",
 };
 
 /**
