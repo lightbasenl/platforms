@@ -2,19 +2,22 @@
 
 ## [3.0.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v2.2.1...eslint-config-v3.0.0) (2025-01-22)
 
-
 ### ⚠ BREAKING CHANGES
 
-* **eslint:** harden no-default-export rule ([#370](https://github.com/lightbasenl/platforms/issues/370))
+- **eslint:** harden no-default-export rule
+  ([#370](https://github.com/lightbasenl/platforms/issues/370))
 
 ### Features
 
-* **eslint:** Harden no-default-export rule ([#370](https://github.com/lightbasenl/platforms/issues/370)) ([c932a73](https://github.com/lightbasenl/platforms/commit/c932a73ef6a6eb8063385f8fdcfd743443ad7739))
-
+- **eslint:** Harden no-default-export rule
+  ([#370](https://github.com/lightbasenl/platforms/issues/370))
+  ([c932a73](https://github.com/lightbasenl/platforms/commit/c932a73ef6a6eb8063385f8fdcfd743443ad7739))
 
 ### Dependencies
 
-* Bump eslint-plugin-jsdoc from 50.6.1 to 50.6.2 ([#367](https://github.com/lightbasenl/platforms/issues/367)) ([f71aa17](https://github.com/lightbasenl/platforms/commit/f71aa17a579d63d6d695fc6d9323ae810890e7f0))
+- Bump eslint-plugin-jsdoc from 50.6.1 to 50.6.2
+  ([#367](https://github.com/lightbasenl/platforms/issues/367))
+  ([f71aa17](https://github.com/lightbasenl/platforms/commit/f71aa17a579d63d6d695fc6d9323ae810890e7f0))
 
 ## [2.2.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v2.2.0...eslint-config-v2.2.1) (2025-01-17)
 
