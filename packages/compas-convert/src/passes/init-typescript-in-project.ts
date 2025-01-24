@@ -11,17 +11,18 @@ export async function initTypescriptInProject(context: Context) {
 
 	packageJson.devDependencies ??= {};
 	packageJson.devDependencies["tsx"] = "4.19.2";
-	packageJson.devDependencies["typescript"] = "5.6.3";
-	packageJson.devDependencies["vitest"] = "2.0.5";
+	packageJson.devDependencies["typescript"] = "5.7.3";
+	packageJson.devDependencies["vitest"] = "3.0.4";
 	packageJson.devDependencies["@total-typescript/tsconfig"] = "1.0.4";
 	packageJson.devDependencies["@types/node"] = "latest";
-	packageJson.devDependencies["@compas/code-gen"] = "0.15.6";
+	packageJson.devDependencies["@compas/code-gen"] = "0.15.8";
 
 	packageJson.dependencies ??= {};
-	packageJson.dependencies["@compas/cli"] = "0.15.6";
-	packageJson.dependencies["@compas/server"] = "0.15.6";
-	packageJson.dependencies["@compas/stdlib"] = "0.15.6";
-	packageJson.dependencies["@compas/store"] = "0.15.6";
+	packageJson.dependencies["@lightbase/utils"] = "1.0.3";
+	packageJson.dependencies["@compas/cli"] = "0.15.8";
+	packageJson.dependencies["@compas/server"] = "0.15.8";
+	packageJson.dependencies["@compas/stdlib"] = "0.15.8";
+	packageJson.dependencies["@compas/store"] = "0.15.8";
 
 	packageJson.scripts ??= {};
 	packageJson.scripts["build"] = `tsc -p ./tsconfig.json`;

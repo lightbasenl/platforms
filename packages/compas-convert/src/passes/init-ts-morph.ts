@@ -50,18 +50,6 @@ import { AppError } from "@compas/stdlib";
 export type $ConvertAny = any;
 
 /**
- * Asserts that the provided value is not null or undefined.
- */
-export function assertNotNil<T>(
-	value: T,
-	message?: string,
-): asserts value is NonNullable<T> {
-	if (value === null || value === undefined) {
-		throw new Error(\`Invariant failed: $\{ message }\`);
-	}
-}
-
-/**
  * Asserts that the provided value is of type AppError
  *
  */

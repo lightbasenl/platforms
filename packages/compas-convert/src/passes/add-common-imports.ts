@@ -25,7 +25,7 @@ export function addCommonImports(context: Context, sourceFile: SourceFile) {
 	addPendingImport(
 		context,
 		sourceFile,
-		resolveRelativeImport(context, sourceFile, CONVERT_UTIL_PATH),
+		"@lightbase/utils",
 		CONVERT_UTIL.assertNotNil,
 		false,
 	);

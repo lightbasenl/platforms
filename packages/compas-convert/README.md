@@ -63,11 +63,11 @@ rm -rf ../compas-convert-test && npx compas-convert ../some-local-test-project .
 
 Checklist:
 
-- [ ] Any TS errors we need to fix still?
+- [x] Any TS errors we need to fix still?
   - Start documenting common errors and their fixes below
   - [x] CRUD file errors add `@ts-nocheck` or comparable.
   - [x] Check on generated input/output types for things like `ctx.body`
-  - [ ] Add `@lightbase/utils` package, and use that for `assertNotNil`.
+  - [x] Add `@lightbase/utils` package, and use that for `assertNotNil`.
   - [x] Verify that all maintained projects at least convert.
 - [x] Any ESLint rules we can fix?
   - Start documenting common errors and their fixes below
