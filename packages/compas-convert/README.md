@@ -75,35 +75,21 @@ Checklist:
 - [x] Does the docker build work?
   - Copy dist + copy any necessary static files.
   - Run from the dist.
-- [ ] Collect common knowledge:
-  - New QueryBuilder types
-  - New type utilities
-  - TSX usage
-  - Vitest usage, IDE setup and optimizations
 
 ## Migration docs
 
-- It is advised to run through
-  [cleaning up the vendor/backend package](docs/vendor-backend-package.md) first.
-- Git work-tree usage & cleanup
-- The migration adds various uses of `$ConvertAny` and `TODO(compas-convert)`. It is
-  advised to use these while migrating, but at some point to start phase them out of
-  existence.
+Prerequisites:
+
+- [Include the vendor/backend package](./docs/vendor-backend-package.md)
+- [Read-up on some required reading](./docs/required-readings.md)
+
+Executing the migration:
+
+- [Initial steps](./docs/initial-steps.md)
+
+---
+
+Random stuff:
+
 - Uses of `t` in test files are replaced with `{ log: newLogger() }`. In most cases, this
   should suffice for the use case.
-- `assertNotNil` is a utility function, to branch-less assert on the existence of a value.
-- Use of the QueryBuilder related types is advised:
-  `type UserWithRoles = DatabaseUserQueryResolver<{ roles: { select: ["id"] }, posts: unknown }, "posts.author"|"posts.likes">`.
-- To start with, it might be smart to disable the following ESLint rules:
-  - `@typescript-eslint/no-unsafe-assignment`
-  - `@typescript-eslint/no-unsafe-member-access`
-  - `@typescript-eslint/no-unsafe-argument`
-  - `@typescript-eslint/no-unsafe-call`
-  - `@typescript-eslint/no-unsafe-return`
-  - `unused-imports/no-unused-vars`
-- The vendored backend package uses a lot of `typeof import()` expressions in variable
-  types. These can be converted to top-level type-imports.
-- The vendored backend package uses `(ctx,next)` in controller callbacks. Only `ctx` is
-  used. `next` has been supported for backwards compatibility.
-- Requires to know what the `{}` type does in TypeScript.
-- Dist output + tenant config + env files etc.
