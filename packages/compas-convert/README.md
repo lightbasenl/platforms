@@ -85,6 +85,7 @@ Checklist:
 
 - It is advised to run through
   [cleaning up the vendor/backend package](docs/vendor-backend-package.md) first.
+- Git work-tree usage & cleanup
 - The migration adds various uses of `$ConvertAny` and `TODO(compas-convert)`. It is
   advised to use these while migrating, but at some point to start phase them out of
   existence.

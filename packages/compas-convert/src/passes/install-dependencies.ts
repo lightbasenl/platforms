@@ -1,8 +1,5 @@
-import { exec } from "node:child_process";
-import { promisify } from "node:util";
 import type { Context } from "../context.js";
-
-const execAsync = promisify(exec);
+import { execAsync } from "../shared/exec.js";
 
 /**
  * Runs npm install in the project

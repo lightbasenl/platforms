@@ -1,4 +1,4 @@
-import { mkdir, readdir, cp } from "node:fs/promises";
+import { readdir, cp, mkdir } from "node:fs/promises";
 import path from "node:path";
 import consola from "consola";
 import type { Context } from "../context.js";
