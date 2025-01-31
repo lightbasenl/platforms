@@ -31,7 +31,7 @@ export interface PrettierConfig {
 export function prettierConfig(config?: PrettierConfig) {
 	// TODO: include CSS + tailwind
 
-	// TODO: Should be drop eslint-plugin-import in favor of https://github.com/IanVS/prettier-plugin-sort-imports?
+	// TODO: Should we drop eslint-plugin-import in favor of https://github.com/IanVS/prettier-plugin-sort-imports?
 
 	// TODO: sql plugin
 
@@ -92,7 +92,7 @@ export function prettierConfig(config?: PrettierConfig) {
 				"format/prettier": [
 					"error",
 					{
-						parser: "markdown",
+						parser: "mdx",
 						...defaultConfig,
 						...config.languageOverrides.md,
 					},

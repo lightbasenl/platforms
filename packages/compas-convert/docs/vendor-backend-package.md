@@ -54,3 +54,7 @@ Some tips:
 - Replace `(ctx, next)` callbacks with `(ctx)`. `next` was supported for backwards
   compatibility reasons. Note that raw Koa callbacks, e.g `app.use` still need to use the
   `next` parameter.
+
+### Further enhancements
+
+- Move over all `**/structure.js` files to your `gen/` folder.

@@ -15,7 +15,7 @@ export const GLOBS = {
 
 	rootConfigFiles: "*{.config,}.?(c|m){j,t}s?(x)",
 
-	markdown: "**/*.md",
+	markdown: "**/*.{md,mdx}",
 
 	yaml: "**/*.y?(a)ml",
 	json: "**/*.json?(5|c)",
@@ -25,7 +25,8 @@ export const GLOBS = {
 };
 
 /**
- * Keep track of all used globs. We need this to use custom globs for running Prettier in ESLint.
+ * Keep track of all used globs. We need this to use custom globs for running Prettier in
+ * ESLint.
  */
 export function globUse(globs: Array<string>) {
 	for (const glob of globs) {
@@ -53,12 +54,13 @@ export function globAsFormat(glob: string) {
  * Apply custom rules to snippets in markdown files.
  */
 export function globMarkdownSnippetFromGlob(glob: string) {
-	return `**/*.md/**/${glob.split("/").pop() ?? ""}`;
+	return `${GLOBS.markdown}/**/${glob.split("/").pop() ?? ""}`;
 }
 
 /**
  * Register all globs in use by custom configs. This is needed since we apply those after the
- * Prettier configuration. The Prettier config then uses a processor to prevent parser conflicts.
+ * Prettier configuration. The Prettier config then uses a processor to prevent parser
+ * conflicts.
  */
 export function globUseFromUserConfig(...userConfigs: Array<FlatConfig.Config>) {
 	for (const conf of userConfigs) {

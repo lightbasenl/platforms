@@ -1,20 +1,20 @@
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
-import { mergeProcessors, processorPassThrough } from "eslint-merge-processors";
-import markdown from "eslint-plugin-markdown";
+import * as mdx from "eslint-plugin-mdx";
 import typescriptEslint from "typescript-eslint";
 import { globMarkdownSnippetFromGlob, GLOBS, globUse } from "./globs.js";
 
 /**
- * Allows parsing of markdown files, adding code blocks as virtual files.
+ * Allows parsing of markdown and mdx files, adding code blocks as virtual files.
  */
 export function markdownConfig() {
 	return [
 		{
+			...mdx.flat,
+
 			files: [GLOBS.markdown],
-			plugins: {
-				markdown,
-			},
-			processor: mergeProcessors([processorPassThrough, markdown.processors.markdown]),
+			processor: mdx.createRemarkProcessor({
+				lintCodeBlocks: true,
+			}),
 		},
 	] satisfies Array<FlatConfig.Config>;
 }
