@@ -1,5 +1,27 @@
 # Changelog
 
+## [3.1.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.0.0...eslint-config-v3.1.0) (2025-01-31)
+
+### Features
+
+- **eslint-config:** Add mdx support
+  ([e0771c5](https://github.com/lightbasenl/platforms/commit/e0771c5086a109d46a3d123059882af7b529236a))
+
+### Dependencies
+
+- Bump eslint-config-flat-gitignore from 1.0.0 to 2.0.0
+  ([#377](https://github.com/lightbasenl/platforms/issues/377))
+  ([a7cc9a5](https://github.com/lightbasenl/platforms/commit/a7cc9a5d3b12eda18f02bb048c4df67e67ab154c))
+- Bump eslint-plugin-jsdoc from 50.6.2 to 50.6.3
+  ([#373](https://github.com/lightbasenl/platforms/issues/373))
+  ([7686c02](https://github.com/lightbasenl/platforms/commit/7686c023fc019e100eb81b4d5e52e33934bdb3e7))
+- Bump the eslint group with 2 updates
+  ([#372](https://github.com/lightbasenl/platforms/issues/372))
+  ([67081ae](https://github.com/lightbasenl/platforms/commit/67081ae50405b262463781f6e8b20018d698b491))
+- Bump the typescript-eslint group with 2 updates
+  ([#371](https://github.com/lightbasenl/platforms/issues/371))
+  ([47b7897](https://github.com/lightbasenl/platforms/commit/47b789702702061415671a026f913c9ee20f6584))
+
 ## [3.0.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v2.2.1...eslint-config-v3.0.0) (2025-01-22)
 
 ### ⚠ BREAKING CHANGES
