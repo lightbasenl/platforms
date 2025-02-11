@@ -86,6 +86,7 @@ Prerequisites:
 Executing the migration:
 
 - [Initial steps](./docs/initial-steps.md)
+- [Choose your own adventure](./docs/choose-your-own-adventure.md)
 
 ---
 
