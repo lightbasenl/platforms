@@ -18,7 +18,7 @@ export async function initTypescriptInProject(context: Context) {
 	packageJson.devDependencies["@compas/code-gen"] = "0.15.8";
 
 	packageJson.dependencies ??= {};
-	packageJson.dependencies["@lightbase/utils"] = "1.0.3";
+	packageJson.dependencies["@lightbase/utils"] = "1.0.2";
 	packageJson.dependencies["@compas/cli"] = "0.15.8";
 	packageJson.dependencies["@compas/server"] = "0.15.8";
 	packageJson.dependencies["@compas/stdlib"] = "0.15.8";
