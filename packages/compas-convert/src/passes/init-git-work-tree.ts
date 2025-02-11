@@ -10,7 +10,7 @@ import { execAsync } from "../shared/exec.js";
  */
 export async function initGitWorkTree(context: Context) {
 	await execAsync(
-		`git worktree add -B typescript-convert ${context.outputDirectory} origin/main`,
+		`git worktree add --track -B typescript-convert ${context.outputDirectory} origin/typescript-convert`,
 		{
 			cwd: context.inputDirectory,
 		},
