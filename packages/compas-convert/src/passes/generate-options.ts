@@ -106,12 +106,14 @@ export async function updateGenerateOptions(context: Context) {
 
 	// 5. Add a new command parser
 	generateCommandFile.addStatements(`
-import { newLogger, environment } from "@compas/stdlib";
+import { newLogger, environment, loggerDetermineDefaultDestination } from "@compas/stdlib";
 import { register } from "tsx/esm/api";
 
 // TODO(compas-convert): cleanup compat layer;
 environment.NODE_ENV = "development";
 register();
+loggerDetermineDefaultDestination();
+
 const opts = {
   logger: newLogger(),
   skipLint: true,
