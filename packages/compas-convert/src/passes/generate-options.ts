@@ -99,6 +99,8 @@ export async function updateGenerateOptions(context: Context) {
 				// 4.3 update the value of 'targetLanguage'.
 				targetLanguageProperty.setInitializer(`"ts"`);
 			}
+
+			// TODO: disable declareGlobalTypes property.
 		}
 
 		return undefined;
