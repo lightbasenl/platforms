@@ -11,9 +11,12 @@ Try to stick with a topic or domain in your code-base and finish the tasks as mu
 possible. Committing the changes before going to the next tasks or domain. This allows
 reviewing of individual in progress commits by peers.
 
-It ain't easy. Try to ignore most 'unrelated'-errors while executing tasks. You'll get to
-them later. Also, doing a stellar-job now results in a good working base to build-off on
-later.
+Prevent refactoring too much. The migration is big enough as is. Leave a TODO comment and
+move on.
+
+Converting in one go ain't a small feat. Try to ignore most 'unrelated'-errors while
+executing tasks. You'll get to them later. Also, doing a stellar job now results in a good
+working base to build-off on later.
 
 ## Cleanup commands/generate.ts
 
@@ -28,6 +31,32 @@ Tasks:
 - Note the usage of `register()` in the file, it might make sense for other scripts to use
   this as well. It enhances `await import(...)` to resolve the TypeScript files as well.
   Making `tsx ./scripts/foo.ts` even more useful.
+
+## As you-go
+
+Various common statements like `const [user] = await queryUser().exec(sql);` mark the
+`user` variable as `User |undefined`. This is the correct type, since there may not always
+be a returned row. However, in cases like insert queries or update queries with
+`returning` on specific entities, you can be 99% sure that the values exist.
+
+In this cases you can use `assertNotNil` from the `@lightbase/utils` package.
+
+```ts
+// For some statements you can be 99.99% sure that they are never hit. Here you can use it with
+// just the variable in question;
+assertNotNil(user);
+
+// In other cases, you might want to customize the error message:
+assertNotNil(user, AppError.serverError, {
+	message: "User should really be available here!",
+});
+```
+
+Tasks:
+
+- As you go, use `assertNotNil` when necessary. Make sure to annotate with explicit errors
+  if the statement may fail.
+- Add missing imports (mostly for generated types).
 
 ## Constants and module live bindings
 
