@@ -21,7 +21,8 @@ working base to build-off on later.
 ## Cleanup commands/generate.ts
 
 The converter rewrote `commands/generate.js` to not be a Compas command anymore. It did so
-with a bit of hacking around.
+with a bit of hacking around. It also created npm-scripts in your `package.json` to
+execute the different generators you might have.
 
 Tasks:
 
@@ -35,11 +36,11 @@ Tasks:
 ## As you-go
 
 Various common statements like `const [user] = await queryUser().exec(sql);` mark the
-`user` variable as `User |undefined`. This is the correct type, since there may not always
+`user` variable as `User|undefined`. This is the correct type, since there may not always
 be a returned row. However, in cases like insert queries or update queries with
 `returning` on specific entities, you can be 99% sure that the values exist.
 
-In this cases you can use `assertNotNil` from the `@lightbase/utils` package.
+In these cases you can use `assertNotNil` from the `@lightbase/utils` package.
 
 ```ts
 // For some statements you can be 99.99% sure that they are never hit. Here you can use it with
@@ -56,11 +57,12 @@ Tasks:
 
 - As you go, use `assertNotNil` when necessary. Make sure to annotate with explicit errors
   if the statement may fail.
-- Add missing imports (mostly for generated types).
+- Add missing imports (mostly for generated types). Learn your IDE's keyboard shortcut to
+  add unambiguous imports automatically.
 
 ## Constants and module live bindings
 
-Every project has constants, be it an const-object to define the available roles, or some
+Every project has constants, be it a const-object to define the available roles, or some
 service which exports a constant.
 
 Tasks:
@@ -80,8 +82,8 @@ Tasks:
 
 - Replace `QueryResultAuthUser` with one (or more) explicit types and replace all usages
   with your new type.
-  - Use the arguments you gave to `backendInitServices` and the remaining default joins
-    that it adds internally. Since you have
+  - Use the arguments for `userBuilder` you gave to `backendInitServices` and the
+    remaining default joins that it adds internally. Since you have
     [vendored the backend package](./vendor-backend-package.md), it might make sense to
     fully drop the `userBuilder` argument from `backendInitServices` and inline the full
     joins in a single constant.
@@ -91,7 +93,7 @@ Tasks:
     well. Some might expect `passwordLogin.resetTokens` to be joined, even though they
     ain't used. You can choose to optimize this as well.
 - Do the same for `QueryResultBackendTenant`.
-- Do the same for any other often used used `QueryResultXyz` type.
+- Do the same for any other often used `QueryResultXyz` type.
 
 Example user type:
 
