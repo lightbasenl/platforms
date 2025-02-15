@@ -54,6 +54,12 @@ export default defineConfig({
     expect: {
     	requireAssertions: true,
     },
+    poolOptions: {
+      threads: {
+        isolate: false,
+      },
+    },
+    pool: "threads",
   },
 })`,
 	);

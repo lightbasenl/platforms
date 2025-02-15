@@ -124,9 +124,9 @@ like
 
 ```ts
 type AdminUser = DatabaseUserQueryResolver<{
-	roles: unknown;
+	roles: undefined;
 	adminSettings: {
-		profilePicture: unknown;
+		profilePicture: undefined;
 	};
 }>;
 ```
