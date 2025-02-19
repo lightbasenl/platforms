@@ -100,7 +100,32 @@ export async function updateGenerateOptions(context: Context) {
 				targetLanguageProperty.setInitializer(`"ts"`);
 			}
 
-			// TODO: disable declareGlobalTypes property.
+			// 4.4 Find the property called 'generators'
+			const generatorsProperty = arg
+				.getProperties()
+				.find(
+					(it) =>
+						it.isKind(SyntaxKind.PropertyAssignment) &&
+						it.getNameNode().getText() === "generators",
+				);
+
+			if (generatorsProperty && Node.isPropertyAssignment(generatorsProperty)) {
+				// 4.5 Find the property called 'generators.types'
+				const typesProperty = generatorsProperty
+					.getInitializerIfKind(SyntaxKind.ObjectLiteralExpression)
+					?.getProperties()
+					.find(
+						(it) =>
+							it.isKind(SyntaxKind.PropertyAssignment) &&
+							it.getNameNode().getText() === "types",
+					);
+
+				if (typesProperty && Node.isPropertyAssignment(typesProperty)) {
+					// 4.6 Drop all options from the 'types'-generator.
+					//  Mostly because we don't need 'declareGlobalTypes'.
+					typesProperty.setInitializer(`{}`);
+				}
+			}
 		}
 
 		return undefined;
