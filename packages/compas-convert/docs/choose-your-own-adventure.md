@@ -53,6 +53,15 @@ assertNotNil(user, AppError.serverError, {
 });
 ```
 
+Alternatively, it might make sense to cast to a tuple
+
+```ts
+// We are 100% sure to get a user here, so cast as a tuple with length '1'.
+const [{ passwordLogin }] = (await queryUser({
+	where: { id: user.id },
+}).exec(sql)) as [AuthUser];
+```
+
 Tasks:
 
 - As you go, use `assertNotNil` when necessary. Make sure to annotate with explicit errors
@@ -108,6 +117,10 @@ export const userBuilder = {
 export type ProjectUser = AuthUserQueryResolver<typeof userBuilder>;
 ```
 
+In some functions you only use specific properties of the full entity; in those cases you
+might want to use the `Pick` type-utility or use the `select` property on a query builder
+(which `QueryResolver`'s take into account).
+
 ## GitHub actions and documentation
 
 You might have changed various commands, for example `npm run test` vs `npx compas test`,
@@ -121,6 +134,99 @@ Tasks:
 - Verify that all documentation does not mention outdated commands
 - In some projects error strings might refer to a command, so a global search on common
   commands like 'compas run' and 'compas migrate' might be good to execute.
+
+## Tests
+
+Most of the test files are converted automatically to use Vitest' APIs. The setup that we
+use in most projects with the global services, which are then reused across suites is
+however not the fastest way to work with Vitest. So at some point you might want to more
+explicitly load only the necessary services for a test in a `beforeAll` hook for example.
+
+The main incompatibility between the Compas test-runner and Vitest is around when subtests
+are initialized. Compas only ran `t.test` after the previous `t.test` when executing.
+Going top to bottom through a file, depth-first through a top-level suite. Running
+registered sub-tests _after_ the full parent callback was finished.
+
+Vitest on the other hand uses `describe` blocks, which are immediately executed to collect
+all hooks and `test` calls (`beforeEach`, `beforeAll`, etc). Even recursively. This means
+that scoped initialization is executed too early.
+
+Via Compas, this logs `1, 2, 3, 4`
+
+```ts
+test("foo", (t) => {
+	console.log("log: 1");
+
+	t.test("bar", () => {
+		console.log("log 2");
+	});
+
+	t.test("quix", (t) => {
+		console.log("log 3");
+
+		t.test("fox", () => {
+			console.log("log 4");
+		});
+	});
+});
+```
+
+Via Vitest, this logs `1, 3, 2, 4`
+
+```ts
+describe("foo", (t) => {
+	console.log("log: 1");
+
+	test("bar", () => {
+		console.log("log 2");
+	});
+
+	describe("quix", (t) => {
+		console.log("log 3");
+
+		t.test("fox", () => {
+			console.log("log 4");
+		});
+	});
+});
+```
+
+Another issue is around circular imports. In some cases, Vite won't initialize these
+properly, so specific test cases may fail. Here, you have to find out why the circular
+import happened and either move things around or use ad dynamic import instead.
+
+Tasks:
+
+- Fix any too early executing statement in `describe` blocks by using a `beforeAll`. You
+  might need to introduce a `let` variable in the `describe` scope, and add
+  `assertNotNil`'s later on.
+
+## Pre-finalization
+
+There are a bunch of things not mentioned, that you may need to do. For example:
+
+- The JSDoc was incorrect. Either missing, incorrectly formatted or the wrong type was
+  used. Add the correct type annotations. Also note that in many cases Compas generates an
+  `FooBar` and `FooBarInput`. The latter being the validator input type, which allows for
+  example string inputs for `T.date()` validators, which it converts internally.
+- Missing `@types/` packages in your dev-dependencies, which should be added.
+- Adding explicit generics when creating things like `new Set<string>()` or
+  `new Map<string, number>()`.
+- Transforming an entity to a response which uses the `delete` operator. It works better
+  to just manually map the full thing, i.e `{ id: entity.id, propX: entity.propX }`.
+- Incorrect return-types. Returning something like `Promise<QueryResultFooBar>` is often
+  incorrect if the builder-type is inferred. In some cases, you want to explicitly add the
+  correct return type, in others its fine to let TypeScript just infer the return type.
+- Invalid `ctx` typings. When passing `ctx` to `fileSendResponse`, use
+  `as unknown as Context` importing `Context` from Koa. In other scenario's
+  `Context & { log: Logger, event: InsightEvent }` might be appropriate.
+- Doing arithmetic or logical expressions with `Date` objects. An explicit `.getTime()`
+  call is necessary.
+
+Tasks:
+
+- Go through each file and fix these things. It makes sense to go by domain, starting with
+  'isolated' (or less-business heavy) domains.
 
 ## Finalization celebration
 
