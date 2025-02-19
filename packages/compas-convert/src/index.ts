@@ -13,6 +13,7 @@ import { convertTestFiles } from "./passes/convert-test-files.js";
 import { copyRename } from "./passes/copy-rename.js";
 import { finalizePendingImports } from "./passes/finalize-pending-imports.js";
 import { fixGenerators } from "./passes/fix-generators.js";
+import { fixMissingImports } from "./passes/fix-missing-imports.js";
 import { updateGenerateOptions } from "./passes/generate-options.js";
 import { initGitWorkTree } from "./passes/init-git-work-tree.js";
 import { getTypescriptProgram, initTsMorph } from "./passes/init-ts-morph.js";
@@ -87,6 +88,7 @@ const passes: Array<Pass> = [
 	initTsMorph,
 	notNilChecksInTestFiles,
 	isAppErrorInTestFiles,
+	fixMissingImports,
 
 	typescriptDiagnostics,
 ];

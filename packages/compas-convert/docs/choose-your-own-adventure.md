@@ -66,8 +66,6 @@ Tasks:
 
 - As you go, use `assertNotNil` when necessary. Make sure to annotate with explicit errors
   if the statement may fail.
-- Add missing imports (mostly for generated types). Learn your IDE's keyboard shortcut to
-  add unambiguous imports automatically.
 
 ## Constants and module live bindings
 

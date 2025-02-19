@@ -19,6 +19,8 @@ This document describes the initial steps to execute the conversion.
      - Convert all kinds of JSDoc blocks to TypeScript type-annotations.
      - Converts from the Compas test runner to Vitest
      - Adds various not-nil and `AppError` assertions in test files.
+     - Tries to add missing imports due to dropping the `declareGlobalTypes` option from
+       Compas generate calls.
 7. Open up the project in your IDE
    - Configure things the TypeScript language server and other stuff you'd like.
 8. Add the snippet further down this page to your `eslint.config.js`.
