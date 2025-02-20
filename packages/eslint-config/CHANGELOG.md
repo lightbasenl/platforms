@@ -1,5 +1,48 @@
 # Changelog
 
+## [3.1.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.1.0...eslint-config-v3.1.1) (2025-02-20)
+
+### Miscellaneous
+
+- Drop eslint-merge-processors
+  ([9c54382](https://github.com/lightbasenl/platforms/commit/9c543825549265da0c569957529654c24dee560e))
+
+### Dependencies
+
+- Bump eslint from 9.20.0 to 9.20.1 in the eslint group
+  ([#392](https://github.com/lightbasenl/platforms/issues/392))
+  ([88b8801](https://github.com/lightbasenl/platforms/commit/88b880168f1b1e16a98f7f06e579b7f5cd39b532))
+- Bump eslint-config-flat-gitignore from 2.0.0 to 2.1.0
+  ([#400](https://github.com/lightbasenl/platforms/issues/400))
+  ([c74c37c](https://github.com/lightbasenl/platforms/commit/c74c37c7c1aaeac0e419241a1d6beff9b7a94049))
+- Bump eslint-import-resolver-typescript from 3.8.0 to 3.8.1
+  ([#399](https://github.com/lightbasenl/platforms/issues/399))
+  ([d4e1008](https://github.com/lightbasenl/platforms/commit/d4e100837445d227de47f95bcf36aa7e07caa3ac))
+- Bump eslint-import-resolver-typescript from 3.8.1 to 3.8.2
+  ([#401](https://github.com/lightbasenl/platforms/issues/401))
+  ([6e6cb0e](https://github.com/lightbasenl/platforms/commit/6e6cb0ed05b5542961655f3d9c0ef65a29cd954d))
+- Bump globals from 15.14.0 to 15.15.0
+  ([#395](https://github.com/lightbasenl/platforms/issues/395))
+  ([9fb4ef8](https://github.com/lightbasenl/platforms/commit/9fb4ef8626a84352de857d6fb869d6b24cb023ec))
+- Bump prettier from 3.4.2 to 3.5.0
+  ([#391](https://github.com/lightbasenl/platforms/issues/391))
+  ([3082c39](https://github.com/lightbasenl/platforms/commit/3082c396246a8d25d3728d491eff56e437c478a3))
+- Bump prettier from 3.5.0 to 3.5.1
+  ([#394](https://github.com/lightbasenl/platforms/issues/394))
+  ([c94bd8f](https://github.com/lightbasenl/platforms/commit/c94bd8f885dc35ef57f12862042479c12e9c41a2))
+- Bump the eslint group with 2 updates
+  ([#388](https://github.com/lightbasenl/platforms/issues/388))
+  ([35825bf](https://github.com/lightbasenl/platforms/commit/35825bfed780ab2f3eb4125b4ef9642a3d216901))
+- Bump the typescript-eslint group with 2 updates
+  ([#381](https://github.com/lightbasenl/platforms/issues/381))
+  ([39786ab](https://github.com/lightbasenl/platforms/commit/39786ab044189095c1280365c0b81d75390babf8))
+- Bump the typescript-eslint group with 2 updates
+  ([#390](https://github.com/lightbasenl/platforms/issues/390))
+  ([071c0ec](https://github.com/lightbasenl/platforms/commit/071c0ec712be0793b8bcb7a4026622c215d84a01))
+- Bump the typescript-eslint group with 2 updates
+  ([#398](https://github.com/lightbasenl/platforms/issues/398))
+  ([31dfb16](https://github.com/lightbasenl/platforms/commit/31dfb164f02f57da8d9b8cab39a83028e20e4fe5))
+
 ## [3.1.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.0.0...eslint-config-v3.1.0) (2025-01-31)
 
 ### Features
