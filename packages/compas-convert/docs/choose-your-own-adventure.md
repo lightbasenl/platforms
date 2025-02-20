@@ -152,6 +152,7 @@ that scoped initialization is executed too early.
 Via Compas, this logs `1, 2, 3, 4`
 
 ```ts
+/* eslint-disable no-console */
 test("foo", (t) => {
 	console.log("log: 1");
 
@@ -172,6 +173,7 @@ test("foo", (t) => {
 Via Vitest, this logs `1, 3, 2, 4`
 
 ```ts
+/* eslint-disable no-console */
 describe("foo", (t) => {
 	console.log("log: 1");
 
