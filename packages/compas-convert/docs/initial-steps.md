@@ -74,8 +74,8 @@ RUN npm install
 
 COPY . .
 
-RUN npx compas generate application --skip-lint
-RUN npm run build
+RUN npm run generate
+RUN npm run build:emit
 RUN npm install --omit=dev
 
 FROM node:22-alpine
