@@ -119,6 +119,11 @@ In some functions you only use specific properties of the full entity; in those 
 might want to use the `Pick` type-utility or use the `select` property on a query builder
 (which `QueryResolver`'s take into account).
 
+For example, many functions only use the `.id` property. It might make sense to create a
+`UserId` type which only has `{ id: string }` or `Pick<AuthUser, "id">`. For a fully
+type-safe solution, 'branded' types is the way to go here, see the docs of
+`@lightbase/utils` on this one.
+
 ## GitHub actions and documentation
 
 You might have changed various commands, for example `npm run test` vs `npx compas test`,

@@ -36,6 +36,15 @@ This document describes the initial steps to execute the conversion.
     commit often. Leave behind a trail of `TODO(compas-convert)` when it makes sense, and
     use `$ConvertAny` where it makes sense.
 
+## Dev setup
+
+You might need to make some alterations to your dev-environment, for example, enabling the
+TypeScript language server in your IDE. Another thing to note here, is that by default we
+use the `noEmit` option of TypeScript. This speeds up compilation quite a bit in mid- to
+big-size projects. We can do this, because we only need to run the transpiled output in
+production (or Docker builds). Running tests via Vitest automatically transpiles when
+necessary, and use `tsx` or comparable otherwise to just run `.ts` files in development.
+
 ## Snippet for eslint.config.js
 
 ```ts
@@ -62,7 +71,9 @@ export default defineConfig(
 
 ## Example Dockerfile
 
-A pretty unoptimized Dockerfile.
+A pretty unoptimized Dockerfile. Note the `npm run build:emit` to make sure TypeScript
+emits files. In CI, we can just use `npm run build`, since we don't need the emitted
+files.
 
 ```Dockerfile
 FROM node:22-alpine as deps

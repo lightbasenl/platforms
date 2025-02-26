@@ -10,9 +10,9 @@ export async function initTypescriptInProject(context: Context) {
 	const packageJson = await retrievePackageJson(context);
 
 	packageJson.devDependencies ??= {};
-	packageJson.devDependencies["tsx"] = "4.19.2";
+	packageJson.devDependencies["tsx"] = "4.19.3";
 	packageJson.devDependencies["typescript"] = "5.7.3";
-	packageJson.devDependencies["vitest"] = "3.0.4";
+	packageJson.devDependencies["vitest"] = "3.0.7";
 	packageJson.devDependencies["@total-typescript/tsconfig"] = "1.0.4";
 	packageJson.devDependencies["@types/node"] = "latest";
 	packageJson.devDependencies["@compas/code-gen"] = "0.16.3";
