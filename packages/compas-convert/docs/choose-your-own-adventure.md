@@ -280,6 +280,8 @@ Tasks:
 - Verify that all documentation does not mention outdated commands
 - In some projects error strings might refer to a command, so a global search on common
   commands like 'compas run' and 'compas migrate' might be good to execute.
+- For Lightbase colleagues, see the setup of sourcemap uploads to Sentry in the first
+  converted project.
 
 ## Finalization celebration
 
