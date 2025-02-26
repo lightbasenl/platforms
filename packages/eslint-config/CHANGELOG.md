@@ -2,18 +2,25 @@
 
 ## [3.1.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.1.1...eslint-config-v3.1.2) (2025-02-26)
 
-
 ### Bug Fixes
 
-* **eslint-config:** Use the same options for `no-console` locally as in CI ([4675d17](https://github.com/lightbasenl/platforms/commit/4675d17505e4515835a35abd21ae9c919a90e9e3))
-
+- **eslint-config:** Use the same options for `no-console` locally as in CI
+  ([4675d17](https://github.com/lightbasenl/platforms/commit/4675d17505e4515835a35abd21ae9c919a90e9e3))
 
 ### Dependencies
 
-* Bump eslint-import-resolver-typescript from 3.8.2 to 3.8.3 ([#405](https://github.com/lightbasenl/platforms/issues/405)) ([5ea840d](https://github.com/lightbasenl/platforms/commit/5ea840d91c0ea3c79ef193310d6d9a9a569e8631))
-* Bump globals from 15.15.0 to 16.0.0 ([#404](https://github.com/lightbasenl/platforms/issues/404)) ([5ed72ed](https://github.com/lightbasenl/platforms/commit/5ed72edd6fe9096e76179c7c81746bef3b57f68a))
-* Bump prettier from 3.5.1 to 3.5.2 ([#410](https://github.com/lightbasenl/platforms/issues/410)) ([93bfc4b](https://github.com/lightbasenl/platforms/commit/93bfc4b9f331349f09669a2c4e9d8d9435c6555e))
-* Bump the typescript-eslint group with 2 updates ([#411](https://github.com/lightbasenl/platforms/issues/411)) ([0aeb8f4](https://github.com/lightbasenl/platforms/commit/0aeb8f42221f41a104f51f3f312fa81d694d2fd3))
+- Bump eslint-import-resolver-typescript from 3.8.2 to 3.8.3
+  ([#405](https://github.com/lightbasenl/platforms/issues/405))
+  ([5ea840d](https://github.com/lightbasenl/platforms/commit/5ea840d91c0ea3c79ef193310d6d9a9a569e8631))
+- Bump globals from 15.15.0 to 16.0.0
+  ([#404](https://github.com/lightbasenl/platforms/issues/404))
+  ([5ed72ed](https://github.com/lightbasenl/platforms/commit/5ed72edd6fe9096e76179c7c81746bef3b57f68a))
+- Bump prettier from 3.5.1 to 3.5.2
+  ([#410](https://github.com/lightbasenl/platforms/issues/410))
+  ([93bfc4b](https://github.com/lightbasenl/platforms/commit/93bfc4b9f331349f09669a2c4e9d8d9435c6555e))
+- Bump the typescript-eslint group with 2 updates
+  ([#411](https://github.com/lightbasenl/platforms/issues/411))
+  ([0aeb8f4](https://github.com/lightbasenl/platforms/commit/0aeb8f42221f41a104f51f3f312fa81d694d2fd3))
 
 ## [3.1.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.1.0...eslint-config-v3.1.1) (2025-02-20)
 
