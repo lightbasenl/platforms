@@ -30,7 +30,8 @@ We use all the strict-features of TypeScript, it might make sense for your proje
 disable a few to start with. But as a general rule, the stricter the better. Which should
 be possible, provided that the picked libraries are type-aware as well. Compas might
 generate empty types `export type Foo = {}`. This empty object literal is not ideal. Read
-up on why that is :).
+up on why that is :). In general, when used in application code, using
+`Record<string, unknown>` might make the most sense, but check on a case-by-case basis.
 
 ## Any usage
 
@@ -141,6 +142,13 @@ things like `isNil`. It also has branch-less error cases like `assertNotNil`.
 
 In general, we can improve error handling a bit, using things like invariants more. Also
 checkout the types that package provides.
+
+## Explicit return types
+
+We'd have to find some common ground on explicit or implicit return types. In general, the
+community consensus is that for complex functions and/or complex return types, it makes
+sense to use explicit return types. Annotating a `upperCaseFirst(str: string): string` or
+explicit `Promise<void>` function isn't really necessary, but we can align on that later.
 
 ## Git Worktree
 

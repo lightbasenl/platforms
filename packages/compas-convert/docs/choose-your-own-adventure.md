@@ -18,6 +18,24 @@ Converting in one go ain't a small feat. Try to ignore most 'unrelated'-errors w
 executing tasks. You'll get to them later. Also, doing a stellar job now results in a good
 working base to build-off on later.
 
+## Add different type packages
+
+Some packages don't include typings (yet)...
+
+Tasks:
+
+- Add the below snippet to your `devDependencies`. You might come across more dependencies
+  as you go.
+
+```json
+{
+	"@types/bcrypt": "5.0.2",
+	"@types/mjml": "4.7.4",
+	"@types/nodemailer": "6.4.17",
+	"@types/nodemailer-html-to-text": "3.1.3"
+}
+```
+
 ## Cleanup commands/generate.ts
 
 The converter rewrote `commands/generate.js` to not be a Compas command anymore. It did so
@@ -32,6 +50,12 @@ Tasks:
 - Note the usage of `register()` in the file, it might make sense for other scripts to use
   this as well. It enhances `await import(...)` to resolve the TypeScript files as well.
   Making `tsx ./scripts/foo.ts` even more useful.
+- Use `Generator` instead of `App` in `gen/` files. `App` is an old import, which doesn't
+  seem to be reflected yet in the JSDocs of all projects.
+- If `T.any().implementations` is used, make sure to supply the `ts` implementation.
+- If you don't use the ERD much in the project README, now might be the time to clean it
+  up. You could still generate it by keeping the `database.includeEntityDiagram` option.
+  It will then reside in the `$generated/common` directory.
 
 ## As you-go
 
@@ -124,20 +148,6 @@ For example, many functions only use the `.id` property. It might make sense to 
 type-safe solution, 'branded' types is the way to go here, see the docs of
 `@lightbase/utils` on this one.
 
-## GitHub actions and documentation
-
-You might have changed various commands, for example `npm run test` vs `npx compas test`,
-or change `compas generate application` to `npm run generate`. These changes should be
-reflected in your CI and documentation as well.
-
-Tasks:
-
-- Verify that GH actions are working as expected. Make sure `npm run build` is called as
-  part of the pipelines.
-- Verify that all documentation does not mention outdated commands
-- In some projects error strings might refer to a command, so a global search on common
-  commands like 'compas run' and 'compas migrate' might be good to execute.
-
 ## Tests
 
 Most of the test files are converted automatically to use Vitest' APIs. The setup that we
@@ -210,28 +220,66 @@ Tasks:
 
 There are a bunch of things not mentioned, that you may need to do. For example:
 
-- The JSDoc was incorrect. Either missing, incorrectly formatted or the wrong type was
-  used. Add the correct type annotations. Also note that in many cases Compas generates an
-  `FooBar` and `FooBarInput`. The latter being the validator input type, which allows for
-  example string inputs for `T.date()` validators, which it converts internally.
-- Missing `@types/` packages in your dev-dependencies, which should be added.
-- Adding explicit generics when creating things like `new Set<string>()` or
-  `new Map<string, number>()`.
-- Transforming an entity to a response which uses the `delete` operator. It works better
-  to just manually map the full thing, i.e `{ id: entity.id, propX: entity.propX }`.
-- Incorrect return-types. Returning something like `Promise<QueryResultFooBar>` is often
-  incorrect if the builder-type is inferred. In some cases, you want to explicitly add the
-  correct return type, in others its fine to let TypeScript just infer the return type.
-- Invalid `ctx` typings. When passing `ctx` to `fileSendResponse`, use
-  `as unknown as Context` importing `Context` from Koa. In other scenario's
-  `Context & { log: Logger, event: InsightEvent }` might be appropriate.
-- Doing arithmetic or logical expressions with `Date` objects. An explicit `.getTime()`
-  call is necessary.
+The JSDoc was incorrect. Either missing, incorrectly formatted or the wrong type was used.
+Add the correct type annotations. Also note that in many cases Compas generates an
+`FooBar` and `FooBarInput`. The latter being the validator input type, which allows for
+example string inputs for `T.date()` validators, which it converts internally.
+
+Adding explicit generics when creating things like `new Set<string>()` or
+`new Map<string, number>()`.
+
+Transforming an entity to a response which uses the `delete` operator. It works better to
+just manually map the full thing, i.e `{ id: entity.id, propX: entity.propX }`.
+
+Incorrect return-types. Returning something like `Promise<QueryResultFooBar>` is often
+incorrect if the builder-type is inferred. In some cases, you want to explicitly add the
+correct return type, in others its fine to let TypeScript just infer the return type.
+
+Invalid `ctx` typings. When passing `ctx` to `fileSendResponse`, use
+`as unknown as Context` importing `Context` from Koa. In other scenario's
+`Context & { log: Logger, event: InsightEvent }` might be appropriate. See the below
+snippet for globally augmenting the `koa.Context` type. This also allows typing the
+session information, so in vendored backend code, you can use
+`const _ctx = ctx as unknown as Context;` and `_ctx[sessionStoreObjectSymbol]`
+
+Doing arithmetic or logical expressions with `Date` objects. An explicit `.getTime()` call
+is necessary.
+
+Checks on `typeof sql.savepoint === "function"` give a type-error. Use something like
+`typeof (sql as TransactionSql).savepoint === "function"`. Later on, you might want to use
+explicit `Postgres` and `TransactionSql` types when needed.
 
 Tasks:
 
 - Go through each file and fix these things. It makes sense to go by domain, starting with
   'isolated' (or less-business heavy) domains.
+
+```ts
+// Globally augments the Koa context type.
+
+declare module "koa" {
+	interface DefaultContext {
+		[sessionStoreObjectSymbol]: StoreSessionStore;
+		session: AuthSession;
+		event: InsightEvent;
+		log: Logger;
+	}
+}
+```
+
+## GitHub actions and documentation
+
+You might have changed various commands, for example `npm run test` vs `npx compas test`,
+or change `compas generate application` to `npm run generate`. These changes should be
+reflected in your CI and documentation as well.
+
+Tasks:
+
+- Verify that GH actions are working as expected. Make sure `npm run build` is called as
+  part of the pipelines.
+- Verify that all documentation does not mention outdated commands
+- In some projects error strings might refer to a command, so a global search on common
+  commands like 'compas run' and 'compas migrate' might be good to execute.
 
 ## Finalization celebration
 
