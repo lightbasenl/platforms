@@ -45,7 +45,10 @@ export function javascript(): Array<FlatConfig.Config> {
 
 				"default-case-last": "error",
 				"default-param-last": "error",
-				"no-console": isCI ? ["error", { allow: ["dir", "time", "timeEnd"] }] : "warn",
+				"no-console":
+					isCI ?
+						["error", { allow: ["dir", "time", "timeEnd"] }]
+					:	["warn", { allow: ["dir", "time", "timeEnd"] }],
 				"no-else-return": "error",
 				"no-eq-null": "error",
 				"no-labels": "error",
