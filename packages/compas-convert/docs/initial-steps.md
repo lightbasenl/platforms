@@ -95,10 +95,11 @@ WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/dist .
+COPY --from=deps /app/package.json .
 
 # Copy over necessary assets, which are not included in `dist/`.
-COPY ./config .
-COPY ./migrations .
+COPY ./config ./config
+COPY ./migrations ./migrations
 
 # Setup Sentry release variable to be based on the current commit sha.
 ARG COMMIT_SHA
