@@ -3,10 +3,10 @@ import type { OmitKeysThatExtend, PickKeysThatExtend, Prettify } from "../src/ty
 
 describe("Prettify", () => {
 	it("returns the same primitive", () => {
-		expectTypeOf<Prettify<true>>().toMatchTypeOf<boolean>();
-		expectTypeOf<Prettify<"foo">>().toMatchTypeOf<string>();
-		expectTypeOf<Prettify<1>>().toMatchTypeOf<number>();
-		expectTypeOf<Prettify<null>>().toMatchTypeOf<null>();
+		expectTypeOf<Prettify<true>>().toExtend<boolean>();
+		expectTypeOf<Prettify<"foo">>().toExtend<string>();
+		expectTypeOf<Prettify<1>>().toExtend<number>();
+		expectTypeOf<Prettify<null>>().toEqualTypeOf<null>();
 	});
 
 	it("returns the same object-like types", () => {
