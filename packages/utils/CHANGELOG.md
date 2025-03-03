@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/lightbasenl/platforms/compare/utils-v1.0.2...utils-v1.0.3) (2025-03-03)
+
+### Miscellaneous
+
+- **utils:** Don't use deprecated type-check method `toMatchTypeOf` of Vitest
+  ([850e76a](https://github.com/lightbasenl/platforms/commit/850e76aeaba84e278927deb99eb6dc263da97742))
+
 ## [1.0.2](https://github.com/lightbasenl/platforms/compare/utils-v1.0.1...utils-v1.0.2) (2025-01-17)
 
 ### Miscellaneous
