@@ -21,8 +21,8 @@ files while generating for example. Projects can alternatively use
 [type-stripping](https://nodejs.org/docs/latest/api/typescript.html#type-stripping). The
 last one can especially be great with the new
 [`erasableSyntaxOnly`](https://github.com/microsoft/TypeScript/issues/59601)
-([or on a blog](https://www.totaltypescript.com/erasable-syntax-only)) option of
-TypeScript 5.8 (beta at the time of writing).
+([or from a blog](https://www.totaltypescript.com/erasable-syntax-only)) option of
+TypeScript 5.8.
 
 ## TypeScript in general
 

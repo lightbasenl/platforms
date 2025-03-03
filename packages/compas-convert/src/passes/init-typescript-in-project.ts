@@ -11,7 +11,7 @@ export async function initTypescriptInProject(context: Context) {
 
 	packageJson.devDependencies ??= {};
 	packageJson.devDependencies["tsx"] = "4.19.3";
-	packageJson.devDependencies["typescript"] = "5.7.3";
+	packageJson.devDependencies["typescript"] = "5.8.2";
 	packageJson.devDependencies["vitest"] = "3.0.7";
 	packageJson.devDependencies["@total-typescript/tsconfig"] = "1.0.4";
 	packageJson.devDependencies["@types/node"] = "latest";
@@ -41,7 +41,13 @@ export async function initTypescriptInProject(context: Context) {
     "lib": ["esnext"],
     "incremental": true,
     "noEmit": true,
-    "extendedDiagnostics": true
+    "extendedDiagnostics": true,
+    "erasableSyntaxOnly": true,
+
+    // Sentry compatible sourcemap generation
+    "sourceMap": true,
+    "inlineSources": true,
+    "sourceRoot": "/"
   },
   "exclude": ["dist"],
   "include": ["**/*"]
