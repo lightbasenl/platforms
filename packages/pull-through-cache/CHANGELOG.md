@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.2.2...pull-through-cache-v0.2.3) (2025-03-04)
+
+
+### Miscellaneous
+
+* Bump TypeScript, enable `erasableSyntaxOnly`, bump TypeScript ESLint ([caa68a2](https://github.com/lightbasenl/platforms/commit/caa68a220ede751af5bda01b9bdfdd80b83836fc))
+
 ## [0.2.2](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.2.1...pull-through-cache-v0.2.2) (2024-08-21)
 
 ### Miscellaneous
