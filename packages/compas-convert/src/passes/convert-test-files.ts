@@ -1,8 +1,7 @@
 import type { CallExpression, SourceFile } from "ts-morph";
+import { SyntaxKind } from "ts-morph";
 import { Node } from "ts-morph";
-import { ts } from "ts-morph";
 import type { Context } from "../context.js";
-import SyntaxKind = ts.SyntaxKind;
 
 /**
  * TODO:
@@ -10,19 +9,21 @@ import SyntaxKind = ts.SyntaxKind;
  *  - Do something with: test("teardown", ...  (not now)
  */
 
-enum TestCommand {
-	equal = "equal",
-	notEqual = "notEqual",
-	deepEqual = "deepEqual",
-	pass = "pass",
-	ok = "ok",
-	notOk = "notOk",
-	fail = "fail",
-	test = "test",
-}
+const TestCommand = {
+	equal: "equal",
+	notEqual: "notEqual",
+	deepEqual: "deepEqual",
+	pass: "pass",
+	ok: "ok",
+	notOk: "notOk",
+	fail: "fail",
+	test: "test",
+} as const;
+
+type TestCommandValue = keyof typeof TestCommand;
 
 type TUsage = {
-	command: TestCommand;
+	command: TestCommandValue;
 	expression: CallExpression;
 	testArgumentName: string;
 };
@@ -239,7 +240,7 @@ function getNestedUsageOfT(expression: CallExpression): Array<TUsage> {
 
 			if (command in TestCommand) {
 				result.push({
-					command: command as TestCommand,
+					command: command as TestCommandValue,
 					expression: childStatement,
 					testArgumentName,
 				});

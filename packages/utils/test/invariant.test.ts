@@ -188,10 +188,13 @@ describe("createInvariant", () => {
 
 	describe("invariant with parameterized error constructor", () => {
 		class MyError {
-			constructor(
-				public status: number,
-				public key: string,
-			) {}
+			public status: number;
+			public key: string;
+
+			constructor(status: number, key: string) {
+				this.key = key;
+				this.status = status;
+			}
 		}
 
 		const invariant = createInvariant({
@@ -240,10 +243,13 @@ describe("createInvariant", () => {
 
 	describe("invariant with partial applied parameterized error constructor", () => {
 		class MyError {
-			constructor(
-				public status: number,
-				public key: string,
-			) {}
+			public status: number;
+			public key: string;
+
+			constructor(status: number, key: string) {
+				this.key = key;
+				this.status = status;
+			}
 		}
 
 		const invariant = createInvariant({

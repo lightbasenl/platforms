@@ -58,16 +58,16 @@ function showInvisibles(str: string) {
 	return ret;
 }
 
-enum Op {
-	INSERT = 1,
-	EQUAL = 0,
-	DELETE = -1,
-}
+const Op = {
+	INSERT: 1,
+	EQUAL: 0,
+	DELETE: -1,
+} as const;
 
 /**
  * Generate results for differences between source code and formatted version.
  */
-function generateDifferences(results: Array<[Op, string]>) {
+function generateDifferences(results: Array<[number, string]>) {
 	// fast-diff returns the differences between two texts as a series of
 	// INSERT, DELETE or EQUAL operations. The results occur only in these
 	// sequences:
@@ -115,7 +115,6 @@ function generateDifferences(results: Array<[Op, string]>) {
 				}
 				break;
 			default:
-				// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
 				throw new Error(`Unexpected fast-diff operation "${op}"`);
 		}
 		if (batch.length && !results.length) {

@@ -1,7 +1,6 @@
 import type { SourceFile } from "ts-morph";
-import { Node, ts } from "ts-morph";
+import { Node, SyntaxKind } from "ts-morph";
 import type { Context } from "../context.js";
-import SyntaxKind = ts.SyntaxKind;
 
 /**
  * Add 'assertIsAppError' statements for type checking caught exception values in test files.
@@ -80,8 +79,8 @@ export function isAppErrorInTestFiles(context: Context, sourceFile: SourceFile) 
 
 /**
  * Get the next diagnostic which we can possible fix.
- * This way we rerun the diagnostics each time, getting an up-to-date view. Since one assertion can
- * fix multiple errors.
+ * This way we rerun the diagnostics each time, getting an up-to-date view. Since one
+ * assertion can fix multiple errors.
  */
 function getNextObjectOfTypeUnknownDiagnostic(
 	sourceFile: SourceFile,

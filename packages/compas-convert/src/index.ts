@@ -26,7 +26,6 @@ import { transformModuleJsDoc } from "./passes/transform-module-js-doc.js";
 import { fixTypesOfAllFunctions } from "./passes/types-of-all-functions.js";
 import { fixTypesOfLiveBindings } from "./passes/types-of-live-bindings.js";
 import { typescriptDiagnostics } from "./passes/typescript-save-and-build.js";
-import { Cache } from "./shared/cache.js";
 import { globOfAllTypeScriptFiles } from "./shared/project-files.js";
 import { isNil } from "./utils.js";
 
@@ -93,8 +92,6 @@ const passes: Array<Pass> = [
 	typescriptDiagnostics,
 ];
 
-const cacheablePasses: Array<string> = [];
-
 consola.start(`Converting ${path.relative(process.cwd(), resolvedInputDirectory)}`);
 for (const pass of passes) {
 	consola.info(`Running ${pass.name}`);
@@ -114,17 +111,8 @@ for (const pass of passes) {
 			}
 
 			try {
-				const cache = new Cache(context, sourceFile);
-				if (cacheablePasses.includes(pass.name) && cache.useIfExists()) {
-					continue;
-				}
-
 				await pass(context, sourceFile);
 				await sourceFile.save();
-
-				if (cacheablePasses.includes(pass.name)) {
-					cache.store();
-				}
 			} catch (e) {
 				consola.debug({
 					sourceFile: sourceFile.getFilePath(),

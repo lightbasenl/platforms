@@ -53,7 +53,11 @@ export class GeneratorFile {
 	#deferList: Array<() => void> = [];
 	#beforeToStringList: Array<() => void> = [];
 
-	constructor(public relativePath: string) {}
+	relativePath: string;
+
+	constructor(relativePath: string) {
+		this.relativePath = relativePath;
+	}
 
 	defer(cb: () => void) {
 		this.#deferList.push(cb);
