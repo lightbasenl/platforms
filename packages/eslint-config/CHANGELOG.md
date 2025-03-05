@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.1.3](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.1.2...eslint-config-v3.1.3) (2025-03-04)
+
+### Miscellaneous
+
+- Bump TypeScript, enable `erasableSyntaxOnly`, bump TypeScript ESLint
+  ([caa68a2](https://github.com/lightbasenl/platforms/commit/caa68a220ede751af5bda01b9bdfdd80b83836fc))
+
+### Dependencies
+
+- Bump prettier from 3.5.2 to 3.5.3
+  ([#416](https://github.com/lightbasenl/platforms/issues/416))
+  ([b822b04](https://github.com/lightbasenl/platforms/commit/b822b0490ac8fdf1b6546c153a93929ced037cfb))
+
 ## [3.1.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.1.1...eslint-config-v3.1.2) (2025-02-26)
 
 ### Bug Fixes
