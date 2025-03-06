@@ -21,7 +21,7 @@ export const GLOBS = {
 	json: "**/*.json?(5|c)",
 
 	nextJsFilesWithDefaultExports:
-		"**/{default,error,forbidden,layout,loading,middleware,not-found,page,template,unauthorized,icon,apple-icon,manifest,opengraph-image,twitter-image,robots,sitemap}.?(c|m)ts?(x)",
+		"**/{default,global-error,error,forbidden,layout,loading,middleware,not-found,page,template,unauthorized,icon,apple-icon,manifest,opengraph-image,twitter-image,robots,sitemap}.?(c|m)ts?(x)",
 };
 
 /**
