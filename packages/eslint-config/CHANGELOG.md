@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.1.3...eslint-config-v3.2.0) (2025-03-07)
+
+
+### Features
+
+* **eslint-config:** Allow default exports in Next.js global-error files ([4f1b61d](https://github.com/lightbasenl/platforms/commit/4f1b61da1d576fea5bd9a948375078dda6f65494))
+
 ## [3.1.3](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.1.2...eslint-config-v3.1.3) (2025-03-04)
 
 ### Miscellaneous
