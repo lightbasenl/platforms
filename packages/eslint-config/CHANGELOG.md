@@ -2,16 +2,18 @@
 
 ## [3.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.1.3...eslint-config-v3.2.0) (2025-03-10)
 
-
 ### Features
 
-* **eslint-config:** Allow default exports in Next.js global-error files ([4f1b61d](https://github.com/lightbasenl/platforms/commit/4f1b61da1d576fea5bd9a948375078dda6f65494))
-* **eslint-config:** Drop eslint-plugin markdown ([4383478](https://github.com/lightbasenl/platforms/commit/438347859120fa76165b8ff5bf26857de69b9547))
-
+- **eslint-config:** Allow default exports in Next.js global-error files
+  ([4f1b61d](https://github.com/lightbasenl/platforms/commit/4f1b61da1d576fea5bd9a948375078dda6f65494))
+- **eslint-config:** Drop eslint-plugin markdown
+  ([4383478](https://github.com/lightbasenl/platforms/commit/438347859120fa76165b8ff5bf26857de69b9547))
 
 ### Dependencies
 
-* Bump the eslint group across 1 directory with 3 updates ([#425](https://github.com/lightbasenl/platforms/issues/425)) ([7c90e8c](https://github.com/lightbasenl/platforms/commit/7c90e8c7914c2a98cef48c19016c89cb6b4fa98a))
+- Bump the eslint group across 1 directory with 3 updates
+  ([#425](https://github.com/lightbasenl/platforms/issues/425))
+  ([7c90e8c](https://github.com/lightbasenl/platforms/commit/7c90e8c7914c2a98cef48c19016c89cb6b4fa98a))
 
 ## [3.1.3](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.1.2...eslint-config-v3.1.3) (2025-03-04)
 
