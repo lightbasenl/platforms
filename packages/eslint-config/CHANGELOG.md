@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.2.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.2.0...eslint-config-v3.2.1) (2025-03-20)
+
+
+### Dependencies
+
+* Bump eslint-import-resolver-typescript from 3.8.3 to 3.8.4 ([#430](https://github.com/lightbasenl/platforms/issues/430)) ([e96f706](https://github.com/lightbasenl/platforms/commit/e96f706cedc3a639d55e513f1680c7d99d4bf94a))
+* Bump eslint-import-resolver-typescript from 3.8.4 to 3.8.5 ([#434](https://github.com/lightbasenl/platforms/issues/434)) ([cb872ee](https://github.com/lightbasenl/platforms/commit/cb872ee93d124cd09e351afbeef54224d35c8088))
+* Bump eslint-import-resolver-typescript from 3.8.5 to 3.8.6 ([#435](https://github.com/lightbasenl/platforms/issues/435)) ([a6ef540](https://github.com/lightbasenl/platforms/commit/a6ef54045d54c68e3b598e977628a2d618b05a92))
+* Bump eslint-import-resolver-typescript from 3.8.6 to 3.8.7 ([#436](https://github.com/lightbasenl/platforms/issues/436)) ([4c7a8b5](https://github.com/lightbasenl/platforms/commit/4c7a8b5d5d75438fc095c14b8f9bc3f2e9e98413))
+* Bump eslint-import-resolver-typescript from 3.8.7 to 4.2.0 ([#440](https://github.com/lightbasenl/platforms/issues/440)) ([79fbcf8](https://github.com/lightbasenl/platforms/commit/79fbcf8d18a03b614d32adb31736ea777d411a4f))
+* Bump eslint-import-resolver-typescript from 4.2.0 to 4.2.2 ([#442](https://github.com/lightbasenl/platforms/issues/442)) ([a77271a](https://github.com/lightbasenl/platforms/commit/a77271a5fea93ca1d78cec90668eba77d3ef6140))
+* Bump eslint-plugin-comment-length from 2.1.1 to 2.2.1 ([#431](https://github.com/lightbasenl/platforms/issues/431)) ([95dfdde](https://github.com/lightbasenl/platforms/commit/95dfdde19b161cc61111e40653eb2f8080306f42))
+* Bump eslint-plugin-file-progress from 3.0.1 to 3.0.2 ([#443](https://github.com/lightbasenl/platforms/issues/443)) ([ce4a8c4](https://github.com/lightbasenl/platforms/commit/ce4a8c425520baa7396602fb48360913de76e69a))
+* Bump eslint-plugin-import-x from 4.6.1 to 4.8.0 ([#438](https://github.com/lightbasenl/platforms/issues/438)) ([aa73652](https://github.com/lightbasenl/platforms/commit/aa736520bbe2d61454205051708a1b881e0b55b9))
+* Bump eslint-plugin-import-x from 4.8.0 to 4.9.1 ([#447](https://github.com/lightbasenl/platforms/issues/447)) ([20e9fc0](https://github.com/lightbasenl/platforms/commit/20e9fc056319eee1ff3ad3814d69e707d9fb3d1c))
+* Bump eslint-plugin-jsdoc from 50.6.3 to 50.6.6 ([#429](https://github.com/lightbasenl/platforms/issues/429)) ([7a0f0c6](https://github.com/lightbasenl/platforms/commit/7a0f0c61c2183e0bb7c59dabce0d04a88dcdda95))
+* Bump eslint-plugin-jsdoc from 50.6.6 to 50.6.8 ([#445](https://github.com/lightbasenl/platforms/issues/445)) ([c73427a](https://github.com/lightbasenl/platforms/commit/c73427a8ce9d950bd20b08b4cbd74761a746c78e))
+* Bump the typescript-eslint group with 3 updates ([#428](https://github.com/lightbasenl/platforms/issues/428)) ([9e3efc5](https://github.com/lightbasenl/platforms/commit/9e3efc5069f6b4ce7a1dea50f8783b34c7054569))
+* Bump the typescript-eslint group with 3 updates ([#446](https://github.com/lightbasenl/platforms/issues/446)) ([ef4458c](https://github.com/lightbasenl/platforms/commit/ef4458c02e1e991e4e9cf3ca064b45b984f43bab))
+
 ## [3.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.1.3...eslint-config-v3.2.0) (2025-03-10)
 
 ### Features
