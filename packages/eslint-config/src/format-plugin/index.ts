@@ -35,7 +35,6 @@ export const formatPlugin: FlatConfig.Plugin = {
 			},
 			create(context) {
 				if (!format) {
-					// @ts-expect-error untyped
 					format = createSyncFn(
 						join(fileURLToPath(new URL("./", import.meta.url)), "worker.cjs"),
 					);
