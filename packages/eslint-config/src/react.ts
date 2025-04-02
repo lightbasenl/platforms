@@ -3,8 +3,7 @@ import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import pluginJSXA11y from "eslint-plugin-jsx-a11y";
 import pluginNoRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
 import pluginReact from "eslint-plugin-react";
-// @ts-expect-error no type defs
-import pluginReactHooks from "eslint-plugin-react-hooks";
+import * as pluginReactHooks from "eslint-plugin-react-hooks";
 import { GLOBS, globUse } from "./globs.js";
 
 export type ReactConfig = {
@@ -59,7 +58,8 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 			files: globUse([GLOBS.typescript]),
 			plugins: {
 				"react": pluginReact as unknown as FlatConfig.Plugin,
-				"react-hooks": pluginReactHooks as FlatConfig.Plugin,
+				"react-hooks":
+					pluginReactHooks.configs["recommended-latest"].plugins["react-hooks"],
 				"jsx-a11y": pluginJSXA11y as FlatConfig.Plugin,
 			},
 			settings: {
