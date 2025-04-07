@@ -36,3 +36,8 @@ updates:
         patterns:
           - "vitest"
           - "@vitest/*"
+
+      eslint-mdx:
+        patterns:
+          - "eslint-mdx"
+          - "eslint-plugin-mdx"
