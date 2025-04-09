@@ -18,9 +18,6 @@
 			"path": "./packages/eslint-config"
 		},
 		{
-			"path": "./packages/open-api-code-gen"
-		},
-		{
 			"path": "./packages/pull-through-cache"
 		},
 		{

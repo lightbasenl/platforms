@@ -37,9 +37,8 @@ rm -rf ../compas-convert-test && npx compas-convert ../some-local-test-project .
 
 ## TODO
 
-- [ ] ~Fully implement the 'compas-compat' target in
-      [open-api-code-gen](../open-api-code-gen).~ Most likely not necessary, we can keep
-      the exposed structure as is for now.
+- [ ] ~Fully implement the 'compas-compat' target in `open-api-code-gen`.~ Most likely not
+      necessary, we can keep the exposed structure as is for now.
 - [x] Pass: Generator compatibility. Create / improve Compas Typescript targets for
       tighter integrations.
   - [x] Types
