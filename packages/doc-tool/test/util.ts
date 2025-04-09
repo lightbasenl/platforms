@@ -61,6 +61,7 @@ export async function testOnStdout({
 				env: {
 					...process.env,
 					CONSOLA_LEVEL: "6",
+					FORCE_COLOR: "1",
 				},
 			},
 		);

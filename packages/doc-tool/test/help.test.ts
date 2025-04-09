@@ -13,16 +13,16 @@ test("should output help information", async () => {
 		{
 		  "stderr": "",
 		  "stdout": "[log] 
-		Usage: node test-generate.ts [...options]
+		Usage: [36mnode test-generate.ts [...options][39m
 
 		A CLI tool for maintaining and improving Markdown-based project and process documentation
 		with support for TOC generation, link checking, glossary suggestions, and more.
 
 		Commands:
-		  node test-generate.ts
+		  [36mnode test-generate.ts[39m
 		    Run basic checks on all files in the configured content roots.
 
-		  node test-generate.ts suggest [glob]
+		  [36mnode test-generate.ts suggest [glob][39m
 		    Suggest changes to files based on the configured content roots.
 		    Pass in a glob to only suggest changes to the full contents of files matching the glob.
 
