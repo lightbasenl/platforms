@@ -10,6 +10,7 @@ export const tmpDir = path.join(
 	import.meta.dirname,
 	`../.cache/.tmp/${crypto.randomUUID()}`,
 );
+
 export const ensureEmptyTestDir = async () => {
 	// Create a temporary directory to run our tests in.
 	await fs.mkdir(tmpDir, { recursive: true });
@@ -37,7 +38,7 @@ export async function testOnStdout({
 		{
 			path: "test-generate.ts",
 			contents: `
-			import { defineOpenApiCodeGen } from "@lightbase/open-api-code-gen";
+			import { defineDocumentationConfig } from "@lightbase/doc-tool";
 			
 			// Test contents
 			// -------------

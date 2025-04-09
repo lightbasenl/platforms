@@ -9,6 +9,9 @@ All public packages & GitHub workflows developed and used by
   formatting
 - A [Pull-through-cache](./packages/eslint-config) with TTL, update sampling and scheduled
   eviction support.
+- A [doc-tool](./packages/doc-tool) for maintaining and improving Markdown-based project
+  and process documentation with support for TOC generation, link checking, glossary
+  suggestions, and more.
 - Various reusable workflows
   - [lib-license-checker](./docs/workflows/lib-license-checker.md)
   - [lib-ci](./docs/workflows/lib-ci.md)
