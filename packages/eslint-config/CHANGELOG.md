@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.2.3](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.2.2...eslint-config-v3.2.3) (2025-04-09)
+
+### Dependencies
+
+- Bump synckit from 0.11.2 to 0.11.3
+  ([#475](https://github.com/lightbasenl/platforms/issues/475))
+  ([4b6a5da](https://github.com/lightbasenl/platforms/commit/4b6a5da852c53261606daa1c6aa4e2229fd7a792))
+- Bump the typescript-eslint group with 3 updates
+  ([#474](https://github.com/lightbasenl/platforms/issues/474))
+  ([f8dfc6b](https://github.com/lightbasenl/platforms/commit/f8dfc6b7897143566cf665a1df3a204f56a1f060))
+
 ## [3.2.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.2.1...eslint-config-v3.2.2) (2025-04-07)
 
 ### Dependencies
