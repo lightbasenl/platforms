@@ -1,5 +1,5 @@
-import { describe, it } from "vitest";
-import { isNil, isRecord } from "../src/is.js";
+import { describe, expectTypeOf, it } from "vitest";
+import { isNil, isRecord, isRecordWith } from "../src/is.js";
 
 export const isNilTestCases = [
 	{ input: null, expected: true },
@@ -61,4 +61,39 @@ describe("isRecord", () => {
 			expect(isRecord(input)).toBe(expected);
 		},
 	);
+
+	it("type-narrows the result", ({ expect }) => {
+		const input = { foo: "bar" } as unknown;
+		expect.assertions(1);
+
+		if (isRecord(input)) {
+			expectTypeOf(input).toEqualTypeOf<Record<string, unknown>>();
+			expect(input.foo).toBe("bar");
+		}
+	});
+});
+
+describe("isRecordWith", () => {
+	it.for([...isRecordTestCases])(
+		"runs through the test cases '%s'",
+		({ input, expected }, { expect }) => {
+			expect(isRecordWith(input, [])).toBe(expected);
+		},
+	);
+
+	it("only returns true if all keys are in the record", ({ expect }) => {
+		const input = { foo: undefined };
+
+		expect(isRecordWith(input, ["foo", "bar"])).toBe(false);
+	});
+
+	it("type-narrows the result", ({ expect }) => {
+		const input = { foo: "bar" } as unknown;
+		expect.assertions(1);
+
+		if (isRecordWith(input, ["foo"])) {
+			expectTypeOf(input).toEqualTypeOf<Record<"foo", unknown>>();
+			expect(input.foo).toBe("bar");
+		}
+	});
 });

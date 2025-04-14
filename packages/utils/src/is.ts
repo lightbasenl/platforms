@@ -15,9 +15,9 @@ export function isRecord(value: unknown): value is Record<string, unknown> {
 /**
  * Check if the provided value is an object-like with the provided keys
  */
-export function isRecordWith<T extends string>(
+export function isRecordWith<const T extends Array<string>>(
 	value: unknown,
-	keys: Array<T>,
-): value is Record<T & string, unknown> {
+	keys: T,
+): value is Record<T[number] & string, unknown> {
 	return isRecord(value) && keys.every((key) => Object.hasOwn(value, key));
 }
