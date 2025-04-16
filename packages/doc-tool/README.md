@@ -1,4 +1,4 @@
-# Doc tool
+# Doc-tool
 
 A CLI tool for maintaining and improving Markdown-based project and process documentation
 with support for TOC generation, link checking, glossary suggestions, and more.
@@ -46,7 +46,7 @@ defineDocumentationConfig({
 });
 ```
 
-To run doc-tool run one of the following commands to run the config file.
+To run doc-tool, run one of the following commands to run the config file.
 
 ```shell
 # Node.js 22.6+
@@ -73,8 +73,8 @@ The path-on-disk on where to find the Markdown files. All files are always inclu
 
 ### `baseUrl?: string`
 
-Defaults to `'/'`. Customize the url for the suggested links. Can be useful when the docs
-are hosted at a subpath, or when a content root is hosted at a different domain.
+Defaults to `'/'`. Customize the url for the suggested links. This can be useful when the
+docs are hosted at a subpath, or when a content root is hosted at a different domain.
 
 ### `shareGlossary?: boolean`
 
@@ -86,12 +86,12 @@ Defaults to `true`. If glossary terms should be suggested over the different
 Validate your custom frontmatter of a page via one of the
 [Standard Schema](https://github.com/standard-schema/standard-schema?tab=readme-ov-file#what-schema-libraries-implement-the-spec)
 implementers. Note that doc-tool also uses some frontmatter keys, so either include these
-in your schema, or make sure that the validator accepts unknown keys.
+in your validation schema or make sure that the validator accepts unknown keys.
 
 ### `toc?: boolean`
 
-Defaults to `true`. Determines if table of contents are generated for all pages. This can
-be overwritten per page via frontmatter
+Defaults to `true`. Determine if the table of contents is generated for all pages. This
+can be overwritten per page via frontmatter
 
 ```md
 ---
@@ -123,7 +123,7 @@ related_pages_max: 3
 
 ### `node ./docs.config.ts`
 
-Run a table of contents updates, frontmatter validation and broken-link-detection on all
+Run a table of contents updates, frontmatter validation, and broken-link-detection on all
 Markdown files.
 
 Locally, this will automatically persist any updates to disk. On CI, an attempt is done to
@@ -131,17 +131,17 @@ create Pull Request comments with suggestions.
 
 ### `node ./docs.config.ts suggest [glob]`
 
-Run the suggestions for glossary linking, see-also sections and more. By default only
+Run the suggestions for glossary linking, see-also sections and more. By default, only
 suggests in newly created documentation based on Git. When a glob is passed, full file
-runs are done. Note that in most shells the glob should be in single-quotes to prevent
+runs are done. Note that in most shells, the glob should be in single-quotes to prevent
 shell-expansion.
 
-Locally this will start an interactive shell session to apply suggestions. On CI this will
+Locally, this will output interactive prompts to apply suggestions. On CI this will
 attempt to create Pull Request comments with the suggestions.
 
 ## Conventions
 
-For this doc-tool to work as expected , some conventions _must_ be followed.
+For this doc-tool to work as expected, some conventions **must** be followed.
 
 ### Create links
 
@@ -157,7 +157,7 @@ Alternative names can be listed using the following format:
 ```md
 ## Term
 
-Alternatives: comma-separated, _multi-word support_, _and some basic styles as well_.
+Alternatives: comma-separated, multi-word support, _and some basic styles as well_.
 
 This is the meaning of my term.
 ```

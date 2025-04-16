@@ -49,6 +49,8 @@ export async function testOnStdout({
 
 	for (const file of files) {
 		const p = path.join(tmpDir, file.path);
+		const dir = path.dirname(p);
+		await fs.mkdir(dir, { recursive: true });
 		await fs.writeFile(p, file.contents);
 	}
 

@@ -4,5 +4,10 @@
 		"outDir": "dist",
 		"erasableSyntaxOnly": true
 	},
-	"include": ["**/*"]
+	"include": ["**/*"],
+	"references": [
+		{
+			"path": "../utils"
+		}
+	]
 }

@@ -1,15 +1,16 @@
-import { beforeEach, expect, test } from "vitest";
-import { ensureEmptyTestDir, testOnStdout } from "./util.js";
+import { beforeEach, describe, expect, it } from "vitest";
+import { ensureEmptyTestDir, testOnStdout } from "../util.js";
 
 beforeEach(ensureEmptyTestDir);
 
-test("should output help information", async () => {
-	const { stdout, stderr } = await testOnStdout({
-		contents: `defineDocumentationConfig({ contentRoots: [] });`,
-		args: ["--help"],
-	});
+describe("e2e - help", () => {
+	it("should output help information", async () => {
+		const { stdout, stderr } = await testOnStdout({
+			contents: `defineDocumentationConfig({ contentRoots: [] });`,
+			args: ["--help"],
+		});
 
-	expect({ stdout, stderr }).toMatchInlineSnapshot(`
+		expect({ stdout, stderr }).toMatchInlineSnapshot(`
 		{
 		  "stderr": "",
 		  "stdout": "[log] 
@@ -35,4 +36,5 @@ test("should output help information", async () => {
 		",
 		}
 	`);
+	});
 });

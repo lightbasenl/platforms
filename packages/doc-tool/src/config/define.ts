@@ -1,33 +1,67 @@
 import path from "node:path";
 import consola from "consola";
-import { printHelp } from "./help.js";
-
-type Config = {
-	contentRoots: Array<{
-		toc?: boolean;
-	}>;
-};
+import { executeDocCheck } from "../commands/check.js";
+import { printHelp } from "../commands/help.js";
+import { executeDocSuggest } from "../commands/suggest.js";
+import { createContext } from "../context/types.js";
+import { ConfigValidationError } from "../error.js";
+import { parseCliAndEnvironmentVariables } from "./cli-and-env.js";
+import { isCalledFromEntrypoint } from "./entrypoint.js";
+import { validateDocRootConfig } from "./validate.js";
+import type { DocToolCliAndEnvOptions } from "./validate.js";
+import type { DocumentationConfigInput } from "./validate.js";
 
 /**
- * Entrypoint for OpenAPI code generation.
+ * Entrypoint for Doc-tool automations.
  */
-export function defineDocumentationConfig(_opts: Config) {
+export function defineDocumentationConfig(opts: DocumentationConfigInput) {
+	const isEntrypoint = isCalledFromEntrypoint();
 	const configurationFile = path.relative(process.cwd(), process.argv[1] ?? "");
-	let runType: "help" | "check" | "suggest" = "check";
+	const baseConfig = parseCliAndEnvironmentVariables(
+		process.argv,
+		process.env,
+		process.stdout,
+	);
 
-	if (process.argv.includes("--help")) {
-		runType = "help";
-	} else if (process.argv.includes("suggest")) {
-		runType = "suggest";
+	try {
+		startDocTool(opts, baseConfig, configurationFile);
+	} catch (e) {
+		if (isEntrypoint) {
+			if (e instanceof ConfigValidationError) {
+				consola.error(e.message);
+				process.exit(1);
+			} else {
+				throw e;
+			}
+		} else {
+			throw e;
+		}
 	}
+}
 
-	switch (runType) {
+/**
+ * Starts the documentation tool using the provided configuration options.
+ */
+export function startDocTool(
+	opts: DocumentationConfigInput,
+	baseConfig: DocToolCliAndEnvOptions,
+	configurationFile: string,
+): void {
+	const config = validateDocRootConfig(opts, baseConfig);
+	const context = createContext(config);
+
+	switch (config.command) {
 		case "help":
 			printHelp({ configurationFile });
 			return;
 		case "check":
+			consola.start(`Running @lightbase/doc-tool for '${configurationFile}'.`);
+			executeDocCheck(context);
+			return;
 		case "suggest":
 			consola.start(`Running @lightbase/doc-tool for '${configurationFile}'.`);
-			consola.error("WIP!");
+			executeDocCheck(context);
+			executeDocSuggest(context);
+			return;
 	}
 }
