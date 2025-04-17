@@ -43,3 +43,6 @@ yarn-error.log*
 *.tsbuildinfo
 .cache
 packages/compas-convert/cache
+
+# LLM's
+.junie

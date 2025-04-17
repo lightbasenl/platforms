@@ -3,10 +3,10 @@ import { describe, expect, it, vi } from "vitest";
 import { startDocTool } from "../../src/config/define.js";
 
 describe("help command", () => {
-	it("should display help information", () => {
+	it("should display help information", async () => {
 		const consolaInfo = vi.spyOn(consola, "log");
 
-		startDocTool(
+		await startDocTool(
 			{
 				contentRoots: [],
 			},

@@ -1,6 +1,6 @@
 import { defineDocumentationConfig } from "../src/index.js";
 
-defineDocumentationConfig({
+await defineDocumentationConfig({
 	contentRoots: [
 		{
 			path: "./docs",

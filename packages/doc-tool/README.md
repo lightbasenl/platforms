@@ -30,7 +30,7 @@ Create a file in your project root with the following contents in `docs.config.t
 import { defineDocumentationConfig } from "@lightbase/doc-tool";
 
 // Configure the doc-tool and execute its CLI.
-defineDocumentationConfig({
+await defineDocumentationConfig({
 	contentRoots: [
 		{
 			path: "./docs",

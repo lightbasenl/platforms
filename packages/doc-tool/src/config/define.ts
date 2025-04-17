@@ -14,7 +14,7 @@ import type { DocumentationConfigInput } from "./validate.js";
 /**
  * Entrypoint for Doc-tool automations.
  */
-export function defineDocumentationConfig(opts: DocumentationConfigInput) {
+export async function defineDocumentationConfig(opts: DocumentationConfigInput) {
 	const isEntrypoint = isCalledFromEntrypoint();
 	const configurationFile = path.relative(process.cwd(), process.argv[1] ?? "");
 	const baseConfig = parseCliAndEnvironmentVariables(
@@ -24,16 +24,19 @@ export function defineDocumentationConfig(opts: DocumentationConfigInput) {
 	);
 
 	try {
-		startDocTool(opts, baseConfig, configurationFile);
+		await startDocTool(opts, baseConfig, configurationFile);
 	} catch (e) {
 		if (isEntrypoint) {
 			if (e instanceof ConfigValidationError) {
 				consola.error(e.message);
 				process.exit(1);
 			} else {
-				throw e;
+				// Just print the error and exit.
+				consola.error(e);
+				process.exit(1);
 			}
 		} else {
+			// Rethrow, user may want to act on the error.
 			throw e;
 		}
 	}
@@ -42,11 +45,11 @@ export function defineDocumentationConfig(opts: DocumentationConfigInput) {
 /**
  * Starts the documentation tool using the provided configuration options.
  */
-export function startDocTool(
+export async function startDocTool(
 	opts: DocumentationConfigInput,
 	baseConfig: DocToolCliAndEnvOptions,
 	configurationFile: string,
-): void {
+): Promise<void> {
 	const config = validateDocRootConfig(opts, baseConfig);
 	const context = createContext(config);
 
@@ -56,12 +59,13 @@ export function startDocTool(
 			return;
 		case "check":
 			consola.start(`Running @lightbase/doc-tool for '${configurationFile}'.`);
-			executeDocCheck(context);
+			await executeDocCheck(context);
 			return;
-		case "suggest":
+		case "suggest": {
 			consola.start(`Running @lightbase/doc-tool for '${configurationFile}'.`);
-			executeDocCheck(context);
+			await executeDocCheck(context);
 			executeDocSuggest(context);
 			return;
+		}
 	}
 }

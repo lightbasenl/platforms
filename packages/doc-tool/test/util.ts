@@ -55,13 +55,18 @@ export async function testOnStdout({
 	}
 
 	try {
+		const env = { ...process.env };
+		delete env.NO_COLOR;
+		delete env.FORCE_COLOR;
+
 		const promise = execPromise(
 			`npx tsx ./test-generate.ts${args?.length ? ` ${args.join(" ")}` : ""}`,
 			{
 				cwd: tmpDir,
 				timeout: 5000,
 				env: {
-					...process.env,
+					...env,
+
 					CONSOLA_LEVEL: "6",
 					FORCE_COLOR: "1",
 				},

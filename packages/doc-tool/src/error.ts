@@ -5,3 +5,16 @@ export class ConfigValidationError extends Error {
 		Object.setPrototypeOf(this, ConfigValidationError.prototype);
 	}
 }
+
+export class FileParsingError extends Error {
+	public readonly filePath: string;
+
+	constructor(message: string, filePath: string, cause?: unknown) {
+		super(`Error parsing file ${filePath}: ${message}`);
+
+		this.cause = cause;
+		this.filePath = filePath;
+
+		Object.setPrototypeOf(this, FileParsingError.prototype);
+	}
+}

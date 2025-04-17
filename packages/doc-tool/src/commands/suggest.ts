@@ -4,6 +4,13 @@ import type { Context } from "../context/types.js";
 export function executeDocSuggest(context: Context) {
 	consola.debug(context);
 
+	const parsedFiles = context.files;
+	if (parsedFiles) {
+		consola.info(`Suggesting improvements for ${parsedFiles.length} markdown files`);
+	} else {
+		consola.warn("No parsed files provided, suggestions may be limited");
+	}
+
 	// TODO: Suggest glossary usage linking
 
 	// TODO: Suggest Related Pages section.

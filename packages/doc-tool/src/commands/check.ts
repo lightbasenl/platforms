@@ -1,26 +1,39 @@
 import consola from "consola";
 import type { Context } from "../context/types.js";
+import { findAndParseMarkdownFiles } from "../markdown/parser.js";
 
-export function executeDocCheck(context: Context) {
+export async function executeDocCheck(context: Context) {
 	consola.debug(context);
 
-	// TODO: Resolve, normalize and parse all files in the content roots.
-	//  - mdast-util-from-markdown
-	//  - mdast-util-gfm
+	// Resolve, normalize and parse all files in the content roots.
+	const contentRoots = context.config.contentRoots;
+	consola.info(`Finding and parsing markdown files.`);
 
-	// TODO: Resolve + validate frontmatter options for all files.
-	//   - mdast-util-frontmatter
-	//   - yaml
+	try {
+		const parsedFiles = await findAndParseMarkdownFiles(contentRoots);
+		context.files = parsedFiles;
+		consola.success(`Found and parsed ${parsedFiles.length} markdown files.`);
 
-	// TODO: TOC generation
-	//   - mdast-comment-marker
-	//   - mdast-normalize-headings
+		// Log some basic information about the parsed files
+		for (const file of parsedFiles) {
+			consola.debug(`Parsed file: ${file.filePath}`);
+		}
 
-	// TODO: Broken link detection
+		// TODO: Resolve + validate frontmatter options for all files.
+		//   - mdast-util-frontmatter
+		//   - yaml
 
-	// TODO: Page stats (most and least linked).
+		// TODO: TOC generation
+		//   - mdast-comment-marker
+		//   - mdast-normalize-headings
 
-	// TODO: Output formats: commit fixes, interactive, non-interactive.
+		// TODO: Broken link detection
 
-	consola.error("WIP!");
+		// TODO: Page stats (most and least linked).
+
+		// TODO: Output formats: commit fixes, interactive, non-interactive.
+	} catch (error) {
+		consola.error("Error parsing markdown files:", error);
+		throw error;
+	}
 }
