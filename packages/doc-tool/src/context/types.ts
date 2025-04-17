@@ -1,14 +1,19 @@
 import type { DocToolConfig } from "../config/validate.js";
-import type { ParsedMarkdownFile } from "../markdown/parser.js";
 import { nonInteractiveReporter } from "../reporter/non-interactive.js";
 import type { Reporter } from "../reporter/types.js";
+import type { RepositoryState } from "../repository/index.js";
 
 export type Context = {
 	config: DocToolConfig;
 
 	reporter: Reporter;
 
-	files: Array<ParsedMarkdownFile>;
+	/**
+	 * Repository state for markdown documents.
+	 *
+	 * This is initialized after files are parsed.
+	 */
+	repository?: RepositoryState;
 };
 
 export function createContext(config: DocToolConfig): Context {
@@ -23,6 +28,5 @@ export function createContext(config: DocToolConfig): Context {
 	return {
 		config,
 		reporter,
-		files: [],
 	};
 }

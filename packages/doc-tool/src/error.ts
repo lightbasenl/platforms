@@ -18,3 +18,16 @@ export class FileParsingError extends Error {
 		Object.setPrototypeOf(this, FileParsingError.prototype);
 	}
 }
+
+export class FrontmatterParsingError extends Error {
+	public readonly filePath: string;
+
+	constructor(message: string, filePath: string, cause?: unknown) {
+		super(`Error parsing frontmatter in file ${filePath}: ${message}`);
+
+		this.cause = cause;
+		this.filePath = filePath;
+
+		Object.setPrototypeOf(this, FrontmatterParsingError.prototype);
+	}
+}

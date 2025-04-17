@@ -1,8 +1,11 @@
 import { globSync } from "node:fs";
 import fs from "node:fs/promises";
+import path from "node:path";
 import type { Root } from "mdast";
 import { fromMarkdown } from "mdast-util-from-markdown";
+import { frontmatterFromMarkdown } from "mdast-util-frontmatter";
 import { gfmFromMarkdown } from "mdast-util-gfm";
+import { frontmatter } from "micromark-extension-frontmatter";
 import { gfm } from "micromark-extension-gfm";
 import type { ContentRoot } from "../config/validate.js";
 import { FileParsingError } from "../error.js";
@@ -15,6 +18,11 @@ export interface ParsedMarkdownFile {
 	 * The path to the markdown file
 	 */
 	filePath: string;
+
+	/**
+	 * The path on disk to the file.
+	 */
+	absolutePath: string;
 
 	/**
 	 * The content root this file belongs to
@@ -67,12 +75,13 @@ export async function parseMarkdownFile(
 
 	// Parse the markdown content into an AST
 	const ast = fromMarkdown(content, {
-		extensions: [gfm()],
-		mdastExtensions: [gfmFromMarkdown()],
+		extensions: [gfm(), frontmatter()],
+		mdastExtensions: [gfmFromMarkdown(), frontmatterFromMarkdown()],
 	});
 
 	return {
 		filePath,
+		absolutePath: path.resolve(contentRoot.path, filePath),
 		contentRoot,
 		ast,
 		content,

@@ -4,7 +4,11 @@ import { executeDocCheck } from "../commands/check.js";
 import { printHelp } from "../commands/help.js";
 import { executeDocSuggest } from "../commands/suggest.js";
 import { createContext } from "../context/types.js";
-import { ConfigValidationError } from "../error.js";
+import {
+	ConfigValidationError,
+	FileParsingError,
+	FrontmatterParsingError,
+} from "../error.js";
 import { parseCliAndEnvironmentVariables } from "./cli-and-env.js";
 import { isCalledFromEntrypoint } from "./entrypoint.js";
 import { validateDocRootConfig } from "./validate.js";
@@ -27,7 +31,12 @@ export async function defineDocumentationConfig(opts: DocumentationConfigInput) 
 		await startDocTool(opts, baseConfig, configurationFile);
 	} catch (e) {
 		if (isEntrypoint) {
-			if (e instanceof ConfigValidationError) {
+			if (
+				e instanceof ConfigValidationError ||
+				e instanceof FileParsingError ||
+				e instanceof FrontmatterParsingError
+			) {
+				// Handle custom errors with a specific error message
 				consola.error(e.message);
 				process.exit(1);
 			} else {
