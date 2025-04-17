@@ -15,12 +15,8 @@ jobs:
   build-lint-test:
     uses: lightbasenl/platforms/.github/workflows/lib-ci.yml@main
     strategy:
-      matrix:
-        runs:
-          - node-version: 20
-          - node-version: 22
     with:
-      node-version: ${{ matrix.node-version }}
+      node-version: 22
       command: |
         npm run build:ws
         npm run lint:ci:ws

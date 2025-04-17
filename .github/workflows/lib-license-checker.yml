@@ -22,21 +22,21 @@ jobs:
         uses: actions/setup-node@v4
         if: ${{ hashFiles('yarn.lock') != '' }}
         with:
-          node-version: 20
+          node-version: 22
           cache: "yarn"
 
       - name: "Setup Node (with NPM cache)"
         uses: actions/setup-node@v4
         if: ${{ hashFiles('package-lock.json') != '' }}
         with:
-          node-version: 20
+          node-version: 22
           cache: "npm"
 
       - name: "Setup Node (no lockfile)"
         uses: actions/setup-node@v4
         if: ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' }}
         with:
-          node-version: 20
+          node-version: 22
           cache: "npm"
           cache-dependency-path: ./package.json
 

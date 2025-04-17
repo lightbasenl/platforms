@@ -9,7 +9,7 @@ on:
       node-version:
         type: string
         description: "Node.js version to run CI against."
-        default: "20"
+        default: "22"
       main-command:
         type: string
         default: ""
