@@ -11,7 +11,7 @@ export type RepositoryState = {
 	parsedFiles: Array<ParsedMarkdownFile>;
 
 	/**
-	 * Map of all files by absolute path;
+	 * Map of all files by path;
 	 */
 	parsedFilesByPath: Map<string, ParsedMarkdownFile>;
 
@@ -51,13 +51,7 @@ export function createRepositoryState(
  * Generate a unique ID for a document based on its file path
  */
 export function generateDocumentId(it: ParsedMarkdownFile): string {
-	// If the file path already includes the content root path, return it as is
-	if (it.filePath.startsWith(it.contentRoot.path)) {
-		return it.filePath;
-	}
-
-	// Otherwise, combine the content root path with the file path
-	return `${it.contentRoot.path}${it.filePath}`;
+	return it.filePath;
 }
 
 /**

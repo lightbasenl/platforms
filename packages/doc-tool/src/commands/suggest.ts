@@ -9,7 +9,7 @@ export function executeDocSuggest(context: Context) {
 	assertNotNil(context.repository);
 
 	const parsedFiles = context.repository.parsedFiles;
-	consola.info(`Suggesting improvements for ${parsedFiles.length} markdown files`);
+	consola.info(`Suggesting improvements for ${parsedFiles.length} markdown files.`);
 
 	const _repoState = context.repository;
 

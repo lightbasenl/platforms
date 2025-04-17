@@ -39,7 +39,6 @@ function createMockParsedFile(
 ): ParsedMarkdownFile {
 	return {
 		filePath,
-		absolutePath: filePath,
 		contentRoot,
 		ast: {
 			type: "root",

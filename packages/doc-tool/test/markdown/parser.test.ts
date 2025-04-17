@@ -68,10 +68,12 @@ describe("markdown parser", () => {
 
 			// Verify results
 			expect(files).toHaveLength(3);
-			expect(files.map((f) => path.basename(f))).toContain("file1.md");
-			expect(files.map((f) => path.basename(f))).toContain("file2.md");
-			expect(files.map((f) => path.basename(f))).toContain("file3.md");
-			expect(files.map((f) => path.basename(f))).not.toContain("not-markdown.txt");
+			expect(files.map((f) => path.basename(f.filePath))).toContain("file1.md");
+			expect(files.map((f) => path.basename(f.filePath))).toContain("file2.md");
+			expect(files.map((f) => path.basename(f.filePath))).toContain("file3.md");
+			expect(files.map((f) => path.basename(f.filePath))).not.toContain(
+				"not-markdown.txt",
+			);
 		});
 
 		it("should find markdown files in multiple content roots", async () => {
@@ -93,8 +95,9 @@ describe("markdown parser", () => {
 
 			// Verify results
 			expect(files).toHaveLength(2);
-			expect(files.map((f) => path.basename(f))).toContain("file1.md");
-			expect(files.map((f) => path.basename(f))).toContain("file2.md");
+
+			expect(files.map((f) => path.basename(f.filePath))).toContain("file1.md");
+			expect(files.map((f) => path.basename(f.filePath))).toContain("file2.md");
 		});
 
 		it("should ignore files in node_modules and dist directories", async () => {
@@ -118,8 +121,8 @@ describe("markdown parser", () => {
 
 			// Verify results
 			expect(files).toHaveLength(1);
-			expect(files.map((f) => path.basename(f))).toContain("file1.md");
-			expect(files.map((f) => path.basename(f))).not.toContain("ignored.md");
+			expect(files.map((f) => path.basename(f.filePath))).toContain("file1.md");
+			expect(files.map((f) => path.basename(f.filePath))).not.toContain("ignored.md");
 		});
 	});
 

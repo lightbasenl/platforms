@@ -50,7 +50,6 @@ function createMockParsedFile(
 ): ParsedMarkdownFile {
 	return {
 		filePath,
-		absolutePath: filePath,
 		contentRoot,
 		ast: {
 			type: "root",
@@ -87,16 +86,19 @@ describe("repository", () => {
 	});
 
 	describe("generateDocumentId", () => {
-		it("should generate a document ID based on the file path", () => {
-			// Arrange
-			const parsedFile = createMockParsedFile("/file.md", createMockContentRoot());
+		it.each(["./file.md", "/file.md", "./nested/file.md"])(
+			"should generate a document ID based on the file path",
+			(input) => {
+				// Arrange
+				const parsedFile = createMockParsedFile(input, createMockContentRoot());
 
-			// Act
-			const id = generateDocumentId(parsedFile);
+				// Act
+				const id = generateDocumentId(parsedFile);
 
-			// Assert
-			expect(id).toBe("/test/file.md");
-		});
+				// Assert
+				expect(id).toBe(input);
+			},
+		);
 	});
 
 	describe("getDocumentById", () => {

@@ -20,11 +20,6 @@ export interface ParsedMarkdownFile {
 	filePath: string;
 
 	/**
-	 * The path on disk to the file.
-	 */
-	absolutePath: string;
-
-	/**
 	 * The content root this file belongs to
 	 */
 	contentRoot: ContentRoot;
@@ -43,19 +38,33 @@ export interface ParsedMarkdownFile {
 /**
  * Find all markdown files in the given content roots
  */
-export function findMarkdownFiles(contentRoots: Array<ContentRoot>): Array<string> {
-	const markdownFiles: Array<string> = [];
+export function findMarkdownFiles(
+	contentRoots: Array<ContentRoot>,
+): Array<{ filePath: string; contentRoot: ContentRoot }> {
+	const markdownFiles: Array<{ filePath: string; contentRoot: ContentRoot }> = [];
 
 	for (const contentRoot of contentRoots) {
 		// Find all .md files in the content root
-		const files = globSync(`${contentRoot.path}/**/*.md`, {});
+		const files = globSync(`**/*.md`, {
+			cwd: contentRoot.path,
+		});
 
 		// Filter out files in node_modules and dist directories
 		const filteredFiles = files.filter((file) => {
-			return !file.includes("/node_modules/") && !file.includes("/dist/");
+			return (
+				!file.includes("/node_modules/") &&
+				!file.startsWith("node_modules/") &&
+				!file.includes("/dist/") &&
+				!file.startsWith("dist/")
+			);
 		});
 
-		markdownFiles.push(...filteredFiles);
+		markdownFiles.push(
+			...filteredFiles.map((it) => ({
+				filePath: path.join(contentRoot.path, it),
+				contentRoot,
+			})),
+		);
 	}
 
 	return markdownFiles;
@@ -81,7 +90,6 @@ export async function parseMarkdownFile(
 
 	return {
 		filePath,
-		absolutePath: path.resolve(contentRoot.path, filePath),
 		contentRoot,
 		ast,
 		content,
@@ -99,10 +107,7 @@ export async function findAndParseMarkdownFiles(
 	const filePaths = findMarkdownFiles(contentRoots);
 	const parsedFiles: Array<ParsedMarkdownFile> = [];
 
-	for (const filePath of filePaths) {
-		// Find which content root this file belongs to
-		const contentRoot = contentRoots.find((root) => filePath.startsWith(root.path))!;
-
+	for (const { filePath, contentRoot } of filePaths) {
 		try {
 			const parsedFile = await parseMarkdownFile(filePath, contentRoot);
 			parsedFiles.push(parsedFile);
