@@ -11,9 +11,7 @@
 		"url": "git+https://github.com/lightbasenl/platforms.git",
 		"directory": "packages/utils"
 	},
-	"files": [
-		"dist/src"
-	],
+	"files": ["dist/src"],
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
