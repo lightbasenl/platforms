@@ -39,6 +39,6 @@
 		"yaml": "2.7.1"
 	},
 	"devDependencies": {
-		"tsx": "4.19.3"
+		"tsx": "4.19.4"
 	}
 }
