@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/lightbasenl/platforms/compare/utils-v1.0.3...utils-v1.1.0) (2025-05-13)
+
+
+### Features
+
+* **utils:** Use cons generics in `isRecordWith` ([2c3f4f2](https://github.com/lightbasenl/platforms/commit/2c3f4f285da5e9e11d90adbe7f4e7650653f6349))
+
 ## [1.0.3](https://github.com/lightbasenl/platforms/compare/utils-v1.0.2...utils-v1.0.3) (2025-03-04)
 
 ### Miscellaneous
