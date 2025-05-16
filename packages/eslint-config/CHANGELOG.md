@@ -2,11 +2,14 @@
 
 ## [3.2.4](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.2.3...eslint-config-v3.2.4) (2025-05-16)
 
-
 ### Dependencies
 
-* Bump eslint-plugin-jsdoc from 50.6.14 to 50.6.17 ([#516](https://github.com/lightbasenl/platforms/issues/516)) ([8f1ae20](https://github.com/lightbasenl/platforms/commit/8f1ae201747d7296733e20893f1af801e49c96b0))
-* Bump synckit from 0.11.4 to 0.11.5 ([#517](https://github.com/lightbasenl/platforms/issues/517)) ([330abf2](https://github.com/lightbasenl/platforms/commit/330abf240cb7596bd754de9303158d4843513b69))
+- Bump eslint-plugin-jsdoc from 50.6.14 to 50.6.17
+  ([#516](https://github.com/lightbasenl/platforms/issues/516))
+  ([8f1ae20](https://github.com/lightbasenl/platforms/commit/8f1ae201747d7296733e20893f1af801e49c96b0))
+- Bump synckit from 0.11.4 to 0.11.5
+  ([#517](https://github.com/lightbasenl/platforms/issues/517))
+  ([330abf2](https://github.com/lightbasenl/platforms/commit/330abf240cb7596bd754de9303158d4843513b69))
 
 ## [3.2.3](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.2.2...eslint-config-v3.2.3) (2025-05-13)
 

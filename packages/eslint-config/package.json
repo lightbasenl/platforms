@@ -19,11 +19,7 @@
 	},
 	"main": "./dist/src/index.js",
 	"types": "./dist/src/index.d.ts",
-	"files": [
-		"README.md",
-		"LICENSE",
-		"dist/src"
-	],
+	"files": ["README.md", "LICENSE", "dist/src"],
 	"scripts": {
 		"build": "tsc -p ./tsconfig.json",
 		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
