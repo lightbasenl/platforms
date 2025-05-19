@@ -44,7 +44,7 @@
 		"eslint-plugin-unused-imports": "4.1.4",
 		"globals": "16.1.0",
 		"prettier": "3.5.3",
-		"synckit": "0.11.5",
+		"synckit": "0.11.6",
 		"typescript-eslint": "8.32.1"
 	},
 	"peerDependencies": {
