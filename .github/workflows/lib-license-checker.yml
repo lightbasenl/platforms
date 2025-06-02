@@ -5,7 +5,7 @@ on:
         description: "Semicolon separated list of dependencies to skip."
         type: string
         default: ""
-        
+
 jobs:
   check-license:
     runs-on: ubuntu-latest
@@ -38,7 +38,9 @@ jobs:
 
       - name: "Setup Node (no lockfile)"
         uses: actions/setup-node@v4
-        if: ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' && hashFiles('bun.lock') == '' }}
+        if:
+          ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' &&
+          hashFiles('bun.lock') == '' }}
         with:
           node-version: 22
           cache: "npm"
