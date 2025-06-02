@@ -34,7 +34,7 @@ jobs:
 
       - name: "Setup Bun"
         if: ${{ hashFiles('bun.lock') != '' }}
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
 
       - name: "Setup Node (no lockfile)"
         uses: actions/setup-node@v4
