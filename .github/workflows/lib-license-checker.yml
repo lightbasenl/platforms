@@ -32,9 +32,15 @@ jobs:
           node-version: 22
           cache: "npm"
 
+      - name: "Setup Bun"
+        if: ${{ hashFiles('bun.lock') != '' }}
+        uses: oven-sh/setup-bun@v2
+
       - name: "Setup Node (no lockfile)"
         uses: actions/setup-node@v4
-        if: ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' }}
+        if:
+          ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' &&
+          hashFiles('bun.lock') == '' }}
         with:
           node-version: 22
           cache: "npm"
@@ -45,9 +51,14 @@ jobs:
         run: |
           yarn
 
+      - name: "Install Bun"
+        if: ${{ hashFiles('bun.lock') != '' }}
+        run: |
+          bun install --frozen-lockfile
+
       # Default to NPM if another unsupported package manager is used.
       - name: "Install NPM"
-        if: ${{ hashFiles('yarn.lock') == '' }}
+        if: ${{ hashFiles('yarn.lock') == '' && hashFiles('bun.lock') == '' }}
         run: |
           npm install --ignore-scripts
 
