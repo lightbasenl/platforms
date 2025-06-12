@@ -9,7 +9,7 @@
 		"composite": false,
 		"declaration": false
 	},
-	"files": ["./eslint.config.js", "./vitest.workspace.ts"],
+	"files": ["./eslint.config.js", "./vitest.config.ts"],
 	"references": [
 		{
 			"path": "./packages/compas-convert"
