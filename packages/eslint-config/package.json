@@ -43,7 +43,7 @@
 		"eslint-plugin-mdx": "3.5.0",
 		"eslint-plugin-unused-imports": "4.1.4",
 		"globals": "16.2.0",
-		"prettier": "3.6.1",
+		"prettier": "3.6.2",
 		"synckit": "0.11.8",
 		"typescript-eslint": "8.35.0"
 	},
