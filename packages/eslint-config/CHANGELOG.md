@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.2.5](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.2.4...eslint-config-v3.2.5) (2025-07-03)
+
+### Dependencies
+
+- Bump eslint-plugin-jsdoc from 51.3.1 to 51.3.2
+  ([#588](https://github.com/lightbasenl/platforms/issues/588))
+  ([adf6e2a](https://github.com/lightbasenl/platforms/commit/adf6e2a79fef7bc0e4a3510617d267e8fdcdeb24))
+- Bump eslint-plugin-jsdoc from 51.3.2 to 51.3.3
+  ([#590](https://github.com/lightbasenl/platforms/issues/590))
+  ([cbe2347](https://github.com/lightbasenl/platforms/commit/cbe234751eb5bdd7b13955a660ba11b843b96ae4))
+- Bump globals from 16.2.0 to 16.3.0
+  ([#587](https://github.com/lightbasenl/platforms/issues/587))
+  ([7fc8e87](https://github.com/lightbasenl/platforms/commit/7fc8e87805e4dae1299ca24ea6b085564e50e23a))
+- Bump the eslint group with 2 updates
+  ([#586](https://github.com/lightbasenl/platforms/issues/586))
+  ([898e8f1](https://github.com/lightbasenl/platforms/commit/898e8f14f883b3610cc5a77cbd4974226ad344c1))
+- Bump the typescript-eslint group with 3 updates
+  ([#583](https://github.com/lightbasenl/platforms/issues/583))
+  ([9bc5330](https://github.com/lightbasenl/platforms/commit/9bc53301226324e0c9ce9a5cf36b6d1eacb192a0))
+
 ## [3.2.4](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.2.3...eslint-config-v3.2.4) (2025-06-30)
 
 ### Dependencies
