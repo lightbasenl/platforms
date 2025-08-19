@@ -39,6 +39,6 @@
 		"yaml": "2.8.0"
 	},
 	"devDependencies": {
-		"tsx": "4.20.3"
+		"tsx": "4.20.4"
 	}
 }
