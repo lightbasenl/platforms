@@ -16,10 +16,7 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 	const pluginNext =
 		config.withNextJs ?
 			(
-				(await import(
-					// @ts-expect-error no types available
-					"@next/eslint-plugin-next"
-				)) as unknown as {
+				(await import("@next/eslint-plugin-next")) as unknown as {
 					default: FlatConfig.Plugin & {
 						configs: Record<string, FlatConfig.Config>;
 					};
