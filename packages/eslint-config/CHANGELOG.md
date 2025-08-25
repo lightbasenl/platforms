@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.3.0...eslint-config-v3.4.0) (2025-08-25)
+
+
+### Features
+
+* **eslint-config:** Add options to disable relative imports & import ordering in React / Next.js config ([c255d6a](https://github.com/lightbasenl/platforms/commit/c255d6ac078064498829b0831d899637eca895d0))
+
 ## [3.3.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.2.4...eslint-config-v3.3.0) (2025-08-25)
 
 ### Features
