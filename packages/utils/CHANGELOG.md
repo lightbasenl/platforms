@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/lightbasenl/platforms/compare/utils-v1.1.0...utils-v1.2.0) (2025-08-25)
+
+
+### Features
+
+* **eslint-config:** Document `--concurrency=auto` flag ([a465cd7](https://github.com/lightbasenl/platforms/commit/a465cd7dd81a8d8301f89c32f86508e6a6e769fa))
+
 ## [1.1.0](https://github.com/lightbasenl/platforms/compare/utils-v1.0.3...utils-v1.1.0) (2025-05-13)
 
 ### Features
