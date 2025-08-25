@@ -35,8 +35,8 @@ Add the following scripts to your `package.json`:
 ```json
 {
 	"scripts": {
-		"lint": "eslint . --fix --cache --cache-location .cache/eslint/",
-		"lint:ci": "eslint ."
+		"lint": "eslint . --concurrency=auto --fix --cache --cache-location .cache/eslint/",
+		"lint:ci": "eslint . --concurrency=auto"
 	}
 }
 ```

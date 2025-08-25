@@ -10,9 +10,9 @@
 		"build:ws": "npm run build && npm run build --workspaces --if-present",
 		"clean:ws": "npm run clean --workspaces --if-present --include-workspace-root",
 		"build": "tsc --build",
-		"lint": "eslint . --fix --cache --cache-location .cache/eslint/ --color",
+		"lint": "eslint . --fix --concurrency=auto --cache --cache-location .cache/eslint/ --color",
 		"test": "vitest",
-		"lint:ci": "eslint .",
+		"lint:ci": "eslint . --concurrency=auto",
 		"clean": "rm -rf ./.cache ./tsconfig.tsbuildinfo"
 	},
 	"devDependencies": {

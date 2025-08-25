@@ -25,8 +25,8 @@
 	},
 	"scripts": {
 		"build": "tsc -p ./tsconfig.json",
-		"lint": "eslint . --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
-		"lint:ci": "eslint .",
+		"lint": "eslint . --concurrency=auto --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
+		"lint:ci": "eslint . --concurrency=auto",
 		"test": "vitest",
 		"clean": "rm -rf ./.cache ./dist"
 	},
