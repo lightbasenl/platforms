@@ -2,10 +2,10 @@
 
 ## [0.3.0](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.2.3...pull-through-cache-v0.3.0) (2025-08-25)
 
-
 ### Features
 
-* **eslint-config:** Document `--concurrency=auto` flag ([a465cd7](https://github.com/lightbasenl/platforms/commit/a465cd7dd81a8d8301f89c32f86508e6a6e769fa))
+- **eslint-config:** Document `--concurrency=auto` flag
+  ([a465cd7](https://github.com/lightbasenl/platforms/commit/a465cd7dd81a8d8301f89c32f86508e6a6e769fa))
 
 ## [0.2.3](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.2.2...pull-through-cache-v0.2.3) (2025-03-04)
 
