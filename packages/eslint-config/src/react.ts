@@ -8,6 +8,17 @@ import { GLOBS, globUse } from "./globs.js";
 
 export type ReactConfig = {
 	withNextJs?: boolean;
+
+	/**
+	 * Disable forcefully pushing path mappings as defined in your TSConfig.
+	 */
+	disableNoRelativeImportPaths?: boolean;
+
+	/**
+	 * Disable custom import grouping rules. Which fallsback to a single import group, with
+	 * alphabetized order.
+	 */
+	disableCustomImportGrouping?: boolean;
 };
 
 export async function react(config: ReactConfig): Promise<Array<FlatConfig.Config>> {
@@ -88,109 +99,122 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 		{
 			// TODO: revert this!
 
-			// Disable no-deprecated in React projects. For some reason, this rule takes 2+ minutes on a
-			// mid-sized project. We should investigate soon why that is.
+			// Disable no-deprecated in React projects. For some reason, this rule takes 2+ minutes
+			// on a mid-sized project. We should investigate soon why that is.
 			files: globUse([GLOBS.typescript]),
 			rules: {
 				"@typescript-eslint/no-deprecated": "off",
 			},
 		},
 
-		{
-			// Custom import ordering preferences by our frontenders :^)
-			files: globUse([GLOBS.typescript]),
-			plugins: {
-				"no-relative-import-paths": pluginNoRelativeImportPaths as FlatConfig.Plugin,
-			},
-			rules: {
-				"import-x/order": [
-					"error",
-					{
-						"warnOnUnassignedImports": false,
-						"newlines-between": "always",
-						"alphabetize": {
-							order: "asc",
-						},
-						"groups": [
-							"type",
-							"builtin",
-							"external",
-							"internal",
-							"parent",
-							"sibling",
-							"index",
-							"object",
-						],
-						"pathGroups": [
-							{
-								pattern: "css/**",
-								group: "builtin",
-								position: "before",
-							},
-							{
-								pattern: "react",
-								group: "builtin",
-								position: "before",
-							},
-							{
-								pattern: "next/**",
-								group: "builtin",
-								position: "before",
-							},
-							{
-								pattern: "generated/**",
-								group: "internal",
-								position: "before",
-							},
-							{
-								pattern: "lib/**",
-								group: "internal",
-								position: "before",
-							},
-							{
-								pattern: "cms/**",
-								group: "internal",
-								position: "before",
-							},
-							{
-								pattern: "server/**",
-								group: "internal",
-								position: "before",
-							},
-							{
-								pattern: "tenants/**",
-								group: "internal",
-								position: "before",
-							},
-							{
-								pattern: "pages/**",
-								group: "internal",
-								position: "before",
-							},
-							{
-								pattern: "hooks/**",
-								group: "internal",
-								position: "before",
-							},
-							{
-								pattern: "components/**",
-								group: "internal",
-								position: "before",
-							},
-							{
-								pattern: "{assets,locale}/**",
-								group: "internal",
-							},
-						],
-						"pathGroupsExcludedImportTypes": ["react", "next/**", "css/**"],
+		...(config.disableNoRelativeImportPaths ?
+			[]
+		:	([
+				{
+					files: globUse([GLOBS.typescript]),
+					plugins: {
+						"no-relative-import-paths": pluginNoRelativeImportPaths as FlatConfig.Plugin,
 					},
-				],
+					rules: {
+						"no-relative-import-paths/no-relative-import-paths": [
+							"error",
+							{ allowSameFolder: true, rootDir: "src" },
+						],
+					},
+				},
+			] satisfies Array<FlatConfig.Config>)),
 
-				"no-relative-import-paths/no-relative-import-paths": [
-					"error",
-					{ allowSameFolder: true, rootDir: "src" },
-				],
-			},
-		},
+		...(config.disableCustomImportGrouping ?
+			[]
+		:	([
+				{
+					files: globUse([GLOBS.typescript]),
+					// Custom import ordering preferences by our frontenders :^)
+					rules: {
+						"import-x/order": [
+							"error",
+							{
+								"warnOnUnassignedImports": false,
+								"newlines-between": "always",
+								"alphabetize": {
+									order: "asc",
+								},
+								"groups": [
+									"type",
+									"builtin",
+									"external",
+									"internal",
+									"parent",
+									"sibling",
+									"index",
+									"object",
+								],
+								"pathGroups": [
+									{
+										pattern: "css/**",
+										group: "builtin",
+										position: "before",
+									},
+									{
+										pattern: "react",
+										group: "builtin",
+										position: "before",
+									},
+									{
+										pattern: "next/**",
+										group: "builtin",
+										position: "before",
+									},
+									{
+										pattern: "generated/**",
+										group: "internal",
+										position: "before",
+									},
+									{
+										pattern: "lib/**",
+										group: "internal",
+										position: "before",
+									},
+									{
+										pattern: "cms/**",
+										group: "internal",
+										position: "before",
+									},
+									{
+										pattern: "server/**",
+										group: "internal",
+										position: "before",
+									},
+									{
+										pattern: "tenants/**",
+										group: "internal",
+										position: "before",
+									},
+									{
+										pattern: "pages/**",
+										group: "internal",
+										position: "before",
+									},
+									{
+										pattern: "hooks/**",
+										group: "internal",
+										position: "before",
+									},
+									{
+										pattern: "components/**",
+										group: "internal",
+										position: "before",
+									},
+									{
+										pattern: "{assets,locale}/**",
+										group: "internal",
+									},
+								],
+								"pathGroupsExcludedImportTypes": ["react", "next/**", "css/**"],
+							},
+						],
+					},
+				},
+			] satisfies Array<FlatConfig.Config>)),
 	];
 }
