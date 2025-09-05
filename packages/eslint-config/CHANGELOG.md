@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.4.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.4.0...eslint-config-v3.4.1) (2025-09-05)
+
+
+### Dependencies
+
+* Bump eslint-plugin-jsdoc from 54.1.1 to 54.3.0 ([#644](https://github.com/lightbasenl/platforms/issues/644)) ([8e5ccbd](https://github.com/lightbasenl/platforms/commit/8e5ccbd6dbc568ed1cc294dc276e1a1f72db28bc))
+* Bump the typescript-eslint group with 3 updates ([#640](https://github.com/lightbasenl/platforms/issues/640)) ([ff2b0e4](https://github.com/lightbasenl/platforms/commit/ff2b0e45a6d82a00f53082cd1d090fcca9d8dac8))
+* Bump the typescript-eslint group with 3 updates ([#643](https://github.com/lightbasenl/platforms/issues/643)) ([cb602f7](https://github.com/lightbasenl/platforms/commit/cb602f7aa257e39bf1bb15601e66e72cdb27cf2f))
+
 ## [3.4.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.3.0...eslint-config-v3.4.0) (2025-08-25)
 
 ### Features
