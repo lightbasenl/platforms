@@ -51,6 +51,9 @@ jobs:
       ${{ needs.release.outputs.releases_created && needs.release.outputs.paths_released
       != '' && needs.release.outputs.paths_released != '[]' }}
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     strategy:
       fail-fast: false
       matrix:
@@ -77,10 +80,6 @@ jobs:
           npm run build:ws
 
       - name: "Publish to NPM"
-        env:
-          # Expires ~December 2024
-          # Uses NODE_AUTH_TOKEN which is supported by actions/setup-node
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
         run: |
           cd ${{ matrix.path }}
           npm publish --provenance --access public
