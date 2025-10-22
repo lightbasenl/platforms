@@ -19,14 +19,14 @@ jobs:
           persist-credentials: false
 
       - name: "Setup Node (with Yarn cache)"
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         if: ${{ hashFiles('yarn.lock') != '' }}
         with:
           node-version: 22
           cache: "yarn"
 
       - name: "Setup Node (with NPM cache)"
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         if: ${{ hashFiles('package-lock.json') != '' }}
         with:
           node-version: 22
@@ -37,7 +37,7 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - name: "Setup Node (no lockfile)"
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         if:
           ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' &&
           hashFiles('bun.lock') == '' }}
