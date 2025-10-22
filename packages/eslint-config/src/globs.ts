@@ -21,6 +21,8 @@ export const GLOBS = {
 	json: "**/*.json?(5|c)",
 
 	nextJsFilesWithDefaultExports:
+		// TODO: drop 'middleware' at some point.
+		// Note that the new proxy.ts file supports named export of a `proxy` function.
 		"**/{default,global-error,error,forbidden,layout,loading,middleware,not-found,page,template,unauthorized,icon,apple-icon,manifest,opengraph-image,twitter-image,robots,sitemap}.?(c|m)ts?(x)",
 };
 
