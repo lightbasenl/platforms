@@ -15,7 +15,9 @@ describe("isCalledFromEntrypoint", () => {
           at <anonymous> (/Users/.../some/scripts/test.ts:3:1)
     `;
 
-		vi.spyOn(global, "Error").mockImplementation(() => errorStub);
+		vi.spyOn(global, "Error").mockImplementation(function () {
+			return errorStub;
+		});
 
 		expect(isCalledFromEntrypoint(mockProcessArgv)).toBe(true);
 	});
@@ -29,7 +31,9 @@ describe("isCalledFromEntrypoint", () => {
           at <anonymous> (/Users/.../some/otherScript.ts:5:1)
     `;
 
-		vi.spyOn(global, "Error").mockImplementation(() => errorStub);
+		vi.spyOn(global, "Error").mockImplementation(function () {
+			return errorStub;
+		});
 
 		expect(isCalledFromEntrypoint(mockProcessArgv)).toBe(false);
 	});
@@ -47,7 +51,9 @@ describe("isCalledFromEntrypoint", () => {
 			argv: mockProcessArgv,
 		});
 
-		vi.spyOn(global, "Error").mockImplementation(() => errorStub);
+		vi.spyOn(global, "Error").mockImplementation(function () {
+			return errorStub;
+		});
 
 		expect(isCalledFromEntrypoint(mockProcessArgv)).toBe(false);
 	});
@@ -62,7 +68,9 @@ describe("isCalledFromEntrypoint", () => {
           at <anonymous> (/Users/.../some/scripts/test.ts:3:1)
     `;
 
-		vi.spyOn(global, "Error").mockImplementation(() => errorStub);
+		vi.spyOn(global, "Error").mockImplementation(function () {
+			return errorStub;
+		});
 
 		expect(isCalledFromEntrypoint(mockProcessArgv)).toBe(true);
 	});
