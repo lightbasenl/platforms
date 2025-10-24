@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.4.1...eslint-config-v3.4.2) (2025-10-24)
+
+
+### Dependencies
+
+* Bump eslint-plugin-jsdoc from 61.1.5 to 61.1.7 ([#716](https://github.com/lightbasenl/platforms/issues/716)) ([1009637](https://github.com/lightbasenl/platforms/commit/10096373a392a4fae6e256654683a7b10bda213f))
+
 ## [3.4.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.4.0...eslint-config-v3.4.1) (2025-10-22)
 
 ### Miscellaneous
