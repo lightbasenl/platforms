@@ -60,3 +60,33 @@ export function assertNotNil<T>(
 		throw constructError(errorMessageOrConstructor ?? "Assertion failed.", args);
 	}
 }
+
+/**
+ * Type-narrowing assert utility. Asserts that the provided value is truthy.
+ *
+ * Customize the error by providing an error message. Further customization can be done by
+ * providing a class or function and the appropriate arguments.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function assert(condition: any): asserts condition;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function assert(condition: any, errorMessage: string): asserts condition;
+
+export function assert<ErrorLike extends ErrorConstructor>(
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	condition: any,
+	errorConstructor: ErrorLike,
+	...errorArguments: InferFunctionLikeParameters<ErrorLike>
+): asserts condition;
+
+export function assert(
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	condition: any,
+	errorMessageOrConstructor?: string | ErrorConstructor,
+	...args: Array<unknown>
+): asserts condition {
+	if (!condition) {
+		throw constructError(errorMessageOrConstructor ?? "Assertion failed.", args);
+	}
+}

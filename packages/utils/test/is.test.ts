@@ -1,6 +1,9 @@
 import { describe, expectTypeOf, it } from "vitest";
 import { isNil, isRecord, isRecordWith } from "../src/is.js";
 
+export const isTruthyTestCases = [true, 1, "foo", {}, [], () => {}];
+export const isFalsyTestCases = [false, 0, "", null, undefined];
+
 export const isNilTestCases = [
 	{ input: null, expected: true },
 	{ input: undefined, expected: true },
@@ -23,15 +26,6 @@ export const isNilTestCases = [
 	{ input: () => {}, expected: false },
 ];
 
-describe("isNil", () => {
-	it.for([...isNilTestCases])(
-		"runs through the test cases '%s'",
-		({ input, expected }, { expect }) => {
-			expect(isNil(input)).toBe(expected);
-		},
-	);
-});
-
 export const isRecordTestCases = [
 	{ input: null, expected: false },
 	{ input: undefined, expected: false },
@@ -53,6 +47,15 @@ export const isRecordTestCases = [
 	{ input: new (class {})(), expected: true },
 	{ input: () => {}, expected: false },
 ];
+
+describe("isNil", () => {
+	it.for([...isNilTestCases])(
+		"runs through the test cases '%s'",
+		({ input, expected }, { expect }) => {
+			expect(isNil(input)).toBe(expected);
+		},
+	);
+});
 
 describe("isRecord", () => {
 	it.for([...isRecordTestCases])(
