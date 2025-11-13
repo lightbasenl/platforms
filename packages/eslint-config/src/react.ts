@@ -66,8 +66,7 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 			files: globUse([GLOBS.typescript]),
 			plugins: {
 				"react": pluginReact as unknown as FlatConfig.Plugin,
-				"react-hooks":
-					pluginReactHooks.configs["recommended-latest"].plugins["react-hooks"],
+				"react-hooks": pluginReactHooks,
 				"jsx-a11y": pluginJSXA11y as FlatConfig.Plugin,
 			},
 			settings: {
