@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.0.0...eslint-config-v4.0.1) (2025-11-13)
+
+
+### Miscellaneous
+
+* Set peer dependency for react-hooks plugin to v7 as well ([ff799da](https://github.com/lightbasenl/platforms/commit/ff799da764f1854bcce71d5f240d3c245bd60345))
+
 ## [4.0.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.4.1...eslint-config-v4.0.0) (2025-11-13)
 
 ### ⚠ BREAKING CHANGES
