@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/lightbasenl/platforms/compare/utils-v1.2.0...utils-v1.3.0) (2025-11-13)
+
+
+### Features
+
+* **utils:** Introduce type-narrowing assert function ([a617309](https://github.com/lightbasenl/platforms/commit/a617309e872665e7dae1bb6bf4b88dcecedb382a))
+
 ## [1.2.0](https://github.com/lightbasenl/platforms/compare/utils-v1.1.0...utils-v1.2.0) (2025-08-25)
 
 ### Features

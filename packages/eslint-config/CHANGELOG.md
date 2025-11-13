@@ -1,5 +1,29 @@
 # Changelog
 
+## [4.0.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.4.1...eslint-config-v4.0.0) (2025-11-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* Drops support for older versions of eslint-plugin-react-hooks
+
+### Features
+
+* Support eslint-plugin-react-hooks &gt;7 ([265f234](https://github.com/lightbasenl/platforms/commit/265f2347080583d4753a4135f71aa7ad1014347c))
+
+
+### Dependencies
+
+* Bump eslint-plugin-jsdoc from 61.1.11 to 61.1.12 ([#735](https://github.com/lightbasenl/platforms/issues/735)) ([2a73e28](https://github.com/lightbasenl/platforms/commit/2a73e285b42790171d9f7a316c945d7ff16c6553))
+* Bump eslint-plugin-jsdoc from 61.1.12 to 61.2.0 ([#737](https://github.com/lightbasenl/platforms/issues/737)) ([5a2d166](https://github.com/lightbasenl/platforms/commit/5a2d16673af4aafa8c20a97bf6d2b9c4d2f7ffc3))
+* Bump eslint-plugin-jsdoc from 61.1.5 to 61.1.7 ([#716](https://github.com/lightbasenl/platforms/issues/716)) ([1009637](https://github.com/lightbasenl/platforms/commit/10096373a392a4fae6e256654683a7b10bda213f))
+* Bump eslint-plugin-jsdoc from 61.1.7 to 61.1.9 ([#721](https://github.com/lightbasenl/platforms/issues/721)) ([3b20e2c](https://github.com/lightbasenl/platforms/commit/3b20e2cc38d71fade1bb863ce4c8a0ec66683de8))
+* Bump eslint-plugin-jsdoc from 61.1.9 to 61.1.11 ([#727](https://github.com/lightbasenl/platforms/issues/727)) ([2b06100](https://github.com/lightbasenl/platforms/commit/2b06100f80c4c8a869c9dc4d5e9c127c5df2ea48))
+* Bump globals from 16.4.0 to 16.5.0 ([#730](https://github.com/lightbasenl/platforms/issues/730)) ([fd37604](https://github.com/lightbasenl/platforms/commit/fd376042d3112f9940dbfa741dc7aa226bdc5381))
+* Bump the eslint group with 2 updates ([#728](https://github.com/lightbasenl/platforms/issues/728)) ([12c1c9a](https://github.com/lightbasenl/platforms/commit/12c1c9a638eb35782d8c68393ad567f3576cbc43))
+* Bump the eslint group with 2 updates ([#732](https://github.com/lightbasenl/platforms/issues/732)) ([a5a3ddd](https://github.com/lightbasenl/platforms/commit/a5a3ddd0edffa61b323992e82d319f930a68969e))
+* Bump the typescript-eslint group with 3 updates ([#731](https://github.com/lightbasenl/platforms/issues/731)) ([baa2e2f](https://github.com/lightbasenl/platforms/commit/baa2e2f7a4421a163da4c10e4f185b51e7de85be))
+
 ## [3.4.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v3.4.0...eslint-config-v3.4.1) (2025-10-22)
 
 ### Miscellaneous
