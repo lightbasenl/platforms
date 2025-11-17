@@ -2,15 +2,17 @@
 
 ## [4.1.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.0.1...eslint-config-v4.1.0) (2025-11-17)
 
-
 ### Features
 
-* **eslint-config:** Widen version range for `@next/eslint-plugin-next` to support v16 ([#742](https://github.com/lightbasenl/platforms/issues/742)) ([6ff4bbb](https://github.com/lightbasenl/platforms/commit/6ff4bbbbc3846cf0f66d23c44bc8e8d50ba0bfd5))
-
+- **eslint-config:** Widen version range for `@next/eslint-plugin-next` to support v16
+  ([#742](https://github.com/lightbasenl/platforms/issues/742))
+  ([6ff4bbb](https://github.com/lightbasenl/platforms/commit/6ff4bbbbc3846cf0f66d23c44bc8e8d50ba0bfd5))
 
 ### Dependencies
 
-* Bump eslint-plugin-jsdoc from 61.2.0 to 61.2.1 ([#739](https://github.com/lightbasenl/platforms/issues/739)) ([8137c17](https://github.com/lightbasenl/platforms/commit/8137c170800453d831a151194bbff3887ecf78ca))
+- Bump eslint-plugin-jsdoc from 61.2.0 to 61.2.1
+  ([#739](https://github.com/lightbasenl/platforms/issues/739))
+  ([8137c17](https://github.com/lightbasenl/platforms/commit/8137c170800453d831a151194bbff3887ecf78ca))
 
 ## [4.0.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.0.0...eslint-config-v4.0.1) (2025-11-13)
 
