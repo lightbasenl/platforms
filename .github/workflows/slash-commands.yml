@@ -16,7 +16,7 @@ jobs:
     if: ${{ github.event_name == 'issue_comment' }}
     steps:
       - name: Slash Command Dispatch
-        uses: peter-evans/slash-command-dispatch@v4
+        uses: peter-evans/slash-command-dispatch@v5
         with:
           token: ${{ secrets.REPO_ADMIN_TOKEN }}
           commands: |
