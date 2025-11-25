@@ -29,8 +29,8 @@
 	},
 	"dependencies": {
 		"@eslint/js": "9.39.1",
-		"@typescript-eslint/parser": "8.47.0",
-		"@typescript-eslint/utils": "8.47.0",
+		"@typescript-eslint/parser": "8.48.0",
+		"@typescript-eslint/utils": "8.48.0",
 		"diff-match-patch": "1.0.5",
 		"eslint": "9.39.1",
 		"eslint-mdx": "3.6.2",
@@ -45,7 +45,7 @@
 		"globals": "16.5.0",
 		"prettier": "3.6.2",
 		"synckit": "0.11.11",
-		"typescript-eslint": "8.47.0"
+		"typescript-eslint": "8.48.0"
 	},
 	"peerDependencies": {
 		"@next/eslint-plugin-next": ">=15",
