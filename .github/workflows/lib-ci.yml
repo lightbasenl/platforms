@@ -29,7 +29,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: "Setup Node (with Yarn cache)"
         uses: actions/setup-node@v6
@@ -66,7 +66,7 @@ jobs:
 
       - name: "Restore Next.js build cache"
         if: ${{ hashFiles('next.config.js') != '' }}
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         id: next-cache
         with:
           path: |
@@ -90,7 +90,7 @@ jobs:
         if:
           ${{ hashFiles('next.config.js') != '' && github.event.ref == 'refs/heads/main'
           }}
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: |
             ${{ github.workspace }}/.next/cache
