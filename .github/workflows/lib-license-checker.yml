@@ -5,6 +5,11 @@ on:
         description: "Semicolon separated list of dependencies to skip."
         type: string
         default: ""
+      node-version:
+        description: "Node.js version to use"
+        required: false
+        type: string
+        default: "22"
 
 jobs:
   check-license:
@@ -22,14 +27,14 @@ jobs:
         uses: actions/setup-node@v6
         if: ${{ hashFiles('yarn.lock') != '' }}
         with:
-          node-version: 22
+          node-version: ${{ inputs.node-version }}
           cache: "yarn"
 
       - name: "Setup Node (with NPM cache)"
         uses: actions/setup-node@v6
         if: ${{ hashFiles('package-lock.json') != '' }}
         with:
-          node-version: 22
+          node-version: ${{ inputs.node-version }}
           cache: "npm"
 
       - name: "Setup Bun"
@@ -42,7 +47,7 @@ jobs:
           ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' &&
           hashFiles('bun.lock') == '' }}
         with:
-          node-version: 22
+          node-version: ${{ inputs.node-version }}
           cache: "npm"
           cache-dependency-path: ./package.json
 
