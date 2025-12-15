@@ -27,6 +27,7 @@ jobs:
 | INPUT                                                                            | TYPE   | REQUIRED | DEFAULT | DESCRIPTION                                           |
 | -------------------------------------------------------------------------------- | ------ | -------- | ------- | ----------------------------------------------------- |
 | <a name="input_exclude-packages"></a>[exclude-packages](#input_exclude-packages) | string | false    |         | Semicolon separated list of dependencies <br>to skip. |
+| <a name="input_node-version"></a>[node-version](#input_node-version)             | string | false    | `"24"`  | Node.js version to use                                |
 
 <!-- AUTO-DOC-INPUT:END -->
 
