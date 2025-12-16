@@ -29,7 +29,7 @@
 	},
 	"dependencies": {
 		"@lightbase/utils": "1.0.3",
-		"@standard-schema/spec": "1.0.0",
+		"@standard-schema/spec": "1.1.0",
 		"consola": "3.4.2",
 		"mdast-util-from-markdown": "2.0.2",
 		"mdast-util-frontmatter": "2.0.1",
