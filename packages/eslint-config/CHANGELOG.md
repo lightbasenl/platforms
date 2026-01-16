@@ -2,18 +2,35 @@
 
 ## [4.1.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.1.1...eslint-config-v4.1.2) (2026-01-16)
 
-
 ### Dependencies
 
-* Bump eslint-plugin-jsdoc from 61.5.0 to 62.0.0 ([#789](https://github.com/lightbasenl/platforms/issues/789)) ([0b1f311](https://github.com/lightbasenl/platforms/commit/0b1f311a2cb80fc8acdd97dfee232fe5592171ae))
-* Bump globals from 16.5.0 to 17.0.0 ([#787](https://github.com/lightbasenl/platforms/issues/787)) ([43cb46d](https://github.com/lightbasenl/platforms/commit/43cb46dd8c14fd561a2a116b6a4007bf3a58f59f))
-* Bump prettier from 3.7.4 to 3.8.0 ([#795](https://github.com/lightbasenl/platforms/issues/795)) ([41a844c](https://github.com/lightbasenl/platforms/commit/41a844c54c1c4706884dc4079dcafbb388f30482))
-* Bump synckit from 0.11.11 to 0.11.12 ([#796](https://github.com/lightbasenl/platforms/issues/796)) ([884e2ad](https://github.com/lightbasenl/platforms/commit/884e2ad7fea4d8588e9feca43882878988f145d4))
-* Bump the eslint group with 2 updates ([#775](https://github.com/lightbasenl/platforms/issues/775)) ([0f9a9e3](https://github.com/lightbasenl/platforms/commit/0f9a9e32c0fa3bbe1cb91157bbfb965937691c40))
-* Bump the typescript-eslint group with 3 updates ([#780](https://github.com/lightbasenl/platforms/issues/780)) ([4b3b73a](https://github.com/lightbasenl/platforms/commit/4b3b73adc42ff9a6418d9019c145b1ff3f3ba01b))
-* Bump the typescript-eslint group with 3 updates ([#785](https://github.com/lightbasenl/platforms/issues/785)) ([2dfca74](https://github.com/lightbasenl/platforms/commit/2dfca74bc7403aaf380a5a12117c240b336bb15b))
-* Bump the typescript-eslint group with 3 updates ([#788](https://github.com/lightbasenl/platforms/issues/788)) ([4b7f1a3](https://github.com/lightbasenl/platforms/commit/4b7f1a3977b8a627b4a3d7ad46314626547228f6))
-* Bump the typescript-eslint group with 3 updates ([#791](https://github.com/lightbasenl/platforms/issues/791)) ([c763615](https://github.com/lightbasenl/platforms/commit/c76361516a5fe9ea74cc739b8042834078157fb4))
+- Bump eslint-plugin-jsdoc from 61.5.0 to 62.0.0
+  ([#789](https://github.com/lightbasenl/platforms/issues/789))
+  ([0b1f311](https://github.com/lightbasenl/platforms/commit/0b1f311a2cb80fc8acdd97dfee232fe5592171ae))
+- Bump globals from 16.5.0 to 17.0.0
+  ([#787](https://github.com/lightbasenl/platforms/issues/787))
+  ([43cb46d](https://github.com/lightbasenl/platforms/commit/43cb46dd8c14fd561a2a116b6a4007bf3a58f59f))
+- Bump prettier from 3.7.4 to 3.8.0
+  ([#795](https://github.com/lightbasenl/platforms/issues/795))
+  ([41a844c](https://github.com/lightbasenl/platforms/commit/41a844c54c1c4706884dc4079dcafbb388f30482))
+- Bump synckit from 0.11.11 to 0.11.12
+  ([#796](https://github.com/lightbasenl/platforms/issues/796))
+  ([884e2ad](https://github.com/lightbasenl/platforms/commit/884e2ad7fea4d8588e9feca43882878988f145d4))
+- Bump the eslint group with 2 updates
+  ([#775](https://github.com/lightbasenl/platforms/issues/775))
+  ([0f9a9e3](https://github.com/lightbasenl/platforms/commit/0f9a9e32c0fa3bbe1cb91157bbfb965937691c40))
+- Bump the typescript-eslint group with 3 updates
+  ([#780](https://github.com/lightbasenl/platforms/issues/780))
+  ([4b3b73a](https://github.com/lightbasenl/platforms/commit/4b3b73adc42ff9a6418d9019c145b1ff3f3ba01b))
+- Bump the typescript-eslint group with 3 updates
+  ([#785](https://github.com/lightbasenl/platforms/issues/785))
+  ([2dfca74](https://github.com/lightbasenl/platforms/commit/2dfca74bc7403aaf380a5a12117c240b336bb15b))
+- Bump the typescript-eslint group with 3 updates
+  ([#788](https://github.com/lightbasenl/platforms/issues/788))
+  ([4b7f1a3](https://github.com/lightbasenl/platforms/commit/4b7f1a3977b8a627b4a3d7ad46314626547228f6))
+- Bump the typescript-eslint group with 3 updates
+  ([#791](https://github.com/lightbasenl/platforms/issues/791))
+  ([c763615](https://github.com/lightbasenl/platforms/commit/c76361516a5fe9ea74cc739b8042834078157fb4))
 
 ## [4.1.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.1.0...eslint-config-v4.1.1) (2025-12-12)
 
