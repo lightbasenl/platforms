@@ -31,6 +31,6 @@
 		"ts-morph": "26.0.0"
 	},
 	"devDependencies": {
-		"comment-parser": "1.4.4"
+		"comment-parser": "1.4.5"
 	}
 }
