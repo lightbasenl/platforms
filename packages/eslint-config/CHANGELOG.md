@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.1.3](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.1.2...eslint-config-v4.1.3) (2026-02-11)
+
+
+### Dependencies
+
+* Bump eslint-plugin-jsdoc from 62.5.0 to 62.5.2 ([#822](https://github.com/lightbasenl/platforms/issues/822)) ([af70526](https://github.com/lightbasenl/platforms/commit/af705267bb0e2cb66452b644ae42216977657e62))
+* Bump eslint-plugin-jsdoc from 62.5.2 to 62.5.4 ([#827](https://github.com/lightbasenl/platforms/issues/827)) ([74223f1](https://github.com/lightbasenl/platforms/commit/74223f17160e36a007c51fa0f23f093aee6d0027))
+* Bump the typescript-eslint group with 3 updates ([#828](https://github.com/lightbasenl/platforms/issues/828)) ([f02084f](https://github.com/lightbasenl/platforms/commit/f02084f178f305b5e97ef78aa13dcbc1bbf831a7))
+
 ## [4.1.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.1.1...eslint-config-v4.1.2) (2026-02-02)
 
 ### Dependencies
