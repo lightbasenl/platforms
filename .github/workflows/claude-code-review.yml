@@ -1,0 +1,70 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  claude-review:
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Run Claude Code Review
+        id: claude-review
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+          # This is an optional setting that allows Claude to read CI results on PRs
+          additional_permissions: |
+            actions: read
+
+          # Keep an comment up-to-date with tasks Claude is performing.
+          track_progress: true
+
+          # Add quick links to let Claude fix suggestions.
+          include_fix_links: true
+
+          # Use a single comment and update that one.
+          use_sticky_comment: true
+
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Extra tools:
+            - `gh` the GitHub CLI
+            - `git` the Git CLI
+
+            Review this PR. Include the surrounding / related code around changes for extra context.
+            The review should at least check on bugs, performance issues, security issues, documentation issues, and, if 
+            relevant, user experience issues.
+
+            Collect the results from each review task. Combine related issues from different review tasks. Rank each finding 
+            by severity, be pragmatic on the severity assigned. If many issues are found, drop low severity issues and 
+            re-rank the findings on severity.
+
+            Format the results, sorted by severity, as a Markdown table with the following structure:
+               ```md
+            | Area | Severity | Description | Link(s) |
+            | --- | --- | --- | --- |
+            | Correctness | High | ... | [file/name/from/root.ts:124](https://github.com/{{ github.repository }}/blob/[branch name]/path/to/file.js#L123-L124) |
+            ```
+
+            Don't add a PR summary, review summary, recommended issues to fix, verdict, etc.
+
+            Use the repository's CLAUDE.md for guidance on style and conventions. Don't try to run linting or 
+            type-checking here. This is already done in the CI.
+          claude_args: |
+            --allowedTools "Bash(gh:*),Bash(git:*),Read"
