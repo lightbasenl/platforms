@@ -12,9 +12,6 @@
 	"files": ["./eslint.config.js", "./vitest.config.ts"],
 	"references": [
 		{
-			"path": "./packages/compas-convert"
-		},
-		{
 			"path": "./packages/doc-tool"
 		},
 		{
