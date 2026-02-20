@@ -34,7 +34,7 @@
 		"diff-match-patch": "1.0.5",
 		"eslint": "9.39.2",
 		"eslint-mdx": "3.6.2",
-		"eslint-config-flat-gitignore": "2.1.0",
+		"eslint-config-flat-gitignore": "2.2.1",
 		"eslint-import-resolver-typescript": "4.4.4",
 		"eslint-plugin-comment-length": "2.2.2",
 		"eslint-plugin-file-progress": "3.0.2",
