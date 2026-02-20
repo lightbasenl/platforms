@@ -2,24 +2,24 @@
 	"name": "@lightbase/doc-tool",
 	"version": "0.0.1",
 	"description": "A CLI tool for maintaining and improving Markdown-based project and process documentation.",
-	"type": "module",
-	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/lightbasenl/platforms/issues"
 	},
+	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/lightbasenl/platforms.git",
 		"directory": "packages/doc-tool"
 	},
+	"files": ["README.md", "LICENSE", "dist/src"],
+	"type": "module",
+	"main": "./dist/src/index.js",
+	"types": "./dist/src/index.d.ts",
 	"exports": {
 		".": {
 			"import": "./dist/src/index.js"
 		}
 	},
-	"main": "./dist/src/index.js",
-	"types": "./dist/src/index.d.ts",
-	"files": ["README.md", "LICENSE", "dist/src"],
 	"scripts": {
 		"build": "tsc -p ./tsconfig.json",
 		"lint": "eslint . --concurrency=auto --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
@@ -34,8 +34,8 @@
 		"mdast-util-from-markdown": "2.0.2",
 		"mdast-util-frontmatter": "2.0.1",
 		"mdast-util-gfm": "3.1.0",
-		"micromark-extension-gfm": "3.0.0",
 		"micromark-extension-frontmatter": "2.0.0",
+		"micromark-extension-gfm": "3.0.0",
 		"yaml": "2.8.2"
 	},
 	"devDependencies": {

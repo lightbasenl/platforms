@@ -2,24 +2,24 @@
 	"name": "@lightbase/eslint-config",
 	"version": "4.1.2",
 	"description": "ESLint based linting and formatting configuration",
-	"type": "module",
-	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/lightbasenl/platforms/issues"
 	},
+	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/lightbasenl/platforms.git",
 		"directory": "packages/eslint-config"
 	},
+	"files": ["README.md", "LICENSE", "dist/src"],
+	"type": "module",
+	"main": "./dist/src/index.js",
+	"types": "./dist/src/index.d.ts",
 	"exports": {
 		".": {
 			"import": "./dist/src/index.js"
 		}
 	},
-	"main": "./dist/src/index.js",
-	"types": "./dist/src/index.d.ts",
-	"files": ["README.md", "LICENSE", "dist/src"],
 	"scripts": {
 		"build": "tsc -p ./tsconfig.json",
 		"lint": "eslint . --concurrency=auto --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",
@@ -33,9 +33,9 @@
 		"@typescript-eslint/utils": "8.55.0",
 		"diff-match-patch": "1.0.5",
 		"eslint": "9.39.2",
-		"eslint-mdx": "3.6.2",
 		"eslint-config-flat-gitignore": "2.1.0",
 		"eslint-import-resolver-typescript": "4.4.4",
+		"eslint-mdx": "3.6.2",
 		"eslint-plugin-comment-length": "2.2.2",
 		"eslint-plugin-file-progress": "3.0.2",
 		"eslint-plugin-import-x": "4.16.1",
@@ -46,6 +46,16 @@
 		"prettier": "3.8.1",
 		"synckit": "0.11.12",
 		"typescript-eslint": "8.55.0"
+	},
+	"devDependencies": {
+		"@next/eslint-plugin-next": "16.1.6",
+		"@types/diff-match-patch": "1.0.36",
+		"@types/eslint": "9.6.1",
+		"eslint-formatter-compact": "9.0.1",
+		"eslint-plugin-jsx-a11y": "6.10.2",
+		"eslint-plugin-no-relative-import-paths": "1.6.1",
+		"eslint-plugin-react": "7.37.5",
+		"eslint-plugin-react-hooks": "7.0.1"
 	},
 	"peerDependencies": {
 		"@next/eslint-plugin-next": ">=15",
@@ -70,15 +80,5 @@
 		"eslint-plugin-jsx-a11y": {
 			"optional": true
 		}
-	},
-	"devDependencies": {
-		"@next/eslint-plugin-next": "16.1.6",
-		"@types/diff-match-patch": "1.0.36",
-		"@types/eslint": "9.6.1",
-		"eslint-formatter-compact": "9.0.1",
-		"eslint-plugin-jsx-a11y": "6.10.2",
-		"eslint-plugin-no-relative-import-paths": "1.6.1",
-		"eslint-plugin-react": "7.37.5",
-		"eslint-plugin-react-hooks": "7.0.1"
 	}
 }

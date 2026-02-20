@@ -2,24 +2,24 @@
 	"name": "@lightbase/pull-through-cache",
 	"version": "0.3.0",
 	"description": "Pull-through cache with TTL, updated sampler and periodic eviction support",
-	"type": "module",
-	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/lightbasenl/platforms/issues"
 	},
+	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/lightbasenl/platforms.git",
 		"directory": "packages/pull-through-cache"
 	},
+	"files": ["README.md", "LICENSE", "dist/src"],
+	"type": "module",
+	"main": "./dist/src/index.js",
+	"types": "./dist/src/index.d.ts",
 	"exports": {
 		".": {
 			"import": "./dist/src/index.js"
 		}
 	},
-	"main": "./dist/src/index.js",
-	"types": "./dist/src/index.d.ts",
-	"files": ["README.md", "LICENSE", "dist/src"],
 	"scripts": {
 		"build": "tsc -p ./tsconfig.json",
 		"lint": "eslint . --concurrency=auto --fix --cache --cache-strategy content --cache-location .cache/eslint/ --color",

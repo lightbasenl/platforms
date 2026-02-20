@@ -6,7 +6,7 @@ import { createSyncFn } from "synckit";
 import { messages } from "./constants.js";
 import { reportDifferences } from "./diff.js";
 
-let format: undefined | ((input: string, options: unknown) => string) = undefined;
+let prettierFormat: undefined | ((input: string, options: unknown) => string) = undefined;
 
 // Make sure to check the README.md
 export const formatPlugin: FlatConfig.Plugin = {
@@ -34,8 +34,8 @@ export const formatPlugin: FlatConfig.Plugin = {
 				messages,
 			},
 			create(context) {
-				if (!format) {
-					format = createSyncFn(
+				if (!prettierFormat) {
+					prettierFormat = createSyncFn(
 						join(fileURLToPath(new URL("./", import.meta.url)), "worker.cjs"),
 					);
 				}
@@ -43,7 +43,7 @@ export const formatPlugin: FlatConfig.Plugin = {
 				return {
 					Program() {
 						const sourceCode = context.sourceCode.text;
-						const formatted = format!(sourceCode, context.options[0] ?? {});
+						const formatted = prettierFormat!(sourceCode, context.options[0] ?? {});
 
 						reportDifferences(context, sourceCode, formatted);
 					},

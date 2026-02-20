@@ -13,11 +13,20 @@ import type { ReactConfig } from "./react.js";
 import { typescript, typescriptResolveConfig } from "./typescript.js";
 import type { TypeScriptConfig } from "./typescript.js";
 
+export type { PrettierConfig } from "./prettier.js";
+
 interface LightbaseEslintConfigOptions {
-	prettier?: PrettierConfig;
+	prettier?: false | PrettierConfig;
 	typescript?: TypeScriptConfig;
 	react?: ReactConfig;
 	globals?: GlobalsConfig;
+
+	/**
+	 * Disable import ordering rules (`import-x/order`, `import-x/first`,
+	 * `import-x/newline-after-import`). Useful when an external formatter like Oxfmt handles
+	 * import sorting.
+	 */
+	disableImportOrdering?: boolean;
 }
 
 /**
@@ -31,9 +40,13 @@ export async function defineConfig(
 	opts ??= {};
 	opts.typescript = typescriptResolveConfig(opts.typescript);
 
+	const disableImportOrdering = !!opts.disableImportOrdering;
+
 	// Only load React + related plugins if necessary. This adds quite the startup penalty otherwise.
 	const reactRelatedConfig =
-		opts.react ? await (await import("./react.js")).react(opts.react) : [];
+		opts.react ?
+			await (await import("./react.js")).react(opts.react, disableImportOrdering)
+		:	[];
 
 	// TODO: eslint-plugin-regex?
 
@@ -57,13 +70,13 @@ export async function defineConfig(
 		...markdownConfig(),
 		...javascript(),
 		...typescript(opts.typescript),
-		...imports(opts.typescript),
+		...imports(opts.typescript, disableImportOrdering),
 
 		// Ecosystem specific
 		...reactRelatedConfig,
 
 		// Format all the things
-		...prettierConfig(opts.prettier),
+		...(opts.prettier === false ? [] : prettierConfig(opts.prettier)),
 
 		...userConfigs,
 
