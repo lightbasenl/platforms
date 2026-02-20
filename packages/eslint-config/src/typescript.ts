@@ -144,5 +144,29 @@ export function typescript(config: TypeScriptConfig): Array<FlatConfig.Config> {
 				"@typescript-eslint/consistent-type-imports": ["error"],
 			},
 		},
+
+		{
+			// Error on unused vars and imports.
+			files: globUse([GLOBS.javascript, GLOBS.typescript]),
+			rules: {
+				// Make sure to disable no-unused-vars
+				"no-unused-vars": "off",
+				"@typescript-eslint/no-unused-vars": [
+					"error",
+					{
+						vars: "all",
+						varsIgnorePattern: "^_",
+						args: "after-used",
+						argsIgnorePattern: "^_",
+						caughtErrors: "all",
+						caughtErrorsIgnorePattern: "^_",
+						destructuredArrayIgnorePattern: "^_",
+						enableAutofixRemoval: {
+							imports: true,
+						},
+					},
+				],
+			},
+		},
 	] satisfies Array<FlatConfig.Config>;
 }

@@ -1,6 +1,5 @@
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import * as pluginImport from "eslint-plugin-import-x";
-import pluginUnusedImports from "eslint-plugin-unused-imports";
 import { GLOBS, globUse } from "./globs.js";
 import type { TypeScriptConfig } from "./typescript.js";
 
@@ -10,13 +9,10 @@ export function imports(
 ): Array<FlatConfig.Config> {
 	return [
 		{
-			// Setup import plugins. Includes unused-imports, to automatically remove them.
-			// This might not be the best experience if imports are added manually,
-			// but most people use auto-imports anyway (?!).
+			// Setup import plugins.
 			files: globUse([GLOBS.javascript, GLOBS.typescript]),
 			plugins: {
 				"import-x": pluginImport.default,
-				"unused-imports": pluginUnusedImports as FlatConfig.Plugin,
 			},
 			settings: {
 				"import-x/resolver": {
@@ -67,26 +63,6 @@ export function imports(
 						"import-x/no-unresolved": "error",
 						"import-x/no-rename-default": "off",
 					}),
-
-				// Make sure to disable no-unused-vars
-				"no-unused-vars": "off",
-				"@typescript-eslint/no-unused-vars": "off",
-
-				// Auto-remove unused imports. This overrules the no-unused-vars rule as well, so we
-				// configure it here.
-				"unused-imports/no-unused-imports": "error",
-				"unused-imports/no-unused-vars": [
-					"error",
-					{
-						vars: "all",
-						varsIgnorePattern: "^_",
-						args: "after-used",
-						argsIgnorePattern: "^_",
-						caughtErrors: "all",
-						caughtErrorsIgnorePattern: "^_",
-						destructuredArrayIgnorePattern: "^_",
-					},
-				],
 			},
 		},
 

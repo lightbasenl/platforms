@@ -202,7 +202,7 @@ test("automatically enables typescript support on detection of tsconfig.json", a
 	]);
 
 	expect(stdoutLinesForFile(stdout, "index.ts")).toMatch(
-		/\(unused-imports\/no-unused-vars\)/,
+		/\(@typescript-eslint\/no-unused-vars\)/,
 	);
 	expect(stdoutLinesForFile(stdout, "index.ts")).toMatch(/\(format\/prettier\)/);
 });
@@ -215,8 +215,6 @@ test("enables js file linting without tsconfig.json", async () => {
 		},
 	]);
 
-	expect(stdoutLinesForFile(stdout, "index.js")).toMatch(
-		/\(unused-imports\/no-unused-vars\)/,
-	);
+	expect(stdoutLinesForFile(stdout, "index.js")).toMatch(/\(no-unused-vars\)/);
 	expect(stdoutLinesForFile(stdout, "index.js")).toMatch(/\(format\/prettier\)/);
 });
