@@ -127,6 +127,8 @@ const cache = new PullThroughCache<FeatureFlags, FeatureFlagIdentifiers>()
 			return thisFlag;
 		},
 	});
+
+await cache.get("some_flag");
 ```
 
 ### `.isEnabled(): boolean`
