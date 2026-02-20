@@ -2,22 +2,36 @@
 
 ## [4.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.1.2...eslint-config-v4.2.0) (2026-02-20)
 
-
 ### Features
 
-* **eslint-config:** Replace no-unused-imports with @typescript-eslint/no-unused-vars ([d0d72e0](https://github.com/lightbasenl/platforms/commit/d0d72e0b62aeb8a7eb6f486d8449c678263627b9))
-* **eslint-config:** Small speedup by not-linting MD codeblocks when Prettire is disabled ([66091e1](https://github.com/lightbasenl/platforms/commit/66091e1025de5a9ced218e892c4cce2e37e77c07))
-* **eslint-config:** Support disabling Prettier ([#837](https://github.com/lightbasenl/platforms/issues/837)) ([6d24e0e](https://github.com/lightbasenl/platforms/commit/6d24e0e94da98876c26c45bcbc7a85323e01f2da))
-
+- **eslint-config:** Replace no-unused-imports with @typescript-eslint/no-unused-vars
+  ([d0d72e0](https://github.com/lightbasenl/platforms/commit/d0d72e0b62aeb8a7eb6f486d8449c678263627b9))
+- **eslint-config:** Small speedup by not-linting MD codeblocks when Prettire is disabled
+  ([66091e1](https://github.com/lightbasenl/platforms/commit/66091e1025de5a9ced218e892c4cce2e37e77c07))
+- **eslint-config:** Support disabling Prettier
+  ([#837](https://github.com/lightbasenl/platforms/issues/837))
+  ([6d24e0e](https://github.com/lightbasenl/platforms/commit/6d24e0e94da98876c26c45bcbc7a85323e01f2da))
 
 ### Dependencies
 
-* Bump eslint-config-flat-gitignore from 2.1.0 to 2.2.1 ([#836](https://github.com/lightbasenl/platforms/issues/836)) ([4f268ac](https://github.com/lightbasenl/platforms/commit/4f268acb5344ad9062cc731a48df5e85732e9d85))
-* Bump eslint-plugin-jsdoc from 62.5.0 to 62.5.2 ([#822](https://github.com/lightbasenl/platforms/issues/822)) ([af70526](https://github.com/lightbasenl/platforms/commit/af705267bb0e2cb66452b644ae42216977657e62))
-* Bump eslint-plugin-jsdoc from 62.5.2 to 62.5.4 ([#827](https://github.com/lightbasenl/platforms/issues/827)) ([74223f1](https://github.com/lightbasenl/platforms/commit/74223f17160e36a007c51fa0f23f093aee6d0027))
-* Bump eslint-plugin-jsdoc from 62.5.4 to 62.5.5 ([#831](https://github.com/lightbasenl/platforms/issues/831)) ([a906904](https://github.com/lightbasenl/platforms/commit/a9069049bed65f43c6b541e0759798a43b70b64c))
-* Bump eslint-plugin-jsdoc from 62.5.5 to 62.6.0 ([#834](https://github.com/lightbasenl/platforms/issues/834)) ([8b67d70](https://github.com/lightbasenl/platforms/commit/8b67d70e210c3aca0fb572fa8dd9938acc2fe292))
-* Bump the typescript-eslint group with 3 updates ([#828](https://github.com/lightbasenl/platforms/issues/828)) ([f02084f](https://github.com/lightbasenl/platforms/commit/f02084f178f305b5e97ef78aa13dcbc1bbf831a7))
+- Bump eslint-config-flat-gitignore from 2.1.0 to 2.2.1
+  ([#836](https://github.com/lightbasenl/platforms/issues/836))
+  ([4f268ac](https://github.com/lightbasenl/platforms/commit/4f268acb5344ad9062cc731a48df5e85732e9d85))
+- Bump eslint-plugin-jsdoc from 62.5.0 to 62.5.2
+  ([#822](https://github.com/lightbasenl/platforms/issues/822))
+  ([af70526](https://github.com/lightbasenl/platforms/commit/af705267bb0e2cb66452b644ae42216977657e62))
+- Bump eslint-plugin-jsdoc from 62.5.2 to 62.5.4
+  ([#827](https://github.com/lightbasenl/platforms/issues/827))
+  ([74223f1](https://github.com/lightbasenl/platforms/commit/74223f17160e36a007c51fa0f23f093aee6d0027))
+- Bump eslint-plugin-jsdoc from 62.5.4 to 62.5.5
+  ([#831](https://github.com/lightbasenl/platforms/issues/831))
+  ([a906904](https://github.com/lightbasenl/platforms/commit/a9069049bed65f43c6b541e0759798a43b70b64c))
+- Bump eslint-plugin-jsdoc from 62.5.5 to 62.6.0
+  ([#834](https://github.com/lightbasenl/platforms/issues/834))
+  ([8b67d70](https://github.com/lightbasenl/platforms/commit/8b67d70e210c3aca0fb572fa8dd9938acc2fe292))
+- Bump the typescript-eslint group with 3 updates
+  ([#828](https://github.com/lightbasenl/platforms/issues/828))
+  ([f02084f](https://github.com/lightbasenl/platforms/commit/f02084f178f305b5e97ef78aa13dcbc1bbf831a7))
 
 ## [4.1.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.1.1...eslint-config-v4.1.2) (2026-02-02)
 
