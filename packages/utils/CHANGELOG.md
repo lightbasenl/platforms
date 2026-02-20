@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/lightbasenl/platforms/compare/utils-v1.3.0...utils-v1.4.0) (2026-02-20)
+
+### Features
+
+- **eslint-config:** Support disabling Prettier
+  ([#837](https://github.com/lightbasenl/platforms/issues/837))
+  ([6d24e0e](https://github.com/lightbasenl/platforms/commit/6d24e0e94da98876c26c45bcbc7a85323e01f2da))
+
 ## [1.3.0](https://github.com/lightbasenl/platforms/compare/utils-v1.2.0...utils-v1.3.0) (2025-11-13)
 
 ### Features
