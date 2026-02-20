@@ -5,15 +5,19 @@ import { globMarkdownSnippetFromGlob, GLOBS, globUse } from "./globs.js";
 
 /**
  * Allows parsing of markdown and mdx files, adding code blocks as virtual files.
+ *
+ * When {@link lintCodeBlocks} is false, the mdx processor will not extract code blocks as
+ * virtual files. This is useful when Prettier is disabled, as the fragment extraction is
+ * expensive.
  */
-export function markdownConfig() {
+export function markdownConfig(lintCodeBlocks: boolean) {
 	return [
 		{
 			...mdx.flat,
 
 			files: [GLOBS.markdown],
 			processor: mdx.createRemarkProcessor({
-				lintCodeBlocks: true,
+				lintCodeBlocks,
 			}),
 		},
 	] satisfies Array<FlatConfig.Config>;

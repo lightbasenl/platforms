@@ -67,7 +67,7 @@ export async function defineConfig(
 		...progress(),
 
 		// Language specifics
-		...markdownConfig(),
+		...markdownConfig(opts.prettier !== false),
 		...javascript(),
 		...typescript(opts.typescript),
 		...imports(opts.typescript, disableImportOrdering),
@@ -80,6 +80,6 @@ export async function defineConfig(
 
 		...userConfigs,
 
-		...markdownSnippetOverrides(),
+		...(opts.prettier === false ? [] : markdownSnippetOverrides()),
 	] satisfies Array<FlatConfig.Config>;
 }
