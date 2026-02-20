@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.3.0...pull-through-cache-v0.4.0) (2026-02-20)
+
+
+### Features
+
+* **eslint-config:** Support disabling Prettier ([#837](https://github.com/lightbasenl/platforms/issues/837)) ([6d24e0e](https://github.com/lightbasenl/platforms/commit/6d24e0e94da98876c26c45bcbc7a85323e01f2da))
+
+
+### Miscellaneous
+
+* Fix unused var in README ([1f5fa0e](https://github.com/lightbasenl/platforms/commit/1f5fa0e43300f3b3f045f80be9b7a96285c97058))
+
 ## [0.3.0](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.2.3...pull-through-cache-v0.3.0) (2025-08-25)
 
 ### Features

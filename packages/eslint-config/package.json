@@ -1,6 +1,6 @@
 {
 	"name": "@lightbase/eslint-config",
-	"version": "4.1.2",
+	"version": "4.2.0",
 	"description": "ESLint based linting and formatting configuration",
 	"bugs": {
 		"url": "https://github.com/lightbasenl/platforms/issues"
@@ -11,7 +11,11 @@
 		"url": "git+https://github.com/lightbasenl/platforms.git",
 		"directory": "packages/eslint-config"
 	},
-	"files": ["README.md", "LICENSE", "dist/src"],
+	"files": [
+		"README.md",
+		"LICENSE",
+		"dist/src"
+	],
 	"type": "module",
 	"main": "./dist/src/index.js",
 	"types": "./dist/src/index.d.ts",
