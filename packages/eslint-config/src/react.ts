@@ -21,7 +21,10 @@ export type ReactConfig = {
 	disableCustomImportGrouping?: boolean;
 };
 
-export async function react(config: ReactConfig): Promise<Array<FlatConfig.Config>> {
+export async function react(
+	config: ReactConfig,
+	disableOrderingRules?: boolean,
+): Promise<Array<FlatConfig.Config>> {
 	// Only expect the Next.js plugin if explicitly enabled. At some point we might infer this based
 	// on the existence of the `next.config.js` file?
 	const pluginNext =
@@ -123,7 +126,7 @@ export async function react(config: ReactConfig): Promise<Array<FlatConfig.Confi
 				},
 			] satisfies Array<FlatConfig.Config>)),
 
-		...(config.disableCustomImportGrouping ?
+		...(config.disableCustomImportGrouping || disableOrderingRules ?
 			[]
 		:	([
 				{

@@ -4,7 +4,10 @@ import pluginUnusedImports from "eslint-plugin-unused-imports";
 import { GLOBS, globUse } from "./globs.js";
 import type { TypeScriptConfig } from "./typescript.js";
 
-export function imports(typescript: TypeScriptConfig): Array<FlatConfig.Config> {
+export function imports(
+	typescript: TypeScriptConfig,
+	disableOrderingRules?: boolean,
+): Array<FlatConfig.Config> {
 	return [
 		{
 			// Setup import plugins. Includes unused-imports, to automatically remove them.
@@ -29,19 +32,23 @@ export function imports(typescript: TypeScriptConfig): Array<FlatConfig.Config> 
 				"import-x/no-empty-named-blocks": "error",
 				"import-x/no-commonjs": "error",
 				"import-x/no-amd": "error",
-				"import-x/first": "error",
-				"import-x/newline-after-import": ["error", { count: 1 }],
+				"import-x/first": disableOrderingRules ? "off" : "error",
+				"import-x/newline-after-import":
+					disableOrderingRules ? "off" : ["error", { count: 1 }],
 				"import-x/no-default-export": "error",
-				"import-x/order": [
-					"error",
-					{
-						"newlines-between": "never",
-						"alphabetize": {
-							order: "asc",
-							caseInsensitive: true,
-						},
-					},
-				],
+				"import-x/order":
+					disableOrderingRules ? "off" : (
+						[
+							"error",
+							{
+								"newlines-between": "never",
+								"alphabetize": {
+									order: "asc",
+									caseInsensitive: true,
+								},
+							},
+						]
+					),
 				"import-x/consistent-type-specifier-style": ["error", "prefer-top-level"],
 
 				...(typescript ?

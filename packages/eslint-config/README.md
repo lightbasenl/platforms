@@ -72,6 +72,40 @@ export default defineConfig({
 });
 ```
 
+Prettier can be disabled entirely by passing `false`:
+
+```js
+import { defineConfig } from "@lightbase/eslint-config";
+
+export default defineConfig({
+	prettier: false,
+});
+```
+
+### Using an external formatter (e.g. Oxfmt)
+
+If you use an external formatter like
+[Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) instead of Prettier, you should
+disable Prettier and import ordering rules to avoid conflicts:
+
+```js
+import { defineConfig } from "@lightbase/eslint-config";
+
+export default defineConfig({
+	prettier: false,
+	disableImportOrdering: true,
+});
+```
+
+This disables:
+
+- All Prettier formatting rules
+- `import-x/order`, `import-x/first`, and `import-x/newline-after-import`
+- Custom React import grouping (if `react` is enabled)
+
+All other rules (TypeScript, JSDoc, comment-length, React logic, accessibility, etc.) are
+purely semantic and do not conflict with external formatters.
+
 ### Typescript
 
 [Typescript ESLint](http://typescript-eslint.io/) is automatically enabled if a
