@@ -84,8 +84,9 @@ export default defineConfig({
 
 ### Using an external formatter (e.g. Oxfmt)
 
-If you use an external formatter like [Oxfmt](https://oxfmt.com) instead of Prettier, you
-should disable Prettier and import ordering rules to avoid conflicts:
+If you use an external formatter like
+[Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) instead of Prettier, you should
+disable Prettier and import ordering rules to avoid conflicts:
 
 ```js
 import { defineConfig } from "@lightbase/eslint-config";
