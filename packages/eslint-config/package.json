@@ -1,6 +1,6 @@
 {
 	"name": "@lightbase/eslint-config",
-	"version": "4.2.0",
+	"version": "4.2.1",
 	"description": "ESLint based linting and formatting configuration",
 	"bugs": {
 		"url": "https://github.com/lightbasenl/platforms/issues"
