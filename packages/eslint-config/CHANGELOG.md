@@ -2,11 +2,14 @@
 
 ## [4.2.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.2.0...eslint-config-v4.2.1) (2026-02-27)
 
-
 ### Dependencies
 
-* Bump eslint-plugin-jsdoc from 62.6.0 to 62.7.0 ([#839](https://github.com/lightbasenl/platforms/issues/839)) ([c16a7c0](https://github.com/lightbasenl/platforms/commit/c16a7c02352bc8a2f5490c2f9a8f699df96f5136))
-* Bump eslint-plugin-jsdoc from 62.7.0 to 62.7.1 ([#841](https://github.com/lightbasenl/platforms/issues/841)) ([9081bce](https://github.com/lightbasenl/platforms/commit/9081bcecda5d6263d5b5bab9b150eeb1002f8418))
+- Bump eslint-plugin-jsdoc from 62.6.0 to 62.7.0
+  ([#839](https://github.com/lightbasenl/platforms/issues/839))
+  ([c16a7c0](https://github.com/lightbasenl/platforms/commit/c16a7c02352bc8a2f5490c2f9a8f699df96f5136))
+- Bump eslint-plugin-jsdoc from 62.7.0 to 62.7.1
+  ([#841](https://github.com/lightbasenl/platforms/issues/841))
+  ([9081bce](https://github.com/lightbasenl/platforms/commit/9081bcecda5d6263d5b5bab9b150eeb1002f8418))
 
 ## [4.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.1.2...eslint-config-v4.2.0) (2026-02-20)
 
