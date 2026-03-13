@@ -1,7 +1,6 @@
 import eslintConfigs from "@eslint/js";
 import typescriptEslintParser from "@typescript-eslint/parser";
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
-// @ts-expect-error no type defs
 import eslintPluginCommentLength from "eslint-plugin-comment-length";
 import pluginJsDoc from "eslint-plugin-jsdoc";
 import { GLOBS, globUse } from "./globs.js";
