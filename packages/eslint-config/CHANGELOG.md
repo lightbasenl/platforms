@@ -1,5 +1,36 @@
 # Changelog
 
+## [4.2.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.2.0...eslint-config-v4.2.1) (2026-03-13)
+
+### Miscellaneous
+
+- **deps:** Bump ESLint patch + comment-length plugin
+  ([668d4c1](https://github.com/lightbasenl/platforms/commit/668d4c14e6f0f70d5a01676ae39d73dceb9d2b4e))
+
+### Dependencies
+
+- Bump eslint-plugin-jsdoc from 62.6.0 to 62.7.0
+  ([#839](https://github.com/lightbasenl/platforms/issues/839))
+  ([c16a7c0](https://github.com/lightbasenl/platforms/commit/c16a7c02352bc8a2f5490c2f9a8f699df96f5136))
+- Bump eslint-plugin-jsdoc from 62.7.0 to 62.7.1
+  ([#841](https://github.com/lightbasenl/platforms/issues/841))
+  ([9081bce](https://github.com/lightbasenl/platforms/commit/9081bcecda5d6263d5b5bab9b150eeb1002f8418))
+- Bump eslint-plugin-jsdoc from 62.7.1 to 62.8.0
+  ([#851](https://github.com/lightbasenl/platforms/issues/851))
+  ([c7803ba](https://github.com/lightbasenl/platforms/commit/c7803bae0863245bf365f6a3efc1ac3f56399bee))
+- Bump globals from 17.3.0 to 17.4.0
+  ([#845](https://github.com/lightbasenl/platforms/issues/845))
+  ([c338128](https://github.com/lightbasenl/platforms/commit/c338128dbda4d0b229cda245bf6316ef5327a4d0))
+- Bump the eslint-mdx group with 2 updates
+  ([#844](https://github.com/lightbasenl/platforms/issues/844))
+  ([a989ff9](https://github.com/lightbasenl/platforms/commit/a989ff99fa7142662c6b7bd8a80f93856107fb66))
+- Bump the typescript-eslint group with 3 updates
+  ([#832](https://github.com/lightbasenl/platforms/issues/832))
+  ([bd474d5](https://github.com/lightbasenl/platforms/commit/bd474d585e67b1176447e8652f657a7aca74e448))
+- Bump the typescript-eslint group with 3 updates
+  ([#848](https://github.com/lightbasenl/platforms/issues/848))
+  ([e61a3b6](https://github.com/lightbasenl/platforms/commit/e61a3b607692dba3270e85d3df94a83243c5484d))
+
 ## [4.2.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.1.2...eslint-config-v4.2.0) (2026-02-20)
 
 ### Features
