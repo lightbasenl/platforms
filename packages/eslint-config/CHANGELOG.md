@@ -1,5 +1,22 @@
 # Changelog
 
+## [4.3.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.2.1...eslint-config-v4.3.0) (2026-03-19)
+
+
+### Features
+
+* **eslint-config:** Disable `@ts-eslint/no-unused-vars` in code snippets ([e3321b0](https://github.com/lightbasenl/platforms/commit/e3321b0d32909179c37e09c2e461b4d4c70f3a21))
+
+
+### Bug Fixes
+
+* **eslint-config:** Align no-unused-vars settings ([cf74c97](https://github.com/lightbasenl/platforms/commit/cf74c97c12d7b5f39e8986196f9db2c692ce2d1c))
+
+
+### Dependencies
+
+* Bump the typescript-eslint group with 3 updates ([#854](https://github.com/lightbasenl/platforms/issues/854)) ([fe9b432](https://github.com/lightbasenl/platforms/commit/fe9b43249a49700d84b075962cb723cb53a8fe97))
+
 ## [4.2.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.2.0...eslint-config-v4.2.1) (2026-03-13)
 
 ### Miscellaneous
