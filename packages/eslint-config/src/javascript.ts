@@ -22,7 +22,7 @@ export function javascript(): Array<FlatConfig.Config> {
 
 	return [
 		{
-			// Use the Typescript parser even if we don't Typescript. This allows us to use 'modern' JS
+			// Use the TypeScript parser even if we don't TypeScript. This allows us to use 'modern' JS
 			// features even if the built-in espree parser doesn't support it.
 			files: globUse([GLOBS.javascript]),
 			languageOptions: {
@@ -66,6 +66,19 @@ export function javascript(): Array<FlatConfig.Config> {
 				"no-process-exit": "off",
 				"no-mixed-spaces-and-tabs": "off",
 				"no-extra-boolean-cast": "off",
+
+				"no-unused-vars": [
+					"error",
+					{
+						vars: "all",
+						varsIgnorePattern: "^_",
+						args: "after-used",
+						argsIgnorePattern: "^_",
+						caughtErrors: "all",
+						caughtErrorsIgnorePattern: "^_",
+						destructuredArrayIgnorePattern: "^_",
+					},
+				],
 			},
 		},
 
