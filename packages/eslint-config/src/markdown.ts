@@ -35,7 +35,6 @@ export function markdownSnippetOverrides(): Array<FlatConfig.Config> {
 				globMarkdownSnippetFromGlob(GLOBS.typescript),
 			]),
 			rules: {
-				"unused-imports/no-unused-vars": "off",
 				"import-x/no-commonjs": "off",
 				"import-x/no-unresolved": "off",
 				"import-x/no-default-export": "off",
@@ -44,6 +43,8 @@ export function markdownSnippetOverrides(): Array<FlatConfig.Config> {
 				"no-undef": "off",
 				"no-unused-expressions": "off",
 				"no-unused-vars": "off",
+				"@typescript-eslint/no-unused-vars": "off",
+
 				"padded-blocks": "off",
 				"strict": "off",
 				"unicode-bom": "off",
