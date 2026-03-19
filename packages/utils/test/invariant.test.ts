@@ -34,7 +34,7 @@ describe("createInvariant", () => {
 		});
 
 		it("can be called", () => {
-			expect(() => invariant(null)).not.toThrowError();
+			expect(() => invariant(null)).not.toThrow();
 		});
 
 		it("throws with a default message when the predicate fails", () => {
@@ -80,7 +80,7 @@ describe("createInvariant", () => {
 		});
 
 		it("can be called", () => {
-			expect(() => invariant(null)).not.toThrowError();
+			expect(() => invariant(null)).not.toThrow();
 		});
 
 		it("throws with the static message when the predicate fails", () => {
@@ -125,7 +125,7 @@ describe("createInvariant", () => {
 		});
 
 		it("can be called", () => {
-			expect(() => invariant(null)).not.toThrowError();
+			expect(() => invariant(null)).not.toThrow();
 		});
 
 		it("throws with the custom errorConstructor", () => {
@@ -174,7 +174,7 @@ describe("createInvariant", () => {
 		});
 
 		it("can be called", () => {
-			expect(() => invariant(null)).not.toThrowError();
+			expect(() => invariant(null)).not.toThrow();
 		});
 
 		it("throws with the custom errorConstructor", () => {
@@ -228,7 +228,7 @@ describe("createInvariant", () => {
 		});
 
 		it("can be called", () => {
-			expect(() => invariant(null, 404, "oops")).not.toThrowError();
+			expect(() => invariant(null, 404, "oops")).not.toThrow();
 		});
 
 		it("throws with the custom errorConstructor", () => {
@@ -284,7 +284,7 @@ describe("createInvariant", () => {
 		});
 
 		it("can be called", () => {
-			expect(() => invariant(null, "oops")).not.toThrowError();
+			expect(() => invariant(null, "oops")).not.toThrow();
 		});
 
 		it("throws with the custom errorConstructor", () => {
