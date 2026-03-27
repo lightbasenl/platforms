@@ -2,12 +2,17 @@
 
 ## [4.3.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.3.0...eslint-config-v4.3.1) (2026-03-27)
 
-
 ### Dependencies
 
-* Bump eslint-config-flat-gitignore from 2.2.1 to 2.3.0 ([#863](https://github.com/lightbasenl/platforms/issues/863)) ([317431e](https://github.com/lightbasenl/platforms/commit/317431eacc4c4f5197edd54d3967b0433415daa2))
-* Bump eslint-plugin-jsdoc from 62.8.0 to 62.8.1 ([#865](https://github.com/lightbasenl/platforms/issues/865)) ([c6c111f](https://github.com/lightbasenl/platforms/commit/c6c111ff122ab4ce8c79ffc5c223a286b90e31e8))
-* Bump the typescript-eslint group with 3 updates ([#860](https://github.com/lightbasenl/platforms/issues/860)) ([09d07dc](https://github.com/lightbasenl/platforms/commit/09d07dcc015710ae80abde3aba47af17ec265af0))
+- Bump eslint-config-flat-gitignore from 2.2.1 to 2.3.0
+  ([#863](https://github.com/lightbasenl/platforms/issues/863))
+  ([317431e](https://github.com/lightbasenl/platforms/commit/317431eacc4c4f5197edd54d3967b0433415daa2))
+- Bump eslint-plugin-jsdoc from 62.8.0 to 62.8.1
+  ([#865](https://github.com/lightbasenl/platforms/issues/865))
+  ([c6c111f](https://github.com/lightbasenl/platforms/commit/c6c111ff122ab4ce8c79ffc5c223a286b90e31e8))
+- Bump the typescript-eslint group with 3 updates
+  ([#860](https://github.com/lightbasenl/platforms/issues/860))
+  ([09d07dc](https://github.com/lightbasenl/platforms/commit/09d07dcc015710ae80abde3aba47af17ec265af0))
 
 ## [4.3.0](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.2.1...eslint-config-v4.3.0) (2026-03-19)
 
