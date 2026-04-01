@@ -2,7 +2,8 @@
 	"extends": "@total-typescript/tsconfig/tsc/no-dom/library-monorepo",
 	"compilerOptions": {
 		"outDir": "dist",
-		"erasableSyntaxOnly": true
+		"erasableSyntaxOnly": true,
+		"types": ["node"]
 	},
 	"include": ["**/*"],
 	"references": [
