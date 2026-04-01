@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/lightbasenl/platforms/compare/utils-v1.4.0...utils-v1.4.1) (2026-04-01)
+
+
+### Miscellaneous
+
+* **deps:** Bump to TS 6 ([f5f9708](https://github.com/lightbasenl/platforms/commit/f5f9708343cf3f93e5afc797936b05fdae4c9ef2))
+
 ## [1.4.0](https://github.com/lightbasenl/platforms/compare/utils-v1.3.0...utils-v1.4.0) (2026-02-20)
 
 ### Features
