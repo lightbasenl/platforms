@@ -2,10 +2,10 @@
 
 ## [0.4.1](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.4.0...pull-through-cache-v0.4.1) (2026-04-01)
 
-
 ### Miscellaneous
 
-* **deps:** Bump to TS 6 ([f5f9708](https://github.com/lightbasenl/platforms/commit/f5f9708343cf3f93e5afc797936b05fdae4c9ef2))
+- **deps:** Bump to TS 6
+  ([f5f9708](https://github.com/lightbasenl/platforms/commit/f5f9708343cf3f93e5afc797936b05fdae4c9ef2))
 
 ## [0.4.0](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.3.0...pull-through-cache-v0.4.0) (2026-02-20)
 

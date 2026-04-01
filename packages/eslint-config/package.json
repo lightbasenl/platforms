@@ -11,11 +11,7 @@
 		"url": "git+https://github.com/lightbasenl/platforms.git",
 		"directory": "packages/eslint-config"
 	},
-	"files": [
-		"README.md",
-		"LICENSE",
-		"dist/src"
-	],
+	"files": ["README.md", "LICENSE", "dist/src"],
 	"type": "module",
 	"main": "./dist/src/index.js",
 	"types": "./dist/src/index.d.ts",
