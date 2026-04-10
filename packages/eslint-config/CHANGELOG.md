@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.3.2](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.3.1...eslint-config-v4.3.2) (2026-04-10)
+
+
+### Dependencies
+
+* Bump eslint-plugin-jsdoc from 62.8.1 to 62.9.0 ([#870](https://github.com/lightbasenl/platforms/issues/870)) ([95830c7](https://github.com/lightbasenl/platforms/commit/95830c7efbae322cfd86fc09596f01d289519f10))
+* Bump prettier from 3.8.1 to 3.8.2 ([#879](https://github.com/lightbasenl/platforms/issues/879)) ([d591a35](https://github.com/lightbasenl/platforms/commit/d591a3564b0671f39c05ed21746225e253c84802))
+* Bump the typescript-eslint group with 3 updates ([#873](https://github.com/lightbasenl/platforms/issues/873)) ([8694b52](https://github.com/lightbasenl/platforms/commit/8694b525eea9c526cc908e28b13713d28c241657))
+
 ## [4.3.1](https://github.com/lightbasenl/platforms/compare/eslint-config-v4.3.0...eslint-config-v4.3.1) (2026-04-01)
 
 ### Miscellaneous
