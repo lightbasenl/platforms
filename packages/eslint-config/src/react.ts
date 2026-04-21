@@ -115,7 +115,7 @@ export async function react(
 				{
 					files: globUse([GLOBS.typescript]),
 					plugins: {
-						"no-relative-import-paths": pluginNoRelativeImportPaths as FlatConfig.Plugin,
+						"no-relative-import-paths": pluginNoRelativeImportPaths,
 					},
 					rules: {
 						"no-relative-import-paths/no-relative-import-paths": [

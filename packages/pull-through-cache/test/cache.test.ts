@@ -13,7 +13,7 @@ function testCache(fetcher?: CacheFetcherFn<number, number | undefined>) {
 
 	const cache = new PullThroughCache<number, number | undefined>()
 		.withFetcher({
-			fetcher: mockedFetcher as typeof fetcher,
+			fetcher: mockedFetcher,
 		})
 		.withEventCallback({
 			callback: mockedEventCallback,
@@ -38,7 +38,7 @@ function testSampledCache({
 	const mockedSampler = vi.fn(sampler);
 
 	cache.withUpdatedSampler({
-		sampler: mockedSampler as CacheSamplerFn<number, number | undefined>,
+		sampler: mockedSampler,
 		stepValue,
 	});
 
