@@ -23,7 +23,7 @@ jobs:
       releases_created: ${{ steps.rp_step.outputs.releases_created }}
     steps:
       - name: "Release please"
-        uses: googleapis/release-please-action@v4
+        uses: googleapis/release-please-action@v5
         id: rp_step
         with:
           # Expires ~December 2024
