@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.2](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.4.1...pull-through-cache-v0.4.2) (2026-05-04)
+
+### Dependencies
+
+- Bump the typescript-eslint group with 3 updates
+  ([#887](https://github.com/lightbasenl/platforms/issues/887))
+  ([ce17eb2](https://github.com/lightbasenl/platforms/commit/ce17eb2fddcca670862e4acb2017a771b019bf17))
+
 ## [0.4.1](https://github.com/lightbasenl/platforms/compare/pull-through-cache-v0.4.0...pull-through-cache-v0.4.1) (2026-04-01)
 
 ### Miscellaneous
