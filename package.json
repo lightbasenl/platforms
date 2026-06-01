@@ -20,9 +20,9 @@
 		"@lightbase/eslint-config": "*",
 		"@total-typescript/tsconfig": "1.0.4",
 		"@types/node": "25.9.1",
-		"@vitest/coverage-v8": "4.1.7",
+		"@vitest/coverage-v8": "4.1.8",
 		"patch-package": "8.0.1",
 		"typescript": "6.0.3",
-		"vitest": "4.1.7"
+		"vitest": "4.1.8"
 	}
 }
