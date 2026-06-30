@@ -42,7 +42,7 @@
 		"eslint-plugin-jsdoc": "63.0.10",
 		"eslint-plugin-mdx": "3.8.1",
 		"globals": "17.7.0",
-		"prettier": "3.8.4",
+		"prettier": "3.9.4",
 		"synckit": "0.11.13",
 		"typescript-eslint": "8.62.1"
 	},
