@@ -45,9 +45,23 @@ jobs:
           node-version: ${{ inputs.node-version }}
           cache: "npm"
 
+      # Resolves the pnpm version from the `packageManager` field in package.json.
+      - name: "Setup pnpm"
+        if: ${{ hashFiles('pnpm-lock.yaml') != '' }}
+        uses: pnpm/action-setup@v4
+
+      - name: "Setup Node (with pnpm cache)"
+        uses: actions/setup-node@v6
+        if: ${{ hashFiles('pnpm-lock.yaml') != '' }}
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "pnpm"
+
       - name: "Setup Node (no lockfile)"
         uses: actions/setup-node@v6
-        if: ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' }}
+        if:
+          ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' &&
+          hashFiles('pnpm-lock.yaml') == '' }}
         with:
           node-version: ${{ inputs.node-version }}
           cache: "npm"
@@ -58,9 +72,14 @@ jobs:
         run: |
           yarn
 
+      - name: "Install via pnpm"
+        if: ${{ hashFiles('pnpm-lock.yaml') != '' }}
+        run: |
+          pnpm install --frozen-lockfile
+
       - name: "Install via NPM"
         # Default to NPM if another unsupported package manager is used.
-        if: ${{ hashFiles('yarn.lock') == '' }}
+        if: ${{ hashFiles('yarn.lock') == '' && hashFiles('pnpm-lock.yaml') == '' }}
         run: |
           npm install
 
@@ -74,7 +93,7 @@ jobs:
           # Generate a new cache whenever packages change. We don't take source files in to consideration since
           # that adds 30+ seconds of just hashing files. We might get correctness issues this way tho...
           key: |
-            nextjs-${{ hashFiles('**/package-lock.json') }}
+            nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}
 
       - name: "Execute command on main"
         if: ${{ inputs.main-command != '' && github.event.ref == 'refs/heads/main' }}

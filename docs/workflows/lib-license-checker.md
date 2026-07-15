@@ -1,6 +1,7 @@
 # Lib license checker
 
 Check if all production dependencies of the project complies with the allowed licenses.
+pnpm projects are expected to define the `packageManager` field in their package.json.
 
 ## Usage
 
@@ -12,6 +13,7 @@ on:
       - "**/package.json"
       - "yarn.lock"
       - "package-lock.json"
+      - "pnpm-lock.yaml"
 
 jobs:
   license-check:

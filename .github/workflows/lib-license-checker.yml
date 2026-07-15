@@ -37,6 +37,18 @@ jobs:
           node-version: ${{ inputs.node-version }}
           cache: "npm"
 
+      # Resolves the pnpm version from the `packageManager` field in package.json.
+      - name: "Setup pnpm"
+        if: ${{ hashFiles('pnpm-lock.yaml') != '' }}
+        uses: pnpm/action-setup@v4
+
+      - name: "Setup Node (with pnpm cache)"
+        uses: actions/setup-node@v6
+        if: ${{ hashFiles('pnpm-lock.yaml') != '' }}
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "pnpm"
+
       - name: "Setup Bun"
         if: ${{ hashFiles('bun.lock') != '' }}
         uses: oven-sh/setup-bun@v2
@@ -45,7 +57,7 @@ jobs:
         uses: actions/setup-node@v6
         if:
           ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' &&
-          hashFiles('bun.lock') == '' }}
+          hashFiles('pnpm-lock.yaml') == '' && hashFiles('bun.lock') == '' }}
         with:
           node-version: ${{ inputs.node-version }}
           cache: "npm"
@@ -56,6 +68,11 @@ jobs:
         run: |
           yarn
 
+      - name: "Install pnpm"
+        if: ${{ hashFiles('pnpm-lock.yaml') != '' }}
+        run: |
+          pnpm install --frozen-lockfile --ignore-scripts
+
       - name: "Install Bun"
         if: ${{ hashFiles('bun.lock') != '' }}
         run: |
@@ -63,7 +80,9 @@ jobs:
 
       # Default to NPM if another unsupported package manager is used.
       - name: "Install NPM"
-        if: ${{ hashFiles('yarn.lock') == '' && hashFiles('bun.lock') == '' }}
+        if:
+          ${{ hashFiles('yarn.lock') == '' && hashFiles('pnpm-lock.yaml') == '' &&
+          hashFiles('bun.lock') == '' }}
         run: |
           npm install --ignore-scripts
 
