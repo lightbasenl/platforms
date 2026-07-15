@@ -12,6 +12,7 @@ on:
       - "**/package.json"
       - "yarn.lock"
       - "package-lock.json"
+      - "pnpm-lock.yaml"
 
 jobs:
   license-check:

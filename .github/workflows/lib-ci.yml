@@ -3,8 +3,7 @@ on:
     inputs:
       runner:
         type: string
-        description:
-          "Specify the runner to use. This shouldn't be necessary for most jobs."
+        description: "Specify the runner to use. This shouldn't be necessary for most jobs."
         default: "ubuntu-latest"
       node-version:
         type: string
@@ -13,8 +12,7 @@ on:
       main-command:
         type: string
         default: ""
-        description:
-          "Command to run when on the main branch. Supports multi-line strings."
+        description: "Command to run when on the main branch. Supports multi-line strings."
       command:
         type: string
         default: ""
@@ -45,9 +43,23 @@ jobs:
           node-version: ${{ inputs.node-version }}
           cache: "npm"
 
+      # Resolves the pnpm version from the `packageManager` field in package.json.
+      - name: "Setup pnpm"
+        if: ${{ hashFiles('pnpm-lock.yaml') != '' }}
+        uses: pnpm/action-setup@v4
+
+      - name: "Setup Node (with pnpm cache)"
+        uses: actions/setup-node@v6
+        if: ${{ hashFiles('pnpm-lock.yaml') != '' }}
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "pnpm"
+
       - name: "Setup Node (no lockfile)"
         uses: actions/setup-node@v6
-        if: ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' }}
+        if:
+          ${{ hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' &&
+          hashFiles('pnpm-lock.yaml') == '' }}
         with:
           node-version: ${{ inputs.node-version }}
           cache: "npm"
@@ -58,9 +70,14 @@ jobs:
         run: |
           yarn
 
+      - name: "Install via pnpm"
+        if: ${{ hashFiles('pnpm-lock.yaml') != '' }}
+        run: |
+          pnpm install --frozen-lockfile
+
       - name: "Install via NPM"
         # Default to NPM if another unsupported package manager is used.
-        if: ${{ hashFiles('yarn.lock') == '' }}
+        if: ${{ hashFiles('yarn.lock') == '' && hashFiles('pnpm-lock.yaml') == '' }}
         run: |
           npm install
 

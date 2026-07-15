@@ -55,7 +55,7 @@ export async function defineConfig(
 		gitignore(),
 		{
 			// Never format lock-files
-			ignores: ["**/package-lock.json", "yarn.lock"],
+			ignores: ["**/package-lock.json", "yarn.lock", "pnpm-lock.yaml"],
 		},
 		{
 			// Make sure to cleanup unused directives when they are not necessary anymore.
