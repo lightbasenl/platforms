@@ -3,7 +3,8 @@ on:
     inputs:
       runner:
         type: string
-        description: "Specify the runner to use. This shouldn't be necessary for most jobs."
+        description:
+          "Specify the runner to use. This shouldn't be necessary for most jobs."
         default: "ubuntu-latest"
       node-version:
         type: string
@@ -12,7 +13,8 @@ on:
       main-command:
         type: string
         default: ""
-        description: "Command to run when on the main branch. Supports multi-line strings."
+        description:
+          "Command to run when on the main branch. Supports multi-line strings."
       command:
         type: string
         default: ""
@@ -91,7 +93,7 @@ jobs:
           # Generate a new cache whenever packages change. We don't take source files in to consideration since
           # that adds 30+ seconds of just hashing files. We might get correctness issues this way tho...
           key: |
-            nextjs-${{ hashFiles('**/package-lock.json') }}
+            nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}
 
       - name: "Execute command on main"
         if: ${{ inputs.main-command != '' && github.event.ref == 'refs/heads/main' }}

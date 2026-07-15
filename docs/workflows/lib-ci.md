@@ -1,7 +1,8 @@
 # Lib CI
 
 Wrapper to run NPM scripts in CI. Supports providing a Node.js version and multiple
-commands. Automatically includes Yarn/NPM module cache and Next.js build caching.
+commands. Automatically includes Yarn/pnpm/NPM module cache and Next.js build caching.
+pnpm projects are expected to define the `packageManager` field in their package.json.
 
 **Not suitable for:**
 
