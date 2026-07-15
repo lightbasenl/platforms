@@ -114,4 +114,4 @@ jobs:
           path: |
             ${{ github.workspace }}/.next/cache
           key: |
-            key: ${{ steps.next-cache.outputs.cache-primary-key }}
+            ${{ steps.next-cache.outputs.cache-primary-key }}
