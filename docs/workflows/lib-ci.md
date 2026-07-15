@@ -46,10 +46,10 @@ jobs:
     strategy:
       matrix:
         runs:
-          - node-version: 18
+          - node-version: 24
             command: |
               npm run lint
-          - node-version: 20
+          - node-version: 24
             command: |
               npm run build
     with:
@@ -71,7 +71,7 @@ jobs:
   update-localazy:
     uses: lightbasenl/platforms/.github/workflows/lib-ci.yml@main
     with:
-      node-version: 18
+      node-version: 24
       main-command: |
         npx @localazy/cli upload  # ...
 ```
@@ -95,7 +95,7 @@ jobs:
   ci:
     uses: lightbasenl/platforms/.github/workflows/lib-ci.yml@main
     with:
-      node-version: 20
+      node-version: 24
       main-command: |
         npm run build
 ```
@@ -108,7 +108,7 @@ jobs:
 | -------------------------------------------------------------------- | ------ | -------- | ----------------- | ----------------------------------------------------------------------------- |
 | <a name="input_command"></a>[command](#input_command)                | string | false    |                   | Command to run. Supports multi-line <br>strings.                              |
 | <a name="input_main-command"></a>[main-command](#input_main-command) | string | false    |                   | Command to run when on <br>the main branch. Supports multi-line <br>strings.  |
-| <a name="input_node-version"></a>[node-version](#input_node-version) | string | false    | `"22"`            | Node.js version to run CI <br>against.                                        |
+| <a name="input_node-version"></a>[node-version](#input_node-version) | string | false    | `"24"`            | Node.js version to run CI <br>against.                                        |
 | <a name="input_runner"></a>[runner](#input_runner)                   | string | false    | `"ubuntu-latest"` | Specify the runner to use. <br>This shouldn't be necessary for <br>most jobs. |
 
 <!-- AUTO-DOC-INPUT:END -->

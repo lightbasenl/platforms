@@ -15,7 +15,7 @@ jobs:
   build-lint-test:
     uses: lightbasenl/platforms/.github/workflows/lib-ci.yml@main
     with:
-      node-version: 22
+      node-version: 24
       command: |
         npm run build:ws
         npm run lint:ci:ws
